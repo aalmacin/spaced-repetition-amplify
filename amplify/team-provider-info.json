@@ -1,0 +1,14 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "spacedrepetition-prod-20190512123355-authRole",
+            "UnauthRoleArn": "arn:aws:iam::845335212729:role/spacedrepetition-prod-20190512123355-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::845335212729:role/spacedrepetition-prod-20190512123355-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "spacedrepetition-prod-20190512123355-deployment",
+            "UnauthRoleName": "spacedrepetition-prod-20190512123355-unauthRole",
+            "StackName": "spacedrepetition-prod-20190512123355",
+            "StackId": "arn:aws:cloudformation:us-east-1:845335212729:stack/spacedrepetition-prod-20190512123355/bcb4ae70-74d3-11e9-b1d2-12094f064940"
+        }
+    }
+}
