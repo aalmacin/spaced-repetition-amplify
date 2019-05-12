@@ -13,7 +13,7 @@ export class AuthService {
   getAuth(): Observable<User | null> {
     return this.amplifyService.authStateChange$.pipe(
       map(authState =>
-        (authState.state === 'signedIn') ? authState.user : null
+        (authState.state === 'signedIn') ? {email: authState.user.attributes.email} : null
       )
     );
   }

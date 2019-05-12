@@ -2,4 +2,4 @@
 
 <amplify-authenticator></amplify-authenticator>
 
-<router-outlet></router-outlet>
+<router-outlet *ngIf="authService.getAuth() | async"></router-outlet>
