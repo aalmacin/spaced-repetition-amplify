@@ -8,6 +8,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TopicsComponent } from './topics/topics.component';
 import { CardsComponent } from './cards/cards.component';
 
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,9 +20,12 @@ import { CardsComponent } from './cards/cards.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AmplifyAngularModule
   ],
-  providers: [],
+  providers: [
+    AmplifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
