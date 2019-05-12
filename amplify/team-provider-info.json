@@ -9,6 +9,11 @@
             "UnauthRoleName": "spacedrepetition-prod-20190512123355-unauthRole",
             "StackName": "spacedrepetition-prod-20190512123355",
             "StackId": "arn:aws:cloudformation:us-east-1:845335212729:stack/spacedrepetition-prod-20190512123355/bcb4ae70-74d3-11e9-b1d2-12094f064940"
+        },
+        "categories": {
+            "auth": {
+                "cognito6143eeab": {}
+            }
         }
     }
 }
