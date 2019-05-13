@@ -7,6 +7,6 @@ import { of, Observable } from 'rxjs';
 })
 export class TopicService {
   public getTopics(): Observable<Topic[]> {
-    return of([{ id: 1, name: 'Science' }, { id: 2, name: 'Math' }, { id: 3, name: 'TypeScript' }]);
+    return of([{ id: 1, name: 'Philosophy' }, { id: 2, name: 'Science' }, { id: 3, name: 'TypeScript' }]);
   }
 }
