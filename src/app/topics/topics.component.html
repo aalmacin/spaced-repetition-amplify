@@ -1,3 +1,5 @@
-<p>
-  topics works!
-</p>
+<ul>
+  <li *ngFor="let topic of topicService.getTopics() | async">
+    <a [routerLink]="['/cards', topic.id]">{{ topic.name }}</a>
+  </li>
+</ul>

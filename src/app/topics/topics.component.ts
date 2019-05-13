@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { TopicService } from '../topic.service';
 
 @Component({
   selector: 'app-topics',
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.scss']
 })
-export class TopicsComponent implements OnInit {
+export class TopicsComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  constructor(public topicService: TopicService) { }
 }
