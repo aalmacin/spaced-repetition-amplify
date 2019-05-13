@@ -3,5 +3,11 @@
 <amplify-authenticator></amplify-authenticator>
 
 <div *ngIf="signedIn">
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/topics">Topics</a></li>
+    </ul>
+  </nav>
   <router-outlet></router-outlet>
 </div>
