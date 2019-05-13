@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
-import { AuthService } from './auth.service';
-import { User } from './user';
+import { AuthService } from "./auth.service";
 
 @Component({
   selector: "app-root",
@@ -8,5 +7,10 @@ import { User } from './user';
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  constructor(public authService: AuthService) {}
+  signedIn = false;
+  constructor(public authService: AuthService) {
+    authService.isSignedIn().subscribe(signedIn => {
+      this.signedIn = signedIn;
+    });
+  }
 }

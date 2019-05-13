@@ -2,4 +2,6 @@
 
 <amplify-authenticator></amplify-authenticator>
 
-<router-outlet *ngIf="authService.getAuth() | async"></router-outlet>
+<div *ngIf="signedIn">
+  <router-outlet></router-outlet>
+</div>
