@@ -2,7 +2,7 @@ import * as moment from 'moment-timezone';
 import { getTimestampFromDate, addDays } from './timestamp.func';
 
 describe('Timestamp Func', () => {
-  describe('getTimestamFromDate', () => {
+  describe('getTimestampFromDate', () => {
     it('returns correct timestamp', () => {
       const actual = getTimestampFromDate('05-14-2019');
 
@@ -13,7 +13,7 @@ describe('Timestamp Func', () => {
     });
   });
 
-  describe('getTimestampFromDate', () => {
+  describe('addDays', () => {
     it('returns correct day when 1 is sent', () => {
       // 5-14-2019
       const mockTimestamp = 1557806400;
@@ -22,6 +22,18 @@ describe('Timestamp Func', () => {
       const actual = addDays(mockTimestamp, mockDays);
 
       const expected = 1557892800;
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('returns correct day when 10 is sent', () => {
+      // 5-24-2019
+      const mockTimestamp = 1557806400;
+      const mockDays = 10;
+
+      const actual = addDays(mockTimestamp, mockDays);
+
+      const expected = 1558670400;
 
       expect(actual).toEqual(expected);
     });
