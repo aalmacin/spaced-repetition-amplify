@@ -1,5 +1,5 @@
 import * as moment from 'moment-timezone';
-import { getTimestampFromDate, addDays } from './timestamp.func';
+import { getTimestampFromDate, addDays, getCurrentTimestamp } from './timestamp.func';
 
 describe('Timestamp Func', () => {
   describe('getTimestampFromDate', () => {
@@ -10,6 +10,24 @@ describe('Timestamp Func', () => {
       const expected = 1557806400;
 
       expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('getCurrentTimestamp', () => {
+    it('returns correct current timestamp - greater than May 14, 2019', () => {
+      const actual = getCurrentTimestamp();
+
+      // May 14, 2019 12:00am
+      const expected = 1557806400;
+
+      expect(actual).toBeGreaterThan(expected);
+    });
+
+    it('returns correct current timestamp - lower than 2089', () => {
+      const actual = getCurrentTimestamp();
+      const expected = 3782437200;
+
+      expect(actual).toBeLessThan(expected);
     });
   });
 

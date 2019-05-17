@@ -1,6 +1,6 @@
 import { Card } from '../card';
 import { Box } from './Box';
-import { addDays } from './timestamp.func';
+import { addDays, getCurrentTimestamp } from './timestamp.func';
 
 export const getNextStudyDate = (card: Card): number => {
   switch (card.box) {
@@ -18,3 +18,5 @@ export const getNextStudyDate = (card: Card): number => {
       throw new Error('Invalid Box');
   }
 };
+
+export const isReadyToStudy = (card: Card): boolean => getCurrentTimestamp() >= getNextStudyDate(card);

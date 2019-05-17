@@ -2,6 +2,8 @@ import { getNextStudyDate } from './study.func';
 import { Box } from './Box';
 
 describe('Study Function', () => {
+  describe('getNextStudyDate', () => {
+
   it('returns correct next study time - Very Hard', () => {
     const mockCard = {
       id: 1,
@@ -80,5 +82,6 @@ describe('Study Function', () => {
     const expected = 1573358400;
 
     expect(actual).toEqual(expected);
+  })
   })
 });
