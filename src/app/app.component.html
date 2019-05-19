@@ -3,11 +3,9 @@
 <amplify-authenticator></amplify-authenticator>
 
 <div *ngIf="signedIn">
-  <nav>
-    <ul>
-      <li><a href="/home">Home</a></li>
-      <li><a href="/topics">Topics</a></li>
-    </ul>
-  </nav>
+  <mat-toolbar color="accent">
+    <a class="nav-item" href="/home">Home</a>
+    <a class="nav-item" href="/topics">Topics</a>
+  </mat-toolbar>
   <router-outlet></router-outlet>
 </div>
