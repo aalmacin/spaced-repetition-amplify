@@ -1,7 +1,7 @@
-<div
+<app-flash-card
   *ngFor="let card of cardService.getCards(topicId) | async"
-  [style.text-decoration]="card.isReadyToStudy ? 'none' : 'line-through'"
->
-  <div>{{ card.front }}</div>
-  <div>{{ card.back }}</div>
-</div>
+  topic="{{ card.topicName }}"
+  isReadyToStudy="card.isReadyToStudy"
+  front="{{ card.front }}"
+  back="{{ card.back }}"
+></app-flash-card>

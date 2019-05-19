@@ -1,5 +1,4 @@
 import { Box } from './study/Box';
-import { isReadyToStudy } from './study/study.func';
 
 export type Card = {
   id: number,
@@ -13,6 +12,7 @@ export type Card = {
 export type CardViewModel = {
   id: number,
   topicId: number,
+  topicName: string,
   front: string,
   back: string,
   lastStudy: number,

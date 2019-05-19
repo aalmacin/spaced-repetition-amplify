@@ -9,6 +9,7 @@ import { TopicsComponent } from './topics/topics.component';
 import { CardsComponent } from './cards/cards.component';
 
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { FlashCardComponent } from './flash-card/flash-card.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
     HomeComponent,
     NotFoundComponent,
     TopicsComponent,
-    CardsComponent
+    CardsComponent,
+    FlashCardComponent
   ],
   imports: [
     BrowserModule,

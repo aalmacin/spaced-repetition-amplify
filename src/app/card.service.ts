@@ -34,6 +34,7 @@ export class CardService {
 
       .map(card => ({
         ...card,
+        topicName: 'Programming',
         isReadyToStudy: isReadyToStudy(card)
       }));
     return of(filteredCards);
