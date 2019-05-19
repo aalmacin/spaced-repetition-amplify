@@ -12,7 +12,7 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { FlashCardComponent } from './flash-card/flash-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule, MatTabsModule } from '@angular/material';
+import { MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule, MatTabsModule, MatCardModule, MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,9 @@ import { MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule, MatTab
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule,
+    MatListModule
   ],
   providers: [
     AmplifyService

@@ -1,5 +1,6 @@
-<ul>
-  <li *ngFor="let topic of topicService.getTopics() | async">
+<div id="topics">
+  <h2>Topics</h2>
+  <p class="topic" *ngFor="let topic of topicService.getTopics() | async">
     <a [routerLink]="['/cards', topic.id]">{{ topic.name }}</a>
-  </li>
-</ul>
+  </p>
+</div>

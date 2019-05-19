@@ -2,3 +2,21 @@
 @import '~aws-amplify-angular/Theme.css';
 
 @import "~@angular/material/prebuilt-themes/purple-green.css";
+
+html {
+  width: 75%;
+  margin: 0 auto;
+}
+
+body {
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+#main {
+  margin: 10px auto;
+}
+
+a {
+  text-decoration: none;
+}
