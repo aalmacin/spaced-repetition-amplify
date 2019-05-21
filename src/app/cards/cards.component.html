@@ -1,7 +1,9 @@
-<app-flash-card
-  *ngFor="let card of cardService.getCards(topicId) | async"
+<div id="readyToStudy">
+  Only Ready to Study? <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />
+</div>
+<mol-flash-card
+  *ngFor="let card of cards"
   topic="{{ card.topicName }}"
-  isReadyToStudy="card.isReadyToStudy"
   front="{{ card.front }}"
   back="{{ card.back }}"
-></app-flash-card>
+></mol-flash-card>

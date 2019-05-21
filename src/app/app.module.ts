@@ -10,35 +10,13 @@ import { CardsComponent } from './cards/cards.component';
 
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { FlashCardComponent } from './flash-card/flash-card.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule, MatTabsModule, MatCardModule, MatListModule } from '@angular/material';
+import { MollyModule } from 'molly-component-library';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NotFoundComponent,
-    TopicsComponent,
-    CardsComponent,
-    FlashCardComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AmplifyAngularModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatCardModule,
-    MatListModule
-  ],
-  providers: [
-    AmplifyService
-  ],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, TopicsComponent, CardsComponent, FlashCardComponent],
+  imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule],
+  providers: [AmplifyService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,11 +1,11 @@
 <h1>Spaced Repetition</h1>
 
-<amplify-authenticator></amplify-authenticator>
-
 <div *ngIf="signedIn" id="main">
-  <mat-toolbar color="accent">
+  <div class="mol-b-gray-dark mol-bc-green-light p-lg">
     <a class="nav-item" href="/home">Home</a>
     <a class="nav-item" href="/topics">Topics</a>
-  </mat-toolbar>
+  </div>
   <router-outlet></router-outlet>
 </div>
+
+<amplify-authenticator></amplify-authenticator>

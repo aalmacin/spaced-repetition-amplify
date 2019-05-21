@@ -1,6 +1,10 @@
 <div id="topics">
   <h2>Topics</h2>
-  <p class="topic" *ngFor="let topic of topicService.getTopics() | async">
-    <a [routerLink]="['/cards', topic.id]">{{ topic.name }}</a>
-  </p>
+
+  <div id="topics-list">
+    <div class="row topic" *ngFor="let topic of topicService.getTopics() | async">
+      <span>{{ topic.name }}</span>
+      <span><a [routerLink]="['/cards', topic.id]">Study Now</a></span>
+    </div>
+  </div>
 </div>

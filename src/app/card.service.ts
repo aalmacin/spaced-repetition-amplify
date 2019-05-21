@@ -8,7 +8,7 @@ import { isReadyToStudy } from './study/study.func';
   providedIn: 'root'
 })
 export class CardService {
-  public getCards(topicId: number): Observable<CardViewModel[]> {
+  public getCards(topicId: number, isReadyToStudyOnly: boolean): Observable<CardViewModel[]> {
     const cards: Card[] = [
       { id: 1, topicId: 1, front: 'What is life', back: '42', lastStudy: 1557792000, box: Box.EASY },
       { id: 2, topicId: 2, front: 'What is physics', back: 'Study of motion', lastStudy: 1557792000, box: Box.HARD },
@@ -37,6 +37,9 @@ export class CardService {
         topicName: 'Programming',
         isReadyToStudy: isReadyToStudy(card)
       }));
+    if (isReadyToStudyOnly) {
+      return of(filteredCards.filter(c => c.isReadyToStudy));
+    }
     return of(filteredCards);
   }
 }

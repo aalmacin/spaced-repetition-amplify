@@ -3,3 +3,25 @@
   margin: 0;
   font-size: 1.5rem;
 }
+
+#topics-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.topic {
+  // border: 1px solid rgb(98, 210, 67);
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+}
+
+.studyNow {
+  color: rgb(237, 130, 97);
+}

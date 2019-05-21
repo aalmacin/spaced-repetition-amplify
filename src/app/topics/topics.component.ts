@@ -7,6 +7,7 @@ import { TopicService } from '../topic.service';
   styleUrls: ['./topics.component.scss']
 })
 export class TopicsComponent {
+  displayedColumns = ['topicName', 'topicStudy'];
 
   constructor(public topicService: TopicService) { }
 }
