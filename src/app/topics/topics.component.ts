@@ -9,5 +9,5 @@ import { TopicService } from '../topic.service';
 export class TopicsComponent {
   displayedColumns = ['topicName', 'topicStudy'];
 
-  constructor(public topicService: TopicService) { }
+  constructor(public topicService: TopicService) {}
 }
