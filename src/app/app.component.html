@@ -1,11 +1,24 @@
-<h1>Spaced Repetition</h1>
-
 <div *ngIf="signedIn" id="main">
-  <div class="mol-b-gray-dark mol-bc-green-light p-lg">
-    <a class="nav-item" href="/home">Home</a>
-    <a class="nav-item" href="/topics">Topics</a>
-  </div>
+  <mol-nav>
+    <mol-nav-header class="nav-header">Spaced Repetition</mol-nav-header>
+    <mol-nav-item class="nav-item"
+      ><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></mol-nav-item
+    >
+    <mol-nav-item class="nav-item"
+      ><a class="nav-item" routerLink="/topics" routerLinkActive="active">Topics</a></mol-nav-item
+    >
+    <mol-nav-item>
+      <amplify-authenticator></amplify-authenticator>
+    </mol-nav-item>
+  </mol-nav>
   <router-outlet></router-outlet>
 </div>
-
-<amplify-authenticator></amplify-authenticator>
+<div *ngIf="!signedIn" id="main">
+  <mol-nav>
+    <mol-nav-header class="nav-header">Spaced Repetition</mol-nav-header>
+    <mol-nav-item class="nav-item"
+      ><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></mol-nav-item
+    >
+  </mol-nav>
+  <amplify-authenticator></amplify-authenticator>
+</div>
