@@ -15,47 +15,54 @@ body {
 #main {
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
 }
 
 a {
   text-decoration: none;
 }
 
-.amplify-form-body {
+.auth {
+  justify-content: center;
+  flex-basis: 50%;
+}
+
+.amplify-component {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: #35281c;
-}
 
-.amplify-input-label {
-  display: none;
-}
+  .amplify-authenticator {
+    .amplify-form-container {
+      display: flex;
 
-.amplify-form-input {
-  display: flex;
-  flex-basis: 100%;
-}
+      .amplify-form-body {
+        display: flex;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: center;
 
-.amplify-form-row {
-  &.amplify-signin-password, &.amplify-signin-username {
-    display: flex;
-    flex-basis: 100%;
-    align-items: center;
-    flex-direction: column;
+        .amplify-form-header {
+          font-family: 'Roboto Slab';
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .amplify-greeting-text {
+      display: none;
+    }
+
+    .amplify-greeting-sign-out {
+      font-family: 'Questrial';
+      color: rgb(86, 65, 46);
+      text-decoration: inherit;
+      border-bottom: 1px solid #cce8ea;
+      padding-bottom: calc(.5 * 1rem);
+      cursor: pointer;
+
+      &:hover {
+        border-bottom: 1px solid #6492a0;
+        padding-bottom: calc(0.5 * 1rem);
+      }
+    }
   }
-}
-
-.amplify-form-header {
-  font-family: 'Roboto Slab';
-  font-size: 1.25rem;
-}
-
-.amplify-greeting-text {
-  display: none;
-}
-
-.amplify-greeting-flex-spacer {
-  display: none;
 }
