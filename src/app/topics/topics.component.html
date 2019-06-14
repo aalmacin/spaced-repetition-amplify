@@ -4,7 +4,9 @@
   <div id="topics-list">
     <div class="row topic" *ngFor="let topic of topicService.getTopics() | async">
       <span>{{ topic.name }}</span>
-      <span><a [routerLink]="['/cards', topic.id]">Study Now</a></span>
+      <mol-btn type="secondary" size="large">
+        <a class="mol-c-white" [routerLink]="['/cards', topic.id]">Study Now</a>
+      </mol-btn>
     </div>
   </div>
 </div>

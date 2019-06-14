@@ -31,6 +31,7 @@ a {
   flex-direction: column;
 
   .amplify-authenticator {
+    text-align: center;
     .amplify-form-container {
       display: flex;
 
@@ -43,6 +44,83 @@ a {
         .amplify-form-header {
           font-family: 'Roboto Slab';
           font-size: 1.25rem;
+        }
+
+        .amplify-input-label {
+          display: none;
+        }
+
+        .amplify-form-row {
+          width: 100%;
+
+          .amplify-select-phone-country {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #6492a0;
+            background-image: url('./assets/white-arrow.svg');
+            background-repeat: no-repeat;
+            width: 25%;
+            height: 30px;
+            border-radius: 0px;
+            background-size: 3%;
+            background-position-y: 50%;
+            background-position-x: 98%;
+            font-size: 1rem;
+            color: #fcfcfc;
+            padding: 0.4rem;
+          }
+        }
+
+        .amplify-form-input {
+          width: 25%;
+          border: 0;
+          border-bottom: 1px solid #56412e;
+          font-size: 1rem;
+          margin: 1rem auto;
+          padding: 0.4rem;
+        }
+
+        .amplify-signin-username,
+        .amplify-signin-password {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          padding: 0;
+          margin: 0;
+          .amplify-form-input {
+            width: 25%;
+          }
+        }
+
+        .amplify-form-action {
+          display: block;
+        }
+
+        .amplify-form-link {
+          color: #5d7f8c;
+          cursor: pointer;
+        }
+
+        .amplify-form-actions {
+          width: 25%;
+        }
+
+        .amplify-form-button {
+          display: flex;
+          width: 100%;
+          text-align: center;
+          justify-content: center;
+          background-color: #6fadbc;
+          color: #fcfcfc;
+          padding: 0.4rem;
+          margin: 0.6rem;
+          font-size: 1rem;
+        }
+
+        .amplify-form-signup {
+          text-align: center;
         }
       }
     }
