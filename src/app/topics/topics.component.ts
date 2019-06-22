@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { APIService } from '../API.service';
 import {
   trigger,
@@ -34,12 +34,20 @@ import {
 export class TopicsComponent {
   displayedColumns = ['topicName', 'topicStudy'];
 
+  @ViewChild('topicName')
+  private topicName!:ElementRef;
+
   public topics = [];
 
   isShowForm = false;
 
   constructor(private apiService: APIService) {
     this.loadTopics();
+    this.apiService.OnCreateTopicListener.subscribe(() => {
+      this.loadTopics();
+      this.isShowForm = false;
+      this.topicName.nativeElement.value = '';
+    });
   }
 
   async loadTopics() {
