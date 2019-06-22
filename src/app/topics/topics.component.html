@@ -2,9 +2,10 @@
   <div class="mol-lf mol-lf-fd-r mol-lf-jc-c mol-lf-fw" id="topics-list">
     <a
       class="mol-lf mol-lf-a mol-lp-lg mol-lm-sm mol-sbg-secondary mol-sc-white"
-      *ngFor="let topic of topicService.getTopics() | async"
+      *ngFor="let topic of topics"
       [routerLink]="['/cards', topic.id]"
       >{{ topic.name }}</a
     >
+    <p *ngIf="topics.length === 0">No topics found</p>
   </div>
 </div>

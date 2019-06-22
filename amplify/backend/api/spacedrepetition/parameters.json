@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "spacedrepetition",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito6143eeab",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

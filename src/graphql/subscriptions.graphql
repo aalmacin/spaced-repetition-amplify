@@ -1,0 +1,97 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateTopic {
+  onCreateTopic {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+subscription OnUpdateTopic {
+  onUpdateTopic {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+subscription OnDeleteTopic {
+  onDeleteTopic {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+subscription OnCreateCard {
+  onCreateCard {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}
+subscription OnUpdateCard {
+  onUpdateCard {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}
+subscription OnDeleteCard {
+  onDeleteCard {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}

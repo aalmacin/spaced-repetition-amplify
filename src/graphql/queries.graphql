@@ -1,0 +1,69 @@
+# this is an auto generated file. This will be overwritten
+query GetTopic($id: ID!) {
+  getTopic(id: $id) {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+query ListTopics(
+  $filter: ModelTopicFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+query GetCard($id: ID!) {
+  getCard(id: $id) {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}
+query ListCards(
+  $filter: ModelCardFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      font
+      back
+      topic {
+        id
+        name
+      }
+      lastStudy
+      box
+    }
+    nextToken
+  }
+}

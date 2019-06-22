@@ -12,11 +12,12 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { FlashCardComponent } from './flash-card/flash-card.component';
 
 import { MollyModule } from 'molly-component-library';
+import { APIService } from './API.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, TopicsComponent, CardsComponent, FlashCardComponent],
   imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule],
-  providers: [AmplifyService],
+  providers: [AmplifyService, APIService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

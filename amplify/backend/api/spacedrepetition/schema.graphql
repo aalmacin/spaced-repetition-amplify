@@ -1,0 +1,22 @@
+type Topic @model {
+  id: ID!
+  name: String!
+  cards: [Card] @connection(name: "TopicCards")
+}
+
+enum Box {
+  VERY_HARD
+  HARD
+  REGULAR
+  EASY
+  VERY_EASY
+}
+
+type Card @model {
+  id: ID!
+  font: String!
+  back: String!
+  topic: Topic @connection(name: "TopicCards")
+  lastStudy: Int
+  box: Box
+}

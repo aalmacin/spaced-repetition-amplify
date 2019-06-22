@@ -16,7 +16,7 @@ export class CardsComponent implements OnDestroy {
 
   cards: CardViewModel[] = [];
   isReadyToStudyOnly$: Observable<boolean>;
-  private isReadyToStudyOnly: BehaviorSubject<boolean>;
+  public isReadyToStudyOnly: BehaviorSubject<boolean>;
 
   constructor(public cardService: CardService, public route: ActivatedRoute) {
     this.isReadyToStudyOnly = new BehaviorSubject(true);

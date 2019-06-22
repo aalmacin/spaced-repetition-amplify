@@ -1,0 +1,97 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateTopic($input: CreateTopicInput!) {
+  createTopic(input: $input) {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+mutation UpdateTopic($input: UpdateTopicInput!) {
+  updateTopic(input: $input) {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+mutation DeleteTopic($input: DeleteTopicInput!) {
+  deleteTopic(input: $input) {
+    id
+    name
+    cards {
+      items {
+        id
+        font
+        back
+        lastStudy
+        box
+      }
+      nextToken
+    }
+  }
+}
+mutation CreateCard($input: CreateCardInput!) {
+  createCard(input: $input) {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}
+mutation UpdateCard($input: UpdateCardInput!) {
+  updateCard(input: $input) {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}
+mutation DeleteCard($input: DeleteCardInput!) {
+  deleteCard(input: $input) {
+    id
+    font
+    back
+    topic {
+      id
+      name
+      cards {
+        nextToken
+      }
+    }
+    lastStudy
+    box
+  }
+}
