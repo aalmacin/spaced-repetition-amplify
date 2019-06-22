@@ -14,9 +14,11 @@ import { FlashCardComponent } from './flash-card/flash-card.component';
 import { MollyModule } from 'molly-component-library';
 import { APIService } from './API.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, TopicsComponent, CardsComponent, FlashCardComponent],
-  imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule],
+  imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
   providers: [AmplifyService, APIService],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,18 @@
+<div class="mol-lf mol-lf-fd-c mol-lf-ai-e">
+  <button class="mol-lw-w4" molBtn size="sm" type="secondary" (click)="toggleAddTopic()">
+    <span class="fa fa-plus"></span>
+    Add Topic
+  </button>
+  <form
+    [@slideForm]="isShowForm ? 'open' : 'close'"
+    class="mol-lf mol-lf-jc-e mol-lf-fd-r new-topic-form mol-lw-100 mol-lp-t-lg"
+    (submit)="addNewTopic(topicName.value)"
+  >
+    <input #topicName class="mol-tf-lg" name="newTopic" placeholder="Topic Name" />
+    <button class="new-topic-btn" molBtn size="sm" type="secondary">Create Topic</button>
+  </form>
+</div>
+
 <div id="topics" class="mol-lf mol-lf-jc-c mol-tta-c">
   <div class="mol-lf mol-lf-fd-r mol-lf-jc-c mol-lf-fw" id="topics-list">
     <a

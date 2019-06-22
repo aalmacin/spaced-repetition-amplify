@@ -1,17 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { TopicService } from '../topic.service';
 import { APIService } from '../API.service';
-import { AmplifyService } from 'aws-amplify-angular';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: 'app-topics',
   templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.scss']
+  styleUrls: ['./topics.component.scss'],
+  animations: [
+    trigger('slideForm', [
+      state('close', style({
+        maxHeight: '0',
+        opacity: 0
+      })),
+      state('open', style({
+        maxHeight: '100%',
+        opacity: 1
+      })),
+      transition('open => close', [
+        animate('1s')
+      ]),
+      transition('close => open', [
+        animate('1s')
+      ]),
+    ])
+  ]
 })
 export class TopicsComponent {
   displayedColumns = ['topicName', 'topicStudy'];
 
   public topics = [];
+
+  isShowForm = false;
 
   constructor(private apiService: APIService) {
     this.loadTopics();
@@ -20,5 +45,16 @@ export class TopicsComponent {
   async loadTopics() {
     const service = await this.apiService.ListTopics();
     this.topics = service.items;
+  }
+
+  toggleAddTopic() {
+    this.isShowForm = !this.isShowForm;
+  }
+
+  addNewTopic(topic: any) {
+    this.apiService.CreateTopic({
+      name: topic
+    });
+    return false;
   }
 }
