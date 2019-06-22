@@ -131,14 +131,14 @@ a {
 
     .amplify-greeting-sign-out {
       font-family: 'Questrial';
-      color: rgb(86, 65, 46);
+      color: #35281c;
       text-decoration: inherit;
-      border-bottom: 1px solid #cce8ea;
-      padding-bottom: calc(.5 * 1rem);
+      border-bottom: 1px solid #77cc62;
+      padding-bottom: calc(0.5 * 1rem);
       cursor: pointer;
 
       &:hover {
-        border-bottom: 1px solid #6492a0;
+        border-bottom: 1px solid #cce8ea;
         padding-bottom: calc(0.5 * 1rem);
       }
     }
