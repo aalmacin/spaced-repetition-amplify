@@ -1,10 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { APIService } from '../API.service';
-import { AmplifyService } from 'aws-amplify-angular';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { User } from '../user';
-import Amplify, { Auth } from 'aws-amplify';
-import amplify from '../../aws-exports';
+import { TopicService } from '../topic.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-topics',
@@ -31,7 +30,7 @@ import amplify from '../../aws-exports';
     ])
   ]
 })
-export class TopicsComponent {
+export class TopicsComponent implements OnDestroy {
   displayedColumns = ['topicName', 'topicStudy'];
   user: User;
   signedIn: boolean;
@@ -39,40 +38,40 @@ export class TopicsComponent {
   @ViewChild('topicName')
   private topicName!: ElementRef;
 
+  private topicsSubscription: Subscription;
+  private subscription = new Subscription();
+
   public topics = [];
 
   isShowForm = false;
 
-  constructor(private amplifyService: AmplifyService, private apiService: APIService) {
-    this.loadCurrentUser();
-    this.loadTopics();
-    this.apiService.OnCreateTopicListener.subscribe(() => {
-      this.loadTopics();
+  constructor(private apiService: APIService, private topicService: TopicService) {
+    this.startTopicsSubscription();
+    const createTopicListener = this.apiService.OnCreateTopicListener.subscribe(topics => {
       this.isShowForm = false;
       this.topicName.nativeElement.value = '';
+      this.topicsSubscription.unsubscribe();
+      this.startTopicsSubscription();
     });
+    this.subscription.add(createTopicListener);
   }
 
-  async loadCurrentUser() {
-    const user = await Auth.currentAuthenticatedUser();
-    this.user = { email: user.attributes.email };
-  }
-
-  async loadTopics() {
-    await this.loadCurrentUser();
-    const service = await this.apiService.ListTopics({ user: { eq: this.user.email } });
-    this.topics = service.items;
+  private startTopicsSubscription(): void {
+    this.topicsSubscription = this.topicService.getTopics().subscribe(topics => {
+      this.topics = topics;
+    });
   }
 
   toggleAddTopic() {
     this.isShowForm = !this.isShowForm;
   }
 
-  addNewTopic(topic: any) {
-    this.apiService.CreateTopic({
-      user: this.user.email,
-      name: topic
-    });
+  addNewTopic(topic: string) {
+    this.topicService.addTopic(topic);
     return false;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

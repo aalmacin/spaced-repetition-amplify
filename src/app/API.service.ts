@@ -1,9 +1,9 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
-import { Injectable } from "@angular/core";
-import API, { graphqlOperation } from "@aws-amplify/api";
-import { GraphQLResult } from "@aws-amplify/api/lib/types";
-import * as Observable from "zen-observable";
+import { Injectable } from '@angular/core';
+import API, { graphqlOperation } from '@aws-amplify/api';
+import { GraphQLResult } from '@aws-amplify/api/lib/types';
+import * as Observable from 'zen-observable';
 
 export type CreateTopicInput = {
   id?: string | null;
@@ -12,11 +12,11 @@ export type CreateTopicInput = {
 };
 
 export enum Box {
-  VERY_HARD = "VERY_HARD",
-  HARD = "HARD",
-  REGULAR = "REGULAR",
-  EASY = "EASY",
-  VERY_EASY = "VERY_EASY"
+  VERY_HARD = 'VERY_HARD',
+  HARD = 'HARD',
+  REGULAR = 'REGULAR',
+  EASY = 'EASY',
+  VERY_EASY = 'VERY_EASY'
 }
 
 export type UpdateTopicInput = {
@@ -115,14 +115,14 @@ export type ModelBoxFilterInput = {
 };
 
 export type CreateTopicMutation = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -134,14 +134,14 @@ export type CreateTopicMutation = {
 };
 
 export type UpdateTopicMutation = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -153,14 +153,14 @@ export type UpdateTopicMutation = {
 };
 
 export type DeleteTopicMutation = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -172,17 +172,17 @@ export type DeleteTopicMutation = {
 };
 
 export type CreateCardMutation = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -191,17 +191,17 @@ export type CreateCardMutation = {
 };
 
 export type UpdateCardMutation = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -210,17 +210,17 @@ export type UpdateCardMutation = {
 };
 
 export type DeleteCardMutation = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -229,14 +229,14 @@ export type DeleteCardMutation = {
 };
 
 export type GetTopicQuery = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -248,14 +248,14 @@ export type GetTopicQuery = {
 };
 
 export type ListTopicsQuery = {
-  __typename: "ModelTopicConnection";
+  __typename: 'ModelTopicConnection';
   items: Array<{
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null> | null;
@@ -263,17 +263,17 @@ export type ListTopicsQuery = {
 };
 
 export type GetCardQuery = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -282,14 +282,14 @@ export type GetCardQuery = {
 };
 
 export type ListCardsQuery = {
-  __typename: "ModelCardConnection";
+  __typename: 'ModelCardConnection';
   items: Array<{
-    __typename: "Card";
+    __typename: 'Card';
     id: string;
     font: string;
     back: string;
     topic: {
-      __typename: "Topic";
+      __typename: 'Topic';
       id: string;
       name: string;
       user: string;
@@ -301,14 +301,14 @@ export type ListCardsQuery = {
 };
 
 export type OnCreateTopicSubscription = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -320,14 +320,14 @@ export type OnCreateTopicSubscription = {
 };
 
 export type OnUpdateTopicSubscription = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -339,14 +339,14 @@ export type OnUpdateTopicSubscription = {
 };
 
 export type OnDeleteTopicSubscription = {
-  __typename: "Topic";
+  __typename: 'Topic';
   id: string;
   name: string;
   user: string;
   cards: {
-    __typename: "ModelCardConnection";
+    __typename: 'ModelCardConnection';
     items: Array<{
-      __typename: "Card";
+      __typename: 'Card';
       id: string;
       font: string;
       back: string;
@@ -358,17 +358,17 @@ export type OnDeleteTopicSubscription = {
 };
 
 export type OnCreateCardSubscription = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -377,17 +377,17 @@ export type OnCreateCardSubscription = {
 };
 
 export type OnUpdateCardSubscription = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -396,17 +396,17 @@ export type OnUpdateCardSubscription = {
 };
 
 export type OnDeleteCardSubscription = {
-  __typename: "Card";
+  __typename: 'Card';
   id: string;
   font: string;
   back: string;
   topic: {
-    __typename: "Topic";
+    __typename: 'Topic';
     id: string;
     name: string;
     user: string;
     cards: {
-      __typename: "ModelCardConnection";
+      __typename: 'ModelCardConnection';
       nextToken: string | null;
     } | null;
   } | null;
@@ -415,7 +415,7 @@ export type OnDeleteCardSubscription = {
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class APIService {
   async CreateTopic(input: CreateTopicInput): Promise<CreateTopicMutation> {
@@ -442,9 +442,7 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       input
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreateTopicMutation>response.data.createTopic;
   }
   async UpdateTopic(input: UpdateTopicInput): Promise<UpdateTopicMutation> {
@@ -471,9 +469,7 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       input
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdateTopicMutation>response.data.updateTopic;
   }
   async DeleteTopic(input: DeleteTopicInput): Promise<DeleteTopicMutation> {
@@ -500,9 +496,7 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       input
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeleteTopicMutation>response.data.deleteTopic;
   }
   async CreateCard(input: CreateCardInput): Promise<CreateCardMutation> {
@@ -529,9 +523,7 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       input
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreateCardMutation>response.data.createCard;
   }
   async UpdateCard(input: UpdateCardInput): Promise<UpdateCardMutation> {
@@ -558,9 +550,7 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       input
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdateCardMutation>response.data.updateCard;
   }
   async DeleteCard(input: DeleteCardInput): Promise<DeleteCardMutation> {
@@ -587,9 +577,7 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       input
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeleteCardMutation>response.data.deleteCard;
   }
   async GetTopic(id: string): Promise<GetTopicQuery> {
@@ -616,16 +604,10 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetTopicQuery>response.data.getTopic;
   }
-  async ListTopics(
-    filter?: ModelTopicFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListTopicsQuery> {
+  async ListTopics(filter?: ModelTopicFilterInput, limit?: number, nextToken?: string): Promise<ListTopicsQuery> {
     const statement = `query ListTopics($filter: ModelTopicFilterInput, $limit: Int, $nextToken: String) {
         listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -652,9 +634,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListTopicsQuery>response.data.listTopics;
   }
   async GetCard(id: string): Promise<GetCardQuery> {
@@ -681,16 +661,10 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetCardQuery>response.data.getCard;
   }
-  async ListCards(
-    filter?: ModelCardFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListCardsQuery> {
+  async ListCards(filter?: ModelCardFilterInput, limit?: number, nextToken?: string): Promise<ListCardsQuery> {
     const statement = `query ListCards($filter: ModelCardFilterInput, $limit: Int, $nextToken: String) {
         listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -721,9 +695,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListCardsQuery>response.data.listCards;
   }
   OnCreateTopicListener: Observable<OnCreateTopicSubscription> = API.graphql(

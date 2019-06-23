@@ -15,11 +15,12 @@ import { MollyModule } from 'molly-component-library';
 import { APIService } from './API.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, TopicsComponent, CardsComponent, FlashCardComponent],
   imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
-  providers: [AmplifyService, APIService],
+  providers: [AmplifyService, APIService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
