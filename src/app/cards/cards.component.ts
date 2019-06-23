@@ -6,6 +6,8 @@ import { switchMap } from 'rxjs/operators';
 import { CardViewModel } from '../card';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { APIService, Box } from '../API.service';
+import { makeBoxEasier, getNextStudyDate, nextStudyBaseOnBox } from '../study/study.func';
+import { getCurrentTimestamp } from '../study/timestamp.func';
 
 @Component({
   selector: 'app-cards',
@@ -48,6 +50,8 @@ export class CardsComponent implements OnDestroy {
 
   isShowForm = false;
 
+  hiddenCards = [];
+
   constructor(private apiService: APIService, public cardService: CardService, public route: ActivatedRoute) {
     this.isReadyToStudyOnly = new BehaviorSubject(true);
     this.isReadyToStudyOnly$ = this.isReadyToStudyOnly.asObservable();
@@ -62,6 +66,12 @@ export class CardsComponent implements OnDestroy {
       this.startCardsSubscription();
     });
     this.subscription.add(createCardListener);
+
+    const updateCardListener = this.apiService.OnUpdateCardListener.subscribe(topics => {
+      this.cardsSubscription.unsubscribe();
+      this.startCardsSubscription();
+    });
+    this.subscription.add(updateCardListener);
 
     this.subscription.add(
       this.route.params.subscribe(params => {
@@ -99,5 +109,22 @@ export class CardsComponent implements OnDestroy {
 
   toggleAddCard() {
     this.isShowForm = !this.isShowForm;
+  }
+
+  updateCardToEasy(id, box) {
+    const easierBox = makeBoxEasier(box);
+    this.apiService.UpdateCard({
+      id,
+      box: easierBox,
+      lastStudy: getCurrentTimestamp()
+    });
+  }
+
+  updateCardToHard(id, box) {
+    this.apiService.UpdateCard({
+      id,
+      box: box.VERY_HARD,
+      lastStudy: getCurrentTimestamp()
+    });
   }
 }

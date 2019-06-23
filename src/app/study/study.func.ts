@@ -1,6 +1,6 @@
 import { Card } from '../card';
-import { Box } from './Box';
 import { addDays, getCurrentTimestamp } from './timestamp.func';
+import { Box } from '../API.service';
 
 export const getNextStudyDate = (card: Card): number => {
   switch (card.box) {
@@ -20,3 +20,18 @@ export const getNextStudyDate = (card: Card): number => {
 };
 
 export const isReadyToStudy = (card: Card): boolean => getCurrentTimestamp() >= getNextStudyDate(card);
+
+export const makeBoxEasier = (box: Box): Box => {
+  switch (box) {
+    case Box.VERY_EASY:
+      return Box.VERY_EASY;
+    case Box.EASY:
+      return Box.VERY_EASY;
+    case Box.REGULAR:
+      return Box.EASY;
+    case Box.HARD:
+      return Box.REGULAR;
+    case Box.VERY_HARD:
+      return Box.HARD;
+  }
+};

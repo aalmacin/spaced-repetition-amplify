@@ -1,4 +1,4 @@
-import { Box } from './study/Box';
+import { Box } from './API.service';
 
 export type Card = {
   id: string;

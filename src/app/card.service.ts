@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, defer } from 'rxjs';
 import { CardViewModel } from './card';
-import { Box } from './study/Box';
 import { isReadyToStudy } from './study/study.func';
 import { APIService } from './API.service';
-import { API } from 'aws-amplify';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +19,7 @@ export class CardService {
         front: card.front,
         back: card.back,
         lastStudy: card.lastStudy,
-        box: Box[card.box],
+        box: card.box,
         topicName: topic.name,
         isReadyToStudy: isReadyToStudy({
           id: card.id,
@@ -29,7 +27,7 @@ export class CardService {
           front: card.front,
           back: card.back,
           lastStudy: card.lastStudy,
-          box: Box[card.box]
+          box: card.box
         })
       }));
       if (isReadyToStudyOnly) {
