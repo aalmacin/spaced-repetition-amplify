@@ -1,6 +1,9 @@
-<div *ngIf="signedIn" class="mol-lf mol-lf-fd-c mol-lf-ai-c" id="main">
+<div *ngIf="signedIn" id="main">
   <nav mol-nav>
-    <div mol-nav-header class="nav-header">Spaced Repetition</div>
+    <div mol-nav-header class="nav-header">
+      <span class="main-logo-lg">Spaced Repetition</span>
+      <span class="main-logo-sm">SPR</span>
+    </div>
     <div mol-nav-item class="nav-item"><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></div>
     <div mol-nav-item class="nav-item">
       <a class="nav-item" routerLink="/topics" routerLinkActive="active">Topics</a>
@@ -9,7 +12,9 @@
       <amplify-authenticator></amplify-authenticator>
     </div>
   </nav>
-  <router-outlet></router-outlet>
+  <div id="content-section" class="mol-lf mol-lf-fd-c mol-lf-ai-str">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 <div *ngIf="!signedIn" id="main">
   <nav mol-nav>

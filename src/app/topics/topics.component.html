@@ -1,15 +1,17 @@
-<div class="mol-lf mol-lf-fd-c mol-lf-ai-c">
+<div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
   <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="default" (click)="toggleAddTopic()">
     <span class="mol-tf-lg mol-lm-r-lg">Add Topic</span>
     <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
   </button>
   <form
     [@slideForm]="isShowForm ? 'open' : 'close'"
-    class="mol-lf mol-lf-jc-c new-topic-form mol-lf mol-lf-jc-e mol-lf-fd-r new-topic-form mol-lw-100 mol-lp-t-lg mol-sb-tertiary-dark-b mol-lp-sm"
+    class="mol-lf mol-lf-fd-r new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
     (submit)="addNewTopic(topicName.value)"
   >
-    <input #topicName class="mol-tf-lg" name="newTopic" placeholder="Topic Name" />
-    <button class="new-topic-btn" molBtn size="sm" type="tertiary"><span class="fa fa-plus"></span></button>
+    <ng-container *ngIf="isShowForm">
+      <input #topicName class="new-topic-input mol-tf-lg" name="newTopic" placeholder="Topic Name" />
+      <button class="new-topic-btn" molBtn size="sm" type="tertiary"><span class="fa fa-plus"></span></button>
+    </ng-container>
   </form>
 </div>
 
@@ -18,7 +20,7 @@
     <a
       class="mol-ld-b mol-lp-lg mol-tta-l mol-lm-t-sm mol-tf-lg mol-sbg-secondary mol-sc-white"
       [routerLink]="['/cards', topic.id]"
-      >
+    >
       <span class="fa fa-book"></span>
       {{ topic.name }}</a
     >

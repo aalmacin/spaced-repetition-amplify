@@ -1,16 +1,18 @@
-<div class="mol-lf mol-lf-fd-c mol-lf-ai-c">
+<div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
   <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="default" (click)="toggleAddCard()">
     <span class="mol-tf-lg mol-lm-r-lg">Add Card</span>
     <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
   </button>
   <form
     [@slideForm]="isShowForm ? 'open' : 'close'"
-    class="mol-lf mol-lf-fd-c new-topic-form new-card-form mol-lp-t-lg mol-sb-tertiary-dark-b mol-lp-sm"
+    class="mol-lf mol-lf-fd-c new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
     (submit)="addNewCard(front.value, back.value)"
   >
-    <input #front class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg" name="front" placeholder="Front" />
-    <input #back class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg" name="back" placeholder="Back" />
-    <button class="new-card-btn" molBtn size="sm" type="tertiary"><span class="fa fa-plus"></span></button>
+    <ng-container *ngIf="isShowForm">
+      <input #front class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg" name="front" placeholder="Front" />
+      <input #back class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg" name="back" placeholder="Back" />
+      <button class="new-card-btn" molBtn size="sm" type="tertiary">Create Card</button>
+    </ng-container>
   </form>
 </div>
 
@@ -19,11 +21,13 @@
 </div>
 
 <div *ngFor="let card of cards" class="flash-card mol-lm-y-md">
-  <mol-flash-card
-    topic="{{ card.topicName }}"
-    front="{{ card.front }}"
-    back="{{ card.back }}"
-    (easy)="updateCardToEasy(card.id, card.box)"
-    (hard)="updateCardToHard(card.id, card.box)"
-  ></mol-flash-card>
+  <ng-container *ngIf="card.id === cards[0].id || !(isReadyToStudyOnly$ | async)">
+    <mol-flash-card
+      topic="{{ card.topicName }}"
+      front="{{ card.front }}"
+      back="{{ card.back }}"
+      (easy)="updateCardToEasy(card.id, card.box)"
+      (hard)="updateCardToHard(card.id, card.box)"
+    ></mol-flash-card>
+  </ng-container>
 </div>
