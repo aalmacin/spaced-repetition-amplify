@@ -7,7 +7,7 @@ query GetTopic($id: ID!) {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -36,7 +36,7 @@ query ListTopics(
 query GetCard($id: ID!) {
   getCard(id: $id) {
     id
-    font
+    front
     back
     topic {
       id
@@ -58,7 +58,7 @@ query ListCards(
   listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      font
+      front
       back
       topic {
         id

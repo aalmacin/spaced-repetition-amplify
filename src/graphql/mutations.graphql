@@ -7,7 +7,7 @@ mutation CreateTopic($input: CreateTopicInput!) {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -24,7 +24,7 @@ mutation UpdateTopic($input: UpdateTopicInput!) {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -41,7 +41,7 @@ mutation DeleteTopic($input: DeleteTopicInput!) {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -53,7 +53,7 @@ mutation DeleteTopic($input: DeleteTopicInput!) {
 mutation CreateCard($input: CreateCardInput!) {
   createCard(input: $input) {
     id
-    font
+    front
     back
     topic {
       id
@@ -70,7 +70,7 @@ mutation CreateCard($input: CreateCardInput!) {
 mutation UpdateCard($input: UpdateCardInput!) {
   updateCard(input: $input) {
     id
-    font
+    front
     back
     topic {
       id
@@ -87,7 +87,7 @@ mutation UpdateCard($input: UpdateCardInput!) {
 mutation DeleteCard($input: DeleteCardInput!) {
   deleteCard(input: $input) {
     id
-    font
+    front
     back
     topic {
       id

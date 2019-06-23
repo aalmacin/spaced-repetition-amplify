@@ -31,7 +31,7 @@ export type DeleteTopicInput = {
 
 export type CreateCardInput = {
   id?: string | null;
-  font: string;
+  front: string;
   back: string;
   lastStudy?: number | null;
   box?: Box | null;
@@ -40,7 +40,7 @@ export type CreateCardInput = {
 
 export type UpdateCardInput = {
   id: string;
-  font?: string | null;
+  front?: string | null;
   back?: string | null;
   lastStudy?: number | null;
   box?: Box | null;
@@ -88,7 +88,7 @@ export type ModelStringFilterInput = {
 
 export type ModelCardFilterInput = {
   id?: ModelIDFilterInput | null;
-  font?: ModelStringFilterInput | null;
+  front?: ModelStringFilterInput | null;
   back?: ModelStringFilterInput | null;
   lastStudy?: ModelIntFilterInput | null;
   box?: ModelBoxFilterInput | null;
@@ -124,7 +124,7 @@ export type CreateTopicMutation = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -143,7 +143,7 @@ export type UpdateTopicMutation = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -162,7 +162,7 @@ export type DeleteTopicMutation = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -174,7 +174,7 @@ export type DeleteTopicMutation = {
 export type CreateCardMutation = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -193,7 +193,7 @@ export type CreateCardMutation = {
 export type UpdateCardMutation = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -212,7 +212,7 @@ export type UpdateCardMutation = {
 export type DeleteCardMutation = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -238,7 +238,7 @@ export type GetTopicQuery = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -265,7 +265,7 @@ export type ListTopicsQuery = {
 export type GetCardQuery = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -286,7 +286,7 @@ export type ListCardsQuery = {
   items: Array<{
     __typename: 'Card';
     id: string;
-    font: string;
+    front: string;
     back: string;
     topic: {
       __typename: 'Topic';
@@ -310,7 +310,7 @@ export type OnCreateTopicSubscription = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -329,7 +329,7 @@ export type OnUpdateTopicSubscription = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -348,7 +348,7 @@ export type OnDeleteTopicSubscription = {
     items: Array<{
       __typename: 'Card';
       id: string;
-      font: string;
+      front: string;
       back: string;
       lastStudy: number | null;
       box: Box | null;
@@ -360,7 +360,7 @@ export type OnDeleteTopicSubscription = {
 export type OnCreateCardSubscription = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -379,7 +379,7 @@ export type OnCreateCardSubscription = {
 export type OnUpdateCardSubscription = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -398,7 +398,7 @@ export type OnUpdateCardSubscription = {
 export type OnDeleteCardSubscription = {
   __typename: 'Card';
   id: string;
-  font: string;
+  front: string;
   back: string;
   topic: {
     __typename: 'Topic';
@@ -430,7 +430,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -457,7 +457,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -484,7 +484,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -504,7 +504,7 @@ export class APIService {
         createCard(input: $input) {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename
@@ -531,7 +531,7 @@ export class APIService {
         updateCard(input: $input) {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename
@@ -558,7 +558,7 @@ export class APIService {
         deleteCard(input: $input) {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename
@@ -592,7 +592,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -642,7 +642,7 @@ export class APIService {
         getCard(id: $id) {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename
@@ -671,7 +671,7 @@ export class APIService {
           items {
             __typename
             id
-            font
+            front
             back
             topic {
               __typename
@@ -711,7 +711,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -736,7 +736,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -761,7 +761,7 @@ export class APIService {
             items {
               __typename
               id
-              font
+              front
               back
               lastStudy
               box
@@ -779,7 +779,7 @@ export class APIService {
         onCreateCard {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename
@@ -804,7 +804,7 @@ export class APIService {
         onUpdateCard {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename
@@ -829,7 +829,7 @@ export class APIService {
         onDeleteCard {
           __typename
           id
-          font
+          front
           back
           topic {
             __typename

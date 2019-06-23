@@ -1,3 +1,18 @@
+<div class="mol-lf mol-lf-fd-c mol-lf-ai-e">
+  <button class="mol-lw-w4" molBtn size="sm" type="secondary" (click)="toggleAddCard()">
+    <span class="fa fa-plus"></span>
+    Add Card
+  </button>
+  <form
+    [@slideForm]="isShowForm ? 'open' : 'close'"
+    class="mol-lf mol-lf-jc-e mol-lf-fd-r new-topic-form mol-lw-100 mol-lp-t-lg"
+    (submit)="addNewCard(front.value, back.value)"
+  >
+    <input #front class="mol-tf-lg" name="front" placeholder="Front" />
+    <input #back class="mol-tf-lg" name="back" placeholder="Back" />
+    <button class="new-card-btn" molBtn size="sm" type="secondary">Create Card</button>
+  </form>
+</div>
 <div id="readyToStudy">
   Only Ready to Study? <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />
 </div>

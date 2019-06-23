@@ -7,7 +7,7 @@ subscription OnCreateTopic {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -24,7 +24,7 @@ subscription OnUpdateTopic {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -41,7 +41,7 @@ subscription OnDeleteTopic {
     cards {
       items {
         id
-        font
+        front
         back
         lastStudy
         box
@@ -53,7 +53,7 @@ subscription OnDeleteTopic {
 subscription OnCreateCard {
   onCreateCard {
     id
-    font
+    front
     back
     topic {
       id
@@ -70,7 +70,7 @@ subscription OnCreateCard {
 subscription OnUpdateCard {
   onUpdateCard {
     id
-    font
+    front
     back
     topic {
       id
@@ -87,7 +87,7 @@ subscription OnUpdateCard {
 subscription OnDeleteCard {
   onDeleteCard {
     id
-    font
+    front
     back
     topic {
       id

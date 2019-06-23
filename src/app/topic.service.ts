@@ -13,7 +13,7 @@ export class TopicService {
 
   public getTopics(): Observable<Topic[]> {
     return this.userService.getUser().pipe(
-      switchMap(user => this.apiService.ListTopics({ user: { eq: user.email } })),
+      switchMap(user => this.apiService.ListTopics({ user: { eq: user.email } }, 99999)),
       filter((res: any) => res && res.items),
       map((res: any) =>
         res.items.map(item => ({

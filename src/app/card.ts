@@ -1,8 +1,8 @@
 import { Box } from './study/Box';
 
 export type Card = {
-  id: number;
-  topicId: number;
+  id: string;
+  topicId: string;
   front: string;
   back: string;
   lastStudy: number;
@@ -10,8 +10,8 @@ export type Card = {
 };
 
 export type CardViewModel = {
-  id: number;
-  topicId: number;
+  id: string;
+  topicId: string;
   topicName: string;
   front: string;
   back: string;

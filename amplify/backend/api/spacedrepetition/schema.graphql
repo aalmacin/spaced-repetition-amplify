@@ -15,7 +15,7 @@ enum Box {
 
 type Card @model {
   id: ID!
-  font: String!
+  front: String!
   back: String!
   topic: Topic @connection(name: "TopicCards")
   lastStudy: Int
