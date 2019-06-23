@@ -36,7 +36,7 @@ export class TopicsComponent implements OnDestroy {
   signedIn: boolean;
 
   @ViewChild('topicName')
-  private topicName!: ElementRef;
+  private topicNameInput!: ElementRef;
 
   private topicsSubscription: Subscription;
   private subscription = new Subscription();
@@ -49,7 +49,7 @@ export class TopicsComponent implements OnDestroy {
     this.startTopicsSubscription();
     const createTopicListener = this.apiService.OnCreateTopicListener.subscribe(topics => {
       this.isShowForm = false;
-      this.topicName.nativeElement.value = '';
+      this.topicNameInput.nativeElement.value = '';
       this.topicsSubscription.unsubscribe();
       this.startTopicsSubscription();
     });

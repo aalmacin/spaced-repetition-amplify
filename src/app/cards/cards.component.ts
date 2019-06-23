@@ -36,9 +36,9 @@ import { getCurrentTimestamp } from '../study/timestamp.func';
 })
 export class CardsComponent implements OnDestroy {
   @ViewChild('front')
-  private front: ElementRef;
+  private frontInput: ElementRef;
   @ViewChild('back')
-  private back: ElementRef;
+  private backInput: ElementRef;
 
   topicId: string;
   subscription = new Subscription();
@@ -60,8 +60,8 @@ export class CardsComponent implements OnDestroy {
 
     const createCardListener = this.apiService.OnCreateCardListener.subscribe(topics => {
       this.isShowForm = false;
-      this.front.nativeElement.value = '';
-      this.back.nativeElement.value = '';
+      this.frontInput.nativeElement.value = '';
+      this.backInput.nativeElement.value = '';
       this.cardsSubscription.unsubscribe();
       this.startCardsSubscription();
     });
