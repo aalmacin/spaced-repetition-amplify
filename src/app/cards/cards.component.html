@@ -1,23 +1,24 @@
-<div class="mol-lf mol-lf-fd-c mol-lf-ai-e">
-  <button class="mol-lw-w4" molBtn size="sm" type="secondary" (click)="toggleAddCard()">
-    <span class="fa fa-plus"></span>
-    Add Card
+<div class="mol-lf mol-lf-fd-c mol-lf-ai-c">
+  <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="default" (click)="toggleAddCard()">
+    <span class="mol-tf-lg mol-lm-r-lg">Add Card</span>
+    <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
   </button>
   <form
     [@slideForm]="isShowForm ? 'open' : 'close'"
-    class="mol-lf mol-lf-jc-e mol-lf-fd-r new-topic-form mol-lw-100 mol-lp-t-lg"
+    class="mol-lf mol-lf-fd-c new-topic-form new-card-form mol-lp-t-lg mol-sb-tertiary-dark-b mol-lp-sm"
     (submit)="addNewCard(front.value, back.value)"
   >
-    <input #front class="mol-tf-lg" name="front" placeholder="Front" />
-    <input #back class="mol-tf-lg" name="back" placeholder="Back" />
-    <button class="new-card-btn" molBtn size="sm" type="secondary">Create Card</button>
+    <input #front class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg" name="front" placeholder="Front" />
+    <input #back class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg" name="back" placeholder="Back" />
+    <button class="new-card-btn" molBtn size="sm" type="tertiary"><span class="fa fa-plus"></span></button>
   </form>
 </div>
+
 <div id="readyToStudy">
   Only Ready to Study? <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />
 </div>
 
-<div *ngFor="let card of cards" class="mol-lm-y-md">
+<div *ngFor="let card of cards" class="flash-card mol-lm-y-md">
   <mol-flash-card
     topic="{{ card.topicName }}"
     front="{{ card.front }}"
