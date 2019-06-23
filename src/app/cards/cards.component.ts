@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { CardViewModel } from '../card';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { APIService, Box } from '../API.service';
-import { makeBoxEasier, getNextStudyDate, nextStudyBaseOnBox } from '../study/study.func';
+import { makeBoxEasier } from '../study/study.func';
 import { getCurrentTimestamp } from '../study/timestamp.func';
 
 @Component({
