@@ -3,6 +3,7 @@ query GetTopic($id: ID!) {
   getTopic(id: $id) {
     id
     name
+    user
     cards {
       items {
         id
@@ -24,6 +25,7 @@ query ListTopics(
     items {
       id
       name
+      user
       cards {
         nextToken
       }
@@ -39,6 +41,7 @@ query GetCard($id: ID!) {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }
@@ -60,6 +63,7 @@ query ListCards(
       topic {
         id
         name
+        user
       }
       lastStudy
       box

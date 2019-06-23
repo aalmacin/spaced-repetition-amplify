@@ -3,6 +3,7 @@ subscription OnCreateTopic {
   onCreateTopic {
     id
     name
+    user
     cards {
       items {
         id
@@ -19,6 +20,7 @@ subscription OnUpdateTopic {
   onUpdateTopic {
     id
     name
+    user
     cards {
       items {
         id
@@ -35,6 +37,7 @@ subscription OnDeleteTopic {
   onDeleteTopic {
     id
     name
+    user
     cards {
       items {
         id
@@ -55,6 +58,7 @@ subscription OnCreateCard {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }
@@ -71,6 +75,7 @@ subscription OnUpdateCard {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }
@@ -87,6 +92,7 @@ subscription OnDeleteCard {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }

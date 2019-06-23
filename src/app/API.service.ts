@@ -8,6 +8,7 @@ import * as Observable from "zen-observable";
 export type CreateTopicInput = {
   id?: string | null;
   name: string;
+  user: string;
 };
 
 export enum Box {
@@ -21,6 +22,7 @@ export enum Box {
 export type UpdateTopicInput = {
   id: string;
   name?: string | null;
+  user?: string | null;
 };
 
 export type DeleteTopicInput = {
@@ -52,6 +54,7 @@ export type DeleteCardInput = {
 export type ModelTopicFilterInput = {
   id?: ModelIDFilterInput | null;
   name?: ModelStringFilterInput | null;
+  user?: ModelStringFilterInput | null;
   and?: Array<ModelTopicFilterInput | null> | null;
   or?: Array<ModelTopicFilterInput | null> | null;
   not?: ModelTopicFilterInput | null;
@@ -115,6 +118,7 @@ export type CreateTopicMutation = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -133,6 +137,7 @@ export type UpdateTopicMutation = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -151,6 +156,7 @@ export type DeleteTopicMutation = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -174,6 +180,7 @@ export type CreateCardMutation = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -192,6 +199,7 @@ export type UpdateCardMutation = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -210,6 +218,7 @@ export type DeleteCardMutation = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -223,6 +232,7 @@ export type GetTopicQuery = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -243,6 +253,7 @@ export type ListTopicsQuery = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -260,6 +271,7 @@ export type GetCardQuery = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -280,6 +292,7 @@ export type ListCardsQuery = {
       __typename: "Topic";
       id: string;
       name: string;
+      user: string;
     } | null;
     lastStudy: number | null;
     box: Box | null;
@@ -291,6 +304,7 @@ export type OnCreateTopicSubscription = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -309,6 +323,7 @@ export type OnUpdateTopicSubscription = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -327,6 +342,7 @@ export type OnDeleteTopicSubscription = {
   __typename: "Topic";
   id: string;
   name: string;
+  user: string;
   cards: {
     __typename: "ModelCardConnection";
     items: Array<{
@@ -350,6 +366,7 @@ export type OnCreateCardSubscription = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -368,6 +385,7 @@ export type OnUpdateCardSubscription = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -386,6 +404,7 @@ export type OnDeleteCardSubscription = {
     __typename: "Topic";
     id: string;
     name: string;
+    user: string;
     cards: {
       __typename: "ModelCardConnection";
       nextToken: string | null;
@@ -405,6 +424,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -433,6 +453,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -461,6 +482,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -494,6 +516,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -522,6 +545,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -550,6 +574,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -573,6 +598,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -607,6 +633,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -641,6 +668,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -675,6 +703,7 @@ export class APIService {
               __typename
               id
               name
+              user
             }
             lastStudy
             box
@@ -704,6 +733,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -728,6 +758,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -752,6 +783,7 @@ export class APIService {
           __typename
           id
           name
+          user
           cards {
             __typename
             items {
@@ -781,6 +813,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -805,6 +838,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken
@@ -829,6 +863,7 @@ export class APIService {
             __typename
             id
             name
+            user
             cards {
               __typename
               nextToken

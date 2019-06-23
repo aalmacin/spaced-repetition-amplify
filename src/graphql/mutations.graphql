@@ -3,6 +3,7 @@ mutation CreateTopic($input: CreateTopicInput!) {
   createTopic(input: $input) {
     id
     name
+    user
     cards {
       items {
         id
@@ -19,6 +20,7 @@ mutation UpdateTopic($input: UpdateTopicInput!) {
   updateTopic(input: $input) {
     id
     name
+    user
     cards {
       items {
         id
@@ -35,6 +37,7 @@ mutation DeleteTopic($input: DeleteTopicInput!) {
   deleteTopic(input: $input) {
     id
     name
+    user
     cards {
       items {
         id
@@ -55,6 +58,7 @@ mutation CreateCard($input: CreateCardInput!) {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }
@@ -71,6 +75,7 @@ mutation UpdateCard($input: UpdateCardInput!) {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }
@@ -87,6 +92,7 @@ mutation DeleteCard($input: DeleteCardInput!) {
     topic {
       id
       name
+      user
       cards {
         nextToken
       }

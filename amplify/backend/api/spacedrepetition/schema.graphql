@@ -1,6 +1,7 @@
 type Topic @model {
   id: ID!
   name: String!
+  user: String!
   cards: [Card] @connection(name: "TopicCards")
 }
 
