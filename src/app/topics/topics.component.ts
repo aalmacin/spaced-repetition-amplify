@@ -73,5 +73,6 @@ export class TopicsComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.topicsSubscription.unsubscribe();
   }
 }

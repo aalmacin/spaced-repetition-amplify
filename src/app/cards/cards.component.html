@@ -16,9 +16,7 @@
 <div id="readyToStudy">
   Only Ready to Study? <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />
 </div>
-<mol-flash-card
-  *ngFor="let card of cards"
-  topic="{{ card.topicName }}"
-  front="{{ card.front }}"
-  back="{{ card.back }}"
-></mol-flash-card>
+
+<div *ngFor="let card of cards" class="mol-lm-y-md">
+  <mol-flash-card topic="{{ card.topicName }}" front="{{ card.front }}" back="{{ card.back }}"></mol-flash-card>
+</div>
