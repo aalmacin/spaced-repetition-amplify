@@ -19,6 +19,7 @@ import { getCurrentTimestamp } from '../study/timestamp.func';
         'close',
         style({
           maxHeight: '0',
+          display: 'none',
           opacity: 0
         })
       ),
@@ -26,11 +27,12 @@ import { getCurrentTimestamp } from '../study/timestamp.func';
         'open',
         style({
           maxHeight: '100%',
+          display: 'inherit',
           opacity: 1
         })
       ),
-      transition('open => close', [animate('1s')]),
-      transition('close => open', [animate('1s')])
+      transition('open => close', [animate('500ms ease')]),
+      transition('close => open', [animate('500ms ease')])
     ])
   ]
 })

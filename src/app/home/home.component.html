@@ -1,16 +1,30 @@
 <div class="mol-lp-sm">
-  <h2>
-    Welcome to Spaced Repetition
-  </h2>
+  <mol-img-jumbotron
+    heading="Welcome to Spaced Repetition"
+    imgSrc="/assets/studying.jpg"
+    text="Spaced Repetition is a learning strategy which ensures that what you are studying sticks into your long term memory."
+    actionText="Start"
+    actionUrl="/topics"
+  >
+  </mol-img-jumbotron>
 
-  <p>
-    Spaced Repetition is a learning strategy which ensures that what you are studying sticks into your long term memory.
-    It's very easy to get started and here are the main parts.
-  </p>
+  <div class="home-info-cards">
+    <div class="home-types-item mol-lf mol-lf-fd-c mol-lm-t-md mol-lf-jc-sb">
+      <mol-info-card heading="Topics">
+        <p>Topics are the different subjects that you want to study.</p>
+        <a class="mol-tta-c" molBtn href="/topics" type="secondary" size="sm"
+          ><span class="fa fa-eye"></span> View Topics</a
+        >
+      </mol-info-card>
+    </div>
 
-  <div class="mol-lf mol-lf-fd-c">
-    <h3>Topics</h3>
-    <p>Topics are the different subjects that you want to study.</p>
-    <a class="mol-tta-c" molBtn href="/topics" type="primary"><span class="fa fa-eye"></span> View Topics</a>
+    <div class="home-types-item mol-lf mol-lf-fd-c mol-lm-t-md mol-lf-jc-sb">
+      <mol-info-card heading="Cards">
+        <p>Cards are the individual knowledge or concepts that you want review.</p>
+        <a class="mol-tta-c" molBtn href="/cards" type="secondary" size="sm"
+          ><span class="fa fa-eye"></span> View Cards</a
+        >
+      </mol-info-card>
+    </div>
   </div>
 </div>
