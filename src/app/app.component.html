@@ -1,4 +1,4 @@
-<div *ngIf="signedIn" id="main">
+<div *ngIf="signedIn" class="main">
   <nav mol-nav>
     <div mol-nav-header class="nav-header">
       <span class="main-logo-lg">Spaced Repetition</span>
@@ -16,7 +16,7 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-<div *ngIf="!signedIn" id="main">
+<div *ngIf="!signedIn" class="main">
   <nav mol-nav>
     <div mol-nav-header class="nav-header">Spaced Repetition</div>
     <div mol-nav-item class="nav-item"><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></div>
@@ -24,4 +24,8 @@
   <div class="auth">
     <amplify-authenticator></amplify-authenticator>
   </div>
+</div>
+
+<div class="footer">
+  <p>Aldrin Jerome Almacin - 2019</p>
 </div>
