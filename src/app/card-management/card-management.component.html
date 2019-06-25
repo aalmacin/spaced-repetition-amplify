@@ -1,0 +1,20 @@
+<h3>Cards</h3>
+
+<div>
+  <table>
+    <tr>
+      <th>Topic</th>
+      <th>Front</th>
+      <th>Back</th>
+      <th>Box</th>
+      <th>Last Study</th>
+    </tr>
+    <tr *ngFor="let card of cards">
+      <td>{{ card.topicName }}</td>
+      <td>{{ card.front }}</td>
+      <td>{{ card.back }}</td>
+      <td>{{ card.box }}</td>
+      <td>{{ card.lastStudy }}</td>
+    </tr>
+  </table>
+</div>

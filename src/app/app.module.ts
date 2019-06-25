@@ -15,9 +15,17 @@ import { APIService } from './API.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './user.service';
+import { CardManagementComponent } from './card-management/card-management.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, TopicsComponent, CardsComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NotFoundComponent,
+    TopicsComponent,
+    CardsComponent,
+    CardManagementComponent
+  ],
   imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
   providers: [AmplifyService, APIService, UserService],
   bootstrap: [AppComponent]
