@@ -5,6 +5,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TopicsComponent } from './topics/topics.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardManagementComponent } from './card-management/card-management.component';
+import { StudyComponent } from './study/study.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,12 @@ const routes: Routes = [
     component: TopicsComponent
   },
   {
-    path: 'cards',
+    path: 'card-mgmt',
     component: CardManagementComponent
+  },
+  {
+    path: 'study',
+    component: StudyComponent
   },
   {
     path: 'cards/:topicid',
