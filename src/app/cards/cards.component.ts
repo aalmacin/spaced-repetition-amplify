@@ -51,6 +51,7 @@ export class CardsComponent implements OnDestroy {
   public isReadyToStudyOnly: BehaviorSubject<boolean>;
 
   isShowForm = false;
+  loading = true;
 
   hiddenCards = [];
 
@@ -64,6 +65,7 @@ export class CardsComponent implements OnDestroy {
       this.isShowForm = false;
       this.frontInput.nativeElement.value = '';
       this.backInput.nativeElement.value = '';
+      this.loading = true;
       this.cardsSubscription.unsubscribe();
       this.startCardsSubscription();
     });
@@ -87,6 +89,7 @@ export class CardsComponent implements OnDestroy {
       .pipe(switchMap(([isReadyToStudyOnly, params]) => this.cardService.getCards(params.topicid, isReadyToStudyOnly)))
       .subscribe((cards: CardViewModel[]) => {
         this.cards = cards;
+        this.loading = false;
       });
   }
 

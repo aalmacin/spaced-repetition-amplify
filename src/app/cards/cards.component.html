@@ -1,43 +1,54 @@
-<div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
-  <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="tertiary" (click)="toggleAddCard()">
-    <span class="mol-tf-lg mol-lm-r-lg">Add Card</span>
-    <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
-  </button>
-  <form
-    [@slideForm]="isShowForm ? 'open' : 'close'"
-    class="mol-lf mol-lf-fd-c new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
-    (submit)="addNewCard(front.value, back.value)"
-  >
-    <input
-      #front
-      class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
-      name="front"
-      placeholder="What is life? (Front/Question)"
-    />
-    <textarea
-      rows="4"
-      #back
-      class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
-      name="back"
-      placeholder="42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
-    ></textarea>
+<app-spinner *ngIf="loading; else showCards"></app-spinner>
 
-    <button class="new-card-btn" molBtn size="sm" type="tertiary">Create Card</button>
-  </form>
-</div>
+<ng-template #showCards>
+  <div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
+    <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="tertiary" (click)="toggleAddCard()">
+      <span class="mol-tf-lg mol-lm-r-lg">Add Card</span>
+      <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
+    </button>
+    <form
+      [@slideForm]="isShowForm ? 'open' : 'close'"
+      class="mol-lf mol-lf-fd-c new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
+      (submit)="addNewCard(front.value, back.value)"
+    >
+      <input
+        #front
+        class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
+        name="front"
+        placeholder="What is life? (Front/Question)"
+      />
+      <textarea
+        rows="4"
+        #back
+        class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
+        name="back"
+        placeholder="42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
+      ></textarea>
 
-<div id="readyToStudy">
-  Only Ready to Study? <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />
-</div>
+      <button class="new-card-btn" molBtn size="sm" type="tertiary">Create Card</button>
+    </form>
+  </div>
 
-<div *ngFor="let card of cards" class="flash-card mol-lm-y-md">
-  <ng-container *ngIf="card.id === cards[0].id || !(isReadyToStudyOnly$ | async)">
-    <mol-flash-card
-      topic="{{ card.topicName }}"
-      front="{{ card.front }}"
-      back="{{ card.back }}"
-      (easy)="updateCardToEasy(card.id, card.box)"
-      (hard)="updateCardToHard(card.id, card.box)"
-    ></mol-flash-card>
+  <div id="readyToStudy">
+    Review only those cards that are ready to study?
+    <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />
+  </div>
+
+  <ng-container *ngIf="cards.length > 0; else noCards">
+    <div *ngFor="let card of cards" class="flash-card mol-lm-y-md">
+      <ng-container *ngIf="card.id === cards[0].id || !(isReadyToStudyOnly$ | async)">
+        <mol-flash-card
+          topic="{{ card.topicName }}"
+          front="{{ card.front }}"
+          back="{{ card.back }}"
+          (easy)="updateCardToEasy(card.id, card.box)"
+          (hard)="updateCardToHard(card.id, card.box)"
+        ></mol-flash-card>
+      </ng-container>
+    </div>
   </ng-container>
-</div>
+
+  <ng-template #noCards>
+    <p class="mol-tta-c">No cards to show at the moment</p>
+  </ng-template>
+</ng-template>

@@ -46,10 +46,12 @@ export class TopicsComponent implements OnDestroy {
   public topics = [];
 
   isShowForm = false;
+  public loading = true;
 
   constructor(private apiService: APIService, private topicService: TopicService) {
     this.startTopicsSubscription();
-    const createTopicListener = this.apiService.OnCreateTopicListener.subscribe(topics => {
+    const createTopicListener = this.apiService.OnCreateTopicListener.subscribe(() => {
+      this.loading = true;
       this.isShowForm = false;
       this.topicNameInput.nativeElement.value = '';
       this.topicsSubscription.unsubscribe();
@@ -61,6 +63,7 @@ export class TopicsComponent implements OnDestroy {
   private startTopicsSubscription(): void {
     this.topicsSubscription = this.topicService.getTopics().subscribe(topics => {
       this.topics = topics;
+      this.loading = false;
     });
   }
 

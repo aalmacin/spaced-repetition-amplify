@@ -16,6 +16,7 @@ import { APIService } from './API.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './user.service';
 import { CardManagementComponent } from './card-management/card-management.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CardManagementComponent } from './card-management/card-management.compo
     NotFoundComponent,
     TopicsComponent,
     CardsComponent,
-    CardManagementComponent
+    CardManagementComponent,
+    SpinnerComponent
   ],
   imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
   providers: [AmplifyService, APIService, UserService],

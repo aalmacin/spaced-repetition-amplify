@@ -1,32 +1,36 @@
-<div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
-  <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="tertiary" (click)="toggleAddTopic()">
-    <span class="mol-tf-lg mol-lm-r-lg">Add Topic</span>
-    <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
-  </button>
-  <form
-    [@slideForm]="isShowForm ? 'open' : 'close'"
-    (submit)="addNewTopic(topicName.value)"
-    class="mol-lf mol-lf-fd-r new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
-  >
-    <input #topicName class="new-topic-input mol-tf-lg" name="topicName" placeholder="Topic Name" />
-    <button class="new-topic-btn" molBtn size="sm" type="tertiary">
-      <span class="fa fa-plus"></span>
+<app-spinner *ngIf="loading; else showTopics"></app-spinner>
+
+<ng-template #showTopics>
+  <div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
+    <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="tertiary" (click)="toggleAddTopic()">
+      <span class="mol-tf-lg mol-lm-r-lg">Add Topic</span>
+      <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
     </button>
-  </form>
-</div>
-
-<div id="topics" class="mol-lf mol-lf-fd-c mol-lf-ai-str mol-tta-c" *ngIf="topics.length > 0; else noTopics">
-  <ng-container *ngFor="let topic of topics">
-    <a
-      class="mol-ld-b mol-lp-lg mol-tta-l mol-lm-t-sm mol-tf-lg mol-sbg-secondary mol-sc-white"
-      [routerLink]="['/cards', topic.id]"
+    <form
+      [@slideForm]="isShowForm ? 'open' : 'close'"
+      (submit)="addNewTopic(topicName.value)"
+      class="mol-lf mol-lf-fd-r new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
     >
-      <span class="fa fa-book"></span>
-      {{ topic.name }}</a
-    >
-  </ng-container>
-</div>
+      <input #topicName class="new-topic-input mol-tf-lg" name="topicName" placeholder="Topic Name" />
+      <button class="new-topic-btn" molBtn size="sm" type="tertiary">
+        <span class="fa fa-plus"></span>
+      </button>
+    </form>
+  </div>
 
-<ng-template #noTopics>
-  <p>No topics found</p>
+  <div id="topics" class="mol-lf mol-lf-fd-c mol-lf-ai-str mol-tta-c" *ngIf="topics.length > 0; else noTopics">
+    <ng-container *ngFor="let topic of topics">
+      <a
+        class="mol-ld-b mol-lp-lg mol-tta-l mol-lm-t-sm mol-tf-lg mol-sbg-secondary mol-sc-white"
+        [routerLink]="['/cards', topic.id]"
+      >
+        <span class="fa fa-book"></span>
+        {{ topic.name }}</a
+      >
+    </ng-container>
+  </div>
+
+  <ng-template #noTopics>
+    <p class="mol-tta-c">No topics yet. Click add above to add topic</p>
+  </ng-template>
 </ng-template>
