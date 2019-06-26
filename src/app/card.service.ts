@@ -58,7 +58,6 @@ export class CardService {
       const topicService = await this.GetCardsByUser({
         user: { eq: user.email }
       });
-      console.log(getCurrentTimestamp());
       return pipe(
         filter((r: any) => r.cards.items.length > 0),
         map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),

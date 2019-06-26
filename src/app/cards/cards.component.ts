@@ -107,7 +107,8 @@ export class CardsComponent implements OnDestroy {
       front,
       back,
       box: Box.VERY_HARD,
-      cardTopicId: this.topicId
+      cardTopicId: this.topicId,
+      lastStudy: getCurrentTimestamp()
     });
     return false;
   }
