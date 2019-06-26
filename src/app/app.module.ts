@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './user.service';
 import { CardManagementComponent } from './card-management/card-management.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { CardManagementItemComponent } from './card-management-item/card-management-item.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     TopicsComponent,
     CardsComponent,
     CardManagementComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CardManagementItemComponent
   ],
   imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
   providers: [AmplifyService, APIService, UserService],

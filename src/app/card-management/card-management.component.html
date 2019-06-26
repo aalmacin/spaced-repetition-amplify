@@ -1,20 +1,22 @@
 <h3>Cards</h3>
 
-<div>
-  <table>
-    <tr>
-      <th>Topic</th>
-      <th>Front</th>
-      <th>Back</th>
-      <th>Box</th>
-      <th>Last Study</th>
-    </tr>
-    <tr *ngFor="let card of cards">
-      <td>{{ card.topicName }}</td>
-      <td>{{ card.front }}</td>
-      <td>{{ card.back }}</td>
-      <td>{{ card.box }}</td>
-      <td>{{ card.lastStudy }}</td>
-    </tr>
-  </table>
-</div>
+<app-spinner *ngIf="loading; else showCardManagement"></app-spinner>
+
+<ng-template #showCardManagement>
+  <div>
+    <table class="card-management">
+      <tr>
+        <th>Topic</th>
+        <th>Front</th>
+        <th>Back</th>
+        <th>Next Study</th>
+        <th colspan="2">Actions</th>
+      </tr>
+      <tbody>
+        <ng-container *ngFor="let card of cards">
+          <tr app-card-management-item [card]="card"></tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

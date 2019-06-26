@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CardService } from '../card.service';
-import { CardViewModel } from '../card';
 
 @Component({
   selector: 'app-card-management',
@@ -10,10 +9,12 @@ import { CardViewModel } from '../card';
 export class CardManagementComponent implements OnInit {
   public cards: any[] = [];
 
+  public loading = true;
+
   constructor(private cardService: CardService) {
     this.cardService.getAllCards().subscribe(cards => {
       this.cards = cards;
-      console.log(this.cards);
+      this.loading = false;
     });
   }
 

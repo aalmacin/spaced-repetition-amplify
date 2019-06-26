@@ -1,0 +1,25 @@
+.card-management {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: scroll;
+  overflow-x: scroll;
+
+
+  th, td {
+    padding: 1rem;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  td.card-mgmt-back {
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  tr {
+    height: 20px;
+  }
+}

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, defer } from 'rxjs';
 import { CardViewModel } from './card';
-import { isReadyToStudy } from './study/study.func';
-import { APIService, ListTopicsQuery, ModelTopicFilterInput } from './API.service';
+import { isReadyToStudy, getNextStudyDate } from './study/study.func';
+import { APIService, ListTopicsQuery, ModelTopicFilterInput, Box } from './API.service';
 import { UserService } from './user.service';
 import { API, graphqlOperation } from 'aws-amplify';
 import { map, pipe, flatten, filter } from 'ramda';
+import { getDateFromTimestamp, getCurrentTimestamp } from './study/timestamp.func';
 
 @Injectable({
   providedIn: 'root'
@@ -57,10 +58,15 @@ export class CardService {
       const topicService = await this.GetCardsByUser({
         user: { eq: user.email }
       });
+      console.log(getCurrentTimestamp());
       return pipe(
         filter((r: any) => r.cards.items.length > 0),
         map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),
-        flatten
+        flatten,
+        map(r => ({
+          ...r,
+          nextStudy: getDateFromTimestamp(getNextStudyDate(r))
+        }))
       )([...topicService.items]);
     });
   }
@@ -89,6 +95,22 @@ export class CardService {
         return cards.filter(card => card.isReadyToStudy);
       }
       return cards;
+    });
+  }
+
+  public async updateCard(id: string, front: string, back: string) {
+    this.apiService.UpdateCard({
+      id,
+      front,
+      back,
+      box: Box.VERY_HARD,
+      lastStudy: getCurrentTimestamp()
+    });
+  }
+
+  public async deleteCard(id: string) {
+    this.apiService.DeleteCard({
+      id
     });
   }
 }
