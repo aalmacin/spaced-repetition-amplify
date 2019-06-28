@@ -124,7 +124,8 @@
         font-family: 'Roboto Slab', serif;
         letter-spacing: 2rem;
         margin-bottom: 1rem;
-        animation: moveDown 0.3s ease-out;
+        animation: moveDown 0.3s ease-out 0.4s;
+        animation-fill-mode: backwards;
       }
 
       .main-text-sub {
@@ -133,7 +134,8 @@
         font-family: 'Questrial', sans-serif;
         margin-bottom: 1rem;
         line-height: 1.7;
-        animation: moveUp 0.3s ease-out;
+        animation: moveUp 0.3s ease-out 0.4s;
+        animation-fill-mode: backwards;
       }
 
       .cta {
@@ -144,7 +146,7 @@
         text-transform: uppercase;
         font-size: 2rem;
         border-radius: 3rem;
-        animation: moveUp 0.3s ease-out 0.3s;
+        animation: moveUp 0.3s ease-out 0.7s;
         animation-fill-mode: backwards;
       }
 
