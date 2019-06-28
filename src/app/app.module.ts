@@ -19,6 +19,7 @@ import { CardManagementComponent } from './card-management/card-management.compo
 import { SpinnerComponent } from './spinner/spinner.component';
 import { CardManagementItemComponent } from './card-management-item/card-management-item.component';
 import { StudyComponent } from './study/study.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { StudyComponent } from './study/study.component';
     CardManagementComponent,
     SpinnerComponent,
     CardManagementItemComponent,
-    StudyComponent
+    StudyComponent,
+    AuthComponent
   ],
   imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
   providers: [AmplifyService, APIService, UserService],

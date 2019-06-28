@@ -6,6 +6,7 @@ import { TopicsComponent } from './topics/topics.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardManagementComponent } from './card-management/card-management.component';
 import { StudyComponent } from './study/study.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'study',
     component: StudyComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
   },
   {
     path: 'cards/:topicid',

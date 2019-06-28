@@ -8,9 +8,8 @@ describe('CardManagementItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardManagementItemComponent ]
-    })
-    .compileComponents();
+      declarations: [CardManagementItemComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

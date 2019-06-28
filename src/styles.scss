@@ -2,6 +2,12 @@
 // @import '~aws-amplify-angular/Theme.css';
 @import '~molly-component-library/molly.dist.css';
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html {
   width: 100%;
   height: 100%;
@@ -11,6 +17,7 @@ html {
 body,
 app-root {
   margin: 0;
+  padding: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
