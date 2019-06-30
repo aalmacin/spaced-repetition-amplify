@@ -13,4 +13,8 @@ export const getCurrentTimestamp = (): number => getTimestampFromMoment(moment()
 
 export const addDays = (timestamp: number, days: number): number => timestamp + days * DAY_SECONDS;
 
-export const getDateFromTimestamp = (timestamp: number) => moment.unix(timestamp).tz(TIMEZONE).format('LLL');
+export const getDateFromTimestamp = (timestamp: number) =>
+  moment
+    .unix(timestamp)
+    .tz(TIMEZONE)
+    .format('LLL');
