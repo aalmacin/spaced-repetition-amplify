@@ -65,7 +65,8 @@ export class CardService {
         map(r => ({
           ...r,
           nextStudy: getDateFromTimestamp(getNextStudyDate(r))
-        }))
+        })),
+        filter((r: any) => isReadyToStudy(r))
       )([...topicService.items]);
     });
   }

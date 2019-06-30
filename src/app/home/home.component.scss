@@ -107,7 +107,7 @@
     background-size: cover;
     background-position: center;
     position: relative;
-    animation: openUpPage 0.4s ease-out;
+    animation: initialBgImg 0.4s ease-out;
 
     .main-text {
       position: absolute;
@@ -124,7 +124,7 @@
         font-family: 'Roboto Slab', serif;
         letter-spacing: 2rem;
         margin-bottom: 1rem;
-        animation: moveDown 0.3s ease-out 0.4s;
+        animation: moveDown 0.3s ease-out;
         animation-fill-mode: backwards;
       }
 
@@ -134,7 +134,7 @@
         font-family: 'Questrial', sans-serif;
         margin-bottom: 1rem;
         line-height: 1.7;
-        animation: moveUp 0.3s ease-out 0.4s;
+        animation: moveUp 0.3s ease-out;
         animation-fill-mode: backwards;
       }
 
@@ -146,7 +146,7 @@
         text-transform: uppercase;
         font-size: 2rem;
         border-radius: 3rem;
-        animation: moveUp 0.3s ease-out 0.7s;
+        animation: moveUp 0.3s ease-out 0.4s;
         animation-fill-mode: backwards;
       }
 
