@@ -5,9 +5,28 @@
   overflow: scroll;
   overflow-x: scroll;
 
+  border-spacing: 0rem;
+  // border: 1px solid #39632f;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  width: 100%;
+
+  tr {
+    border: 1px solid #39632f;
+    min-height: 20px;
+    width: 100%;
+  }
+
+}
+
+:host ::ng-deep {
+
   th,
   td {
+
     padding: 1rem;
+
+    border: 1px solid #39632f;
 
     &.card-mgmt-topic {
       width: 10%;
@@ -32,14 +51,11 @@
 
   th {
     font-weight: bold;
+    border: 1px solid #39632f;
   }
 
   td.card-mgmt-back {
     white-space: normal;
     overflow: hidden;
-  }
-
-  tr {
-    height: 20px;
   }
 }

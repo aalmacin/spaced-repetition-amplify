@@ -1,13 +1,13 @@
 <ng-container *ngIf="card && !deleted">
   <td>{{ card.topicName }}</td>
   <td>
-    <textarea #frontEditInput [readonly]="viewMode" cols="30" rows="5"
+    <textarea #frontEditInput [readonly]="viewMode"
       >{{ card.front }}
         </textarea
     >
   </td>
   <td class="card-mgmt-back">
-    <textarea #backEditInput [readonly]="viewMode" cols="100" rows="5"
+    <textarea #backEditInput [readonly]="viewMode"
       >{{ card.back }}
         </textarea
     >
