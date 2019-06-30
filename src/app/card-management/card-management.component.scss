@@ -8,6 +8,26 @@
   th,
   td {
     padding: 1rem;
+
+    &.card-mgmt-topic {
+      width: 10%;
+    }
+
+    &.card-mgmt-front {
+      width: 20%;
+    }
+
+    &.card-mgmt-back {
+      width: 30%;
+    }
+
+    &.card-mgmt-next-study {
+      width: 20%;
+    }
+
+    &.card-mgmt-next-actions {
+      width: 20%;
+    }
   }
 
   th {

@@ -19,6 +19,8 @@ import { CardManagementComponent } from './card-management/card-management.compo
 import { SpinnerComponent } from './spinner/spinner.component';
 import { CardManagementItemComponent } from './card-management-item/card-management-item.component';
 import { StudyComponent } from './study/study.component';
+import { AddCardComponent } from './add-card/add-card.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,18 @@ import { StudyComponent } from './study/study.component';
     CardManagementComponent,
     SpinnerComponent,
     CardManagementItemComponent,
-    StudyComponent
+    StudyComponent,
+    AddCardComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, AmplifyAngularModule, MollyModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AmplifyAngularModule,
+    MollyModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [AmplifyService, APIService, UserService],
   bootstrap: [AppComponent]
 })

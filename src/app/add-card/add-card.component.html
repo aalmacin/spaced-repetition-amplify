@@ -1,0 +1,44 @@
+<div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
+  <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="tertiary" (click)="toggleAddCard()">
+    <span class="mol-tf-lg mol-lm-r-lg">Add Card</span>
+    <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
+  </button>
+  <form
+    [formGroup]="addCardForm"
+    [@slideForm]="isShowForm ? 'open' : 'close'"
+    class="mol-lf mol-lf-fd-c new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
+    (ngSubmit)="addNewCard()"
+  >
+    <input
+      formControlName="front"
+      class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
+      name="front"
+      placeholder="What is life? (Front/Question)"
+    />
+    <textarea
+      rows="4"
+      formControlName="back"
+      class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
+      name="back"
+      placeholder="42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
+    ></textarea>
+
+    <select formControlName="topicId" class="topic-selection" #topicId name="topicId">
+      <option value="">Select Topic</option>
+      <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
+    </select>
+
+    <p class="alert" *ngIf="addCardForm.status === 'INVALID'">Front, back, and topic required</p>
+
+    <button
+      type="submit"
+      [disabled]="addCardForm.status === 'INVALID'"
+      class="new-card-btn"
+      molBtn
+      size="lg"
+      type="tertiary"
+    >
+      Create Card
+    </button>
+  </form>
+</div>

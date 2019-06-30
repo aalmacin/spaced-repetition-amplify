@@ -1,34 +1,6 @@
 <app-spinner *ngIf="loading; else showCards"></app-spinner>
 
 <ng-template #showCards>
-  <div class="mol-lf mol-lf-fd-c mol-lf-ai-str">
-    <button class="mol-lw-100 mol-tta-c" molBtn size="sm" type="tertiary" (click)="toggleAddCard()">
-      <span class="mol-tf-lg mol-lm-r-lg">Add Card</span>
-      <span class="fa {{ isShowForm ? 'fa-times' : 'fa-plus' }}"></span>
-    </button>
-    <form
-      [@slideForm]="isShowForm ? 'open' : 'close'"
-      class="mol-lf mol-lf-fd-c new-topic-form mol-sb-tertiary-dark-b mol-lm-t-sm mol-lp-b-sm"
-      (submit)="addNewCard(front.value, back.value)"
-    >
-      <input
-        #front
-        class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
-        name="front"
-        placeholder="What is life? (Front/Question)"
-      />
-      <textarea
-        rows="4"
-        #back
-        class="mol-sb-tertiary-dark mol-lp-vs mol-lm-b-sm mol-tf-lg"
-        name="back"
-        placeholder="42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
-      ></textarea>
-
-      <button class="new-card-btn" molBtn size="sm" type="tertiary">Create Card</button>
-    </form>
-  </div>
-
   <div id="readyToStudy">
     Review only those cards that are ready to study?
     <input type="checkbox" [checked]="isReadyToStudyOnly" (change)="updateIsReadyStudyOnly()" />

@@ -52,22 +52,33 @@ export class CardService {
     return response.data.listTopics as ListTopicsQuery;
   }
 
+  private async getCardsFromAmplify() {
+    const user = await this.userService.getUserPromise();
+    const topicService = await this.GetCardsByUser({
+      user: { eq: user.email }
+    });
+    return pipe(
+      filter((r: any) => r.cards.items.length > 0),
+      map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),
+      flatten,
+      map(r => ({
+        ...r,
+        nextStudy: getDateFromTimestamp(getNextStudyDate(r))
+      }))
+    )([...topicService.items]);
+  }
+
   public getAllCards(): Observable<any> {
     return defer(async () => {
-      const user = await this.userService.getUserPromise();
-      const topicService = await this.GetCardsByUser({
-        user: { eq: user.email }
-      });
-      return pipe(
-        filter((r: any) => r.cards.items.length > 0),
-        map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),
-        flatten,
-        map(r => ({
-          ...r,
-          nextStudy: getDateFromTimestamp(getNextStudyDate(r))
-        })),
-        filter((r: any) => isReadyToStudy(r))
-      )([...topicService.items]);
+      const cards = await this.getCardsFromAmplify();
+      return cards;
+    });
+  }
+
+  public getAllStudyCards(): Observable<any> {
+    return defer(async () => {
+      const cards = await this.getCardsFromAmplify();
+      return filter((r: any) => isReadyToStudy(r))(cards);
     });
   }
 

@@ -1,0 +1,24 @@
+.topic-selection {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #7c5f42;
+  background-image: url('../../assets/white-arrow.svg');
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 4rem;
+  border-radius: 0px;
+  background-size: 1%;
+  background-position-y: 50%;
+  background-position-x: 98%;
+  font-size: 2rem;
+  color: #fcfcfc;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.alert {
+  color: red;
+  font-size: 3rem;
+  text-align: center;
+}

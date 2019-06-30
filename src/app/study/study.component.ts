@@ -30,7 +30,7 @@ export class StudyComponent implements OnDestroy {
   }
 
   private startCardsSubscription() {
-    this.cardsSubscription = this.cardService.getAllCards().subscribe(cards => {
+    this.cardsSubscription = this.cardService.getAllStudyCards().subscribe(cards => {
       this.cards = shuffle(cards);
       this.loading = false;
     });
