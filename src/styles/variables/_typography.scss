@@ -1,0 +1,66 @@
+$baseFontSize: 1rem;
+
+$font-sizes: (
+  vl: 2rem,
+  lg: 1.5rem,
+  md: $baseFontSize,
+  base: $baseFontSize,
+  sm: 0.875rem
+);
+
+@function getFontSize($scale) {
+  @return map-get($font-sizes, $scale);
+}
+
+$measures: (
+  n: 25em,
+  base: 40em,
+  w: 50em
+);
+
+$line-heights: (
+  s: 1,
+  t: 1.25,
+  c: 1.5
+);
+
+$tracking: (
+  base: 0.1em,
+  t: -0.05em,
+  m: 0.25em
+);
+
+$text-transform: (
+  u: uppercase,
+  l: lowercase,
+  c: capitalize
+);
+
+$font-weights: (
+  n: normal,
+  b: bold,
+  m: 400
+);
+
+$font-styles: (
+  n: normal,
+  i: italic
+);
+
+$vertical-aligns: (
+  m: middle,
+  t: top,
+  b: bottom
+);
+
+$text-aligns: (
+  l: left,
+  c: center,
+  r: right
+);
+
+$text-decorations: (
+  nu: no-underline,
+  u: underline,
+  s: line-through
+);

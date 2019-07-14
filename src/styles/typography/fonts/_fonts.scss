@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial|Roboto+Slab:100,300,400,700&display=swap');
+
+@mixin header-font {
+  font-family: 'Roboto Slab', serif;
+}
+
+@mixin text-font {
+  font-family: 'Questrial', sans-serif;
+}
+
+* {
+  @include text-font();
+}

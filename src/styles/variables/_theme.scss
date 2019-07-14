@@ -1,0 +1,39 @@
+$thicknessMap: (
+  normal: 1px,
+  thick: 2px,
+  vthick: 4px
+);
+
+$paletteMap: (
+  primary: (
+    vlight: #91ed77,
+    light: #77cc62,
+    base: #5ea84e,
+    dark: #3f7233,
+    vdark: #39632f
+  ),
+  secondary: (
+    vlight: #cce8ea,
+    light: #a9d5e0,
+    base: #6fadbc,
+    dark: #6492a0,
+    vdark: #5d7f8c
+  ),
+  tertiary: (
+    vlight: #d3a479,
+    light: #a37d5a,
+    base: #7c5f42,
+    dark: #56412e,
+    vdark: #35281c
+  ),
+  white: (
+    base: #fcfcfc
+  ),
+  black: (
+    base: #111111
+  )
+);
+
+@function getColor($type, $intensity) {
+  @return map-get(map-get($paletteMap, $type), $intensity);
+}

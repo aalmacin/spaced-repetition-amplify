@@ -1,0 +1,76 @@
+@import '../tokens';
+@import '../utils';
+
+@import './boxSizing';
+@import './space/margin';
+@import './space/padding';
+
+.al-lf {
+  display: flex;
+}
+
+.al-lf-n {
+  flex: none;
+}
+
+.al-lf-a {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* 1 */
+  min-height: 0;
+  /* 1 */
+}
+
+.al-lf-fw {
+  flex-wrap: wrap;
+}
+
+.al-lf-fw-r {
+  flex-wrap: wrap-reverse;
+}
+
+.al-lf-fd-r {
+  flex-direction: row;
+}
+
+.al-lf-fd-rr {
+  flex-direction: row-reverse;
+}
+
+.al-lf-fd-c {
+  flex-direction: column;
+}
+
+.al-lf-fd-cr {
+  flex-direction: column-reverse;
+}
+
+@include generate($flexAlignItemsMap, lf-ai, align-items);
+@include generate($flexAlignItemsMap, lf-as, align-self);
+@include generate($flexAlignContentMap, lf-ac, align-content);
+@include generate($flexJustifyContentMap, lf-jc, justify-content);
+@include generate($flexOrderMap, lf-fo, order);
+
+@include generate($floatMap, lfl, float);
+
+/** clearfix **/
+.al-lfl-cf:before,
+.al-lfl-cf:after {
+  content: ' ';
+  display: table;
+}
+
+.al-lfl-cf:after {
+  clear: both;
+}
+
+.al-lfl-cf {
+  zoom: 1;
+}
+
+@include generate($displayMap, ld, display);
+
+@include generate($widthMap, lw, width);
+@include generate($maxWidthMap, lmw, max-width);
+
+@include generate($heightMap, lh, height);

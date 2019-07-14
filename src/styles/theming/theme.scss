@@ -1,0 +1,8 @@
+@import './border/border.scss';
+@import './color/color.scss';
+
+@include generateBorderClasses('al-sb', 'border');
+
+@include generateColorClasses('al-sbg', 'background-color');
+
+@include generateColorClasses('al-sc', 'color');
