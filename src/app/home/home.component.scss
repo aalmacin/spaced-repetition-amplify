@@ -6,18 +6,20 @@
   justify-content: space-around;
 
   .text {
-    padding: 1rem;
-    margin-top: 1rem;
-    @include font-size(lg);
+    @include padding;
+    @include margin(lg, t);
+    @include font-size;
     display: inline-block;
     flex-basis: 98%;
 
     @include media(tablet) {
       flex-basis: 48%;
+      @include margin(md, t);
     }
 
     @include media(desktop) {
       flex-basis: 32%;
+      @include margin(sm, t);
     }
 
     .small {
@@ -53,6 +55,68 @@
 
     &.large2 {
       @include font-size(lg-2);
+    }
+  }
+}
+
+.padding {
+  div {
+    background-color: $primary;
+    display: inline-block;
+    @include margin(sm);
+
+    &.padding {
+      &-small {
+        @include padding(sm);
+      }
+
+      &-medium {
+        @include padding(md);
+      }
+
+      &-large {
+        @include padding(lg);
+      }
+
+      &-large-2 {
+        @include padding(lg-2);
+      }
+    }
+  }
+}
+
+.margin {
+  div.margin {
+    &-item {
+      display: inline-block;
+      background-color: $primary;
+      @include padding(sm);
+      width: 5rem;
+      height: 5rem;
+    }
+
+    &-small {
+      .margin-item {
+        @include margin(sm);
+      }
+    }
+
+    &-medium {
+      .margin-item {
+        @include margin(md);
+      }
+    }
+
+    &-large {
+      .margin-item {
+        @include margin(lg);
+      }
+    }
+
+    &-large-2 {
+      .margin-item {
+        @include margin(lg-2);
+      }
     }
   }
 }

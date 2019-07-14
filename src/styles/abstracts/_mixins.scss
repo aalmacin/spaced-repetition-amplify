@@ -6,6 +6,54 @@
   font-size: map-get($font-sizes, $font-size);
 }
 
+@mixin padding($padding: md, $direction: a) {
+  $paddingValue: map-get($spacingMap, $padding);
+
+  @if(str-index($direction, t)) {
+    padding-top: $paddingValue;
+  }
+
+  @if(str-index($direction, r)) {
+    padding-right: $paddingValue;
+  }
+
+  @if(str-index($direction, b)) {
+    padding-bottom: $paddingValue;
+  }
+
+  @if(str-index($direction, l)) {
+    padding-left: $paddingValue;
+  }
+
+  @if($direction==a) {
+    padding: $paddingValue;
+  }
+}
+
+@mixin margin($margin: md, $direction: a) {
+  $marginValue: map-get($spacingMap, $margin);
+
+  @if(str-index($direction, t)) {
+    margin-top: $marginValue;
+  }
+
+  @if(str-index($direction, r)) {
+    margin-right: $marginValue;
+  }
+
+  @if(str-index($direction, b)) {
+    margin-bottom: $marginValue;
+  }
+
+  @if(str-index($direction, l)) {
+    margin-left: $marginValue;
+  }
+
+  @if($direction==a) {
+    margin: $marginValue;
+  }
+}
+
 @mixin media($size) {
   $breakpoint: map-get($breakpoints, $size);
 

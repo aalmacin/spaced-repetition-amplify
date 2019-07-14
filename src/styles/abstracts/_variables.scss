@@ -17,6 +17,13 @@ $black: #0b1112;
 $white: #ffffff;
 $white-2: #f0f6f8;
 
+/// Copy text color
+/// @type Color
+$text-color: $black !default;
+
+/// Main brand color
+/// @type Color
+$brand-color: $primary !default;
 
 // Typography
 $text-font-stack: 'Source Sans Pro',
@@ -42,14 +49,15 @@ lg-2: calc(#{$base-font-size} * 2));
 
 $text-default-font-weight: map-get($font-weights, normal);
 
-/// Copy text color
-/// @type Color
-$text-color: $black !default;
-
-/// Main brand color
-/// @type Color
-$brand-color: $primary !default;
-
 // Breakpoints
 $breakpoints: (tablet: (min: 768px, max: 1023px),
-desktop: 1024px)
+desktop: 1024px);
+
+$base-spacing-size: 1rem;
+
+$spacingMap: (
+  sm: calc(#{$base-spacing-size} * 0.5),
+  md: #{$base-spacing-size},
+  lg: #{$base-spacing-size * 2},
+  lg-2: #{$base-spacing-size * 3},
+)
