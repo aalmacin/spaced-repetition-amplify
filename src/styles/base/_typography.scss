@@ -1,0 +1,21 @@
+/**
+ * Basic typography style for copy text
+ */
+
+body {
+  font-family: $text-font-stack;
+  font-weight: $text-default-font-weight;
+  color: $text-color;
+}
+
+*,
+*::before,
+*::after {
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+p {
+  hyphens: auto;
+}

@@ -1,24 +1,14 @@
-.main-logo-sm {
-  display: inline;
-}
+// Nav component
 
-.main-logo-lg {
-  display: none;
-}
+.nav {
+  &__list {
 
-@media only screen and (min-width: 1024px) {
-  #content-section {
   }
 
-  .main-info {
-    margin: 0;
+  &__item {
   }
 
-  .main-logo-sm {
-    display: none;
-  }
+  &__header-item {
 
-  .main-logo-lg {
-    display: inline;
   }
 }

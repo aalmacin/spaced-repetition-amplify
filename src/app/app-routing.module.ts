@@ -8,11 +8,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
-  {
-    path: 'main',
-    loadChildren: './main/main.module#MainModule',
-    data: { preload: true }
-  },
+  // {
+  //   path: 'main',
+  //   loadChildren: './main/main.module#MainModule',
+  //   data: { preload: true }
+  // },
   {
     path: '',
     redirectTo: 'home',

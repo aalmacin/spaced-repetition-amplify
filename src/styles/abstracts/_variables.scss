@@ -1,0 +1,51 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+// Colors
+$red: #BC6FAD;
+$green: #6FBCA4;
+$blue: #6FADBC;
+$blue-dark: #6F87BC;
+
+// Color Scheme
+$primary: $blue;
+$secondary: $blue-dark;
+$tertiary: $green;
+
+$black: #0b1112;
+$white: #ffffff;
+$white-2: #f0f6f8;
+
+
+// Typography
+$text-font-stack: 'Source Sans Pro',
+'Open Sans',
+'Helvetica Neue Light',
+'Helvetica Neue',
+'Helvetica',
+'Arial',
+sans-serif !default;
+
+$font-weights: (
+  thin: 200,
+  normal: 300,
+  semibold: 600,
+  bold: 700
+);
+
+$text-default-font-weight: map-get($font-weights, normal);
+
+/// Copy text color
+/// @type Color
+$text-color: $black !default;
+
+/// Main brand color
+/// @type Color
+$brand-color: $primary !default;
+
+// Breakpoints
+$breakpoints: (
+  tablet: (min: 768px, max: 1023px),
+  desktop: 1024px
+)

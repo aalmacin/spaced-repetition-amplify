@@ -1,0 +1,23 @@
+@mixin font-weight($font-weight: 300) {
+  font-weight: map-get($font-weights, $font-weight);
+}
+
+@mixin media($size) {
+  $breakpoint: map-get($breakpoints, $size);
+
+  @if ($size !=desktop) {
+    $min: map-get($breakpoint, min);
+    $max: map-get($breakpoint, max);
+
+    @media screen and (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+
+  }
+
+  @else {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}

@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { CardService } from '../card.service';
+import { CardService } from '../../card.service';
 import { Subscription } from 'rxjs';
-import { CardViewModel } from '../card';
-import { APIService } from '../API.service';
-import { makeBoxEasier } from '../study/study.func';
-import { getCurrentTimestamp } from '../study/timestamp.func';
+import { CardViewModel } from '../../card';
+import { APIService } from '../../API.service';
+import { makeBoxEasier } from './study.func';
+import { getCurrentTimestamp } from './timestamp.func';
 import { shuffle } from 'lodash';
 
 @Component({

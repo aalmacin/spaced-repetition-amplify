@@ -1,3 +1,14 @@
-<p>
-  home works!
-</p>
+<h2>Font Styles</h2>
+<div class="font-styles">
+  <ng-container *ngFor="let style of styles">
+    <p
+      class="text"
+      [style.color]="style.color"
+      [style.backgroundColor]="style.bgColor"
+    >
+      <span class="small">{{ style.name }}</span>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptate nobis beatae aspernatur velit asperiores,
+      in, voluptatum delectus vel modi facilis maiores possimus? Quaerat dolor sint amet porro asperiores? Nobis?
+    </p>
+  </ng-container>
+</div>

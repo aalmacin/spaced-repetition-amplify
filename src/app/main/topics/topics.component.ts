@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { APIService } from '../API.service';
+import { APIService } from '../../API.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { User } from '../user';
-import { TopicService } from '../topic.service';
+import { TopicService } from '../../topic.service';
 import { Subscription } from 'rxjs';
+import { User } from '../main/user';
 
 @Component({
   selector: 'app-topics',

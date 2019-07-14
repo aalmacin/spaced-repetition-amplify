@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
-import { User } from './user';
+import { User } from './main/main/user';
 import { Auth } from 'aws-amplify';
 import { Observable, defer, from } from 'rxjs';
 

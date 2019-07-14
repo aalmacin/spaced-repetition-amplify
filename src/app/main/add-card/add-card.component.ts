@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { APIService, Box } from '../../API.service';
-import { getCurrentTimestamp } from '../../study/timestamp.func';
+import { getCurrentTimestamp } from '../study/timestamp.func';
 import { TopicService } from '../../topic.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 

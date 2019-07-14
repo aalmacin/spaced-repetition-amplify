@@ -5,8 +5,8 @@ import { switchMap } from 'rxjs/operators';
 import { CardViewModel } from 'src/app/card';
 import { APIService } from 'src/app/API.service';
 import { CardService } from 'src/app/card.service';
-import { makeBoxEasier } from 'src/app/study/study.func';
-import { getCurrentTimestamp } from 'src/app/study/timestamp.func';
+import { makeBoxEasier } from 'src/app/main/study/study.func';
+import { getCurrentTimestamp } from 'src/app/main/study/timestamp.func';
 
 @Component({
   selector: 'app-cards',

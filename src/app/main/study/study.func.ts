@@ -1,6 +1,6 @@
-import { Card } from '../card';
+import { Card } from '../../card';
 import { addDays, getCurrentTimestamp } from './timestamp.func';
-import { Box } from '../API.service';
+import { Box } from '../../API.service';
 
 export const getNextStudyDate = (card: Card): number => {
   switch (card.box) {

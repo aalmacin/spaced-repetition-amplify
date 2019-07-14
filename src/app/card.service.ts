@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, defer } from 'rxjs';
 import { CardViewModel } from './card';
-import { isReadyToStudy, getNextStudyDate } from './study/study.func';
+import { isReadyToStudy, getNextStudyDate } from './main/study/study.func';
 import { APIService, ListTopicsQuery, ModelTopicFilterInput, Box } from './API.service';
 import { UserService } from './user.service';
 import { API, graphqlOperation } from 'aws-amplify';
 import { map, pipe, flatten, filter } from 'ramda';
-import { getDateFromTimestamp, getCurrentTimestamp } from './study/timestamp.func';
+import { getDateFromTimestamp, getCurrentTimestamp } from './main/study/timestamp.func';
 
 @Injectable({
   providedIn: 'root'
