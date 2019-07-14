@@ -14,11 +14,11 @@ import { APIService } from './API.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './user.service';
-import { CardManagementComponent } from './card-management/card-management.component';
-import { SpinnerComponent } from './spinner/spinner.component';
-import { CardManagementItemComponent } from './card-management-item/card-management-item.component';
+import { CardManagementComponent } from './main/card-management/card-management.component';
+import { SpinnerComponent } from './main/spinner/spinner.component';
+import { CardManagementItemComponent } from './main/card-management-item/card-management-item.component';
 import { StudyComponent } from './study/study.component';
-import { AddCardComponent } from './add-card/add-card.component';
+import { AddCardComponent } from './main/add-card/add-card.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AlleleModule } from './allele/allele.module';
 
