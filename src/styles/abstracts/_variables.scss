@@ -3,23 +3,23 @@
 // -----------------------------------------------------------------------------
 
 // Colors
-$red: #BC6FAD;
-$green: #6FBCA4;
-$blue: #6FADBC;
-$blue-dark: #6F87BC;
+$colorMap: (red: #BC6FAD,
+green: #6FBCA4,
+blue: #6FADBC,
+blue-dark: #6F87BC,
+black: #0b1112,
+white: #ffffff,
+white-2: #f0f6f8,
+);
 
 // Color Scheme
-$primary: $blue;
-$secondary: $blue-dark;
-$tertiary: $green;
-
-$black: #0b1112;
-$white: #ffffff;
-$white-2: #f0f6f8;
+$primary: map-get($colorMap, blue);
+$secondary: map-get($colorMap, blue-dark);
+$tertiary: map-get($colorMap, green);
 
 /// Copy text color
 /// @type Color
-$text-color: $black !default;
+$text-color: map-get($colorMap, black) !default;
 
 /// Main brand color
 /// @type Color
@@ -55,9 +55,8 @@ desktop: 1024px);
 
 $base-spacing-size: 1rem;
 
-$spacingMap: (
-  sm: calc(#{$base-spacing-size} * 0.5),
-  md: #{$base-spacing-size},
-  lg: #{$base-spacing-size * 2},
-  lg-2: #{$base-spacing-size * 3},
+$spacingMap: (sm: calc(#{$base-spacing-size} * 0.5),
+md: #{$base-spacing-size},
+lg: #{$base-spacing-size * 2},
+lg-2: #{$base-spacing-size * 3},
 )

@@ -9,3 +9,7 @@
 @function font($path, $base: $base-url) {
   @return asset($base, 'fonts/', $path);
 }
+
+@function getColor($color) {
+  @return map-get($colorMap, $color);
+}
