@@ -26,9 +26,7 @@
       display: block;
       font-size: 1.4rem;
 
-      .bold {
-        font-weight: 400;
-      }
+      @include font-weight(semibold);
     }
   }
 }
