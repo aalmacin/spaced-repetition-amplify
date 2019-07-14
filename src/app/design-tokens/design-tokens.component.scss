@@ -1,0 +1,120 @@
+@import '../../styles/framework.scss';
+
+.font-styles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .text {
+    @include padding;
+    @include margin(lg, t);
+    @include font-size;
+    display: inline-block;
+    flex-basis: 98%;
+
+    @include media(tablet) {
+      flex-basis: 48%;
+      @include margin(md, t);
+    }
+
+    @include media(desktop) {
+      flex-basis: 32%;
+      @include margin(sm, t);
+    }
+
+    .small {
+      display: block;
+      font-size: 1.4rem;
+
+      @include font-weight(semibold);
+    }
+  }
+}
+
+.font-sizes {
+  p {
+    padding: 1rem;
+
+    &.small2 {
+      @include font-size(sm-2);
+    }
+
+    &.small {
+      @include font-size(sm);
+    }
+
+    &.medium {
+      @include font-size(md);
+    }
+
+    &.large {
+      @include font-size(lg);
+    }
+
+    &.large2 {
+      @include font-size(lg-2);
+    }
+  }
+}
+
+.padding {
+  div {
+    background-color: $primary;
+    display: inline-block;
+    @include margin(sm);
+
+    &.padding {
+      &-small {
+        @include padding(sm);
+      }
+
+      &-medium {
+        @include padding(md);
+      }
+
+      &-large {
+        @include padding(lg);
+      }
+
+      &-large-2 {
+        @include padding(lg-2);
+      }
+    }
+  }
+}
+
+.margin {
+  div.margin {
+    &-item {
+      display: inline-block;
+      background-color: $primary;
+      @include padding(sm);
+      width: 5rem;
+      height: 5rem;
+    }
+
+    &-small {
+      .margin-item {
+        @include margin(sm);
+      }
+    }
+
+    &-medium {
+      .margin-item {
+        @include margin(md);
+      }
+    }
+
+    &-large {
+      .margin-item {
+        @include margin(lg);
+      }
+    }
+
+    &-large-2 {
+      .margin-item {
+        @include margin(lg-2);
+      }
+    }
+  }
+}
