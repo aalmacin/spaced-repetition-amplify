@@ -8,7 +8,7 @@
   .text {
     padding: 1rem;
     margin-top: 1rem;
-    font-size: 2.8rem;
+    @include font-size(lg);
     display: inline-block;
     flex-basis: 98%;
 
@@ -27,6 +27,32 @@
       .bold {
         font-weight: 400;
       }
+    }
+  }
+}
+
+.font-sizes {
+  p {
+    padding: 1rem;
+
+    &.small2 {
+      @include font-size(sm-2);
+    }
+
+    &.small {
+      @include font-size(sm);
+    }
+
+    &.medium {
+      @include font-size(md);
+    }
+
+    &.large {
+      @include font-size(lg);
+    }
+
+    &.large2 {
+      @include font-size(lg-2);
     }
   }
 }

@@ -1,5 +1,9 @@
-@mixin font-weight($font-weight: 300) {
+@mixin font-weight($font-weight: normal) {
   font-weight: map-get($font-weights, $font-weight);
+}
+
+@mixin font-size($font-size: md) {
+  font-size: map-get($font-sizes, $font-size);
 }
 
 @mixin media($size) {

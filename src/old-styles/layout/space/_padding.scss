@@ -1,8 +1,0 @@
-@import './space.scss';
-@import '../../tokens.scss';
-
-@include generateSpaceClasses('al-lp', 'padding');
-
-.al-lp-n {
-  padding: 0;
-}

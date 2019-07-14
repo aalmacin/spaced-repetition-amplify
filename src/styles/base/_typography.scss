@@ -16,6 +16,10 @@ body {
   color: inherit;
 }
 
+div, p, a, li, table {
+  @include font-size;
+}
+
 p {
   hyphens: auto;
 }

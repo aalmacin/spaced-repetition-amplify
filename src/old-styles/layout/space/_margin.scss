@@ -1,8 +1,0 @@
-@import './space.scss';
-@import '../../tokens.scss';
-
-@include generateSpaceClasses('al-lm', 'margin');
-
-.al-lm-n {
-  margin: 0;
-}
