@@ -10,7 +10,6 @@ import { CardsComponent } from './cards/cards.component';
 
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
-import { MollyModule } from 'molly-component-library';
 import { APIService } from './API.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +20,7 @@ import { CardManagementItemComponent } from './card-management-item/card-managem
 import { StudyComponent } from './study/study.component';
 import { AddCardComponent } from './add-card/add-card.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AlleleModule } from './allele/allele.module';
 
 @NgModule({
   declarations: [
@@ -38,8 +38,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AlleleModule,
     AmplifyAngularModule,
-    MollyModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule

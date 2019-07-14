@@ -1,0 +1,17 @@
+:host {
+  cursor: pointer;
+}
+
+:host ::ng-deep a {
+  font-family: inherit;
+  color: inherit;
+  text-decoration: inherit;
+
+  &.active {
+    border-bottom: 1px solid blue;
+  }
+
+  &:hover {
+    border-bottom: 1px solid blue;
+  }
+}

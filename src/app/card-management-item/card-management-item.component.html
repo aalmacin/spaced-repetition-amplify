@@ -14,14 +14,14 @@
   </td>
   <td>{{ card.nextStudy }}</td>
   <td>
-    <button *ngIf="viewMode; else editMode" molBtn type="secondary" size="sm" (click)="startEditMode()">
+    <button *ngIf="viewMode; else editMode" alBtn type="secondary" size="sm" (click)="startEditMode()">
       Edit
     </button>
 
     <ng-template #editMode>
       <button
         type="secondary"
-        molBtn
+        alBtn
         size="sm"
         (click)="saveChanges(card.id, frontEditInput.value, backEditInput.value)"
       >
@@ -29,5 +29,5 @@
       </button>
     </ng-template>
   </td>
-  <td><button molBtn size="sm" (click)="deleteCard(card.id)">Delete</button></td>
+  <td><button alBtn size="sm" (click)="deleteCard(card.id)">Delete</button></td>
 </ng-container>

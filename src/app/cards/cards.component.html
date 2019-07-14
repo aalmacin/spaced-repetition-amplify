@@ -7,20 +7,20 @@
   </div>
 
   <ng-container *ngIf="cards.length > 0; else noCards">
-    <div *ngFor="let card of cards" class="flash-card mol-lm-y-md">
+    <div *ngFor="let card of cards" class="flash-card al-lm-y-md">
       <ng-container *ngIf="card.id === cards[0].id || !(isReadyToStudyOnly$ | async)">
-        <mol-flash-card
+        <al-flash-card
           topic="{{ card.topicName }}"
           front="{{ card.front }}"
           back="{{ card.back }}"
           (easy)="updateCardToEasy(card.id, card.box)"
           (hard)="updateCardToHard(card.id, card.box)"
-        ></mol-flash-card>
+        ></al-flash-card>
       </ng-container>
     </div>
   </ng-container>
 
   <ng-template #noCards>
-    <p class="mol-tta-c">No cards to show at the moment</p>
+    <p class="al-tta-c">No cards to show at the moment</p>
   </ng-template>
 </ng-template>

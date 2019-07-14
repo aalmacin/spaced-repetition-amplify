@@ -1,31 +1,31 @@
 <div *ngIf="signedIn" class="main">
-  <nav mol-nav>
-    <div mol-nav-header class="nav-header">
+  <nav al-nav>
+    <div al-nav-header class="nav-header">
       <span class="main-logo-lg">Spaced Repetition</span>
       <span class="main-logo-sm">SPR</span>
     </div>
-    <div mol-nav-item class="nav-item"><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></div>
-    <div mol-nav-item class="nav-item">
+    <div al-nav-item class="nav-item"><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></div>
+    <div al-nav-item class="nav-item">
       <a class="nav-item" routerLink="/topics" routerLinkActive="active">Topics</a>
     </div>
-    <div mol-nav-item class="nav-item">
+    <div al-nav-item class="nav-item">
       <a class="nav-item" routerLink="/card-mgmt" routerLinkActive="active">Cards</a>
     </div>
-    <div mol-nav-item class="nav-item">
+    <div al-nav-item class="nav-item">
       <a class="nav-item" routerLink="/study" routerLinkActive="active">Study</a>
     </div>
-    <div mol-nav-item-end>
+    <div al-nav-item-end>
       <amplify-authenticator></amplify-authenticator>
     </div>
   </nav>
-  <div id="content-section" class="mol-lf mol-lf-fd-c mol-lf-ai-str">
+  <div id="content-section" class="al-lf al-lf-fd-c al-lf-ai-str">
     <router-outlet></router-outlet>
   </div>
 </div>
 <div *ngIf="!signedIn" class="main">
-  <nav mol-nav>
-    <div mol-nav-header class="nav-header">Spaced Repetition</div>
-    <div mol-nav-item class="nav-item"><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></div>
+  <nav al-nav>
+    <div al-nav-header class="nav-header">Spaced Repetition</div>
+    <div al-nav-item class="nav-item"><a class="nav-item" routerLink="/home" routerLinkActive="active">Home</a></div>
   </nav>
   <div class="auth">
     <amplify-authenticator></amplify-authenticator>

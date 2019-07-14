@@ -1,0 +1,16 @@
+:host ::ng-deep .card-img img {
+  width: 100%;
+}
+
+:host ::ng-deep .card-content img {
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep .card-btn {
+  display: flex;
+  a,
+  button {
+    width: 100%;
+  }
+}

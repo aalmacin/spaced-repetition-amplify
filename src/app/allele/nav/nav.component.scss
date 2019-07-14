@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+:host ::ng-deep .al-nav-items {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 2;
+}
+
+:host ::ng-deep .al-nav-items-end {
+  display: flex;
+  flex-direction: row;
+}
