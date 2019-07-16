@@ -1,0 +1,96 @@
+@import '../../styles/framework.scss';
+
+.nav {
+  vertical-align: middle;
+  line-height: 1;
+  position: relative;
+
+  .nav-displayed {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    &__header {
+      display: inline-block;
+      @include padding(lg, tbl);
+    }
+
+    &__login {
+      @include padding(md, r);
+    }
+
+    &__toggle-label {
+      display: inline-block;
+      @include padding(lg, r);
+      text-align: center;
+      cursor: pointer;
+      z-index: 100;
+    }
+  }
+
+
+
+  .nav-toggler {
+    display: none;
+
+    &:checked+.nav-list-container {
+      opacity: 1;
+      visibility: visible;
+      width: 50vw;
+      @include padding(lg);
+    }
+  }
+
+  .nav-list-container {
+    width: 0vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: getColor(blue-dark);
+    transition: all .3s ease-in;
+    backface-visibility: hidden;
+
+    .nav-list-close {
+      @include font-size(lg);
+      color: getColor(white);
+      text-align: right;
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+
+    .nav-list {
+      overflow: hidden;
+      @include font-size(lg-2);
+      text-align: left;
+      backface-visibility: hidden;
+      color: getColor(white);
+
+      &__link {
+        @include padding(lg);
+        display: inline-block;
+        width: 100%;
+        transition: transform 100ms ease-in;
+
+
+        &:link,
+        &:visited {
+          &.router-link-active {
+            @include font-weight(semibold);
+          }
+        }
+
+        &:hover {
+          -webkit-transform: translateX(1rem);
+          transform: translateX(1rem);
+          color: getColor(white-2);
+          border-bottom: 1px solid getColor(blue);
+        }
+      }
+    }
+  }
+
+}

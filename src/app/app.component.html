@@ -1,26 +1,4 @@
-<nav class="nav">
-  <div class="nav__displayed">
-    <h1 class="nav__header">Spaced Repetition</h1>
-    <div>
-      <a class="nav__login" [routerLink]="['/login']" routerLinkActive="router-link-active">Login</a>
-      <label class="nav__toggle-label" for="nav-toggle"><i class="fas fa-bars"></i></label>
-    </div>
-  </div>
-  <input id="nav-toggle" class="nav__toggle" type="checkbox" />
-  <div class="nav__list-container">
-    <ul class="nav__list">
-      <li class="nav__item">
-        <a [routerLink]="['/']" routerLinkActive="router-link-active">Home</a>
-      </li>
-      <li class="nav__item">
-        <a [routerLink]="['/info']" routerLinkActive="router-link-active">Info</a>
-      </li>
-      <li class="nav__item">
-        <a [routerLink]="['/contact']" routerLinkActive="router-link-active">Contact</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<app-nav></app-nav>
 <main class="main">
   <router-outlet></router-outlet>
 </main>

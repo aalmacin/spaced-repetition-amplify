@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { DesignTokensComponent } from './design-tokens/design-tokens.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { DesignTokensComponent } from './design-tokens/design-tokens.component';
     HomeComponent,
     NotFoundComponent,
     DesignTokensComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
