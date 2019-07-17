@@ -45,7 +45,9 @@ $font-sizes: (sm-2: calc(#{$base-font-size} * .5),
 sm: calc(#{$base-font-size} * .75),
 md: #{$base-font-size},
 lg: calc(#{$base-font-size} * 1.5),
-lg-2: calc(#{$base-font-size} * 2));
+lg-2: calc(#{$base-font-size} * 2),
+lg-3: calc(#{$base-font-size} * 3)
+);
 
 $text-default-font-weight: map-get($font-weights, normal);
 

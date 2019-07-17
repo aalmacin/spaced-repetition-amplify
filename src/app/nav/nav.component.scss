@@ -4,6 +4,15 @@
   vertical-align: middle;
   line-height: 1;
   position: relative;
+  @include font-size(sm);
+
+  @include media(tablet) {
+    @include font-size(lg);
+  }
+
+  @include media(desktop) {
+    @include font-size(lg);
+  }
 
   .nav-displayed {
     background-color: transparent;
@@ -18,7 +27,7 @@
     }
 
     &__login {
-      @include padding(md, r);
+      @include margin(lg, r);
     }
 
     &__toggle-label {
@@ -52,6 +61,7 @@
     background-color: getColor(blue-dark);
     transition: all .3s ease-in;
     backface-visibility: hidden;
+    z-index: 2;
 
     .nav-list-close {
       @include font-size(lg);
@@ -64,7 +74,16 @@
 
     .nav-list {
       overflow: hidden;
-      @include font-size(lg-2);
+      @include font-size(sm);
+
+      @include media(tablet) {
+        @include font-size(lg-2);
+      }
+
+      @include media(desktop) {
+        @include font-size(lg-2);
+      }
+
       text-align: left;
       backface-visibility: hidden;
       color: getColor(white);

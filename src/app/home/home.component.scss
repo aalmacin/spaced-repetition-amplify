@@ -1,0 +1,91 @@
+@import '../../styles/framework.scss';
+
+.banner {
+  background-image: linear-gradient(to bottom right, rgba(getColor(blue-dark), 0.8), rgba(getColor(blue-dark), 0.9)), url('../../assets/studying.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 50vh;
+
+  @include media(desktop) {
+    height: 80vh;
+  }
+
+  position: relative;
+  z-index: 1;
+
+  .banner-message {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    &__header {
+      color: rgba(getColor(white-2), 0.9);
+      padding: 0;
+      margin: 0;
+      text-shadow: 1rem 1.5rem 2rem rgba(getColor(blue), 0.5);
+      display: inline-block;
+      line-height: 1;
+      animation: dropIn .3s;
+
+      @include font-size(lg);
+
+      @include media(tablet) {
+        @include font-size(lg-3);
+      }
+
+      @include media(desktop) {
+        @include font-size(lg-3);
+      }
+
+      @include font-weight(bold);
+      text-transform: uppercase;
+      transition: all .2s;
+      transform-origin: bottom;
+
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    &__slogan {
+      display: inline-block;
+      @include font-size(lg);
+      color: getColor(white-2);
+    }
+
+    &__slogan-text {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 2s 0.2s;
+      animation-fill-mode: backwards;
+    }
+  }
+
+  .banner-cta {
+    @include margin(lg, t);
+    &__button {
+      @include font-size(lg);
+      @include padding(md, tb);
+      @include padding(lg, lr);
+      @include font-weight(semibold);
+      display: inline-block;
+      color: getColor(white-2);
+      background-color: getColor(blue);
+      box-shadow: 0rem 1rem 5rem rgba(getColor(black), 0.6);
+      text-transform: uppercase;
+      border-radius: 1rem;
+      transition: all .2s ease-in;
+
+      &:hover {
+        transform: translateY(-.5rem);
+        color: firebrick;
+      }
+    }
+  }
+
+}
