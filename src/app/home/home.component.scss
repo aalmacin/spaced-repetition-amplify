@@ -68,6 +68,7 @@
 
   .banner-cta {
     @include margin(lg, t);
+
     &__button {
       @include font-size(lg);
       @include padding(md, tb);
@@ -83,7 +84,10 @@
 
       &:hover {
         transform: translateY(-.5rem);
-        color: firebrick;
+      }
+
+      &:active {
+        transform: translateY(.3rem);
       }
     }
   }
