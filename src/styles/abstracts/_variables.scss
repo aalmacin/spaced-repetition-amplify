@@ -46,8 +46,7 @@ sm: calc(#{$base-font-size} * .75),
 md: #{$base-font-size},
 lg: calc(#{$base-font-size} * 1.5),
 lg-2: calc(#{$base-font-size} * 2),
-lg-3: calc(#{$base-font-size} * 3)
-);
+lg-3: calc(#{$base-font-size} * 3));
 
 $text-default-font-weight: map-get($font-weights, normal);
 
@@ -57,7 +56,8 @@ desktop: 1024px);
 
 $base-spacing-size: 1rem;
 
-$spacingMap: (sm: calc(#{$base-spacing-size} * 0.5),
+$spacingMap: (sm-2: calc(#{$base-spacing-size} * 0.25),
+sm: calc(#{$base-spacing-size} * 0.5),
 md: #{$base-spacing-size},
 lg: #{$base-spacing-size * 2},
 lg-2: #{$base-spacing-size * 3},

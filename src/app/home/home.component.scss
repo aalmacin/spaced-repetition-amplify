@@ -6,9 +6,10 @@
   background-position: center;
   width: 100vw;
   height: 50vh;
+  margin-top: 5rem;
 
   @include media(desktop) {
-    height: 80vh;
+    height: 85vh;
   }
 
   position: relative;
@@ -33,7 +34,7 @@
       @include font-size(lg);
 
       @include media(tablet) {
-        @include font-size(lg-3);
+        @include font-size(lg-2);
       }
 
       @include media(desktop) {
@@ -53,7 +54,16 @@
 
     &__slogan {
       display: inline-block;
-      @include font-size(lg);
+      @include font-size(sm);
+
+      @include media(tablet) {
+        @include font-size(md);
+      }
+
+      @include media(desktop) {
+        @include font-size(lg);
+      }
+
       color: getColor(white-2);
     }
 
@@ -70,16 +80,33 @@
     @include margin(lg, t);
 
     &__button {
-      @include font-size(lg);
-      @include padding(md, tb);
-      @include padding(lg, lr);
+      @include font-size(sm);
+      @include padding(sm, tb);
+      @include padding(md, lr);
       @include font-weight(semibold);
+      border-radius: .25rem;
+
+      @include media(tablet) {
+        @include font-size(lg);
+        @include padding(md, tb);
+        @include padding(lg, lr);
+        @include font-weight(semibold);
+        border-radius: 1rem;
+      }
+
+      @include media(desktop) {
+        @include font-size(lg);
+        @include padding(md, tb);
+        @include padding(lg, lr);
+        @include font-weight(semibold);
+        border-radius: 1rem;
+      }
+
       display: inline-block;
       color: getColor(white-2);
       background-color: getColor(blue);
       box-shadow: 0rem 1rem 5rem rgba(getColor(black), 0.6);
       text-transform: uppercase;
-      border-radius: 1rem;
       transition: all .2s ease-in;
 
       &:hover {
