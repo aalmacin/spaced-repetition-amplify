@@ -6,7 +6,7 @@
   background-position: center;
   width: 100vw;
   height: 50vh;
-  margin-top: 5rem;
+  margin-top: 6rem;
 
   @include media(desktop) {
     height: 85vh;
@@ -119,4 +119,52 @@
     }
   }
 
+}
+
+.steps {
+
+  &__header {
+    text-align: center;
+    @include font-size(lg-2);
+    color: getColor(blue);
+    text-transform: uppercase;
+    @include padding(lg);
+  }
+
+  @include padding(lg);
+
+  .step {
+    display: flex;
+    align-items: center;
+    // @include margin(md, t);
+
+    &__image {
+      width: 50%;
+      -webkit-filter: grayscale(1);
+      filter: grayscale(100%) sepia(100%) hue-rotate(165deg);
+    }
+
+    &__header {
+      @include font-size(lg-2);
+    }
+
+    &__header-step {
+      @include font-weight(semibold);
+    }
+
+    &__content {
+      @include font-size(lg);
+      @include margin(lg-3, t);
+    }
+
+    &__container {
+      @include padding(lg);
+      width: 50%;
+    }
+
+    &--2 {
+      flex-direction: row-reverse;
+      padding-left: 0;
+    }
+  }
 }

@@ -12,3 +12,32 @@
     </div>
   </div>
 </div>
+
+<div class="steps">
+  <h2 class="steps__header">3 simple steps</h2>
+
+  <div class="step step--1">
+    <img class="step__image" src="../../assets/steps-1.jpg" />
+    <div class="step__container">
+      <h3 class="step__header"><span class="step__header-step">Step 1:</span> Create topic</h3>
+      <p class="step__content">Create a topic for the subject you want to study.</p>
+    </div>
+  </div>
+  <div class="step step--2">
+    <img class="step__image" src="../../assets/steps-2.jpeg" />
+    <div class="step__container">
+      <h3 class="step__header"><span class="step__header-step">Step 2:</span> Study</h3>
+      <p class="step__content">Study the concept you want to study. Add flash cards using the app.</p>
+    </div>
+  </div>
+  <div class="step step--3">
+    <img class="step__image" src="../../assets/steps-3.jpg" />
+    <div class="step__container">
+      <h3 class="step__header"><span class="step__header-step">Step 3:</span> Review</h3>
+      <p class="step__content">
+        Go to <a [routerLink]="['/study']">Study</a> page to review all topics or to
+        <a [routerLink]="['/topics']">Topics</a> page to review specific topic.
+      </p>
+    </div>
+  </div>
+</div>

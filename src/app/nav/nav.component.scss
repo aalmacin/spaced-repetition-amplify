@@ -15,7 +15,7 @@
   }
 
   .nav-displayed {
-    background-color: transparent;
+    background-color: getColor(white);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -23,6 +23,7 @@
     width: 100vw;
     top: 0;
     left: 0;
+    z-index: 300;
 
 
     &__header {
@@ -65,7 +66,7 @@
     background-color: getColor(blue-dark);
     transition: all .3s ease-in;
     backface-visibility: hidden;
-    z-index: 2;
+    z-index: 400;
 
     .nav-list-close {
       @include font-size(md);
