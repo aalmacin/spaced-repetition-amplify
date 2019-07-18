@@ -7,24 +7,21 @@ import { User } from './user';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User | null>;
-
-  public constructor() {
-    this.currentUserSubject = new BehaviorSubject<User | null>(null);
-  }
-
-  public get currentUser() {
-    return this.currentUserSubject.getValue();
-  }
-
   public getCurrentUser(): Observable<User | null> {
-    return defer(async () => {
-      const user = await this.getCurrentUserFromAmplify();
-      if (user) {
-        this.currentUserSubject.next(user);
-      }
-      return user;
-    });
+    return defer(async () => this.getCurrentUserFromAmplify());
+  }
+
+  public login(email: string, password: string): Observable<User | null> {
+    return defer(async () => this.loginToAmplify(email, password));
+  }
+
+  private async loginToAmplify(email, password) {
+    try {
+      const user = await Auth.signIn(email, password);
+      return { email: user.attributes.email };
+    } catch (error) {
+      return null;
+    }
   }
 
   private async getCurrentUserFromAmplify(): Promise<User | null> {
