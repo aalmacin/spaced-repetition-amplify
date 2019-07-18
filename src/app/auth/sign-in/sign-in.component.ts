@@ -11,7 +11,8 @@ export class SignInComponent {
   public loading = false;
   public errors: string[] = [];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   signIn(event: any, email: string, password: string) {
     event.preventDefault();

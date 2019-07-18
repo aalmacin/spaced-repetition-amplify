@@ -3,16 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { AmplifyAngularModule } from 'aws-amplify-angular';
 import { AuthService } from './auth.service';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 @NgModule({
-  declarations: [SignInComponent],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    AmplifyAngularModule
-  ],
+  declarations: [SignInComponent, SignOutComponent],
+  imports: [CommonModule, AuthRoutingModule, AmplifyAngularModule],
+  exports: [SignOutComponent],
   providers: [AuthService]
 })
-export class AuthModule { }
+export class AuthModule {}

@@ -15,6 +15,17 @@ export class AuthService {
     return defer(async () => this.loginToAmplify(email, password));
   }
 
+  public logOut(): Observable<boolean> {
+    return defer(async () => this.logoutToAmplify());
+  }
+
+  private async logoutToAmplify() {
+    const result = await Auth.signOut({ global: true })
+      .then(() => true)
+      .catch(() => false);
+    return result;
+  }
+
   private async loginToAmplify(email, password) {
     try {
       const user = await Auth.signIn(email, password);
