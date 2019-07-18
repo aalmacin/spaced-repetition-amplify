@@ -1,24 +1,27 @@
-.main-logo-sm {
-  display: inline;
+.main {
+  margin-top: 7rem;
 }
+// .main-logo-sm {
+//   display: inline;
+// }
 
-.main-logo-lg {
-  display: none;
-}
+// .main-logo-lg {
+//   display: none;
+// }
 
-@media only screen and (min-width: 1024px) {
-  #content-section {
-  }
+// @media only screen and (min-width: 1024px) {
+//   #content-section {
+//   }
 
-  .main-info {
-    margin: 0;
-  }
+//   .main-info {
+//     margin: 0;
+//   }
 
-  .main-logo-sm {
-    display: none;
-  }
+//   .main-logo-sm {
+//     display: none;
+//   }
 
-  .main-logo-lg {
-    display: inline;
-  }
-}
+//   .main-logo-lg {
+//     display: inline;
+//   }
+// }

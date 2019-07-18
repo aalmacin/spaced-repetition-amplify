@@ -18,11 +18,11 @@ const routes: Routes = [
     path: 'signin',
     component: SignInComponent
   },
-  // {
-  //   path: 'main',
-  //   loadChildren: './main/main.module#MainModule',
-  //   data: { preload: true }
-  // },
+  {
+    path: 'main',
+    loadChildren: './main/main.module#MainModule',
+    data: { preload: true }
+  },
   {
     path: '',
     redirectTo: 'home',

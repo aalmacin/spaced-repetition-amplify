@@ -7,9 +7,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  constructor(private authService: AuthService) {
-    this.authService.getCurrentUser().subscribe(a => console.log(a));
-  }
+  constructor(private authService: AuthService) {}
 
   signIn(event: any, email: string, password: string) {
     event.preventDefault();
