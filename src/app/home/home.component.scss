@@ -145,7 +145,15 @@
     }
 
     &__header {
-      @include font-size(lg-2);
+      @include font-size(sm);
+
+      @include media(tablet) {
+        @include font-size(lg-2);
+      }
+
+      @include media(desktop) {
+        @include font-size(lg-2);
+      }
     }
 
     &__header-step {
@@ -153,13 +161,27 @@
     }
 
     &__content {
-      @include font-size(lg);
-      @include margin(lg-3, t);
+      @include margin(sm, t);
+      @include font-size(sm-2);
+
+      @include media(tablet) {
+        @include margin(lg, t);
+        @include font-size(lg);
+      }
+
+      @include media(desktop) {
+        @include margin(lg-3, t);
+        @include font-size(lg-2);
+      }
     }
 
     &__container {
-      @include padding(lg);
       width: 50%;
+      @include padding(sm);
+
+      @include media(tablet) {
+        @include padding(lg);
+      }
     }
 
     &--2 {

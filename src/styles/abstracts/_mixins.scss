@@ -61,7 +61,7 @@
     $min: map-get($breakpoint, min);
     $max: map-get($breakpoint, max);
 
-    @media screen and (min-width: $min) and (max-width: $max) {
+    @media screen and (min-width: $min) {
       @content;
     }
 

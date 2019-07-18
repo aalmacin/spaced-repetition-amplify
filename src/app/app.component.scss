@@ -1,1 +1,20 @@
-// Nav component
+@import '../styles/framework.scss';
+
+.main {
+  min-height: 90vh;
+}
+
+.footer {
+  background-color: getColor(black);
+  color: getColor(blue);
+  text-align: center;
+  @include padding(lg);
+
+  &__message {
+    @include padding(lg);
+  }
+
+  &__author {
+    text-decoration: underline;
+  }
+}
