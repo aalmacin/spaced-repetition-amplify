@@ -1,7 +1,7 @@
-@import '../../styles/framework.scss';
+@import '../../../styles/framework.scss';
 
 .banner {
-  background-image: linear-gradient(to bottom right, rgba(getColor(blue-dark), 0.8), rgba(getColor(blue-dark), 0.9)), url('../../assets/studying.jpg');
+  background-image: linear-gradient(to bottom right, rgba(getColor(blue-dark), 0.8), rgba(getColor(blue-dark), 0.9)), url('../../../assets/studying.jpg');
   background-size: cover;
   background-position: center;
   width: 100vw;

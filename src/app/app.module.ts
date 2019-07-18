@@ -3,25 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './landing-pages/home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
-import { DesignTokensComponent } from './design-tokens/design-tokens.component';
-import { NavComponent } from './nav/nav.component';
 import { AuthModule } from './auth/auth.module';
+import { LandingPagesModule } from './landing-pages/landing-pages.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    NotFoundComponent,
-    DesignTokensComponent,
-    NavComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AmplifyAngularModule,
     AppRoutingModule,
+    LandingPagesModule,
     AuthModule
   ],
   providers: [AmplifyService],
