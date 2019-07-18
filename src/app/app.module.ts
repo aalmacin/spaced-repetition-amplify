@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { DesignTokensComponent } from './design-tokens/design-tokens.component';
 import { NavComponent } from './nav/nav.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavComponent } from './nav/nav.component';
   imports: [
     BrowserModule,
     AmplifyAngularModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   providers: [AmplifyService],
   bootstrap: [AppComponent]

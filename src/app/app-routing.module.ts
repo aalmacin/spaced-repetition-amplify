@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { DesignTokensComponent } from './design-tokens/design-tokens.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'design-tokens',
     component: DesignTokensComponent
+  },
+  {
+    path: 'signin',
+    component: SignInComponent
   },
   // {
   //   path: 'main',
