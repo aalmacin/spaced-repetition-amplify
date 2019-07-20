@@ -5,10 +5,25 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
   {
     path: 'auth',
+    pathMatch: 'full',
+    redirectTo: 'auth/signin'
+  },
+  {
+    path: 'app',
+    pathMatch: 'full',
+    redirectTo: 'app/dashboard'
+  },
+  {
+    path: 'home',
+    pathMatch: 'full',
+    redirectTo: 'home/landing-pages'
+  },
+  {
+    path: 'auth',
     loadChildren: './auth/auth.module#AuthModule'
   },
   {
-    path: 'main',
+    path: 'app',
     loadChildren: './main/main.module#MainModule'
   },
   {

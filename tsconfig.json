@@ -11,12 +11,13 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "paths": {
+      "@spaced-repetition/amplify/*": ["src/app/amplify/*"],
+      "@spaced-repetition/auth/*": ["src/app/auth/*"],
+      "@spaced-repetition/landing-pages/*": ["src/app/landing-pages/*"],
+      "@spaced-repetition/main/*": ["src/app/main/*"],
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"]
   }
 }
