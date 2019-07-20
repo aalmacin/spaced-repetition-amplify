@@ -7,8 +7,9 @@
 
 .footer {
   background-color: getColor(black);
-  color: getColor(blue);
+  color: getColor(white);
   text-align: center;
+  @include font-size(md);
   @include padding(lg);
 
   &__message {
