@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@spaced-repetition/amplify/auth.service';
 
@@ -8,12 +8,15 @@ import { AuthService } from '@spaced-repetition/amplify/auth.service';
   styleUrls: ['./sign-out.component.scss']
 })
 export class SignOutComponent {
+  @Input()
+  private navigateTo: string[] = ['/'];
+
   constructor(private authService: AuthService, private router: Router) {}
 
   public signOut(e: MouseEvent) {
     this.authService.logOut().subscribe(loggedOut => {
       if (loggedOut) {
-        this.router.navigate(['/home']);
+        this.router.navigate(this.navigateTo);
       }
     });
     e.preventDefault();
