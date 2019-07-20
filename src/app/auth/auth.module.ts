@@ -6,9 +6,11 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { AmplifyAngularModule } from 'aws-amplify-angular';
 import { AuthService } from './auth.service';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { NavComponent } from './nav/nav.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
-  declarations: [SignInComponent, SignOutComponent],
+  declarations: [SignInComponent, SignOutComponent, NavComponent, AuthComponent],
   imports: [CommonModule, AuthRoutingModule, AmplifyAngularModule],
   exports: [SignOutComponent],
   providers: [AuthService]

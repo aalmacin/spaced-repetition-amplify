@@ -14,9 +14,8 @@ const routes: Routes = [
         component: DesignTokensComponent
       },
       {
-        path: '',
-        component: HomeComponent,
-        pathMatch: 'full'
+        path: 'landing',
+        component: HomeComponent
       }
     ]
   }

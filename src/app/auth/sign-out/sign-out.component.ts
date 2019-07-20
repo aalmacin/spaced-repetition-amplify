@@ -3,7 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-out',
+  selector: 'app-auth-sign-out',
   templateUrl: './sign-out.component.html',
   styleUrls: ['./sign-out.component.scss']
 })
