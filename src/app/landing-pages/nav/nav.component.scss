@@ -14,6 +14,11 @@
     @include font-size(md);
   }
 
+  .nav-sign-out {
+    @include margin(lg, r);
+    display: inline-block;
+  }
+
   .nav-displayed {
     background-color: getColor(white);
     display: flex;

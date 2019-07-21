@@ -2,8 +2,12 @@
   <div class="nav-displayed">
     <h1 class="nav-displayed__header">Spaced Repetition</h1>
     <div>
-      <app-auth-sign-out></app-auth-sign-out>
-      <a class="nav-displayed__login" [routerLink]="['/auth', 'signin']" routerLinkActive="router-link-active">Login</a>
+      <div *ngIf="loggedIn; else signIn" class="nav-sign-out">
+        <app-auth-sign-out></app-auth-sign-out>
+      </div>
+      <ng-template #signIn>
+        <a class="nav-displayed__login" [routerLink]="['/auth', 'signin']">Login</a>
+      </ng-template>
       <label class="nav-displayed__toggle-label" for="nav-toggler"><i class="fas fa-bars"></i></label>
     </div>
   </div>

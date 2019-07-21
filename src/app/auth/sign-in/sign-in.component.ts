@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@spaced-repetition/amplify/auth.service';
 
@@ -11,6 +11,9 @@ export class SignInComponent {
   public loading = false;
   public errors: string[] = [];
 
+  @Input()
+  private navigateTo: string[] = ['/app', 'dashboard'];
+
   constructor(private authService: AuthService, private router: Router) {}
 
   signIn(event: any, email: string, password: string) {
@@ -18,7 +21,7 @@ export class SignInComponent {
     this.loading = true;
     this.authService.login(email, password).subscribe(user => {
       if (user) {
-        this.router.navigate(['/main', 'dashboard']);
+        this.router.navigate(this.navigateTo);
       } else {
         this.loading = false;
         this.errors.push('Login failed');
