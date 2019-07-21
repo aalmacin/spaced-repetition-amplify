@@ -64,4 +64,4 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
 (window as any).global = window;
 
 import * as process from 'process';
-window.process = process;
+(window as any).process = process;
