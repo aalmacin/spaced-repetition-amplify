@@ -7,6 +7,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
     "format:test": "prettier --config .prettierrc --list-different \"./src/**/*.{ts,js,scss,html}\"",
     "format:fix": "prettier --config .prettierrc --write \"./src/**/*.{ts,js,scss,html}\""
@@ -14,7 +15,7 @@
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged && ng lint"
     }
   },
   "dependencies": {

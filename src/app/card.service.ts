@@ -14,7 +14,7 @@ import { getDateFromTimestamp, getCurrentTimestamp } from './main/study/timestam
 export class CardService {
   public constructor(private apiService: APIService, private userService: UserService) {}
 
-  async GetCardsByUser(filter?: ModelTopicFilterInput, limit?: number, nextToken?: string): Promise<ListTopicsQuery> {
+  async GetCardsByUser(filtered?: ModelTopicFilterInput, limit?: number, nextToken?: string): Promise<ListTopicsQuery> {
     const statement = `
       query GetCardsByUser($filter: ModelTopicFilterInput, $limit: Int, $nextToken: String) {
         listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
@@ -39,8 +39,8 @@ export class CardService {
       }
     `;
     const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
+    if (filtered) {
+      gqlAPIServiceArguments.filter = filtered;
     }
     if (limit) {
       gqlAPIServiceArguments.limit = limit;
