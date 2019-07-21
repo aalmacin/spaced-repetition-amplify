@@ -81,6 +81,14 @@
             "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
+        },
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "cypress.json",
+            "tsConfig": "cypress/tsconfig.e2e.json"
+          },
+          "configurations": {}
         }
       }
     }
