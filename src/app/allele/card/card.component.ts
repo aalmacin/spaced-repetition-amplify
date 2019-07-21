@@ -10,9 +10,7 @@ import { Component, Input } from '@angular/core';
       >
         {{ heading }}
       </div>
-      <div
-        class="al-sb-primary-light-x al-sb-primary-light-t al-sbg-white al-tta-c al-lp-lg al-sb-n-b"
-      >
+      <div class="al-sb-primary-light-x al-sb-primary-light-t al-sbg-white al-tta-c al-lp-lg al-sb-n-b">
         <ng-content></ng-content>
       </div>
     </div>

@@ -39,14 +39,10 @@ export class DesignTokensComponent implements OnInit {
     { name: 'red on black', color: red, bgColor: black },
     { name: 'green on black', color: green, bgColor: black },
     { name: 'blue on black', color: blue, bgColor: black },
-    { name: 'blue dark on black', color: blueDark, bgColor: black },
-
+    { name: 'blue dark on black', color: blueDark, bgColor: black }
   ];
 
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

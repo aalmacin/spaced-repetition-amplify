@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
   `
 })
 export class NavItemEndComponent {
-  public classes =
-    'al-nav-item al-tff-t al-lp-y-sm al-lm-r-md al-sc-white';
+  public classes = 'al-nav-item al-tff-t al-lp-y-sm al-lm-r-md al-sc-white';
 }

@@ -1,14 +1,6 @@
 @charset 'UTF-8';
 
-@import
-  'abstracts/animations',
-  'abstracts/variables',
-  'abstracts/functions',
-  'abstracts/mixins';
+@import 'abstracts/animations', 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins';
 
 // 3. Base stuff
-@import
-  'base/base',
-  'base/fonts',
-  'base/typography',
-  'base/helpers';
+@import 'base/base', 'base/fonts', 'base/typography', 'base/helpers';

@@ -5,13 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
   selector: 'al-flash-card',
   styleUrls: ['./flash-card.component.scss'],
   template: `
-    <div
-      class="al-flash-card al-tta-c al-lf al-lf-fd-c al-lf-jc-c al-lf-fw"
-    >
-      <al-card
-        heading="{{ topic }}"
-        class="al-flash-card-container al-sb-n-b"
-      >
+    <div class="al-flash-card al-tta-c al-lf al-lf-fd-c al-lf-jc-c al-lf-fw">
+      <al-card heading="{{ topic }}" class="al-flash-card-container al-sb-n-b">
         <div *ngIf="!(flipped$ | async); else flashCardBack">
           {{ front }}
         </div>

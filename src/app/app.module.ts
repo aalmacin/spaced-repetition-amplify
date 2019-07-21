@@ -10,17 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { LandingPagesModule } from './landing-pages/landing-pages.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent
-  ],
-  imports: [
-    BrowserModule,
-    AmplifyAngularModule,
-    AppRoutingModule,
-    LandingPagesModule,
-    AuthModule
-  ],
+  declarations: [AppComponent, NotFoundComponent],
+  imports: [BrowserModule, AmplifyAngularModule, AppRoutingModule, LandingPagesModule, AuthModule],
   providers: [AmplifyService],
   bootstrap: [AppComponent]
 })

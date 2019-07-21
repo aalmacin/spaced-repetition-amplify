@@ -8,10 +8,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [MainComponent, DashboardComponent],
-  imports: [
-    AuthModule,
-    CommonModule,
-    MainRoutingModule
-  ]
+  imports: [AuthModule, CommonModule, MainRoutingModule]
 })
-export class MainModule { }
+export class MainModule {}

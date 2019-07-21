@@ -9,23 +9,23 @@
 @mixin padding($padding: md, $direction: a) {
   $paddingValue: map-get($spacingMap, $padding);
 
-  @if(str-index($direction, t)) {
+  @if (str-index($direction, t)) {
     padding-top: $paddingValue;
   }
 
-  @if(str-index($direction, r)) {
+  @if (str-index($direction, r)) {
     padding-right: $paddingValue;
   }
 
-  @if(str-index($direction, b)) {
+  @if (str-index($direction, b)) {
     padding-bottom: $paddingValue;
   }
 
-  @if(str-index($direction, l)) {
+  @if (str-index($direction, l)) {
     padding-left: $paddingValue;
   }
 
-  @if($direction==a) {
+  @if ($direction==a) {
     padding: $paddingValue;
   }
 }
@@ -33,23 +33,23 @@
 @mixin margin($margin: md, $direction: a) {
   $marginValue: map-get($spacingMap, $margin);
 
-  @if(str-index($direction, t)) {
+  @if (str-index($direction, t)) {
     margin-top: $marginValue;
   }
 
-  @if(str-index($direction, r)) {
+  @if (str-index($direction, r)) {
     margin-right: $marginValue;
   }
 
-  @if(str-index($direction, b)) {
+  @if (str-index($direction, b)) {
     margin-bottom: $marginValue;
   }
 
-  @if(str-index($direction, l)) {
+  @if (str-index($direction, l)) {
     margin-left: $marginValue;
   }
 
-  @if($direction==a) {
+  @if ($direction==a) {
     margin: $marginValue;
   }
 }
@@ -64,10 +64,7 @@
     @media screen and (min-width: $min) {
       @content;
     }
-
-  }
-
-  @else {
+  } @else {
     @media screen and (min-width: $breakpoint) {
       @content;
     }

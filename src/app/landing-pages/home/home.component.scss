@@ -1,7 +1,8 @@
 @import '../../../styles/framework.scss';
 
 .banner {
-  background-image: linear-gradient(to bottom right, rgba(getColor(blue-dark), 0.8), rgba(getColor(blue-dark), 0.9)), url('../../../assets/studying.jpg');
+  background-image: linear-gradient(to bottom right, rgba(getColor(blue-dark), 0.8), rgba(getColor(blue-dark), 0.9)),
+    url('../../../assets/studying.jpg');
   background-size: cover;
   background-position: center;
   width: 100vw;
@@ -28,7 +29,7 @@
       text-shadow: 1rem 1.5rem 2rem rgba(getColor(blue), 0.5);
       display: inline-block;
       line-height: 1;
-      animation: dropIn .3s;
+      animation: dropIn 0.3s;
 
       @include font-size(lg);
 
@@ -42,9 +43,8 @@
 
       @include font-weight(bold);
       text-transform: uppercase;
-      transition: all .2s;
+      transition: all 0.2s;
       transform-origin: bottom;
-
 
       &:hover {
         transform: scale(1.1);
@@ -83,7 +83,7 @@
       @include padding(sm, tb);
       @include padding(md, lr);
       @include font-weight(semibold);
-      border-radius: .25rem;
+      border-radius: 0.25rem;
 
       @include media(tablet) {
         @include font-size(lg);
@@ -106,22 +106,20 @@
       background-color: getColor(blue);
       box-shadow: 0rem 1rem 5rem rgba(getColor(black), 0.6);
       text-transform: uppercase;
-      transition: all .2s ease-in;
+      transition: all 0.2s ease-in;
 
       &:hover {
-        transform: translateY(-.5rem);
+        transform: translateY(-0.5rem);
       }
 
       &:active {
-        transform: translateY(.3rem);
+        transform: translateY(0.3rem);
       }
     }
   }
-
 }
 
 .steps {
-
   &__header {
     text-align: center;
     @include font-size(lg-2);

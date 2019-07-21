@@ -21,6 +21,5 @@ import { Component } from '@angular/core';
   `
 })
 export class NavHeaderComponent {
-  public classes =
-    'al-nav-header al-tf-lg al-tff-h al-lp-y-sm al-lm-r-md al-sc-white';
+  public classes = 'al-nav-header al-tf-lg al-tff-h al-lp-y-sm al-lm-r-md al-sc-white';
 }

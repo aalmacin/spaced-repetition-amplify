@@ -21,10 +21,7 @@ import { NavHeaderComponent } from './nav/nav-header.component';
     NavHeaderComponent,
     NavItemComponent
   ],
-  imports: [
-    BrowserModule,
-    CommonModule
-  ],
+  imports: [BrowserModule, CommonModule],
   exports: [
     ButtonDirective,
     CardComponent,

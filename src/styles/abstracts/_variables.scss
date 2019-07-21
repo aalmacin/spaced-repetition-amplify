@@ -3,13 +3,14 @@
 // -----------------------------------------------------------------------------
 
 // Colors
-$colorMap: (red: #BC6FAD,
-green: #6FBCA4,
-blue: #6FADBC,
-blue-dark: #6F87BC,
-black: #0b1112,
-white: #ffffff,
-white-2: #f0f6f8,
+$colorMap: (
+  red: #bc6fad,
+  green: #6fbca4,
+  blue: #6fadbc,
+  blue-dark: #6f87bc,
+  black: #0b1112,
+  white: #ffffff,
+  white-2: #f0f6f8
 );
 
 // Color Scheme
@@ -26,40 +27,45 @@ $text-color: map-get($colorMap, black) !default;
 $brand-color: $primary !default;
 
 // Typography
-$text-font-stack: 'Source Sans Pro',
-'Open Sans',
-'Helvetica Neue Light',
-'Helvetica Neue',
-'Helvetica',
-'Arial',
-sans-serif !default;
+$text-font-stack: 'Source Sans Pro', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial',
+  sans-serif !default;
 
-$font-weights: (thin: 200,
-normal: 300,
-semibold: 600,
-bold: 700);
+$font-weights: (
+  thin: 200,
+  normal: 300,
+  semibold: 600,
+  bold: 700
+);
 
 $base-font-size: 1.8rem;
 
-$font-sizes: (sm-2: calc(#{$base-font-size} * .5),
-sm: calc(#{$base-font-size} * .75),
-md: #{$base-font-size},
-lg: calc(#{$base-font-size} * 1.5),
-lg-2: calc(#{$base-font-size} * 2),
-lg-3: calc(#{$base-font-size} * 3));
+$font-sizes: (
+  sm-2: calc(#{$base-font-size} * 0.5),
+  sm: calc(#{$base-font-size} * 0.75),
+  md: #{$base-font-size},
+  lg: calc(#{$base-font-size} * 1.5),
+  lg-2: calc(#{$base-font-size} * 2),
+  lg-3: calc(#{$base-font-size} * 3)
+);
 
 $text-default-font-weight: map-get($font-weights, normal);
 
 // Breakpoints
-$breakpoints: (tablet: (min: 768px, max: 1023px),
-desktop: 1024px);
+$breakpoints: (
+  tablet: (
+    min: 768px,
+    max: 1023px
+  ),
+  desktop: 1024px
+);
 
 $base-spacing-size: 1rem;
 
-$spacingMap: (sm-2: calc(#{$base-spacing-size} * 0.25),
-sm: calc(#{$base-spacing-size} * 0.5),
-md: #{$base-spacing-size},
-lg: #{$base-spacing-size * 2},
-lg-2: #{$base-spacing-size * 3},
-lg-3: #{$base-spacing-size * 4},
-)
+$spacingMap: (
+  sm-2: calc(#{$base-spacing-size} * 0.25),
+  sm: calc(#{$base-spacing-size} * 0.5),
+  md: #{$base-spacing-size},
+  lg: #{$base-spacing-size * 2},
+  lg-2: #{$base-spacing-size * 3},
+  lg-3: #{$base-spacing-size * 4}
+);

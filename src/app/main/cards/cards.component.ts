@@ -11,7 +11,7 @@ import { getCurrentTimestamp } from 'src/app/main/study/timestamp.func';
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss'],
+  styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnDestroy {
   topicId: string;
