@@ -33,6 +33,10 @@
     &__header {
       display: inline-block;
       @include padding(lg, tbl);
+
+      .header-img {
+        width: 12rem;
+      }
     }
 
     &__login {
@@ -90,6 +94,7 @@
 
     .nav-list {
       overflow: hidden;
+
       @include font-size(sm);
 
       @include media(tablet) {
