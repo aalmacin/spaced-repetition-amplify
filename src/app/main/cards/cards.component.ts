@@ -2,11 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CardViewModel } from 'src/app/card';
+import { CardViewModel } from '@spaced-repetition/amplify/card';
 import { APIService } from 'src/app/API.service';
-import { CardService } from 'src/app/card.service';
-import { makeBoxEasier } from 'src/app/main/study/study.func';
-import { getCurrentTimestamp } from 'src/app/main/study/timestamp.func';
+import { CardService } from '@spaced-repetition/amplify/card.service';
+import { makeBoxEasier } from '@spaced-repetition/main/functions/study.func';
+import { getCurrentTimestamp } from '@spaced-repetition/main/functions/timestamp.func';
 
 @Component({
   selector: 'app-cards',

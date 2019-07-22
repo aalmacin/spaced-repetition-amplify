@@ -1,10 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import { APIService, Box } from '../../API.service';
-import { getCurrentTimestamp } from '../study/timestamp.func';
-import { TopicService } from '../../topic.service';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { APIService, Box } from 'src/app/API.service';
+import { TopicService } from '@spaced-repetition/amplify/topic.service';
+import { Component } from '@angular/core';
+import { getCurrentTimestamp } from '../functions/timestamp.func';
 
 @Component({
   selector: 'app-add-card',

@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, defer } from 'rxjs';
 import { CardViewModel } from './card';
-import { isReadyToStudy, getNextStudyDate } from './main/study/study.func';
-import { APIService, ListTopicsQuery, ModelTopicFilterInput, Box } from './API.service';
-import { UserService } from './user.service';
+import { isReadyToStudy, getNextStudyDate } from '../main/functions/study.func';
 import { API, graphqlOperation } from 'aws-amplify';
 import { map, pipe, flatten, filter } from 'ramda';
-import { getDateFromTimestamp, getCurrentTimestamp } from './main/study/timestamp.func';
+import { AuthService } from './auth.service';
+import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/functions/timestamp.func';
+import { APIService, ModelTopicFilterInput, ListTopicsQuery, Box } from '../API.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-  public constructor(private apiService: APIService, private userService: UserService) {}
+  public constructor(private apiService: APIService, private authService: AuthService) {}
 
   async GetCardsByUser(filtered?: ModelTopicFilterInput, limit?: number, nextToken?: string): Promise<ListTopicsQuery> {
     const statement = `
@@ -53,7 +53,7 @@ export class CardService {
   }
 
   private async getCardsFromAmplify() {
-    const user = await this.userService.getUserPromise();
+    const user = await this.authService.getCurrentUser().toPromise();
     const topicService = await this.GetCardsByUser({
       user: { eq: user.email }
     });

@@ -1,11 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-import { CardService } from '../../card.service';
+import { CardService } from '../../amplify/card.service';
 import { Subscription } from 'rxjs';
-import { CardViewModel } from '../../card';
-import { APIService } from '../../API.service';
-import { makeBoxEasier } from './study.func';
-import { getCurrentTimestamp } from './timestamp.func';
 import { shuffle } from 'lodash';
+import { CardViewModel } from '@spaced-repetition/amplify/card';
+import { APIService } from 'src/app/API.service';
+import { makeBoxEasier } from '../functions/study.func';
+import { getCurrentTimestamp } from '../functions/timestamp.func';
 
 @Component({
   selector: 'app-study',

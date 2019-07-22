@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CardService } from '../../card.service';
+import { CardService } from '@spaced-repetition/amplify/card.service';
 
 @Component({
   selector: 'tr[app-card-management-item]',

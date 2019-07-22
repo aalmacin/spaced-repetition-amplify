@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { APIService } from '../../API.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { TopicService } from '../../topic.service';
 import { Subscription } from 'rxjs';
-import { User } from '../main/user';
+import { APIService } from 'src/app/API.service';
+import { TopicService } from '@spaced-repetition/amplify/topic.service';
+import { User } from '@spaced-repetition/amplify/user';
 
 @Component({
   selector: 'app-topics',

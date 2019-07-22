@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { CardService } from '../../card.service';
-import { APIService } from '../../API.service';
 import { Subscription } from 'rxjs';
+import { APIService } from 'src/app/API.service';
+import { CardService } from '@spaced-repetition/amplify/card.service';
 
 @Component({
   selector: 'app-card-management',
