@@ -10,8 +10,15 @@
   &.al-btn-primary {
     background-color: getColor(blue);
     color: getColor(white);
-    box-shadow: 0 1rem 8rem getColor(blue-dark);
+    text-transform: uppercase;
+    // box-shadow: 0 .3rem 5rem rgba(getColor(black), 0.3);
     border-radius: 0.5rem;
+
+    &:hover {
+      border: 0.1rem solid getColor(blue);
+      background-color: rgba(getColor(blue), 0.2);
+      color: getColor(blue);
+    }
   }
 
   &.al-btn-animated {
@@ -23,6 +30,15 @@
     &:hover {
       transform: translateY(-0.5rem);
     }
+  }
+
+  &.al-btn-size-large {
+    @include font-size(md);
+
+    @include media(tablet) {
+      @include font-size(lg);
+    }
+    @include padding(lg, lr);
   }
 
   &.al-btn-size-medium {

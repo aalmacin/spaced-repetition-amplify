@@ -1,27 +1,103 @@
+@import '../../../styles/framework.scss';
+
 .main {
-  margin-top: 7rem;
+  min-height: 90vh;
 }
-// .main-logo-sm {
-//   display: inline;
-// }
 
-// .main-logo-lg {
-//   display: none;
-// }
+.nav {
+  @include padding(md);
+  @include font-size(md);
+  position: relative;
 
-// @media only screen and (min-width: 1024px) {
-//   #content-section {
-//   }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-//   .main-info {
-//     margin: 0;
-//   }
+  &__header {
+    display: inline-block;
+    flex-grow: 4;
+    @include font-size(md);
+  }
 
-//   .main-logo-sm {
-//     display: none;
-//   }
+  &__pages {
+    display: none;
 
-//   .main-logo-lg {
-//     display: inline;
-//   }
-// }
+    @include media(tablet) {
+      display: inline-block;
+    }
+
+    @include margin(lg, l);
+
+    .nav__page {
+      display: inline-block;
+
+      @include margin(md, r);
+    }
+  }
+
+  &__study {
+    @include font-size(sm);
+    @include margin(md, r);
+
+    @include media(tablet) {
+      display: none;
+    }
+  }
+
+  .mobile-nav-toggler {
+    @include media(tablet) {
+      display: none;
+    }
+  }
+}
+
+.mobile-nav {
+  @include media(tablet) {
+    display: none;
+  }
+
+  &__toggle {
+    display: none;
+
+    &:checked ~ .mobile-nav__container {
+      max-height: 30rem;
+      opacity: 1;
+    }
+  }
+
+  &__toggler {
+    display: inline-block;
+  }
+
+  .mobile-nav__container {
+    max-height: 0;
+    opacity: 0;
+    backface-visibility: hidden;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    transition: all 0.5s ease-in;
+
+    .mobile-nav__pages {
+      height: 100%;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+      @include padding(md);
+
+      text-align: center;
+      background-color: rgba(getColor(blue-dark), 0.3);
+      color: getColor(black);
+
+      .mobile-nav__page {
+        @include padding(md, tb);
+        text-align: center;
+
+        .router-link-active {
+          @include font-weight(semibold);
+        }
+      }
+    }
+  }
+}

@@ -4,19 +4,3 @@
   margin-top: 7rem;
   min-height: 90vh;
 }
-
-.footer {
-  background-color: getColor(black);
-  color: getColor(white);
-  text-align: center;
-  @include font-size(md);
-  @include padding(lg);
-
-  &__message {
-    @include padding(lg);
-  }
-
-  &__author {
-    text-decoration: underline;
-  }
-}
