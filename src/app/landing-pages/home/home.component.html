@@ -20,14 +20,16 @@
     <img class="step__image" src="../../assets/steps-1.jpg" />
     <div class="step__container">
       <h3 class="step__header"><span class="step__header-step">Step 1:</span> Create topic</h3>
-      <p class="step__content">Create a topic for the subject you want to study.</p>
+      <p class="step__content">
+        Create a <a class="al-underline" [routerLink]="['/app', 'topics']">topic</a> for the subject you want to study.
+      </p>
     </div>
   </div>
   <div class="step step--2">
     <img class="step__image" src="../../assets/steps-2.jpeg" />
     <div class="step__container">
       <h3 class="step__header"><span class="step__header-step">Step 2:</span> Study</h3>
-      <p class="step__content">Study the concept you want to study. Add flash cards using the app.</p>
+      <p class="step__content">Study the concept you want to learn. Add flash cards using the app.</p>
     </div>
   </div>
   <div class="step step--3">
@@ -35,8 +37,8 @@
     <div class="step__container">
       <h3 class="step__header"><span class="step__header-step">Step 3:</span> Review</h3>
       <p class="step__content">
-        Go to <a [routerLink]="['/study']">Study</a> page to review all topics or to
-        <a [routerLink]="['/topics']">Topics</a> page to review specific topic.
+        Go to <a class="al-underline" [routerLink]="['/app', 'study']">Study</a> page to review all topics or to
+        <a class="al-underline" [routerLink]="['/app', 'topics']">Topics</a> page to review specific topic.
       </p>
     </div>
   </div>
