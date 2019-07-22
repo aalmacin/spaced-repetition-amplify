@@ -11,13 +11,25 @@
     background-color: getColor(blue);
     color: getColor(white);
     text-transform: uppercase;
-    // box-shadow: 0 .3rem 5rem rgba(getColor(black), 0.3);
     border-radius: 0.5rem;
 
     &:hover {
       border: 0.1rem solid getColor(blue);
       background-color: rgba(getColor(blue), 0.2);
       color: getColor(blue);
+    }
+  }
+
+  &.al-btn-secondary {
+    background-color: getColor(blue-dark);
+    color: getColor(white);
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+
+    &:hover {
+      border: 0.1rem solid getColor(blue-dark);
+      background-color: rgba(getColor(blue-dark), 0.2);
+      color: getColor(blue-dark);
     }
   }
 

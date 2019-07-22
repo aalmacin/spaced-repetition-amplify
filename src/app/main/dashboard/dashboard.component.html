@@ -3,56 +3,55 @@
     <h2 class="panel__header">
       Study
     </h2>
-    <div></div>
     <div class="messages">
-      <p class="message">Topics are the different subjects you are studying.</p>
+      <p class="message">
+        Study page is the place to study flashcards (shuffled randomly) from <span class="al-italic">all</span> topics.
+        Make it a habit to visit this page everyday to review information.
+      </p>
 
-      <p class="message message--example">Example: Spanish, Physics, Math, etc.</p>
-
-      <p class="message">Go to topics page to view, manage, or study a topic.</p>
+      <p class="message">
+        Go to <a class="al-underline" [routerLink]="['/app', 'study']">Study page</a> to start studying.
+      </p>
     </div>
-    <a alBtn="primary" size="large" href="#" class="panel__button">Study now</a>
+    <a alBtn="secondary" size="large" [routerLink]="['/app', 'study']" class="panel__button">Study now</a>
   </div>
-  <div class="panel panel--topic">
+  <div class="panel panel--study">
     <h2 class="panel__header">
       Topics
     </h2>
-    <div></div>
     <div class="messages">
       <p class="message">Topics are the different subjects you are studying.</p>
 
       <p class="message message--example">Example: Spanish, Physics, Math, etc.</p>
 
-      <p class="message">Go to topics page to view, manage, or study a topic.</p>
+      <p class="message">
+        Go to <a class="al-underline" [routerLink]="['/app', 'topics']">Topics page</a> to view, manage, or study
+        topic/s.
+      </p>
     </div>
-    <a alBtn="primary" size="large" href="#" class="panel__button">Go to Topics</a>
+    <a alBtn="secondary" size="large" [routerLink]="['/app', 'topics']" class="panel__button">View Topics</a>
   </div>
-  <div class="panel panel--topic">
+  <div class="panel panel--study">
     <h2 class="panel__header">
       Card Manager
     </h2>
-    <div></div>
     <div class="messages">
-      <p class="message">Topics are the different subjects you are studying.</p>
+      <p class="message">Card Manager is the page where cards from different topics can be managed.</p>
 
-      <p class="message message--example">Example: Spanish, Physics, Math, etc.</p>
-
-      <p class="message">Go to topics page to view, manage, or study a topic.</p>
+      <p class="message">
+        Go to <a class="al-underline" [routerLink]="['/app', 'card-manager']">Card Manager page</a> to view and manage
+        cards.
+      </p>
     </div>
-    <a alBtn="primary" size="large" href="#" class="panel__button">Go to Topics</a>
+    <a alBtn="secondary" size="large" [routerLink]="['/app', 'card-manager']" class="panel__button">Manage Cards</a>
   </div>
-  <div class="panel panel--topic">
+  <div class="panel panel--study">
     <h2 class="panel__header">
       Profile
     </h2>
-    <div></div>
     <div class="messages">
-      <p class="message">Topics are the different subjects you are studying.</p>
-
-      <p class="message message--example">Example: Spanish, Physics, Math, etc.</p>
-
-      <p class="message">Go to topics page to view, manage, or study a topic.</p>
+      <p class="message">Profile page is where you update or set information about your profile.</p>
     </div>
-    <a alBtn="primary" size="large" href="#" class="panel__button">Go to Topics</a>
+    <a alBtn="secondary" size="large" [routerLink]="['/app', 'profile']" class="panel__button">Update Profile</a>
   </div>
 </div>

@@ -21,3 +21,15 @@
   position: absolute;
   width: 0.1rem;
 }
+
+.al-bold {
+  @include font-weight(bold);
+}
+
+.al-italic {
+  font-style: italic;
+}
+
+.al-underline {
+  text-decoration: underline !important;
+}

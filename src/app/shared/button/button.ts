@@ -1,6 +1,7 @@
 export enum ButtonType {
   cta = 'cta',
-  primary = 'primary'
+  primary = 'primary',
+  secondary = 'secondary'
 }
 
 export enum ButtonSize {
