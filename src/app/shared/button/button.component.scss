@@ -1,0 +1,35 @@
+@import '../../../styles/framework.scss';
+
+:host {
+  border: none;
+  @include padding(md, lr);
+  @include padding(sm, bt);
+  cursor: pointer;
+  transition: transform 0.5s;
+
+  &.al-btn-primary {
+    background-color: getColor(blue);
+    color: getColor(white);
+    box-shadow: 0 1rem 8rem getColor(blue-dark);
+    border-radius: 0.5rem;
+  }
+
+  &.al-btn-animated {
+    background-color: getColor(blue);
+    color: getColor(white);
+    box-shadow: 0 1rem 5rem getColor(blue);
+    border-radius: 0.5rem;
+
+    &:hover {
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  &.al-btn-size-medium {
+    @include font-size(md);
+  }
+
+  &.al-btn-size-small {
+    @include font-size(sm);
+  }
+}

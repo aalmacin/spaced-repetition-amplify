@@ -1,0 +1,24 @@
+@import '../../../styles/framework.scss';
+
+.alert-container {
+  &.alert-type-error {
+    background-color: rgba(getColor(red), 0.3);
+
+    .alert {
+      color: getColor(red);
+    }
+  }
+
+  @include font-size(md);
+  @include padding(md);
+
+  .alert {
+    &:not(:last-child) {
+      @include margin(md, b);
+    }
+
+    &__msg {
+      @include margin(sm, l);
+    }
+  }
+}

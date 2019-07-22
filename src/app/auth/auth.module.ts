@@ -5,12 +5,12 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { AmplifyAngularModule } from 'aws-amplify-angular';
 import { SignOutComponent } from './sign-out/sign-out.component';
-import { NavComponent } from './nav/nav.component';
 import { AuthComponent } from './auth/auth.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [SignInComponent, SignOutComponent, NavComponent, AuthComponent],
-  imports: [CommonModule, AuthRoutingModule, AmplifyAngularModule],
+  declarations: [SignInComponent, SignOutComponent, AuthComponent],
+  imports: [CommonModule, AuthRoutingModule, AmplifyAngularModule, SharedModule],
   exports: [SignOutComponent]
 })
 export class AuthModule {}

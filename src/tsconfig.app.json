@@ -8,7 +8,8 @@
     "@spaced-repetition/amplify/*": ["app/amplify/*"],
     "@spaced-repetition/auth/*": ["app/auth/*"],
     "@spaced-repetition/landing-pages/*": ["app/landing-pages/*"],
-    "@spaced-repetition/main/*": ["app/main/*"]
+    "@spaced-repetition/main/*": ["app/main/*"],
+    "@spaced-repetition/shared/*": ["src/app/shared/*"]
   },
   "exclude": ["test.ts", "**/*.spec.ts"]
 }

@@ -1,13 +1,32 @@
-<p *ngIf="loading">Loading...</p>
-<div *ngIf="errors">
-  <p *ngFor="let error of errors">{{ error }}</p>
+<div class="sign-in-container">
+  <div class="logo">
+    <img class="logo__image" src="../../../assets/logo/logo_transparent.png" />
+  </div>
+  <form (submit)="signIn($event, email.value, password.value)" class="form sign-in">
+    <p *ngIf="loading" class="loading">Loading...</p>
+    <div class="errors">
+      <al-alert [messages]="errors" type="error"></al-alert>
+    </div>
+    <input
+      placeholder="Email"
+      #email
+      id="email"
+      type="email"
+      name="email"
+      class="form-control sign-in__email"
+      required
+    />
+
+    <input
+      placeholder="Password"
+      #password
+      id="password"
+      type="password"
+      name="password"
+      class="form-control sign-in__password"
+      required
+    />
+
+    <button alBtn="primary" class="form-control sign-in__submit">Login</button>
+  </form>
 </div>
-<form (submit)="signIn($event, email.value, password.value)" class="form">
-  <input placeholder="Email" #email id="email" type="email" name="email" required />
-
-  <input placeholder="Password" #password id="password" type="password" name="password" required />
-
-  <button>Login</button>
-</form>
-
-<amplify-authenticator></amplify-authenticator>

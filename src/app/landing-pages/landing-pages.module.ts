@@ -5,11 +5,12 @@ import { DesignTokensComponent } from './design-tokens/design-tokens.component';
 import { LandingPagesRoutingModule } from './landing-pages-routing.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NavComponent } from './nav/nav.component';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from '@spaced-repetition/auth/auth.module';
+import { SharedModule } from '@spaced-repetition/shared/shared.module';
 
 @NgModule({
   declarations: [HomeComponent, NavComponent, DesignTokensComponent, LandingPageComponent],
-  imports: [CommonModule, AuthModule, LandingPagesRoutingModule],
+  imports: [CommonModule, AuthModule, LandingPagesRoutingModule, SharedModule],
   exports: [HomeComponent, DesignTokensComponent]
 })
 export class LandingPagesModule {}

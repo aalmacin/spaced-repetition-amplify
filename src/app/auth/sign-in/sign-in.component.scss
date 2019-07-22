@@ -1,0 +1,54 @@
+@import '../../../styles/framework.scss';
+
+.sign-in-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+
+  .logo {
+    text-align: center;
+
+    &__image {
+      width: 30rem;
+    }
+  }
+
+  .sign-in {
+    @include padding(lg);
+    margin: auto;
+    text-align: center;
+
+    .errors {
+      width: 100%;
+      margin: 0 auto;
+
+      @include media(desktop) {
+        width: 75%;
+      }
+    }
+
+    .form-control {
+      display: inline-block;
+      width: 100%;
+
+      @include media(desktop) {
+        width: 75%;
+      }
+
+      @include padding(sm);
+      @include margin(md, tb);
+      @include font-size(lg);
+    }
+
+    &__email {
+    }
+
+    &__password {
+    }
+
+    &__submit {
+    }
+  }
+}
