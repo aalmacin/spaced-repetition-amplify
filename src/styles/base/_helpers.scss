@@ -26,6 +26,10 @@
   @include font-weight(bold);
 }
 
+.al-semibold {
+  @include font-weight(semibold);
+}
+
 .al-italic {
   font-style: italic;
 }
