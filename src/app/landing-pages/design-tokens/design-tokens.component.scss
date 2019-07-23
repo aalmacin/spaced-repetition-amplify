@@ -59,7 +59,7 @@
 
 .padding {
   div {
-    background-color: $primary;
+    background-color: getColor(blue);
     display: inline-block;
     @include margin(sm);
 
@@ -87,7 +87,7 @@
   div.margin {
     &-item {
       display: inline-block;
-      background-color: $primary;
+      background-color: getColor(blue);
       @include padding(sm);
       width: 5rem;
       height: 5rem;

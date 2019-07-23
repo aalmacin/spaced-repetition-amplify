@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, defer } from 'rxjs';
-import { CardViewModel } from './card';
-import { isReadyToStudy, getNextStudyDate } from '../main/functions/study.func';
+import { isReadyToStudy, getNextStudyDate } from '../main/shared/study.func';
 import { API, graphqlOperation } from 'aws-amplify';
 import { map, pipe, flatten, filter } from 'ramda';
 import { AuthService } from './auth.service';
-import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/functions/timestamp.func';
+import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { APIService, ModelTopicFilterInput, ListTopicsQuery, Box } from '../API.service';
+import { Card } from '@spaced-repetition/types/card';
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +63,7 @@ export class CardService {
       flatten,
       map(r => ({
         ...r,
-        nextStudy: getDateFromTimestamp(getNextStudyDate(r))
+        nextStudy: getDateFromTimestamp(getNextStudyDate(r.nextStudy, r.box))
       }))
     )([...topicService.items]);
   }
@@ -75,15 +75,16 @@ export class CardService {
     });
   }
 
-  public getAllStudyCards(): Observable<any> {
+  public getAllStudyCards(): Observable<Card[]> {
     return defer(async () => {
       const cards = await this.getCardsFromAmplify();
+      console.log(cards);
       return cards;
       // return filter((r: any) => isReadyToStudy(r))(cards);
     });
   }
 
-  public getCards(topicId: string, isReadyToStudyOnly: boolean): Observable<CardViewModel[]> {
+  public getCards(topicId: string, isReadyToStudyOnly: boolean): Observable<Card[]> {
     return defer(async () => {
       const topic = await this.apiService.GetTopic(topicId);
       const cards = topic.cards.items.map(card => ({
@@ -94,14 +95,7 @@ export class CardService {
         lastStudy: card.lastStudy,
         box: card.box,
         topicName: topic.name,
-        isReadyToStudy: isReadyToStudy({
-          id: card.id,
-          topicId: topic.id,
-          front: card.front,
-          back: card.back,
-          lastStudy: card.lastStudy,
-          box: card.box
-        })
+        isReadyToStudy: isReadyToStudy(card.lastStudy, card.box)
       }));
       if (isReadyToStudyOnly) {
         return cards.filter(card => card.isReadyToStudy);

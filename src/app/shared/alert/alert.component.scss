@@ -2,7 +2,7 @@
 
 .alert-container {
   &.alert-type-error {
-    background-color: rgba(getColor(red), 0.3);
+    background-color: getColor(red-light);
 
     .alert {
       color: getColor(red);

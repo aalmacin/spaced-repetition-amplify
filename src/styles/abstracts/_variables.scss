@@ -2,21 +2,26 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
+$black: #0b1112;
+$purple: #6f87bc;
+$red: #bc6fad;
+$blue: #6fadbc;
+
 // Colors
 $colorMap: (
-  red: #bc6fad,
+  red-light: rgba($red, 0.3),
+  red: $red,
   green: #6fbca4,
-  blue: #6fadbc,
-  blue-dark: #6f87bc,
-  black: #0b1112,
+  blue-light: rgba($blue, 0.2),
+  blue: $blue,
+  purple-light: rgba($purple, 0.5),
+  purple: $purple,
+  black: $black,
+  gray-light: rgba($black, 0.3),
+  gray: rgba($black, 0.4),
   white: #ffffff,
   white-2: #f0f6f8
 );
-
-// Color Scheme
-$primary: map-get($colorMap, blue);
-$secondary: map-get($colorMap, blue-dark);
-$tertiary: map-get($colorMap, green);
 
 /// Copy text color
 /// @type Color
@@ -24,7 +29,7 @@ $text-color: map-get($colorMap, black) !default;
 
 /// Main brand color
 /// @type Color
-$brand-color: $primary !default;
+$brand-color: getColor(blue) !default;
 
 // Typography
 $text-font-stack: 'Source Sans Pro', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial',

@@ -5,6 +5,8 @@
     "types": ["node"]
   },
   "paths": {
+    "@spaced-repetition/*": ["src/app/*"],
+    "@spaced-repetition/types": ["src/app/types/*"],
     "@spaced-repetition/amplify/*": ["app/amplify/*"],
     "@spaced-repetition/auth/*": ["app/auth/*"],
     "@spaced-repetition/landing-pages/*": ["app/landing-pages/*"],

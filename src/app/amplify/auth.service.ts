@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
 import { defer, Observable } from 'rxjs';
-import { User } from './user';
+import { User } from '../types/user';
 
 @Injectable({
   providedIn: 'root'

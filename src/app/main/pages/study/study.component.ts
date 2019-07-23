@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardService } from '@spaced-repetition/amplify/card.service';
-import { Card } from '@spaced-repetition/amplify/card';
+import { Card } from 'src/app/types/card';
 import { Subscription } from 'rxjs';
 
 @Component({

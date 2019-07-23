@@ -47,7 +47,7 @@
   .nav-link {
     &.router-link-active {
       @include font-weight(semibold);
-      color: getColor(blue-dark);
+      color: getColor(purple);
     }
   }
 
@@ -94,7 +94,7 @@
       @include padding(md);
 
       text-align: center;
-      background-color: rgba(getColor(blue-dark), 0.3);
+      background-color: getColor(purple-light);
       color: getColor(black);
 
       .mobile-nav__page {

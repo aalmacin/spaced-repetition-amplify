@@ -30,9 +30,9 @@
 
     text-align: center;
 
-    border: 0.1rem solid rgba(getColor(black), 0.3);
+    border: 0.1rem solid getColor(gray-light);
     border-radius: 0.4rem;
-    box-shadow: 0.5rem 0.5rem 10rem rgba(getColor(black), 0.2);
+    box-shadow: 0.5rem 0.5rem 10rem getColor(gray);
 
     &__header {
       @include font-size(lg);

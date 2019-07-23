@@ -2,11 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CardViewModel } from '@spaced-repetition/amplify/card';
 import { APIService } from 'src/app/API.service';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { makeBoxEasier } from '@spaced-repetition/main/functions/study.func';
 import { getCurrentTimestamp } from '@spaced-repetition/main/functions/timestamp.func';
+import { Card } from '@spaced-repetition/types/card';
 
 @Component({
   selector: 'app-cards',
@@ -18,7 +18,7 @@ export class CardsComponent implements OnDestroy {
   subscription = new Subscription();
   cardsSubscription: Subscription;
 
-  cards: CardViewModel[] = [];
+  cards: Card[] = [];
   isReadyToStudyOnly$: Observable<boolean>;
   public isReadyToStudyOnly: BehaviorSubject<boolean>;
 
@@ -48,7 +48,7 @@ export class CardsComponent implements OnDestroy {
   private startCardsSubscription() {
     this.cardsSubscription = combineLatest(this.isReadyToStudyOnly$, this.route.params)
       .pipe(switchMap(([isReadyToStudyOnly, params]) => this.cardService.getCards(params.topicid, isReadyToStudyOnly)))
-      .subscribe((cards: CardViewModel[]) => {
+      .subscribe((cards: Card[]) => {
         this.cards = cards;
         this.loading = false;
       });

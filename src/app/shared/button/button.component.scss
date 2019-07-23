@@ -15,21 +15,21 @@
 
     &:hover {
       border: 0.1rem solid getColor(blue);
-      background-color: rgba(getColor(blue), 0.2);
+      background-color: getColor(blue-light);
       color: getColor(blue);
     }
   }
 
   &.al-btn-secondary {
-    background-color: getColor(blue-dark);
+    background-color: getColor(purple);
     color: getColor(white);
     text-transform: uppercase;
     border-radius: 0.5rem;
 
     &:hover {
-      border: 0.1rem solid getColor(blue-dark);
-      background-color: rgba(getColor(blue-dark), 0.2);
-      color: getColor(blue-dark);
+      border: 0.1rem solid getColor(purple);
+      background-color: getColor(purple-light);
+      color: getColor(purple);
     }
   }
 

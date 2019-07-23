@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
-import { User } from '@spaced-repetition/amplify/user';
+import { User } from 'src/app/types/user';
 
 @Component({
   selector: 'app-main',

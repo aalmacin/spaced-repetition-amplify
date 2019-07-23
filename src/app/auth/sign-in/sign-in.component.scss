@@ -24,7 +24,7 @@
 
     %textForm {
       border: none;
-      border-bottom: 0.1rem solid rgba(getColor(black), 0.4);
+      border-bottom: 0.1rem solid getColor(gray);
     }
 
     &__password,

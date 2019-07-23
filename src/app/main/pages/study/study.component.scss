@@ -1,0 +1,6 @@
+@import '../../../../styles/framework.scss';
+
+.flash-card {
+  @include padding(lg);
+  border: 0.1rem solid getColor(gray);
+}

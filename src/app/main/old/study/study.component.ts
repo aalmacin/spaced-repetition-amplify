@@ -1,11 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-import { CardService } from '../../amplify/card.service';
+import { CardService } from '../../../amplify/card.service';
 import { Subscription } from 'rxjs';
 import { shuffle } from 'lodash';
-import { CardViewModel } from '@spaced-repetition/amplify/card';
 import { APIService } from 'src/app/API.service';
-import { makeBoxEasier } from '../functions/study.func';
-import { getCurrentTimestamp } from '../functions/timestamp.func';
+import { makeBoxEasier } from '../../shared/study.func';
+import { getCurrentTimestamp } from '../../shared/timestamp.func';
+import { Card } from '@spaced-repetition/types/card';
 
 @Component({
   selector: 'app-study',
@@ -15,7 +15,7 @@ export class StudyComponent implements OnDestroy {
   subscription = new Subscription();
   cardsSubscription: Subscription;
 
-  cards: CardViewModel[] = [];
+  cards: Card[] = [];
 
   loading = true;
 

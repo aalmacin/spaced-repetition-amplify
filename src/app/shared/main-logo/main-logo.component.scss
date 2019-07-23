@@ -37,7 +37,7 @@
       @include margin(md, l);
       @include font-weight(bold);
       line-height: 1.3;
-      background-image: linear-gradient(to right bottom, rgba(getColor(blue), 0.7) 25%, getColor(blue-dark));
+      background-image: linear-gradient(to right bottom, getColor(blue) 25%, getColor(purple));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;

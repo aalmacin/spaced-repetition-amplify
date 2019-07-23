@@ -12,6 +12,8 @@
     "importHelpers": true,
     "target": "es5",
     "paths": {
+      "@spaced-repetition/*": ["src/app/*"],
+      "@spaced-repetition/types": ["src/app/types/*"],
       "@spaced-repetition/amplify/*": ["src/app/amplify/*"],
       "@spaced-repetition/auth/*": ["src/app/auth/*"],
       "@spaced-repetition/landing-pages/*": ["src/app/landing-pages/*"],

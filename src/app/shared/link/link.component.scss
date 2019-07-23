@@ -13,11 +13,11 @@
 
   &.al-link-color-secondary {
     &:hover {
-      color: getColor(blue-dark);
+      color: getColor(purple);
     }
 
     .moving-border {
-      background-color: getColor(blue-dark);
+      background-color: getColor(purple);
     }
   }
 
@@ -49,6 +49,7 @@
   .moving-border {
     height: 0.1rem;
     width: 0%;
+    @include margin(sm, t);
     transition: width 0.2s ease-in;
   }
 }

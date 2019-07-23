@@ -1,7 +1,7 @@
 @import '../../../styles/framework.scss';
 
 .banner {
-  background-image: linear-gradient(to bottom right, rgba(getColor(blue-dark), 0.8), rgba(getColor(blue-dark), 0.9)),
+  background-image: linear-gradient(to bottom right, getColor(purple), getColor(purple-light)),
     url('../../../assets/studying.jpg');
   background-size: cover;
   background-position: center;
@@ -23,10 +23,10 @@
     transform: translate(-50%, -50%);
 
     &__header {
-      color: rgba(getColor(white-2), 0.9);
+      color: getColor(white-2);
       padding: 0;
       margin: 0;
-      text-shadow: 1rem 1.5rem 2rem rgba(getColor(blue), 0.5);
+      text-shadow: 1rem 1.5rem 2rem getColor(gray);
       display: inline-block;
       line-height: 1;
       animation: dropIn 0.3s;
@@ -104,7 +104,7 @@
       display: inline-block;
       color: getColor(white-2);
       background-color: getColor(blue);
-      box-shadow: 0rem 1rem 5rem rgba(getColor(black), 0.6);
+      box-shadow: 0rem 1rem 5rem getColor(gray);
       text-transform: uppercase;
       transition: all 0.2s ease-in;
 

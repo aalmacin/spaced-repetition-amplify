@@ -1,4 +1,5 @@
-<div *ngFor="let card of cards">
-  <div>{{ card.front }}</div>
-  <div>{{ card.back }}</div>
+<div class="flash-card" *ngFor="let card of cards">
+  <div class="flash-card__topic">{{ card.topicName }}</div>
+  <div class="flash-card__front">{{ card.front }}</div>
+  <div class="flash-card__back">{{ card.back }}</div>
 </div>

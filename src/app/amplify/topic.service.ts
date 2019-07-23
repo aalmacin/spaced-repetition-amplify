@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { APIService } from '../API.service';
 import { map, switchMap, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Topic } from './topic';
+import { Topic } from '../types/topic';
 import { AuthService } from './auth.service';
 
 @Injectable({

@@ -3,7 +3,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { Subscription } from 'rxjs';
 import { APIService } from 'src/app/API.service';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
-import { User } from '@spaced-repetition/amplify/user';
+import { User } from 'src/app/types/user';
 
 @Component({
   selector: 'app-topics',
