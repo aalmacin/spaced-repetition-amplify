@@ -11,7 +11,9 @@
     text-align: center;
 
     &__image {
-      width: 30rem;
+      display: inline-block;
+      width: 100%;
+      margin: auto;
     }
   }
 
@@ -19,6 +21,16 @@
     @include padding(lg);
     margin: auto;
     text-align: center;
+
+    %textForm {
+      border: none;
+      border-bottom: 0.1rem solid rgba(getColor(black), 0.4);
+    }
+
+    &__password,
+    &__email {
+      @extend %textForm;
+    }
 
     .errors {
       width: 100%;
@@ -40,15 +52,6 @@
       @include padding(sm);
       @include margin(md, tb);
       @include font-size(lg);
-    }
-
-    &__email {
-    }
-
-    &__password {
-    }
-
-    &__submit {
     }
   }
 }

@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from '@spaced-repetition/amplify/card';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
   styleUrls: ['./study.component.scss']
 })
-export class StudyComponent implements OnInit {
+export class StudyComponent implements OnInit, OnDestroy {
   cards: Card[] = [];
+  cardSubscription: Subscription;
 
   constructor(private cardService: CardService) {
-    this.cardService.getAllStudyCards().subscribe(cards => (this.cards = cards));
+    this.cardSubscription = this.cardService.getAllStudyCards().subscribe(cards => (this.cards = cards));
   }
 
-  ngOnInit() {
-    console.log(this.cards);
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    this.cardSubscription.unsubscribe();
   }
 }

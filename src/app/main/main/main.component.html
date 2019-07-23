@@ -3,19 +3,37 @@
     <h1 class="nav__header">Spaced Repetition</h1>
     <ul class="nav__pages">
       <li class="nav__page">
-        <a [routerLink]="['/app', 'dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+        <a
+          alLink="animated"
+          color="secondary"
+          [routerLink]="['/app', 'dashboard']"
+          routerLinkActive="router-link-active"
+          >Dashboard</a
+        >
       </li>
       <li class="nav__page">
-        <a [routerLink]="['/app', 'profile']" routerLinkActive="router-link-active">Profile</a>
+        <a alLink="animated" color="secondary" [routerLink]="['/app', 'profile']" routerLinkActive="router-link-active"
+          >Profile</a
+        >
       </li>
       <li class="nav__page">
-        <a [routerLink]="['/app', 'study']" routerLinkActive="router-link-active">Study</a>
+        <a alLink="animated" color="secondary" [routerLink]="['/app', 'study']" routerLinkActive="router-link-active"
+          >Study</a
+        >
       </li>
       <li class="nav__page">
-        <a [routerLink]="['/app', 'topics']" routerLinkActive="router-link-active">Topics</a>
+        <a alLink="animated" color="secondary" [routerLink]="['/app', 'topics']" routerLinkActive="router-link-active"
+          >Topics</a
+        >
       </li>
       <li class="nav__page">
-        <a [routerLink]="['/app', 'card-manager']" routerLinkActive="router-link-active">Card Manager</a>
+        <a
+          alLink="animated"
+          color="secondary"
+          [routerLink]="['/app', 'card-manager']"
+          routerLinkActive="router-link-active"
+          >Card Manager</a
+        >
       </li>
       <li class="nav__page">
         <app-auth-sign-out></app-auth-sign-out>

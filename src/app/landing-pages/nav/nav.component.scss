@@ -32,11 +32,7 @@
 
     &__header {
       display: inline-block;
-      @include padding(lg, tbl);
-
-      .header-img {
-        width: 12rem;
-      }
+      @include padding(md, tbl);
     }
 
     &__login {

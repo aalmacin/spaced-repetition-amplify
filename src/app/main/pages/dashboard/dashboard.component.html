@@ -10,7 +10,9 @@
       </p>
 
       <p class="message">
-        Go to <a class="al-underline" [routerLink]="['/app', 'study']">Study page</a> to start studying.
+        Go to
+        <a class="message__link" alLink="animated" color="tertiary" [routerLink]="['/app', 'study']">Study page</a> to
+        start studying.
       </p>
     </div>
     <a alBtn="secondary" size="large" [routerLink]="['/app', 'study']" class="panel__button">Study now</a>
@@ -25,8 +27,9 @@
       <p class="message message--example">Example: Spanish, Physics, Math, etc.</p>
 
       <p class="message">
-        Go to <a class="al-underline" [routerLink]="['/app', 'topics']">Topics page</a> to view, manage, or study
-        topic/s.
+        Go to
+        <a class="message__link" alLink="animated" color="tertiary" [routerLink]="['/app', 'topics']">Topics page</a> to
+        view, manage, or study topic/s.
       </p>
     </div>
     <a alBtn="secondary" size="large" [routerLink]="['/app', 'topics']" class="panel__button">View Topics</a>
@@ -39,8 +42,11 @@
       <p class="message">Card Manager is the page where cards from different topics can be managed.</p>
 
       <p class="message">
-        Go to <a class="al-underline" [routerLink]="['/app', 'card-manager']">Card Manager page</a> to view and manage
-        cards.
+        Go to
+        <a class="message__link" alLink="animated" color="tertiary" [routerLink]="['/app', 'card-manager']"
+          >Card Manager page</a
+        >
+        to view and manage cards.
       </p>
     </div>
     <a alBtn="secondary" size="large" [routerLink]="['/app', 'card-manager']" class="panel__button">Manage Cards</a>

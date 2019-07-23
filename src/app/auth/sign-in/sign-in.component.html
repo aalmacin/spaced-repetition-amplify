@@ -1,6 +1,8 @@
 <div class="sign-in-container">
   <div class="logo">
-    <img class="logo__image" src="../../../assets/logo/logo_transparent.png" />
+    <div class="logo__image">
+      <app-main-logo size="big"></app-main-logo>
+    </div>
   </div>
   <form (submit)="signIn($event, email.value, password.value)" class="form sign-in">
     <p *ngIf="loading" class="loading">Loading...</p>

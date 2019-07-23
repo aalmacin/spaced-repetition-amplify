@@ -1,0 +1,54 @@
+@import '../../../styles/framework.scss';
+
+:host {
+  &.al-link-color-primary {
+    &:hover {
+      color: getColor(blue);
+    }
+
+    .moving-border {
+      background-color: getColor(blue);
+    }
+  }
+
+  &.al-link-color-secondary {
+    &:hover {
+      color: getColor(blue-dark);
+    }
+
+    .moving-border {
+      background-color: getColor(blue-dark);
+    }
+  }
+
+  &.al-link-color-tertiary {
+    &:hover {
+      color: getColor(green);
+    }
+
+    .moving-border {
+      background-color: getColor(green);
+    }
+  }
+
+  display: inline-block;
+
+  &:link,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    transform: translateY(-0.3rem);
+  }
+
+  &:hover .moving-border {
+    width: 100%;
+  }
+
+  .moving-border {
+    height: 0.1rem;
+    width: 0%;
+    transition: width 0.2s ease-in;
+  }
+}

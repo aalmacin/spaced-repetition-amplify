@@ -59,6 +59,10 @@
       }
 
       .message {
+        .message__link {
+          @include font-weight(semibold);
+        }
+
         &:not(:last-child) {
           @include margin(md, b);
         }
