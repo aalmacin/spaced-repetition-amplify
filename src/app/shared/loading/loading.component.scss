@@ -1,0 +1,19 @@
+@import '../../../styles/framework.scss';
+
+:host {
+  .loading {
+    display: inline-block;
+    transform-origin: center;
+
+    i {
+      animation: rotate 1.5s linear;
+      animation-iteration-count: infinite;
+    }
+
+    @include font-size(lg-3);
+
+    &.al-loading-primary {
+      color: getColor(blue);
+    }
+  }
+}

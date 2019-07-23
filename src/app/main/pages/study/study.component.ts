@@ -11,9 +11,13 @@ import { Subscription } from 'rxjs';
 export class StudyComponent implements OnInit, OnDestroy {
   cards: Card[] = [];
   cardSubscription: Subscription;
+  loading = true;
 
   constructor(private cardService: CardService) {
-    this.cardSubscription = this.cardService.getAllStudyCards().subscribe(cards => (this.cards = cards));
+    this.cardSubscription = this.cardService.getAllStudyCards().subscribe(cards => {
+      this.loading = false;
+      this.cards = cards;
+    });
   }
 
   ngOnInit() {}

@@ -1,43 +1,51 @@
-<div class="study-page" *ngIf="cards.length > 0; else noCards">
-  <ng-container *ngFor="let card of cards; let i = index">
-    <div class="flash-card">
-      <input type="checkbox" id="flip-{{ i }}" class="flash-card__rotator" />
-      <input type="checkbox" id="remove-{{ i }}" class="flash-card__remover" />
+<div class="study-page">
+  <app-loading *ngIf="loading; else study"></app-loading>
 
-      <div class="flash-card__face flash-card__face--front">
-        <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
-        <div class="flash-card__topic">{{ card.topicName }}</div>
+  <ng-template #study>
+    <div *ngIf="cards.length > 0">
+      <ng-container *ngFor="let card of cards; let i = index">
+        <div class="flash-card">
+          <input type="checkbox" id="flip-{{ i }}" class="flash-card__rotator" />
+          <input type="checkbox" id="remove-{{ i }}" class="flash-card__remover" />
+          <div class="flash-card__cover"></div>
 
-        <div class="flash-card__front-text">
-          {{ card.front }}
+          <div class="flash-card__face flash-card__face--front">
+            <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
+            <div class="flash-card__topic">{{ card.topicName }}</div>
+
+            <div class="flash-card__front-text">
+              {{ card.front }}
+            </div>
+            <label class="flash-card__show-answer" alBtn="secondary" size="large" for="flip-{{ i }}">Flip</label>
+          </div>
+
+          <div class="flash-card__face flash-card__face--back">
+            <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
+            <div class="flash-card__topic">{{ card.topicName }}</div>
+
+            <h3 class="flash-card__back-question">{{ card.front }}</h3>
+            <div class="flash-card__back-answer">{{ card.back }}</div>
+            <div class="flash-card__result-container">
+              <label for="remove-{{ i }}" class="flash-card__result--hard" alBtn="alert" size="large">Hard</label>
+              <label
+                for="remove-{{ i }}"
+                class="flash-card__result flash-card__result--easy"
+                alBtn="tertiary"
+                size="large"
+                >Easy</label
+              >
+            </div>
+          </div>
         </div>
-        <label class="flash-card__show-answer" alBtn="secondary" size="large" for="flip-{{ i }}">Flip</label>
-      </div>
-
-      <div class="flash-card__face flash-card__face--back">
-        <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
-        <div class="flash-card__topic">{{ card.topicName }}</div>
-
-        <h3 class="flash-card__back-question">{{ card.front }}</h3>
-        <div class="flash-card__back-answer">{{ card.back }}</div>
-        <div class="flash-card__result-container">
-          <label for="remove-{{ i }}" class="flash-card__result--hard" alBtn="alert" size="large">Hard</label>
-          <label for="remove-{{ i }}" class="flash-card__result flash-card__result--easy" alBtn="tertiary" size="large"
-            >Easy</label
-          >
-        </div>
-      </div>
+      </ng-container>
     </div>
-  </ng-container>
+    <div class="no-cards">
+      <div class="no-cards__icon">
+        <i class="fas fa-couch"></i>
+      </div>
+      <p class="no-cards__message">
+        You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
+      </p>
+    </div>
+  </ng-template>
 </div>
-
-<ng-template #noCards>
-  <div class="no-cards">
-    <div class="no-cards__icon">
-      <i class="fas fa-couch"></i>
-    </div>
-    <p class="no-cards__message">
-      You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
-    </p>
-  </div>
-</ng-template>

@@ -5,10 +5,11 @@ import { AlertComponent } from './alert/alert.component';
 import { FooterComponent } from './footer/footer.component';
 import { LinkComponent } from './link/link.component';
 import { MainLogoComponent } from './main-logo/main-logo.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
-  declarations: [ButtonComponent, AlertComponent, FooterComponent, LinkComponent, MainLogoComponent],
+  declarations: [ButtonComponent, AlertComponent, FooterComponent, LinkComponent, MainLogoComponent, LoadingComponent],
   imports: [CommonModule],
-  exports: [ButtonComponent, AlertComponent, FooterComponent, LinkComponent, MainLogoComponent]
+  exports: [ButtonComponent, AlertComponent, FooterComponent, LinkComponent, MainLogoComponent, LoadingComponent]
 })
 export class SharedModule {}
