@@ -4,9 +4,9 @@ import { Subscription, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { APIService } from 'src/app/API.service';
 import { CardService } from '@spaced-repetition/amplify/card.service';
-import { makeBoxEasier } from '@spaced-repetition/main/functions/study.func';
-import { getCurrentTimestamp } from '@spaced-repetition/main/functions/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
+import { makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
+import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 
 @Component({
   selector: 'app-cards',

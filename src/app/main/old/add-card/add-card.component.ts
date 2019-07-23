@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { APIService, Box } from 'src/app/API.service';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Component } from '@angular/core';
-import { getCurrentTimestamp } from '../functions/timestamp.func';
+import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 
 @Component({
   selector: 'app-add-card',

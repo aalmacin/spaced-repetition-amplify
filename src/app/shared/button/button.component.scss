@@ -33,6 +33,32 @@
     }
   }
 
+  &.al-btn-tertiary {
+    background-color: getColor(green);
+    color: getColor(white);
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+
+    &:hover {
+      border: 0.1rem solid getColor(green);
+      background-color: getColor(green-light);
+      color: getColor(green);
+    }
+  }
+
+  &.al-btn-alert {
+    background-color: getColor(red);
+    color: getColor(white);
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+
+    &:hover {
+      border: 0.1rem solid getColor(red);
+      background-color: getColor(red-light);
+      color: getColor(red);
+    }
+  }
+
   &.al-btn-animated {
     background-color: getColor(blue);
     color: getColor(white);
@@ -59,5 +85,13 @@
 
   &.al-btn-size-small {
     @include font-size(sm);
+  }
+
+  &.al-btn-size-fit {
+    @include font-size(lg);
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    width: 100%;
   }
 }

@@ -78,9 +78,7 @@ export class CardService {
   public getAllStudyCards(): Observable<Card[]> {
     return defer(async () => {
       const cards = await this.getCardsFromAmplify();
-      console.log(cards);
-      return cards;
-      // return filter((r: any) => isReadyToStudy(r))(cards);
+      return filter((r: any) => isReadyToStudy(r.lastStudy, r.box))(cards);
     });
   }
 

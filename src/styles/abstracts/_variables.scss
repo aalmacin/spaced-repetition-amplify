@@ -6,12 +6,14 @@ $black: #0b1112;
 $purple: #6f87bc;
 $red: #bc6fad;
 $blue: #6fadbc;
+$green: #6fbca4;
 
 // Colors
 $colorMap: (
   red-light: rgba($red, 0.3),
   red: $red,
-  green: #6fbca4,
+  green-light: rgba($green, 0.4),
+  green: $green,
   blue-light: rgba($blue, 0.2),
   blue: $blue,
   purple-light: rgba($purple, 0.5),

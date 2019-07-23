@@ -3,9 +3,9 @@ import { CardService } from '../../../amplify/card.service';
 import { Subscription } from 'rxjs';
 import { shuffle } from 'lodash';
 import { APIService } from 'src/app/API.service';
-import { makeBoxEasier } from '../../shared/study.func';
-import { getCurrentTimestamp } from '../../shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
+import { makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
+import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 
 @Component({
   selector: 'app-study',
