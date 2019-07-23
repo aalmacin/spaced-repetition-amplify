@@ -1,0 +1,46 @@
+@import '../../../styles/framework.scss';
+
+.confirm-container {
+  @include font-size(md);
+  text-align: center;
+  position: relative;
+  min-height: 75vh;
+
+  .confirm {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    transform: translate(-50%, -50%);
+
+    .logo {
+      display: inline-block;
+    }
+
+    .confirm-form {
+      @include margin(lg);
+
+      &__message {
+        @include font-size(sm-2);
+      }
+
+      &__label {
+        @include font-size(sm);
+      }
+
+      &__input {
+        border: none;
+        @include padding(sm);
+        @include margin(md, tb);
+        @include font-size(lg);
+        display: inline-block;
+        width: 100%;
+        border-bottom: 1px solid getColor(gray);
+      }
+
+      &__submit {
+        @include margin(md, t);
+      }
+    }
+  }
+}

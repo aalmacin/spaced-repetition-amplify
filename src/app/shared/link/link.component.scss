@@ -1,6 +1,7 @@
 @import '../../../styles/framework.scss';
 
 :host {
+  cursor: pointer;
   &.al-link-color-primary {
     &:hover {
       color: getColor(blue);

@@ -32,7 +32,6 @@
 
     border: 0.1rem solid getColor(gray-light);
     border-radius: 0.4rem;
-    box-shadow: 0.5rem 0.5rem 10rem getColor(gray);
 
     &__header {
       @include font-size(lg);
@@ -42,6 +41,10 @@
       }
 
       @include margin(md);
+    }
+
+    &__icon {
+      width: 8rem;
     }
 
     .messages {

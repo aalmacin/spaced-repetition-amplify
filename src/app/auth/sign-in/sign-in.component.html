@@ -1,11 +1,9 @@
 <div class="sign-in-container">
   <div class="logo">
-    <div class="logo__image">
-      <app-main-logo size="big"></app-main-logo>
-    </div>
+    <app-main-logo size="big"></app-main-logo>
   </div>
   <form (submit)="signIn($event, email.value, password.value)" class="form sign-in">
-    <p *ngIf="loading" class="loading">Loading...</p>
+    <p *ngIf="loading" class="loading"><app-loading></app-loading></p>
     <div class="errors">
       <al-alert [messages]="errors" type="error"></al-alert>
     </div>
@@ -30,5 +28,6 @@
     />
 
     <button alBtn="primary" class="form-control sign-in__submit">Login</button>
+    <p>Don't have an account? <a alLink="animated" [routerLink]="['/auth', 'signup']">Click here to sign up now.</a></p>
   </form>
 </div>

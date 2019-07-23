@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '@spaced-repetition/amplify/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'app-confirm',
+  templateUrl: './confirm.component.html',
+  styleUrls: ['./confirm.component.scss']
 })
-export class SignInComponent {
+export class ConfirmComponent {
   public loading = false;
   public errors: string[] = [];
 
@@ -16,12 +16,12 @@ export class SignInComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  signIn(event: any, email: string, password: string) {
+  confirm(event: MouseEvent, email: string, code: string) {
     event.preventDefault();
     this.loading = true;
-    this.authService.login(email, password).subscribe((res: any) => {
+    this.authService.confirmUser(email, code).subscribe((res: any) => {
+      this.loading = false;
       if (res.error) {
-        this.loading = false;
         this.errors = [res.error];
       } else {
         this.router.navigate(this.navigateTo);

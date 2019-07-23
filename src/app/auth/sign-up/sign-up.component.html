@@ -1,0 +1,45 @@
+<div class="sign-up-container">
+  <div class="logo">
+    <div class="logo__image">
+      <app-main-logo size="big"></app-main-logo>
+    </div>
+  </div>
+  <form (submit)="register($event, email.value, password.value, confirmPassword.value)" class="form sign-up">
+    <p *ngIf="loading" class="loading"><app-loading></app-loading></p>
+    <div class="errors">
+      <al-alert [messages]="errors" type="error"></al-alert>
+    </div>
+    <input
+      placeholder="Email"
+      #email
+      id="email"
+      type="email"
+      name="email"
+      class="form-control sign-up__email"
+      required
+    />
+
+    <input
+      placeholder="Password"
+      #password
+      id="password"
+      type="password"
+      name="password"
+      class="form-control sign-up__password"
+      required
+    />
+
+    <input
+      placeholder="Confirm Password"
+      id="confirm-password"
+      #confirmPassword
+      type="password"
+      name="confirm-password"
+      class="form-control sign-up__password"
+      required
+    />
+
+    <button alBtn="primary" class="form-control sign-up__submit">Register</button>
+    <p>Already have an account? <a alLink="animated" [routerLink]="['/auth', 'signin']">Click here to sign in</a></p>
+  </form>
+</div>

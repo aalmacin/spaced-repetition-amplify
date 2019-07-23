@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
 import { defer, Observable } from 'rxjs';
 import { User } from '../types/user';
+import { ApiError } from '@spaced-repetition/types/api-error';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,20 @@ export class AuthService {
     return defer(async () => this.getCurrentUserFromAmplify());
   }
 
-  public login(email: string, password: string): Observable<User | null> {
+  public login(email: string, password: string): Observable<ApiError | User | null> {
     return defer(async () => this.loginToAmplify(email, password));
   }
 
   public logOut(): Observable<boolean> {
     return defer(async () => this.logoutToAmplify());
+  }
+
+  public register({ email, password }: { email: string; password: string }): Observable<ApiError | User | null> {
+    return defer(async () => this.registerToAmplify(email, password));
+  }
+
+  public confirmUser(email: string, code: string): Observable<ApiError | User | null> {
+    return defer(async () => this.confirmUserInAmplify(email, code));
   }
 
   private async logoutToAmplify() {
@@ -31,7 +40,27 @@ export class AuthService {
       const user = await Auth.signIn(email, password);
       return { email: user.attributes.email };
     } catch (error) {
-      return null;
+      return (error.message && { error: error.message }) || { error: 'An error occured' };
+    }
+  }
+
+  private async registerToAmplify(email, password) {
+    try {
+      const res = await Auth.signUp(email, password);
+      return { email: res.user.getUsername() };
+    } catch (error) {
+      return (error.message && { error: error.message }) || { error: 'An error occured' };
+    }
+  }
+
+  private async confirmUserInAmplify(email, code) {
+    try {
+      const res = await Auth.confirmSignUp(email, code);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+      return (error.message && { error: error.message }) || { error: 'An error occured' };
     }
   }
 
