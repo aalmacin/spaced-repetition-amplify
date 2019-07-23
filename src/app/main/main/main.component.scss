@@ -44,6 +44,13 @@
     }
   }
 
+  .nav-link {
+    &.router-link-active {
+      @include font-weight(semibold);
+      color: getColor(blue-dark);
+    }
+  }
+
   .mobile-nav-toggler {
     @include media(tablet) {
       display: none;
