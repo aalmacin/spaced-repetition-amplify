@@ -67,6 +67,8 @@
               <div class="filter__field">
                 <label for="search" class="al-semibold">Filter</label>
                 <input
+                  (change)="changeSearchTerm(searchTerm.value)"
+                  #searchTerm
                   id="search"
                   class="filter__input filter__input--search"
                   type="text"
@@ -75,14 +77,21 @@
               </div>
 
               <div class="filter__field">
-                <input id="study" class="filter__study" type="checkbox" />
+                <input
+                  (change)="changeIsReadyStudy()"
+                  #readyStudyOnly
+                  id="study"
+                  class="filter__study"
+                  type="checkbox"
+                  [checked]="isReadyStudyOnly"
+                />
                 <label for="study">Ready to Study?</label>
               </div>
             </div>
           </div>
         </div>
 
-        <ng-container *ngIf="cards.length > 0; else noCards">
+        <ng-container *ngIf="(filteredCards | async).length > 0; else noCards">
           <div class="card-header">
             <div class="card-header__topic-name">Topic Name</div>
             <div class="card-header__front">Front</div>
@@ -92,7 +101,7 @@
             <div class="card-header__next-study">Next Study</div>
             <div class="card-header__action"></div>
           </div>
-          <div class="cards" *ngFor="let card of cards; let i = index">
+          <div class="cards" *ngFor="let card of filteredCards | async; let i = index">
             <input id="toggle-{{ i }}" class="card-toggle" type="checkbox" />
             <div class="card card--collapsed">
               <div class="card__topic-name">{{ card.topicName }}</div>

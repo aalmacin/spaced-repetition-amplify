@@ -46,12 +46,12 @@ export class CardsComponent implements OnDestroy {
   }
 
   private startCardsSubscription() {
-    this.cardsSubscription = combineLatest(this.isReadyToStudyOnly$, this.route.params)
-      .pipe(switchMap(([isReadyToStudyOnly, params]) => this.cardService.getCards(params.topicid, isReadyToStudyOnly)))
-      .subscribe((cards: Card[]) => {
-        this.cards = cards;
-        this.loading = false;
-      });
+    // this.cardsSubscription = combineLatest(this.isReadyToStudyOnly$, this.route.params)
+    //   .pipe(switchMap(([isReadyToStudyOnly, params]) => this.cardService.getCards(params.topicid, isReadyToStudyOnly)))
+    //   .subscribe((cards: Card[]) => {
+    //     this.cards = cards;
+    //     this.loading = false;
+    //   });
   }
 
   ngOnDestroy(): void {
