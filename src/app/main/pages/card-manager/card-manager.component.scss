@@ -30,9 +30,49 @@
     flex-direction: column;
     align-items: stretch;
 
+    .add-card-toggle {
+      display: none;
+
+      &:checked {
+        & ~ .add-card__form {
+          display: block;
+        }
+
+        & ~ .add-card-toggler {
+          color: getColor(green);
+        }
+      }
+    }
+
+    .add-card-toggler {
+      display: inline-block;
+      @include font-size(md);
+      text-align: left;
+    }
+
+    .filter-toggle {
+      display: none;
+
+      &:checked {
+        & ~ .filter__container {
+          display: flex;
+        }
+
+        & ~ .filter-toggler {
+          color: getColor(green);
+        }
+      }
+    }
+
+    .filter-toggler {
+      display: inline-block;
+      text-align: right;
+      @include font-size(md);
+    }
+
     .filter {
       &__container {
-        display: flex;
+        display: none;
         align-items: center;
         @include padding(md, tb);
         @include margin(md, tb);
@@ -46,6 +86,11 @@
           @include margin(md, l);
           border: none;
           border-bottom: 0.1rem solid getColor(gray-light);
+          width: 55%;
+
+          @include media(tablet) {
+            width: 75%;
+          }
         }
       }
 
@@ -56,6 +101,77 @@
       &__field {
         flex-basis: 50%;
         vertical-align: middle;
+      }
+    }
+
+    .add-card {
+      @include margin(lg, tb);
+      @include font-size(sm);
+
+      @include media(tablet) {
+        @include font-size(md);
+      }
+
+      .errors,
+      .messages {
+        @include margin(md, b);
+      }
+
+      &__form {
+        display: none;
+      }
+
+      &__front {
+        width: 100%;
+        border: 0.1rem solid getColor(gray-light);
+        @include margin(md, b);
+        @include padding(md);
+        @include font-size(sm);
+
+        @include media(tablet) {
+          @include font-size(md);
+        }
+      }
+
+      &__back {
+        width: 100%;
+        border: 0.1rem solid getColor(gray-light);
+        @include margin(md, b);
+        @include padding(md);
+        @include font-size(sm);
+
+        @include media(tablet) {
+          @include font-size(md);
+        }
+      }
+
+      &__topic {
+        width: 100%;
+        @include margin(md, b);
+        @include font-size(sm);
+
+        background: url('../../../../assets/white-arrow.svg');
+        background-size: 4%;
+        background-repeat: no-repeat;
+        background-position: 98% 50%;
+        color: getColor(white);
+        background-color: getColor(purple);
+
+        @include media(tablet) {
+          background-size: 3%;
+          @include font-size(md);
+        }
+
+        @include media(desktop) {
+          @include font-size(md);
+          background: none;
+          background-color: getColor(white);
+          color: getColor(black);
+        }
+
+        overflow: hidden;
+        border-radius: 0;
+        @include padding(md);
       }
     }
 

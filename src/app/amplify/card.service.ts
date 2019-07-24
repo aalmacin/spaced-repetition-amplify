@@ -49,6 +49,16 @@ export class CardService {
     });
   }
 
+  public addNewCard({ front, back, topicId }) {
+    this.apiService.CreateCard({
+      front,
+      back,
+      box: Box.VERY_HARD,
+      cardTopicId: topicId,
+      lastStudy: getCurrentTimestamp()
+    });
+  }
+
   public updateCardToEasy(id, box) {
     const easierBox = makeBoxEasier(box);
     this.apiService.UpdateCard({

@@ -1,7 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Card } from '@spaced-repetition/types/card';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { CardService } from '@spaced-repetition/amplify/card.service';
+import { Validators, FormBuilder } from '@angular/forms';
+import { TopicService } from '@spaced-repetition/amplify/topic.service';
+import { Topic } from '@spaced-repetition/types/topic';
 
 @Component({
   selector: 'app-card-manager',
@@ -13,14 +16,34 @@ export class CardManagerComponent implements OnDestroy {
   cardSubscription: Subscription;
   loading = true;
 
-  constructor(private cardService: CardService) {
-    this.cardSubscription = this.cardService.getAllCards().subscribe(cards => {
-      this.loading = false;
-      this.cards = cards;
-    });
+  public addCardForm = this.fb.group({
+    front: ['', Validators.required],
+    back: ['', Validators.required],
+    topicId: ['', Validators.required]
+  });
+  errors: string[] = [];
+  messages: string[] = [];
+  topics: Topic[] = [];
+
+  constructor(private cardService: CardService, private topicService: TopicService, private fb: FormBuilder) {
+    this.cardSubscription = combineLatest(this.cardService.getAllCards(), this.topicService.getTopics()).subscribe(
+      ([cards, topics]) => {
+        this.loading = false;
+        this.topics = topics;
+        this.cards = cards;
+      }
+    );
   }
 
   ngOnDestroy() {
     this.cardSubscription.unsubscribe();
+  }
+
+  public addNewCard() {
+    if (this.addCardForm.status === 'VALID') {
+      this.cardService.addNewCard(this.addCardForm.value);
+    } else {
+      this.errors = ['Something went wrong while adding a new card.'];
+    }
   }
 }
