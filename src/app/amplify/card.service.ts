@@ -46,21 +46,30 @@ export class CardService {
     );
   }
 
-  public updateCardToEasy(id, box) {
-    const easierBox = makeBoxEasier(box);
-    this.apiService.UpdateCard({
-      id,
-      box: easierBox,
-      lastStudy: getCurrentTimestamp()
-    });
+  public updateCardToEasy(card: Card) {
+    return of(card).pipe(
+      switchMap(({ id, box }) =>
+        this.apiService.UpdateCard({
+          id,
+          box: makeBoxEasier(box),
+          lastStudy: getCurrentTimestamp()
+        })
+      ),
+      catchError(() => of({ error: 'Failed to update card.' }))
+    );
   }
 
-  public updateCardToHard(id, box) {
-    this.apiService.UpdateCard({
-      id,
-      box: box.VERY_HARD,
-      lastStudy: getCurrentTimestamp()
-    });
+  public updateCardToHard(card: Card) {
+    return of(card).pipe(
+      switchMap(({ id }) =>
+        this.apiService.UpdateCard({
+          id,
+          box: Box.VERY_HARD,
+          lastStudy: getCurrentTimestamp()
+        })
+      ),
+      catchError(() => of({ error: 'Failed to update card.' }))
+    );
   }
 
   public deleteCard(cardId: string): Observable<Card[] | ApiError> {

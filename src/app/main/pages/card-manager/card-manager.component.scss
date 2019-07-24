@@ -34,6 +34,7 @@
 
     .togglers {
       @include margin(lg, t);
+
       .add-card-toggler {
         display: inline-block;
         width: 50%;
@@ -282,7 +283,15 @@
         }
 
         & ~ .card--collapsed {
-          display: none;
+          display: flex;
+
+          .card__action--collapse {
+            display: inline-block;
+          }
+
+          .card__action--expand {
+            display: none;
+          }
         }
       }
 
@@ -293,6 +302,14 @@
 
         & ~ .card--collapsed {
           display: flex;
+
+          .card__action--collapse {
+            display: none;
+          }
+
+          .card__action--expand {
+            display: inline-block;
+          }
         }
       }
     }

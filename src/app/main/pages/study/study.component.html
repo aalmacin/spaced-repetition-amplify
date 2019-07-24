@@ -1,6 +1,10 @@
 <div class="study-page">
   <app-loading *ngIf="loading; else study"></app-loading>
 
+  <div class="errors">
+    <al-alert [messages]="errors" type="error"></al-alert>
+  </div>
+
   <ng-template #study>
     <div *ngIf="cards.length > 0">
       <ng-container *ngFor="let card of cards; let i = index">
@@ -26,12 +30,20 @@
             <h3 class="flash-card__back-question">{{ card.front }}</h3>
             <div class="flash-card__back-answer">{{ card.back }}</div>
             <div class="flash-card__result-container">
-              <label for="remove-{{ i }}" class="flash-card__result--hard" alBtn="alert" size="large">Hard</label>
+              <label
+                for="remove-{{ i }}"
+                class="flash-card__result--hard"
+                alBtn="alert"
+                size="large"
+                (click)="harderCard(card)"
+                >Hard</label
+              >
               <label
                 for="remove-{{ i }}"
                 class="flash-card__result flash-card__result--easy"
                 alBtn="tertiary"
                 size="large"
+                (click)="easierCard(card)"
                 >Easy</label
               >
             </div>

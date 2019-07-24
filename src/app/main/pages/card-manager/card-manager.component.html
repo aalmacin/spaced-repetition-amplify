@@ -120,14 +120,12 @@
               <label for="toggle-{{ i }}" class="card__action card__action--expand"
                 ><i class="fas fa-caret-left"></i
               ></label>
+              <label for="toggle-{{ i }}" class="card__action card__action--collapse"
+                ><i class="fas fa-caret-down"></i
+              ></label>
             </div>
             <div class="card card--expanded">
               <div class="card-info">
-                <div class="card-info__collapse">
-                  <label for="toggle-{{ i }}" class="card__action card__action--collapse"
-                    ><i class="fas fa-caret-down"></i
-                  ></label>
-                </div>
                 <div class="card-info__fields">
                   <div class="card-info__field card-info__field--topic">
                     <span class="al-semibold">Topic:</span> {{ card.topicName }}

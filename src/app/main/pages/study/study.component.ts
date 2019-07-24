@@ -10,17 +10,41 @@ import { Subscription } from 'rxjs';
 })
 export class StudyComponent implements OnDestroy {
   cards: Card[] = [];
-  cardSubscription: Subscription;
+  subscriptions = new Subscription();
   loading = true;
+  errors: string[] = [];
 
   constructor(private cardService: CardService) {
-    this.cardSubscription = this.cardService.getAllStudyCards().subscribe(cards => {
-      this.loading = false;
-      this.cards = cards;
-    });
+    this.subscriptions.add(
+      this.cardService.getAllStudyCards().subscribe(cards => {
+        this.loading = false;
+        this.cards = cards;
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.cardSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
+  }
+
+  public easierCard(card: Card) {
+    this.subscriptions.add(
+      this.cardService.updateCardToEasy(card).subscribe((result: any) => {
+        if (result.error) {
+          this.errors = [result.error];
+        }
+      })
+    );
+  }
+
+  public harderCard(card: Card) {
+    this.subscriptions.add(
+      this.cardService.updateCardToEasy(card).subscribe((result: any) => {
+        if (result.error) {
+          this.errors = [result.error];
+        }
+      })
+    );
+    this.cardService.updateCardToHard(card);
   }
 }
