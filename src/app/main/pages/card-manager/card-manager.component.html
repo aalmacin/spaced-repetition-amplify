@@ -5,66 +5,71 @@
       <h2 class="header">Card Manager</h2>
 
       <div class="cards-container">
-        <div class="add-card">
+        <div class="togglers">
           <input type="checkbox" id="add-card-toggle" class="add-card-toggle" />
+          <input type="checkbox" id="filter-toggle" class="filter-toggle" />
           <label class="add-card-toggler" for="add-card-toggle">
+            Add Card
             <i class="fas fa-plus-square"></i>
           </label>
-          <form class="add-card__form" [formGroup]="addCardForm" (submit)="addNewCard()">
-            <div class="errors">
-              <al-alert [messages]="errors" type="error"></al-alert>
-
-              <ng-container *ngIf="addCardForm.status === 'INVALID'">
-                <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
-              </ng-container>
-            </div>
-            <div class="messages">
-              <al-alert [messages]="messages" type="success"></al-alert>
-            </div>
-            <input
-              class="add-card__front"
-              formControlName="front"
-              name="front"
-              placeholder="Ex. What is life? (Front/Question)"
-            />
-            <textarea
-              rows="4"
-              class="add-card__back"
-              formControlName="back"
-              name="back"
-              placeholder="Ex. 42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
-            ></textarea>
-
-            <select class="add-card__topic" formControlName="topicId" #topicId name="topicId">
-              <option value="">Select Topic</option>
-              <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
-            </select>
-
-            <button [disabled]="addCardForm.status === 'INVALID'" alBtn="primary" size="fit" type="secondary">
-              Create Card
-            </button>
-          </form>
-        </div>
-
-        <div class="filter">
-          <input type="checkbox" id="filter-toggle" class="filter-toggle" />
           <label class="filter-toggler" for="filter-toggle">
+            Filter
             <i class="fas fa-filter"></i>
           </label>
-          <div class="filter__container">
-            <div class="filter__field">
-              <label for="search" class="al-semibold">Filter</label>
-              <input
-                id="search"
-                class="filter__input filter__input--search"
-                type="text"
-                placeholder="Search Term: Topic Name/Front/Back"
-              />
-            </div>
 
-            <div class="filter__field">
-              <input id="study" class="filter__study" type="checkbox" />
-              <label for="study">Ready to Study?</label>
+          <div class="add-card">
+            <form class="add-card__form" [formGroup]="addCardForm" (submit)="addNewCard()">
+              <div class="errors">
+                <al-alert [messages]="errors" type="error"></al-alert>
+
+                <ng-container *ngIf="addCardForm.status === 'INVALID'">
+                  <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
+                </ng-container>
+              </div>
+              <div class="messages">
+                <al-alert [messages]="messages" type="success"></al-alert>
+              </div>
+              <input
+                class="add-card__front"
+                formControlName="front"
+                name="front"
+                placeholder="Ex. What is life? (Front/Question)"
+              />
+              <textarea
+                rows="4"
+                class="add-card__back"
+                formControlName="back"
+                name="back"
+                placeholder="Ex. 42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
+              ></textarea>
+
+              <select class="add-card__topic" formControlName="topicId" #topicId name="topicId">
+                <option value="">Select Topic</option>
+                <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
+              </select>
+
+              <button [disabled]="addCardForm.status === 'INVALID'" alBtn="primary" size="fit" type="secondary">
+                Create Card
+              </button>
+            </form>
+          </div>
+
+          <div class="filter">
+            <div class="filter__container">
+              <div class="filter__field">
+                <label for="search" class="al-semibold">Filter</label>
+                <input
+                  id="search"
+                  class="filter__input filter__input--search"
+                  type="text"
+                  placeholder="Search Term: Topic Name/Front/Back"
+                />
+              </div>
+
+              <div class="filter__field">
+                <input id="study" class="filter__study" type="checkbox" />
+                <label for="study">Ready to Study?</label>
+              </div>
             </div>
           </div>
         </div>

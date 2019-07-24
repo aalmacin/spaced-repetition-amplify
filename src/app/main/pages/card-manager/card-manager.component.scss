@@ -30,11 +30,25 @@
     flex-direction: column;
     align-items: stretch;
 
+    .add-card-toggler {
+      display: inline-block;
+      width: 50%;
+      @include font-size(md);
+      text-align: left;
+    }
+
+    .filter-toggler {
+      display: inline-block;
+      width: 50%;
+      text-align: right;
+      @include font-size(md);
+    }
+
     .add-card-toggle {
       display: none;
 
       &:checked {
-        & ~ .add-card__form {
+        & ~ .add-card .add-card__form {
           display: block;
         }
 
@@ -44,17 +58,11 @@
       }
     }
 
-    .add-card-toggler {
-      display: inline-block;
-      @include font-size(md);
-      text-align: left;
-    }
-
     .filter-toggle {
       display: none;
 
       &:checked {
-        & ~ .filter__container {
+        & ~ .filter .filter__container {
           display: flex;
         }
 
@@ -62,12 +70,6 @@
           color: getColor(green);
         }
       }
-    }
-
-    .filter-toggler {
-      display: inline-block;
-      text-align: right;
-      @include font-size(md);
     }
 
     .filter {
