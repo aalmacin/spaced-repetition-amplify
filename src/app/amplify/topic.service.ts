@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { APIService } from '../API.service';
-import { map, switchMap, filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Topic } from '../types/topic';
+import { map, switchMap, filter, catchError } from 'rxjs/operators';
+import { Observable, defer, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Topic } from '@spaced-repetition/types/topic';
+import { APIService } from '@spaced-repetition/API.service';
+import { ApiError } from '@spaced-repetition/types/api-error';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,14 @@ export class TopicService {
     );
   }
 
-  public async addTopic(name: string) {
-    const { email } = await this.userService.getCurrentUser().toPromise();
-    this.apiService.CreateTopic({
-      user: email,
-      name
-    });
+  public addTopic(name: string): Observable<Topic[] | ApiError> {
+    if (!name) {
+      return of({ error: 'Name cannot be empty' });
+    }
+    return this.userService.getCurrentUser().pipe(
+      switchMap(user => this.apiService.CreateTopic({ user: user.email, name })),
+      switchMap(() => this.getTopics()),
+      catchError(() => of({ error: 'An error occured while adding topic.' }))
+    );
   }
 }

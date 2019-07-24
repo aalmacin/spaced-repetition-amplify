@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, defer } from 'rxjs';
-import { isReadyToStudy, getNextStudyDate } from '../main/shared/study.func';
+import { isReadyToStudy, getNextStudyDate, makeBoxEasier } from '../main/shared/study.func';
 import { API, graphqlOperation } from 'aws-amplify';
 import { map, pipe, flatten, filter } from 'ramda';
 import { AuthService } from './auth.service';
@@ -13,8 +13,78 @@ import { Card } from '@spaced-repetition/types/card';
 })
 export class CardService {
   public constructor(private apiService: APIService, private authService: AuthService) {}
+  public getAllCards(): Observable<any> {
+    return defer(async () => {
+      const cards = await this.getCardsFromAmplify();
+      return cards;
+    });
+  }
 
-  async GetCardsByUser(filtered?: ModelTopicFilterInput, limit?: number, nextToken?: string): Promise<ListTopicsQuery> {
+  public getAllStudyCards(): Observable<Card[]> {
+    return defer(async () => {
+      const cards = await this.getCardsFromAmplify();
+      return filter((r: any) => isReadyToStudy(r.lastStudy, r.box))(cards);
+    });
+  }
+
+  public getCards(topicId: string, isReadyToStudyOnly: boolean): Observable<Card[]> {
+    return defer(async () => {
+      const topic = await this.apiService.GetTopic(topicId);
+      const cards = topic.cards.items.map(card => ({
+        id: card.id,
+        topicId: topic.id,
+        front: card.front,
+        back: card.back,
+        lastStudy: card.lastStudy,
+        box: card.box,
+        topicName: topic.name,
+        isReadyToStudy: isReadyToStudy(card.lastStudy, card.box)
+      }));
+      if (isReadyToStudyOnly) {
+        return cards.filter(card => card.isReadyToStudy);
+      }
+      return cards;
+    });
+  }
+
+  public updateCardToEasy(id, box) {
+    const easierBox = makeBoxEasier(box);
+    this.apiService.UpdateCard({
+      id,
+      box: easierBox,
+      lastStudy: getCurrentTimestamp()
+    });
+  }
+
+  public updateCardToHard(id, box) {
+    this.apiService.UpdateCard({
+      id,
+      box: box.VERY_HARD,
+      lastStudy: getCurrentTimestamp()
+    });
+  }
+
+  public async updateCard(id: string, front: string, back: string) {
+    this.apiService.UpdateCard({
+      id,
+      front,
+      back,
+      box: Box.VERY_HARD,
+      lastStudy: getCurrentTimestamp()
+    });
+  }
+
+  public async deleteCard(id: string) {
+    this.apiService.DeleteCard({
+      id
+    });
+  }
+
+  private async GetCardsByUser(
+    filtered?: ModelTopicFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListTopicsQuery> {
     const statement = `
       query GetCardsByUser($filter: ModelTopicFilterInput, $limit: Int, $nextToken: String) {
         listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
@@ -66,55 +136,5 @@ export class CardService {
         nextStudy: getDateFromTimestamp(getNextStudyDate(r.nextStudy, r.box))
       }))
     )([...topicService.items]);
-  }
-
-  public getAllCards(): Observable<any> {
-    return defer(async () => {
-      const cards = await this.getCardsFromAmplify();
-      return cards;
-    });
-  }
-
-  public getAllStudyCards(): Observable<Card[]> {
-    return defer(async () => {
-      const cards = await this.getCardsFromAmplify();
-      return filter((r: any) => isReadyToStudy(r.lastStudy, r.box))(cards);
-    });
-  }
-
-  public getCards(topicId: string, isReadyToStudyOnly: boolean): Observable<Card[]> {
-    return defer(async () => {
-      const topic = await this.apiService.GetTopic(topicId);
-      const cards = topic.cards.items.map(card => ({
-        id: card.id,
-        topicId: topic.id,
-        front: card.front,
-        back: card.back,
-        lastStudy: card.lastStudy,
-        box: card.box,
-        topicName: topic.name,
-        isReadyToStudy: isReadyToStudy(card.lastStudy, card.box)
-      }));
-      if (isReadyToStudyOnly) {
-        return cards.filter(card => card.isReadyToStudy);
-      }
-      return cards;
-    });
-  }
-
-  public async updateCard(id: string, front: string, back: string) {
-    this.apiService.UpdateCard({
-      id,
-      front,
-      back,
-      box: Box.VERY_HARD,
-      lastStudy: getCurrentTimestamp()
-    });
-  }
-
-  public async deleteCard(id: string) {
-    this.apiService.DeleteCard({
-      id
-    });
   }
 }

@@ -9,6 +9,14 @@
     }
   }
 
+  &.alert-type-success {
+    background-color: getColor(green-light);
+
+    .alert {
+      color: getColor(green);
+    }
+  }
+
   @include font-size(md);
   @include padding(md);
 

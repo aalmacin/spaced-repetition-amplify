@@ -20,7 +20,8 @@ export class AlertComponent {
   public messages: string[] = [];
 
   private iconLookup = {
-    [AlertType.error]: 'fas fa-exclamation-triangle'
+    [AlertType.error]: 'fas fa-exclamation-triangle',
+    [AlertType.success]: 'fas fa-check-circle'
   };
 
   public icon = this.iconLookup[this.type];

@@ -87,6 +87,11 @@
     @include font-size(sm);
   }
 
+  &.al-btn-size-tiny {
+    @include font-size(sm);
+    text-transform: none;
+  }
+
   &.al-btn-size-fit {
     @include font-size(lg);
     padding: 0;
