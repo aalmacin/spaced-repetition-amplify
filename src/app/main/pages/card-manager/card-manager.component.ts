@@ -14,8 +14,7 @@ import { Topic } from '@spaced-repetition/types/topic';
 export class CardManagerComponent implements OnInit, OnDestroy {
   cards: Card[] = [];
   filteredCards: BehaviorSubject<Card[]> = new BehaviorSubject([]);
-  cardSubscription: Subscription;
-  createCardSubscription: Subscription;
+  subscriptions: Subscription = new Subscription();
   loading = true;
 
   isReadyStudyOnly = false;
@@ -31,40 +30,61 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   searchTerm = '';
 
   constructor(private cardService: CardService, private topicService: TopicService, private fb: FormBuilder) {
-    this.cardSubscription = combineLatest(this.cardService.getAllCards(), this.topicService.getTopics()).subscribe(
-      ([cards, topics]) => {
+    this.subscriptions.add(
+      combineLatest(this.cardService.getAllCards(), this.topicService.getTopics()).subscribe(([cards, topics]) => {
         this.loading = false;
         this.topics = topics;
-        this.cards = cards;
-        this.filteredCards.next(this.cards);
-      }
+        this.setCards(cards);
+      })
     );
   }
 
   ngOnInit(): void {}
 
   ngOnDestroy() {
-    if (this.createCardSubscription) {
-      this.createCardSubscription.unsubscribe();
-    }
-    this.cardSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   public addNewCard() {
     if (this.addCardForm.status === 'VALID') {
       this.loading = true;
-      this.createCardSubscription = this.cardService.addNewCard(this.addCardForm.value).subscribe((result: any) => {
-        this.loading = false;
-        this.addCardForm.reset();
-        if (result.error) {
-          this.errors = [result.error];
-        } else {
-          this.cards = result;
-        }
-      });
+      this.subscriptions.add(
+        this.cardService.addNewCard(this.addCardForm.value).subscribe((result: any) => {
+          this.loading = false;
+          this.addCardForm.reset();
+          if (result.error) {
+            this.errors = [result.error];
+          } else {
+            this.messages = ['Successfully added card'];
+            this.setCards(result);
+          }
+        })
+      );
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }
+  }
+
+  public deleteCard(event: MouseEvent, cardId: string) {
+    event.preventDefault();
+    this.loading = true;
+    this.subscriptions.add(
+      this.cardService.deleteCard(cardId).subscribe((result: any) => {
+        this.loading = false;
+        if (result.error) {
+          this.errors = [result.error];
+        } else {
+          this.messages = ['Successfully deleted card'];
+          this.setCards(result);
+        }
+      })
+    );
+  }
+
+  public setCards(cards: Card[]) {
+    this.cards = cards;
+    this.filteredCards.next(this.cards);
+    this.filter();
   }
 
   public changeSearchTerm(searchTerm: string) {

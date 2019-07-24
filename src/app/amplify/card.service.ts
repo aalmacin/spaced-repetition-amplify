@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, defer, of } from 'rxjs';
-import { isReadyToStudy, getNextStudyDate, makeBoxEasier } from '../main/shared/study.func';
+import { Observable, of, pipe } from 'rxjs';
+import { makeBoxEasier } from '../main/shared/study.func';
 import { AuthService } from './auth.service';
-import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
+import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
 import { switchMap, filter, catchError, map } from 'rxjs/operators';
 import { ApiError } from '@spaced-repetition/types/api-error';
@@ -63,6 +63,14 @@ export class CardService {
     });
   }
 
+  public deleteCard(cardId: string): Observable<Card[] | ApiError> {
+    return of(cardId).pipe(
+      switchMap(id => this.deleteCardInAmplify(id)),
+      switchMap(() => this.getAllCards()),
+      catchError(() => of({ error: 'An error occured while deleting the card' }))
+    );
+  }
+
   public async updateCard(id: string, front: string, back: string) {
     this.apiService.UpdateCard({
       id,
@@ -73,9 +81,10 @@ export class CardService {
     });
   }
 
-  public async deleteCard(id: string) {
-    this.apiService.DeleteCard({
+  private async deleteCardInAmplify(id: string) {
+    const res = await this.apiService.DeleteCard({
       id
     });
+    return res;
   }
 }
