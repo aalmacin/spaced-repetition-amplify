@@ -38,7 +38,9 @@ export class CardService {
         lastStudy: card.lastStudy,
         box: card.box,
         topicName: topic.name,
-        isReadyToStudy: isReadyToStudy(card.lastStudy, card.box)
+        isReadyToStudy: isReadyToStudy(card.lastStudy, card.box),
+        lastStudyDate: getDateFromTimestamp(card.lastStudy),
+        nextStudyDate: getDateFromTimestamp(getNextStudyDate(card.lastStudy, card.box))
       }));
       if (isReadyToStudyOnly) {
         return cards.filter(card => card.isReadyToStudy);
@@ -131,9 +133,10 @@ export class CardService {
       filter((r: any) => r.cards.items.length > 0),
       map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),
       flatten,
-      map(r => ({
+      map((r: any) => ({
         ...r,
-        nextStudy: getDateFromTimestamp(getNextStudyDate(r.nextStudy, r.box))
+        nextStudyDate: getDateFromTimestamp(getNextStudyDate(r.lastStudy, r.box)),
+        lastStudyDate: getDateFromTimestamp(r.lastStudy)
       }))
     )([...topicService.items]);
   }

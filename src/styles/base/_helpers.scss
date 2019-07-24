@@ -6,7 +6,8 @@
 
 .hide-text {
   overflow: hidden;
-  padding: 0; /* 1 */
+  padding: 0;
+  /* 1 */
   text-indent: 101%;
   white-space: nowrap;
 }
@@ -36,4 +37,10 @@
 
 .al-underline {
   text-decoration: underline !important;
+}
+
+.al-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

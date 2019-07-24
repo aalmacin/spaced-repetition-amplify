@@ -8,5 +8,7 @@ export type Card = {
   back: string;
   lastStudy: number;
   isReadyToStudy: boolean;
+  lastStudyDate: string;
+  nextStudyDate: string;
   box: Box;
 };

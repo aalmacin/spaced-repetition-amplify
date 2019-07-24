@@ -13,7 +13,7 @@ export const getCurrentTimestamp = (): number => getTimestampFromMoment(moment()
 
 export const addDays = (timestamp: number, days: number): number => timestamp + days * DAY_SECONDS;
 
-export const getDateFromTimestamp = (timestamp: number) =>
+export const getDateFromTimestamp = (timestamp: number): string =>
   moment
     .unix(timestamp)
     .tz(TIMEZONE)

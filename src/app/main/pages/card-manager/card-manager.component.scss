@@ -1,0 +1,169 @@
+@import '../../../../styles/framework.scss';
+
+.card-manager {
+  height: 100%;
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+
+  @include media(tablet) {
+    width: 80%;
+  }
+
+  @include font-size(sm);
+
+  @include media(tablet) {
+    @include font-size(md);
+  }
+
+  .header {
+    @include font-size(md);
+
+    @include media(tablet) {
+      @include font-size(lg);
+    }
+  }
+
+  .cards-container {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    %topicName {
+      flex-basis: 20%;
+      display: none;
+    }
+
+    %front {
+      flex-basis: 40%;
+    }
+
+    %back {
+      flex-basis: 40%;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      @include font-weight(semibold);
+      @include padding(md);
+      border-bottom: 0.1rem solid getColor(black);
+
+      &__topic-name {
+        @extend %topicName;
+      }
+
+      &__front {
+        @extend %front;
+      }
+
+      &__back {
+        @extend %back;
+      }
+    }
+
+    .card-toggle {
+      display: none;
+
+      &:checked {
+        & ~ .card--expanded {
+          display: flex;
+        }
+
+        & ~ .card--collapsed {
+          display: none;
+        }
+      }
+
+      &:not(:checked) {
+        & ~ .card--expanded {
+          display: none;
+        }
+
+        & ~ .card--collapsed {
+          display: flex;
+        }
+      }
+    }
+
+    .card {
+      justify-content: space-between;
+      align-items: center;
+      @include padding(md);
+      border-bottom: 0.1rem dotted getColor(gray);
+
+      &__topic-name {
+        @extend %topicName;
+        @include font-weight(semibold);
+      }
+
+      &__front {
+        @extend %front;
+        text-decoration: underline;
+
+        @include media(desktop) {
+          text-decoration: none;
+        }
+
+        &:active {
+          white-space: initial;
+          overflow: initial;
+          text-overflow: initial;
+          text-decoration: none;
+        }
+      }
+
+      &__back {
+        text-decoration: underline;
+        @extend %back;
+
+        @include media(desktop) {
+          text-decoration: none;
+        }
+
+        &:active {
+          white-space: initial;
+          overflow: initial;
+          text-overflow: initial;
+          text-decoration: none;
+        }
+      }
+
+      &__action {
+        @include font-size(md);
+        cursor: pointer;
+      }
+
+      .card-info {
+        text-decoration: none;
+        display: flex;
+        flex-basis: 100%;
+        flex-direction: column;
+
+        &__collapse {
+          text-align: right;
+          flex-basis: 100%;
+        }
+
+        &__fields {
+          flex-basis: 100%;
+          justify-content: center;
+          display: flex;
+          flex-direction: column;
+          @include padding(md);
+        }
+
+        &__field {
+          @include padding(sm);
+        }
+
+        &__action {
+          &--edit {
+            @include margin(md, r);
+          }
+        }
+      }
+    }
+  }
+}

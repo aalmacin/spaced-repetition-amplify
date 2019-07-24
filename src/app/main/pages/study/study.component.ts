@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './study.component.html',
   styleUrls: ['./study.component.scss']
 })
-export class StudyComponent implements OnInit, OnDestroy {
+export class StudyComponent implements OnDestroy {
   cards: Card[] = [];
   cardSubscription: Subscription;
   loading = true;
@@ -19,8 +19,6 @@ export class StudyComponent implements OnInit, OnDestroy {
       this.cards = cards;
     });
   }
-
-  ngOnInit() {}
 
   ngOnDestroy() {
     this.cardSubscription.unsubscribe();
