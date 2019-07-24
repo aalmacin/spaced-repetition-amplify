@@ -13,7 +13,7 @@ import { Card } from '@spaced-repetition/types/card';
 })
 export class CardService {
   public constructor(private apiService: APIService, private authService: AuthService) {}
-  public getAllCards(): Observable<any> {
+  public getAllCards(): Observable<Card[]> {
     return defer(async () => {
       const cards = await this.getCardsFromAmplify();
       return cards;

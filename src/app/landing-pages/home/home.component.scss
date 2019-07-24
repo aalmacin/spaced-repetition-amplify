@@ -77,6 +77,8 @@
 
   .banner-cta {
     @include margin(lg, t);
+    animation: liftUp 0.5s 1.2s;
+    animation-fill-mode: backwards;
 
     &__button {
       @include font-size(sm);

@@ -1,3 +1,26 @@
-<p>
-  profile works!
-</p>
+<div class="profile">
+  <h2>Profile</h2>
+  <ng-container *ngIf="loading; else userInfo">
+    <app-loading></app-loading>
+  </ng-container>
+  <ng-template #userInfo>
+    <div class="user" *ngIf="user">
+      <div class="user__row">
+        <p class="user__field al-bold">Email:</p>
+        <p class="user__value user__value--email">{{ user.email }}</p>
+      </div>
+      <div class="user__row">
+        <p class="user__field al-bold">Topics:</p>
+        <p class="user__value">{{ topics.length }}</p>
+      </div>
+      <div class="user__row">
+        <p class="user__field al-bold">Cards:</p>
+        <p class="user__value">{{ cards.length }}</p>
+      </div>
+      <div class="user__row">
+        <p class="user__field al-bold">Remaining Study Cards:</p>
+        <p class="user__value">{{ studyCards.length }}</p>
+      </div>
+    </div>
+  </ng-template>
+</div>
