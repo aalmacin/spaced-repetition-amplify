@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, defer } from 'rxjs';
+import { Observable, defer, of } from 'rxjs';
 import { isReadyToStudy, getNextStudyDate, makeBoxEasier } from '../main/shared/study.func';
 import { API, graphqlOperation } from 'aws-amplify';
 import { map, pipe, flatten, filter } from 'ramda';
@@ -7,6 +7,8 @@ import { AuthService } from './auth.service';
 import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { APIService, ModelTopicFilterInput, ListTopicsQuery, Box } from '../API.service';
 import { Card } from '@spaced-repetition/types/card';
+import { switchMap, catchError } from 'rxjs/operators';
+import { ApiError } from '@spaced-repetition/types/api-error';
 
 @Injectable({
   providedIn: 'root'
@@ -49,14 +51,20 @@ export class CardService {
     });
   }
 
-  public addNewCard({ front, back, topicId }) {
-    this.apiService.CreateCard({
-      front,
-      back,
-      box: Box.VERY_HARD,
-      cardTopicId: topicId,
-      lastStudy: getCurrentTimestamp()
-    });
+  public addNewCard({ front, back, topicId }): Observable<Card[] | ApiError> {
+    return this.authService.getCurrentUser().pipe(
+      switchMap(_ =>
+        this.apiService.CreateCard({
+          front,
+          back,
+          box: Box.VERY_HARD,
+          cardTopicId: topicId,
+          lastStudy: getCurrentTimestamp()
+        })
+      ),
+      switchMap(() => this.getAllCards()),
+      catchError(() => of({ error: 'An error occured while adding a card.' }))
+    );
   }
 
   public updateCardToEasy(id, box) {

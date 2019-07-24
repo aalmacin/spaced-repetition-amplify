@@ -14,6 +14,7 @@ import { Topic } from '@spaced-repetition/types/topic';
 export class CardManagerComponent implements OnDestroy {
   cards: Card[] = [];
   cardSubscription: Subscription;
+  createCardSubscription: Subscription;
   loading = true;
 
   public addCardForm = this.fb.group({
@@ -36,12 +37,24 @@ export class CardManagerComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.createCardSubscription) {
+      this.createCardSubscription.unsubscribe();
+    }
     this.cardSubscription.unsubscribe();
   }
 
   public addNewCard() {
     if (this.addCardForm.status === 'VALID') {
-      this.cardService.addNewCard(this.addCardForm.value);
+      this.loading = true;
+      this.createCardSubscription = this.cardService.addNewCard(this.addCardForm.value).subscribe((result: any) => {
+        this.loading = false;
+        this.addCardForm.reset();
+        if (result.error) {
+          this.errors = [result.error];
+        } else {
+          this.cards = result;
+        }
+      });
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }

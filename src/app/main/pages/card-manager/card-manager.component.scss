@@ -18,6 +18,8 @@
 
   .header {
     @include font-size(md);
+    @include font-weight(semibold);
+    @include margin(lg, b);
 
     @include media(tablet) {
       @include font-size(lg);
@@ -174,6 +176,21 @@
         overflow: hidden;
         border-radius: 0;
         @include padding(md);
+      }
+
+      &__submit {
+        &:disabled {
+          background-color: getColor(gray-light);
+          color: getColor(gray);
+          border: none;
+
+          &:hover,
+          &:active {
+            border: none;
+            background-color: getColor(gray-light);
+            color: getColor(gray);
+          }
+        }
       }
     }
 
@@ -368,4 +385,8 @@
       }
     }
   }
+}
+
+.no-cards {
+  text-align: center;
 }

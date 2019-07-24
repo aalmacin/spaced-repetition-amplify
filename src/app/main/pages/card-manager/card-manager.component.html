@@ -1,7 +1,7 @@
 <div class="card-manager">
   <app-loading *ngIf="loading; else cardManager"></app-loading>
   <ng-template #cardManager>
-    <ng-container *ngIf="cards.length > 0; else noCards">
+    <ng-container>
       <h2 class="header">Card Manager</h2>
 
       <div class="cards-container">
@@ -12,7 +12,7 @@
             Add Card
             <i class="fas fa-plus-square"></i>
           </label>
-          <label class="filter-toggler" for="filter-toggle">
+          <label *ngIf="cards.length > 0" class="filter-toggler" for="filter-toggle">
             Filter
             <i class="fas fa-filter"></i>
           </label>
@@ -30,12 +30,14 @@
                 <al-alert [messages]="messages" type="success"></al-alert>
               </div>
               <input
+                #front
                 class="add-card__front"
                 formControlName="front"
                 name="front"
                 placeholder="Ex. What is life? (Front/Question)"
               />
               <textarea
+                #back
                 rows="4"
                 class="add-card__back"
                 formControlName="back"
@@ -48,7 +50,13 @@
                 <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
               </select>
 
-              <button [disabled]="addCardForm.status === 'INVALID'" alBtn="primary" size="fit" type="secondary">
+              <button
+                class="add-card__submit"
+                [disabled]="addCardForm.status === 'INVALID'"
+                alBtn="primary"
+                size="fit"
+                type="secondary"
+              >
                 Create Card
               </button>
             </form>
@@ -74,77 +82,79 @@
           </div>
         </div>
 
-        <div class="card-header">
-          <div class="card-header__topic-name">Topic Name</div>
-          <div class="card-header__front">Front</div>
-          <div class="card-header__back">Back</div>
-          <div class="card-header__box">Box</div>
-          <div class="card-header__ready">Ready to Study</div>
-          <div class="card-header__next-study">Next Study</div>
-          <div class="card-header__action"></div>
-        </div>
-        <div class="cards" *ngFor="let card of cards; let i = index">
-          <input id="toggle-{{ i }}" class="card-toggle" type="checkbox" />
-          <div class="card card--collapsed">
-            <div class="card__topic-name">{{ card.topicName }}</div>
-            <div class="card__front al-ellipsis">{{ card.front }}</div>
-            <div class="card__back al-ellipsis">{{ card.back }}</div>
-            <div class="card__box">
-              {{ card.box }}
-            </div>
-            <div class="card__ready">
-              {{ card.isReadyToStudy ? 'yes' : 'no' }}
-            </div>
-            <div class="card__next-study">
-              {{ card.nextStudyDate }}
-            </div>
-            <label for="toggle-{{ i }}" class="card__action card__action--expand"
-              ><i class="fas fa-caret-left"></i
-            ></label>
+        <ng-container *ngIf="cards.length > 0; else noCards">
+          <div class="card-header">
+            <div class="card-header__topic-name">Topic Name</div>
+            <div class="card-header__front">Front</div>
+            <div class="card-header__back">Back</div>
+            <div class="card-header__box">Box</div>
+            <div class="card-header__ready">Ready to Study</div>
+            <div class="card-header__next-study">Next Study</div>
+            <div class="card-header__action"></div>
           </div>
-          <div class="card card--expanded">
-            <div class="card-info">
-              <div class="card-info__collapse">
-                <label for="toggle-{{ i }}" class="card__action card__action--collapse"
-                  ><i class="fas fa-caret-down"></i
-                ></label>
+          <div class="cards" *ngFor="let card of cards; let i = index">
+            <input id="toggle-{{ i }}" class="card-toggle" type="checkbox" />
+            <div class="card card--collapsed">
+              <div class="card__topic-name">{{ card.topicName }}</div>
+              <div class="card__front al-ellipsis">{{ card.front }}</div>
+              <div class="card__back al-ellipsis">{{ card.back }}</div>
+              <div class="card__box">
+                {{ card.box }}
               </div>
-              <div class="card-info__fields">
-                <div class="card-info__field card-info__field--topic">
-                  <span class="al-semibold">Topic:</span> {{ card.topicName }}
+              <div class="card__ready">
+                {{ card.isReadyToStudy ? 'yes' : 'no' }}
+              </div>
+              <div class="card__next-study">
+                {{ card.nextStudyDate }}
+              </div>
+              <label for="toggle-{{ i }}" class="card__action card__action--expand"
+                ><i class="fas fa-caret-left"></i
+              ></label>
+            </div>
+            <div class="card card--expanded">
+              <div class="card-info">
+                <div class="card-info__collapse">
+                  <label for="toggle-{{ i }}" class="card__action card__action--collapse"
+                    ><i class="fas fa-caret-down"></i
+                  ></label>
                 </div>
-                <div class="card-info__field card-info__field--front">
-                  <span class="al-semibold">Front:</span>
-                  {{ card.front }}
-                </div>
-                <div class="card-info__field card-info__field--back">
-                  <span class="al-semibold">Back:</span>
-                  {{ card.back }}
-                </div>
-                <div class="card-info__field card-info__field--box">
-                  <span class="al-semibold">Box:</span>
-                  {{ card.box }}
-                </div>
-                <div class="card-info__field card-info__field--ready">
-                  <span class="al-semibold">Ready to study:</span>
-                  {{ card.isReadyToStudy ? 'yes' : 'no' }}
-                </div>
-                <div class="card-info__field card-info__field--last-study">
-                  <span class="al-semibold">Last Study:</span>
-                  {{ card.lastStudyDate }}
-                </div>
-                <div class="card-info__field card-info__field--next-study">
-                  <span class="al-semibold">Next Study:</span>
-                  {{ card.nextStudyDate }}
-                </div>
-                <div class="card-info__field card-info__field--actions">
-                  <a class="card-info__action card-info__action--edit" alBtn="secondary" size="tiny" href="#">Edit</a>
-                  <a class="card-info__action" alBtn="alert" size="tiny" href="#">Delete</a>
+                <div class="card-info__fields">
+                  <div class="card-info__field card-info__field--topic">
+                    <span class="al-semibold">Topic:</span> {{ card.topicName }}
+                  </div>
+                  <div class="card-info__field card-info__field--front">
+                    <span class="al-semibold">Front:</span>
+                    {{ card.front }}
+                  </div>
+                  <div class="card-info__field card-info__field--back">
+                    <span class="al-semibold">Back:</span>
+                    {{ card.back }}
+                  </div>
+                  <div class="card-info__field card-info__field--box">
+                    <span class="al-semibold">Box:</span>
+                    {{ card.box }}
+                  </div>
+                  <div class="card-info__field card-info__field--ready">
+                    <span class="al-semibold">Ready to study:</span>
+                    {{ card.isReadyToStudy ? 'yes' : 'no' }}
+                  </div>
+                  <div class="card-info__field card-info__field--last-study">
+                    <span class="al-semibold">Last Study:</span>
+                    {{ card.lastStudyDate }}
+                  </div>
+                  <div class="card-info__field card-info__field--next-study">
+                    <span class="al-semibold">Next Study:</span>
+                    {{ card.nextStudyDate }}
+                  </div>
+                  <div class="card-info__field card-info__field--actions">
+                    <a class="card-info__action card-info__action--edit" alBtn="secondary" size="tiny" href="#">Edit</a>
+                    <a class="card-info__action" alBtn="alert" size="tiny" href="#">Delete</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </ng-container>
   </ng-template>
