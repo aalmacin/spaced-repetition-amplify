@@ -395,6 +395,14 @@
 
         &__field {
           @include padding(sm);
+          display: flex;
+          justify-content: space-between;
+        }
+
+        &__actions {
+          @include padding(sm);
+          @include margin(lg, t);
+          text-align: center;
         }
 
         &__action {

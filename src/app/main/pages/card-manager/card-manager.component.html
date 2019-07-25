@@ -128,33 +128,48 @@
               <div class="card-info">
                 <div class="card-info__fields">
                   <div class="card-info__field card-info__field--topic">
-                    <span class="al-semibold">Topic:</span> {{ card.topicName }}
+                    <span class="al-semibold card-info__label">Topic:</span>
+                    <span class="card-info__value">
+                      {{ card.topicName }}
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--front">
                     <span class="al-semibold">Front:</span>
-                    {{ card.front }}
+                    <span class="card-info__value">
+                      {{ card.front }}
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--back">
                     <span class="al-semibold">Back:</span>
-                    {{ card.back }}
+                    <span class="card-info__value">
+                      {{ card.back }}
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--box">
                     <span class="al-semibold">Box:</span>
-                    {{ card.box }}
+                    <span class="card-info__value">
+                      {{ card.box }}
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--ready">
                     <span class="al-semibold">Ready to study:</span>
-                    {{ card.isReadyToStudy ? 'yes' : 'no' }}
+                    <span class="card-info__value">
+                      {{ card.isReadyToStudy ? 'yes' : 'no' }}
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--last-study">
                     <span class="al-semibold">Last Study:</span>
-                    {{ card.lastStudyDate }}
+                    <span class="card-info__value">
+                      {{ card.lastStudyDate }}
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--next-study">
                     <span class="al-semibold">Next Study:</span>
-                    {{ card.nextStudyDate }}
+                    <span class="card-info__value">
+                      {{ card.nextStudyDate }}
+                    </span>
                   </div>
-                  <div class="card-info__field card-info__field--actions">
+                  <div class="card-info__actions">
                     <a class="card-info__action card-info__action--edit" alBtn="secondary" size="tiny" href="#">Edit</a>
                     <a class="card-info__action" alBtn="alert" size="tiny" (click)="deleteCard($event, card.id)"
                       >Delete</a
