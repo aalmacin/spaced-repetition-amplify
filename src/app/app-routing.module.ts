@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'home',
     pathMatch: 'full',
-    redirectTo: 'home/landing-pages'
+    redirectTo: 'home/landing'
   },
   {
     path: 'auth',
