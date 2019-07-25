@@ -399,6 +399,9 @@
               .card-info__action--save {
                 display: inline-block;
               }
+              .card-info__action--cancel {
+                display: inline-block;
+              }
             }
           }
 
@@ -419,6 +422,9 @@
               }
 
               .card-info__action--save {
+                display: none;
+              }
+              .card-info__action--cancel {
                 display: none;
               }
             }
@@ -472,6 +478,10 @@
           }
 
           &--save {
+            @include margin(sm, r);
+            display: none;
+          }
+          &--cancel {
             @include margin(md, r);
             display: none;
           }

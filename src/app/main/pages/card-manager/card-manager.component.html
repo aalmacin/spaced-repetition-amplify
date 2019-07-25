@@ -192,6 +192,13 @@
                       (click)="updateCard(card.id, infoFront.value, infoBack.value)"
                       ><i class="far fa-save"></i> Save</label
                     >
+                    <label
+                      for="toggle-form-{{ i }}"
+                      class="card-info__action card-info__action--cancel"
+                      alBtn="plain"
+                      size="tiny"
+                      ><i class="far fa-window-close"></i> Cancel</label
+                    >
                     <a class="card-info__action" alBtn="alert" size="tiny" (click)="deleteCard($event, card.id)"
                       ><i class="far fa-trash-alt"></i> Delete</a
                     >

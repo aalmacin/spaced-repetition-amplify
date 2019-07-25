@@ -59,6 +59,19 @@
     }
   }
 
+  &.al-btn-plain {
+    background-color: getColor(white);
+    color: getColor(black);
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+    border: 0.1rem solid getColor(black);
+
+    &:hover {
+      background-color: getColor(gray-light);
+      color: getColor(black);
+    }
+  }
+
   &.al-btn-animated {
     background-color: getColor(blue);
     color: getColor(white);
@@ -76,6 +89,7 @@
     @include media(tablet) {
       @include font-size(lg);
     }
+
     @include padding(lg, lr);
   }
 

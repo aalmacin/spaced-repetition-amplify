@@ -3,7 +3,8 @@ export enum ButtonType {
   primary = 'primary',
   secondary = 'secondary',
   tertiary = 'tertiary',
-  alert = 'alert'
+  alert = 'alert',
+  plain = 'plain'
 }
 
 export enum ButtonSize {
