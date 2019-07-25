@@ -140,7 +140,7 @@
                       {{ card.front }}
                     </span>
                     <span class="card-info__value card-info__form">
-                      <input class="card-info__update-input" type="text" #infoFront [value]="card.front" />
+                      <textarea class="card-info__update-input" type="text" #infoFront>{{ card.front }}</textarea>
                     </span>
                   </div>
                   <div class="card-info__field card-info__field--back">
@@ -149,7 +149,7 @@
                       {{ card.back }}
                     </span>
                     <span class="card-info__value card-info__form">
-                      <input class="card-info__update-input" type="text" #infoBack [value]="card.back" />
+                      <textarea class="card-info__update-input" type="text" #infoBack>{{ card.back }}</textarea>
                     </span>
                   </div>
                   <div class="card-info__field card-info__field--box">
