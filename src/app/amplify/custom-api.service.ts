@@ -23,7 +23,7 @@ export class CustomApiService {
   private getCardsFromTopics(topics: any) {
     return pipe(
       filter((r: any) => r.cards.items.length > 0),
-      map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),
+      map((r: any) => map((rr: any) => ({ ...rr, topicId: r.id, topicName: r.name }), r.cards.items)),
       flatten,
       map((r: any) => ({
         ...r,

@@ -127,6 +127,7 @@
             <div class="card card--expanded">
               <div class="card-info">
                 <div class="card-info__fields">
+                  <input type="checkbox" class="card-info__toggle" id="toggle-form-{{ i }}" />
                   <div class="card-info__field card-info__field--topic">
                     <span class="al-semibold card-info__label">Topic:</span>
                     <span class="card-info__value">
@@ -135,14 +136,20 @@
                   </div>
                   <div class="card-info__field card-info__field--front">
                     <span class="al-semibold">Front:</span>
-                    <span class="card-info__value">
+                    <span class="card-info__value card-info__display">
                       {{ card.front }}
+                    </span>
+                    <span class="card-info__value card-info__form">
+                      <input class="card-info__update-input" type="text" #infoFront [value]="card.front" />
                     </span>
                   </div>
                   <div class="card-info__field card-info__field--back">
                     <span class="al-semibold">Back:</span>
-                    <span class="card-info__value">
+                    <span class="card-info__value card-info__display">
                       {{ card.back }}
+                    </span>
+                    <span class="card-info__value card-info__form">
+                      <input class="card-info__update-input" type="text" #infoBack [value]="card.back" />
                     </span>
                   </div>
                   <div class="card-info__field card-info__field--box">
@@ -170,7 +177,21 @@
                     </span>
                   </div>
                   <div class="card-info__actions">
-                    <a class="card-info__action card-info__action--edit" alBtn="secondary" size="tiny" href="#">Edit</a>
+                    <label
+                      for="toggle-form-{{ i }}"
+                      class="card-info__action card-info__action--edit"
+                      alBtn="secondary"
+                      size="tiny"
+                      >Edit</label
+                    >
+                    <label
+                      for="toggle-form-{{ i }}"
+                      class="card-info__action card-info__action--save"
+                      alBtn="tertiary"
+                      size="tiny"
+                      (click)="updateCard(card.id, infoFront.value, infoBack.value)"
+                      >Save</label
+                    >
                     <a class="card-info__action" alBtn="alert" size="tiny" (click)="deleteCard($event, card.id)"
                       >Delete</a
                     >

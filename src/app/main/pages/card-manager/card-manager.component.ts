@@ -87,18 +87,20 @@ export class CardManagerComponent implements OnInit, OnDestroy {
 
   public deleteCard(event: MouseEvent, cardId: string) {
     event.preventDefault();
-    this.loading = true;
-    this.subscriptions.add(
-      this.cardService.deleteCard(cardId).subscribe((result: any) => {
-        this.loading = false;
-        if (result.error) {
-          this.errors = [result.error];
-        } else {
-          this.messages = ['Successfully deleted card'];
-          this.setCards(result);
-        }
-      })
-    );
+    if (confirm(`Are you sure you want to delete?`)) {
+      this.loading = true;
+      this.subscriptions.add(
+        this.cardService.deleteCard(cardId).subscribe((result: any) => {
+          this.loading = false;
+          if (result.error) {
+            this.errors = [result.error];
+          } else {
+            this.messages = ['Successfully deleted card'];
+            this.setCards(result);
+          }
+        })
+      );
+    }
   }
 
   public setCards(cards: Card[]) {
@@ -115,6 +117,20 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public changeIsReadyStudy() {
     this.isReadyStudyOnly = !this.isReadyStudyOnly;
     this.filter();
+  }
+
+  public updateCard(id: string, front: string, back: string) {
+    this.loading = true;
+    this.subscriptions.add(
+      this.cardService.updateCard({ id, front, back }).subscribe((res: any) => {
+        this.loading = false;
+        if (res.error) {
+          this.errors = [res.error];
+        } else {
+          this.setCards(res);
+        }
+      })
+    );
   }
 
   private filter() {

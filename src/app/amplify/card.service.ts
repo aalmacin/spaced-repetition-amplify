@@ -54,6 +54,20 @@ export class CardService {
     );
   }
 
+  public updateCard({ id, front, back }: { id: string; front: string; back: string }): Observable<Card[] | ApiError> {
+    return of({ id, front, back }).pipe(
+      switchMap(card =>
+        this.apiService.UpdateCard({
+          ...card,
+          box: Box.VERY_HARD,
+          lastStudy: getCurrentTimestamp()
+        })
+      ),
+      switchMap(() => this.getAllCards()),
+      catchError(() => of({ error: 'An error occured while updating the card.' }))
+    );
+  }
+
   public updateCardToEasy(card: Card) {
     return of(card).pipe(
       switchMap(({ id, box }) =>
@@ -86,16 +100,6 @@ export class CardService {
       switchMap(() => this.getAllCards()),
       catchError(() => of({ error: 'An error occured while deleting the card' }))
     );
-  }
-
-  public async updateCard(id: string, front: string, back: string) {
-    this.apiService.UpdateCard({
-      id,
-      front,
-      back,
-      box: Box.VERY_HARD,
-      lastStudy: getCurrentTimestamp()
-    });
   }
 
   private async deleteCardInAmplify(id: string) {

@@ -380,6 +380,69 @@
         flex-basis: 100%;
         flex-direction: column;
 
+        &__toggle {
+          display: none;
+          &:checked {
+            & ~ .card-info__field {
+              .card-info__display {
+                display: none;
+              }
+
+              .card-info__form {
+                display: inline-block;
+              }
+            }
+
+            & ~ .card-info__actions {
+              .card-info__action--edit {
+                display: none;
+              }
+
+              .card-info__action--save {
+                display: inline-block;
+              }
+            }
+          }
+
+          &:not(:checked) {
+            & ~ .card-info__field {
+              .card-info__display {
+                display: inline-block;
+              }
+
+              .card-info__form {
+                display: none;
+              }
+            }
+
+            & ~ .card-info__actions {
+              .card-info__action--edit {
+                display: inline-block;
+              }
+
+              .card-info__action--save {
+                display: none;
+              }
+            }
+          }
+        }
+
+        &__form {
+          width: 50%;
+        }
+
+        &__update-input {
+          @include padding(md);
+          @include font-size(sm);
+          border: 0.1rem solid getColor(gray-light);
+          width: 100%;
+
+          &--select {
+            background-color: getColor(white);
+            color: getColor(black);
+          }
+        }
+
         &__collapse {
           text-align: right;
           flex-basis: 100%;
@@ -408,6 +471,11 @@
         &__action {
           &--edit {
             @include margin(md, r);
+          }
+
+          &--save {
+            @include margin(md, r);
+            display: none;
           }
         }
       }
