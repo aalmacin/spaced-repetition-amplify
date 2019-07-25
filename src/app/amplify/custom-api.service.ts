@@ -12,6 +12,15 @@ import { getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.f
 export class CustomApiService {
   public async getCardsByUser(user: User) {
     const topics = await this.getTopics({ user: { eq: user.email } });
+    return this.getCardsFromTopics(topics);
+  }
+
+  public async getCardsByTopicId(user: User, topicId: string) {
+    const topics = await this.getTopics({ user: { eq: user.email }, id: { eq: topicId } });
+    return this.getCardsFromTopics(topics);
+  }
+
+  private getCardsFromTopics(topics: any) {
     return pipe(
       filter((r: any) => r.cards.items.length > 0),
       map((r: any) => map((rr: any) => ({ ...rr, topicName: r.name }), r.cards.items)),

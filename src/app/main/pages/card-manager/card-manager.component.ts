@@ -5,6 +5,8 @@ import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
+import { ActivatedRoute } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-manager',
@@ -28,13 +30,31 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   messages: string[] = [];
   topics: Topic[] = [];
   searchTerm = '';
+  topicId = '';
 
-  constructor(private cardService: CardService, private topicService: TopicService, private fb: FormBuilder) {
+  constructor(
+    private cardService: CardService,
+    private topicService: TopicService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute
+  ) {
+    const cards$ = this.activatedRoute.queryParams.pipe(
+      map(q => q.topicId),
+      switchMap(topicId => {
+        if (topicId) {
+          return this.cardService.getCardsByTopicId(topicId);
+        } else {
+          return this.cardService.getAllCards();
+        }
+      })
+    );
+    const topics$ = this.topicService.getTopics();
+
     this.subscriptions.add(
-      combineLatest(this.cardService.getAllCards(), this.topicService.getTopics()).subscribe(([cards, topics]) => {
-        this.loading = false;
+      combineLatest(topics$, cards$).subscribe(([topics, cards]) => {
         this.topics = topics;
         this.setCards(cards);
+        this.loading = false;
       })
     );
   }

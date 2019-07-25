@@ -21,7 +21,9 @@
       <h3 class="topic-header">Topics</h3>
       <div class="topic" *ngFor="let topic of topics">
         <p class="topic__name">{{ topic.name }}</p>
-        <a class="topic__button" alBtn="tertiary" size="small" href="#">View Cards</a>
+        <a class="topic__button" alBtn="tertiary" size="small" href="/app/card-manager?topicId={{ topic.id }}"
+          >View Cards</a
+        >
       </div>
     </div>
 

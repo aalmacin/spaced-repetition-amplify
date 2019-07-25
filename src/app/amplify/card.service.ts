@@ -30,6 +30,14 @@ export class CardService {
     return this.getAllCards().pipe(map(cards => cards.filter(card => card.isReadyToStudy)));
   }
 
+  public getCardsByTopicId(topicId: any): Observable<Card[]> {
+    return this.authService.getCurrentUser().pipe(
+      switchMap(user => this.customApiService.getCardsByTopicId(user, topicId)),
+      catchError(() => null),
+      filter((res: any) => !!res)
+    );
+  }
+
   public addNewCard({ front, back, topicId }): Observable<Card[] | ApiError> {
     return this.authService.getCurrentUser().pipe(
       switchMap(_ =>
