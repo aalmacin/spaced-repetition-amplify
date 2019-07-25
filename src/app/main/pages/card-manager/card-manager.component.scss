@@ -327,7 +327,6 @@
 
       &__front {
         @extend %front;
-        text-decoration: underline;
 
         @include media(desktop) {
           text-decoration: none;
@@ -342,7 +341,6 @@
       }
 
       &__back {
-        text-decoration: underline;
         @extend %back;
 
         @include media(desktop) {

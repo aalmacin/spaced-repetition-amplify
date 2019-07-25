@@ -182,7 +182,7 @@
                       class="card-info__action card-info__action--edit"
                       alBtn="secondary"
                       size="tiny"
-                      >Edit</label
+                      ><i class="far fa-edit"></i> Edit</label
                     >
                     <label
                       for="toggle-form-{{ i }}"
@@ -190,10 +190,10 @@
                       alBtn="tertiary"
                       size="tiny"
                       (click)="updateCard(card.id, infoFront.value, infoBack.value)"
-                      >Save</label
+                      ><i class="far fa-save"></i> Save</label
                     >
                     <a class="card-info__action" alBtn="alert" size="tiny" (click)="deleteCard($event, card.id)"
-                      >Delete</a
+                      ><i class="far fa-trash-alt"></i> Delete</a
                     >
                   </div>
                 </div>
