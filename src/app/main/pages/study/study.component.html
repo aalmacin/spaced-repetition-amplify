@@ -18,7 +18,7 @@
             <div class="flash-card__topic">{{ card.topicName }}</div>
 
             <div class="flash-card__front-text">
-              {{ card.front }}
+              <pre>{{ card.front }}</pre>
             </div>
             <label class="flash-card__show-answer" alBtn="secondary" size="large" for="flip-{{ i }}">Flip</label>
           </div>
@@ -27,8 +27,12 @@
             <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
             <div class="flash-card__topic">{{ card.topicName }}</div>
 
-            <h3 class="flash-card__back-question">{{ card.front }}</h3>
-            <div class="flash-card__back-answer">{{ card.back }}</div>
+            <h3 class="flash-card__back-question">
+              <pre>{{ card.front }}</pre>
+            </h3>
+            <div class="flash-card__back-answer">
+              <pre>{{ card.back }}</pre>
+            </div>
             <div class="flash-card__result-container">
               <label
                 for="remove-{{ i }}"
