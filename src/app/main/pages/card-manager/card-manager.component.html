@@ -68,7 +68,7 @@
               <div class="filter__field">
                 <label for="search" class="al-semibold">Filter</label>
                 <input
-                  (change)="changeSearchTerm(searchTerm.value)"
+                  (input)="changeSearchTerm(searchTerm.value)"
                   #searchTerm
                   id="search"
                   class="filter__input filter__input--search"
