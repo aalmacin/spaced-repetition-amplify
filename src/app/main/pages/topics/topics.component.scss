@@ -62,6 +62,11 @@
       @include font-weight(semibold);
     }
 
+    .topics-instruction {
+      @include font-size(sm-2);
+      @include margin(sm, t);
+    }
+
     .topic {
       @include margin(md, tr);
       @include padding(md, b);
@@ -77,6 +82,10 @@
       &__button {
         @include media(tablet) {
           @include font-size(md);
+        }
+
+        &--eye {
+          @include margin(md, r);
         }
       }
     }
