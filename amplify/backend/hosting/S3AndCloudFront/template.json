@@ -170,7 +170,7 @@
                         "MinTTL": 60,
                         "Compress": true
                     },
-                    "DefaultRootObject": "index.html",
+                    "DefaultRootObject": "spaced-repetition-amplify/index.html",
                     "CustomErrorResponses": [
                         {
                             "ErrorCachingMinTTL": 300,

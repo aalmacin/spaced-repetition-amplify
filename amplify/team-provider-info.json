@@ -1,19 +1,53 @@
 {
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "spacedrepetition-prod-20190512123355-authRole",
-            "UnauthRoleArn": "arn:aws:iam::845335212729:role/spacedrepetition-prod-20190512123355-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::845335212729:role/spacedrepetition-prod-20190512123355-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "spacedrepetition-prod-20190512123355-deployment",
-            "UnauthRoleName": "spacedrepetition-prod-20190512123355-unauthRole",
-            "StackName": "spacedrepetition-prod-20190512123355",
-            "StackId": "arn:aws:cloudformation:us-east-1:845335212729:stack/spacedrepetition-prod-20190512123355/bcb4ae70-74d3-11e9-b1d2-12094f064940"
-        },
-        "categories": {
-            "auth": {
-                "cognito6143eeab": {}
-            }
-        }
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "spacedrepetition-prod-20190512123355-authRole",
+      "UnauthRoleArn": "arn:aws:iam::845335212729:role/spacedrepetition-prod-20190512123355-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::845335212729:role/spacedrepetition-prod-20190512123355-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "spacedrepetition-prod-20190512123355-deployment",
+      "UnauthRoleName": "spacedrepetition-prod-20190512123355-unauthRole",
+      "StackName": "spacedrepetition-prod-20190512123355",
+      "StackId": "arn:aws:cloudformation:us-east-1:845335212729:stack/spacedrepetition-prod-20190512123355/bcb4ae70-74d3-11e9-b1d2-12094f064940"
+    },
+    "categories": {
+      "auth": {
+        "cognito6143eeab": {}
+      }
     }
+  },
+  "spacedrep": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-spacedrepetition-spacedrep-84334-authRole",
+      "UnauthRoleArn": "arn:aws:iam::845335212729:role/amplify-spacedrepetition-spacedrep-84334-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::845335212729:role/amplify-spacedrepetition-spacedrep-84334-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-spacedrepetition-spacedrep-84334-deployment",
+      "UnauthRoleName": "amplify-spacedrepetition-spacedrep-84334-unauthRole",
+      "StackName": "amplify-spacedrepetition-spacedrep-84334",
+      "StackId": "arn:aws:cloudformation:us-east-1:845335212729:stack/amplify-spacedrepetition-spacedrep-84334/0e202190-200a-11ea-b07f-0a48dc861a07"
+    },
+    "categories": {
+      "auth": {
+        "cognito6143eeab": {}
+      }
+    }
+  },
+  "zamani": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-spacedrepetition-zamani-91649-authRole",
+      "UnauthRoleArn": "arn:aws:iam::845335212729:role/amplify-spacedrepetition-zamani-91649-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::845335212729:role/amplify-spacedrepetition-zamani-91649-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-spacedrepetition-zamani-91649-deployment",
+      "UnauthRoleName": "amplify-spacedrepetition-zamani-91649-unauthRole",
+      "StackName": "amplify-spacedrepetition-zamani-91649",
+      "StackId": "arn:aws:cloudformation:us-east-1:845335212729:stack/amplify-spacedrepetition-zamani-91649/b389b980-200e-11ea-a6d9-0a279eeb3bc1"
+    },
+    "categories": {
+      "auth": {
+        "cognito6143eeab": {}
+      }
+    }
+  }
 }
