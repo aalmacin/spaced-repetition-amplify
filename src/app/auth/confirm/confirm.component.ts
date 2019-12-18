@@ -12,7 +12,7 @@ export class ConfirmComponent {
   public errors: string[] = [];
 
   @Input()
-  private navigateTo: string[] = ['/app', 'dashboard'];
+  private navigateTo: string[] = ['/app', 'home'];
 
   constructor(private authService: AuthService, private router: Router) {}
 
