@@ -18,6 +18,6 @@ context('Navigation', () => {
 
     cy.get('.nav-displayed__toggle-label').click();
 
-    cy.get('a.nav-list__link[href="/app/dashboard"').click();
+    cy.get('a.nav-list__link[href="/app/home"').click();
   });
 });
