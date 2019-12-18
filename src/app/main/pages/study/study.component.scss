@@ -199,6 +199,10 @@
 .card-results {
   @include margin();
   text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
 
   &__result {
     display: inline-block;

@@ -2,8 +2,8 @@
   <span
     class="card-results__result"
     [ngClass]="'card-results__result--' + cardResult"
-    *ngFor="let cardResult of cardResults.reverse(); let i = index"
-    >{{ i + 1 }}</span
+    *ngFor="let cardResult of cardResults; let i = index"
+    >{{ cardResults.length - i }}</span
   >
 </div>
 <div class="study-page">
