@@ -3,7 +3,7 @@ import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from 'src/app/types/card';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { shuffle } from 'lodash';
 
 @Component({
@@ -16,19 +16,19 @@ export class StudyComponent implements OnDestroy {
   subscriptions = new Subscription();
   loading = true;
   errors: string[] = [];
+  scheduledStudy = false;
 
   constructor(private cardService: CardService, private activatedRoute: ActivatedRoute) {
     this.subscriptions.add(
       this.activatedRoute.queryParams
         .pipe(
           map(q => q.topicId),
-          switchMap(topicId => {
-            if (topicId) {
-              return this.cardService.getCardsByTopicId(topicId);
-            } else {
-              return this.cardService.getAllStudyCards();
-            }
-          })
+          tap(topicId => {
+            this.scheduledStudy = !!!topicId;
+          }),
+          switchMap(topicId =>
+            topicId ? this.cardService.getCardsByTopicId(topicId) : this.cardService.getAllStudyCards()
+          )
         )
         .subscribe(cards => {
           this.loading = false;
@@ -42,23 +42,27 @@ export class StudyComponent implements OnDestroy {
   }
 
   public easierCard(card: Card) {
-    this.subscriptions.add(
-      this.cardService.updateCardToEasy(card).subscribe((result: any) => {
-        if (result.error) {
-          this.errors = [result.error];
-        }
-      })
-    );
+    if (this.scheduledStudy) {
+      this.subscriptions.add(
+        this.cardService.updateCardToEasy(card).subscribe((result: any) => {
+          if (result.error) {
+            this.errors = [result.error];
+          }
+        })
+      );
+    }
   }
 
   public harderCard(card: Card) {
-    this.subscriptions.add(
-      this.cardService.updateCardToEasy(card).subscribe((result: any) => {
-        if (result.error) {
-          this.errors = [result.error];
-        }
-      })
-    );
-    this.cardService.updateCardToHard(card);
+    if (this.scheduledStudy) {
+      this.subscriptions.add(
+        this.cardService.updateCardToEasy(card).subscribe((result: any) => {
+          if (result.error) {
+            this.errors = [result.error];
+          }
+        })
+      );
+      this.cardService.updateCardToHard(card);
+    }
   }
 }
