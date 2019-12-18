@@ -47,31 +47,24 @@
       display: none;
 
       &:checked ~ .flash-card__face {
-        height: 0;
-        transform: rotate(180deg) scale(0);
         opacity: 0;
-        transform-origin: center;
         display: inline-block;
         position: absolute;
-        top: -99rem;
         left: -99rem;
 
         @include media(tablet) {
-          transform: translateX(0) rotate(180deg) scale(0);
+          transform: translateX(-99rem);
         }
       }
 
       &:checked ~ .flash-card__cover {
-        height: 0;
         opacity: 0;
-        transform-origin: center;
         display: inline-block;
         position: absolute;
-        top: -99rem;
         left: -99rem;
 
         @include media(tablet) {
-          transform: translateX(0) rotate(180deg) scale(0);
+          transform: translateX(-99rem);
         }
       }
     }
@@ -164,6 +157,12 @@
     &__result {
       display: inline-block;
 
+      &--question {
+        @include font-weight(semibold);
+        @include padding(sm, b);
+        @include padding(lg, t);
+      }
+
       &--hard {
         @include margin(sm, r);
       }
@@ -193,6 +192,30 @@
       @include media(tablet) {
         @include font-size(lg);
       }
+    }
+  }
+}
+
+.card-results {
+  @include margin();
+  text-align: center;
+
+  &__result {
+    display: inline-block;
+    @include padding(md);
+
+    border: 1px solid getColor(white);
+
+    &--hard {
+      background-color: getColor(red);
+    }
+
+    &--easy {
+      background-color: getColor(green);
+    }
+
+    &--pending {
+      background-color: getColor(gray);
     }
   }
 }

@@ -6,6 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { shuffle } from 'lodash';
 
+enum CardResult {
+  EASY = 'easy',
+  HARD = 'hard',
+  PENDING = 'pending'
+}
+
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
@@ -17,6 +23,7 @@ export class StudyComponent implements OnDestroy {
   loading = true;
   errors: string[] = [];
   scheduledStudy = false;
+  cardResults: CardResult[] = [];
 
   constructor(private cardService: CardService, private activatedRoute: ActivatedRoute) {
     this.subscriptions.add(
@@ -33,6 +40,7 @@ export class StudyComponent implements OnDestroy {
         .subscribe(cards => {
           this.loading = false;
           this.cards = shuffle(cards);
+          this.cardResults = this.cards.map(() => CardResult.PENDING);
         })
     );
   }
@@ -41,7 +49,7 @@ export class StudyComponent implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  public easierCard(card: Card) {
+  public easierCard(card: Card, i: number) {
     if (this.scheduledStudy) {
       this.subscriptions.add(
         this.cardService.updateCardToEasy(card).subscribe((result: any) => {
@@ -50,19 +58,42 @@ export class StudyComponent implements OnDestroy {
           }
         })
       );
+    } else {
+      this.updateCardResults(i, CardResult.EASY);
+      if (i === 0) {
+        this.updateHarderCards();
+      }
     }
   }
 
-  public harderCard(card: Card) {
+  public harderCard(card: Card, i: number) {
     if (this.scheduledStudy) {
       this.subscriptions.add(
-        this.cardService.updateCardToEasy(card).subscribe((result: any) => {
+        this.cardService.updateCardToHard(card).subscribe((result: any) => {
           if (result.error) {
             this.errors = [result.error];
           }
         })
       );
       this.cardService.updateCardToHard(card);
+    } else {
+      this.updateCardResults(i, CardResult.HARD);
+      if (i === 0) {
+        this.updateHarderCards();
+      }
     }
+  }
+
+  private updateCardResults(i, cardResult: CardResult) {
+    this.cardResults[i] = cardResult;
+  }
+
+  private updateHarderCards() {
+    const harderCards = this.cardResults
+      .map((r, i) => ({ r, i }))
+      .filter(c => c.r === CardResult.HARD)
+      .map(c => this.cards[c.i]);
+    this.cards = shuffle(harderCards).map(a => ({ ...a }));
+    this.cardResults = this.cards.map(() => CardResult.PENDING);
   }
 }

@@ -1,3 +1,11 @@
+<div *ngIf="cardResults.length > 0 && !scheduledStudy" class="card-results">
+  <span
+    class="card-results__result"
+    [ngClass]="'card-results__result--' + cardResult"
+    *ngFor="let cardResult of cardResults.reverse(); let i = index"
+    >{{ i + 1 }}</span
+  >
+</div>
 <div class="study-page">
   <app-loading *ngIf="loading; else study"></app-loading>
 
@@ -33,13 +41,15 @@
             <div class="flash-card__back-answer">
               <pre>{{ card.back }}</pre>
             </div>
+
             <div class="flash-card__result-container">
+              <p class="flash-card__result--question">How difficult was it?</p>
               <label
                 for="remove-{{ i }}"
                 class="flash-card__result--hard"
                 alBtn="alert"
                 size="large"
-                (click)="harderCard(card)"
+                (click)="harderCard(card, i)"
                 >Hard</label
               >
               <label
@@ -47,7 +57,7 @@
                 class="flash-card__result flash-card__result--easy"
                 alBtn="tertiary"
                 size="large"
-                (click)="easierCard(card)"
+                (click)="easierCard(card, i)"
                 >Easy</label
               >
             </div>
@@ -55,6 +65,7 @@
         </div>
       </ng-container>
     </div>
+
     <div class="no-cards">
       <div class="no-cards__icon">
         <i class="fas fa-couch"></i>
