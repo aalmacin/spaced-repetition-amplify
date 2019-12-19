@@ -1,4 +1,4 @@
 export type Topic = {
-  id: number;
+  id: string;
   name: string;
 };

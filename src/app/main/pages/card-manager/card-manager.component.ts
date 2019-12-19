@@ -30,7 +30,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   messages: string[] = [];
   topics: Topic[] = [];
   searchTerm = '';
-  topicId = '';
+  topicId;
 
   constructor(
     private cardService: CardService,
@@ -42,6 +42,8 @@ export class CardManagerComponent implements OnInit, OnDestroy {
       map(q => q.topicId),
       switchMap(topicId => {
         if (topicId) {
+          this.addCardForm.get('topicId').setValue(topicId);
+          this.topicId = topicId;
           return this.cardService.getCardsByTopicId(topicId);
         } else {
           return this.cardService.getAllCards();
@@ -69,7 +71,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
     if (this.addCardForm.status === 'VALID') {
       this.loading = true;
       this.subscriptions.add(
-        this.cardService.addNewCard(this.addCardForm.value).subscribe((result: any) => {
+        this.cardService.addNewCard(this.addCardForm.value, this.addCardForm.value.topicId).subscribe((result: any) => {
           this.loading = false;
           this.addCardForm.get('front').setValue('');
           this.addCardForm.get('back').setValue('');
@@ -91,7 +93,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
     if (confirm(`Are you sure you want to delete?`)) {
       this.loading = true;
       this.subscriptions.add(
-        this.cardService.deleteCard(cardId).subscribe((result: any) => {
+        this.cardService.deleteCard(cardId, this.topicId).subscribe((result: any) => {
           this.loading = false;
           if (result.error) {
             this.errors = [result.error];
@@ -123,7 +125,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public updateCard(id: string, front: string, back: string) {
     this.loading = true;
     this.subscriptions.add(
-      this.cardService.updateCard({ id, front, back }).subscribe((res: any) => {
+      this.cardService.updateCard({ id, front, back }, this.topicId).subscribe((res: any) => {
         this.loading = false;
         if (res.error) {
           this.errors = [res.error];

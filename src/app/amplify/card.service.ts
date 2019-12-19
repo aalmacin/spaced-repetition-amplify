@@ -38,7 +38,7 @@ export class CardService {
     );
   }
 
-  public addNewCard({ front, back, topicId }): Observable<Card[] | ApiError> {
+  public addNewCard({ front, back, topicId }, pageTopicId = null): Observable<Card[] | ApiError> {
     return this.authService.getCurrentUser().pipe(
       switchMap(_ =>
         this.apiService.CreateCard({
@@ -49,12 +49,15 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      switchMap(() => this.getAllCards()),
+      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
       catchError(() => of({ error: 'An error occured while adding a card.' }))
     );
   }
 
-  public updateCard({ id, front, back }: { id: string; front: string; back: string }): Observable<Card[] | ApiError> {
+  public updateCard(
+    { id, front, back }: { id: string; front: string; back: string },
+    pageTopicId = null
+  ): Observable<Card[] | ApiError> {
     return of({ id, front, back }).pipe(
       switchMap(card =>
         this.apiService.UpdateCard({
@@ -63,7 +66,7 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      switchMap(() => this.getAllCards()),
+      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
       catchError(() => of({ error: 'An error occured while updating the card.' }))
     );
   }
@@ -94,10 +97,10 @@ export class CardService {
     );
   }
 
-  public deleteCard(cardId: string): Observable<Card[] | ApiError> {
+  public deleteCard(cardId: string, pageTopicId = null): Observable<Card[] | ApiError> {
     return of(cardId).pipe(
       switchMap(id => this.deleteCardInAmplify(id)),
-      switchMap(() => this.getAllCards()),
+      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
       catchError(() => of({ error: 'An error occured while deleting the card' }))
     );
   }
