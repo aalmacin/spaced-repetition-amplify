@@ -10,28 +10,39 @@
   position: relative;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: stretch;
   align-items: center;
+  border-bottom: 1px solid getColor(blue-green-line);
 
   &__header {
     display: inline-block;
-    flex-grow: 4;
+    @include padding(md, r);
+    border-right: 1px solid getColor(blue-green-line);
     @include font-size(md);
   }
 
   &__pages {
-    display: none;
+    display: flex;
+    flex-grow: 3;
+    align-items: stretch;
+    justify-content: center;
 
-    @include media(tablet) {
-      display: inline-block;
-    }
+    .nav__pages-side {
+      @include media(tablet) {
+        display: inline-block;
+      }
 
-    @include margin(lg, l);
+      @include margin(lg, l);
 
-    .nav__page {
-      display: inline-block;
+      &--left {
+        flex-grow: 2;
+      }
 
-      @include margin(md, r);
+      .nav__page {
+        display: inline-block;
+
+        @include margin(md, r);
+      }
     }
   }
 

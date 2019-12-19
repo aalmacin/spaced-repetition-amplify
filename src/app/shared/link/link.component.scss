@@ -2,6 +2,7 @@
 
 :host {
   cursor: pointer;
+
   &.al-link-color-primary {
     &:hover {
       color: getColor(blue);
@@ -39,8 +40,20 @@
     text-decoration: none;
   }
 
+  &.al-link-underline {
+    &:link,
+    &:visited {
+      text-decoration: underline;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   &:hover {
     transform: translateY(-0.3rem);
+    text-decoration: none;
   }
 
   &:hover .moving-border {

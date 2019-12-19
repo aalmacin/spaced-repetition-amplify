@@ -14,8 +14,6 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { StudyComponent } from './pages/study/study.component';
 
-import { ProfileComponent } from './pages/profile/profile.component';
-
 import { TopicsComponent } from './pages/topics/topics.component';
 
 import { CardManagerComponent } from './pages/card-manager/card-manager.component';
@@ -23,7 +21,7 @@ import { CardManagerComponent } from './pages/card-manager/card-manager.componen
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [MainComponent, HomeComponent, StudyComponent, ProfileComponent, TopicsComponent, CardManagerComponent],
+  declarations: [MainComponent, HomeComponent, StudyComponent, TopicsComponent, CardManagerComponent],
   imports: [AuthModule, CommonModule, FormsModule, ReactiveFormsModule, MainRoutingModule, SharedModule]
 })
 export class MainModule {}

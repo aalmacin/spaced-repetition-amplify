@@ -16,10 +16,17 @@ export class LinkComponent implements AfterViewInit {
   @Input()
   private color: LinkColor = LinkColor.primary;
 
+  @Input()
+  private underline = false;
+
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
     this.renderer.addClass(this.el.nativeElement, `al-link-${this.type}`);
     this.renderer.addClass(this.el.nativeElement, `al-link-color-${this.color}`);
+
+    if (this.underline) {
+      this.renderer.addClass(this.el.nativeElement, 'al-link-underline');
+    }
   }
 }

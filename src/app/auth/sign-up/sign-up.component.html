@@ -40,6 +40,9 @@
     />
 
     <button alBtn="primary" class="form-control sign-up__submit">Register</button>
-    <p>Already have an account? <a alLink="animated" [routerLink]="['/auth', 'signin']">Click here to sign in</a></p>
+    <p>
+      Already have an account?
+      <a alLink="animated" [underline]="true" [routerLink]="['/auth', 'signin']">Click here to sign in</a>
+    </p>
   </form>
 </div>
