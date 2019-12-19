@@ -71,7 +71,8 @@ export class CardManagerComponent implements OnInit, OnDestroy {
       this.subscriptions.add(
         this.cardService.addNewCard(this.addCardForm.value).subscribe((result: any) => {
           this.loading = false;
-          this.addCardForm.reset();
+          this.addCardForm.get('front').setValue('');
+          this.addCardForm.get('back').setValue('');
           if (result.error) {
             this.errors = [result.error];
           } else {

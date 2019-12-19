@@ -50,7 +50,7 @@
       }
 
       .add-card-toggle {
-        display: none;
+        // display: none;
 
         &:checked {
           & ~ .add-card .add-card__form {
@@ -125,7 +125,7 @@
         }
 
         &__form {
-          display: none;
+          // display: none;
         }
 
         &__front {
@@ -380,6 +380,7 @@
 
         &__toggle {
           display: none;
+
           &:checked {
             & ~ .card-info__field {
               .card-info__display {
@@ -399,6 +400,7 @@
               .card-info__action--save {
                 display: inline-block;
               }
+
               .card-info__action--cancel {
                 display: inline-block;
               }
@@ -424,6 +426,7 @@
               .card-info__action--save {
                 display: none;
               }
+
               .card-info__action--cancel {
                 display: none;
               }
@@ -482,6 +485,7 @@
             @include margin(sm, r);
             display: none;
           }
+
           &--cancel {
             @include margin(md, r);
             display: none;
