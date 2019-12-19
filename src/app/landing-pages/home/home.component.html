@@ -22,8 +22,10 @@
       <h3 class="step__header"><span class="step__header-step">Step 1:</span> Create topic</h3>
       <p class="step__content">
         Create a
-        <a class="al-semibold" alLink="animated" color="tertiary" [routerLink]="['/app', 'topics']">topic</a> for the
-        subject you want to study.
+        <a class="al-semibold" alLink="animated" [underline]="true" color="tertiary" [routerLink]="['/app', 'topics']"
+          >topic</a
+        >
+        for the subject you want to study.
       </p>
     </div>
   </div>
@@ -39,10 +41,15 @@
     <div class="step__container">
       <h3 class="step__header"><span class="step__header-step">Step 3:</span> Review</h3>
       <p class="step__content">
-        Go to <a class="al-semibold" alLink="animated" color="tertiary" [routerLink]="['/app', 'study']">Study</a> page
-        to review all topics or to
-        <a class="al-semibold" alLink="animated" color="tertiary" [routerLink]="['/app', 'topics']">Topics</a> page to
-        review specific topic.
+        Go to
+        <a class="al-semibold" alLink="animated" [underline]="true" color="tertiary" [routerLink]="['/app', 'study']"
+          >Study</a
+        >
+        page to review all topics or to
+        <a class="al-semibold" alLink="animated" [underline]="true" color="tertiary" [routerLink]="['/app', 'topics']"
+          >Topics</a
+        >
+        page to review specific topic.
       </p>
     </div>
   </div>

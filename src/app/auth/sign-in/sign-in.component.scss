@@ -37,7 +37,7 @@
       margin: 0 auto;
 
       @include media(desktop) {
-        width: 75%;
+        width: 30%;
       }
     }
 
@@ -46,7 +46,10 @@
       width: 100%;
 
       @include media(desktop) {
-        width: 75%;
+        display: block;
+        margin: 0 auto;
+        @include margin(md, tb);
+        width: 30%;
       }
 
       @include padding(sm);

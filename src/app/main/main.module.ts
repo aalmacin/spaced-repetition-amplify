@@ -14,8 +14,6 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { StudyComponent } from './pages/study/study.component';
 
-import { ProfileComponent } from './pages/profile/profile.component';
-
 import { TopicsComponent } from './pages/topics/topics.component';
 
 import { CardManagerComponent } from './pages/card-manager/card-manager.component';
@@ -28,7 +26,6 @@ import { FlashCardComponent } from './pages/study/flash-card/flash-card.componen
     MainComponent,
     HomeComponent,
     StudyComponent,
-    ProfileComponent,
     TopicsComponent,
     CardManagerComponent,
     FlashCardComponent
