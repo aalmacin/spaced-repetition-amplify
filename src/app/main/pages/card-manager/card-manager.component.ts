@@ -42,7 +42,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
       map(q => q.topicId),
       switchMap(topicId => {
         if (topicId) {
-          this.addCardForm.get('topicId').setValue(topicId);
+          this.addCardForm.reset({ topicId, front: '', back: '' });
           this.topicId = topicId;
           return this.cardService.getCardsByTopicId(topicId);
         } else {

@@ -21,6 +21,50 @@
         <span class="stats-box__number">December 26, 2019</span>
       </div>
     </div>
-    <div class="topics-section"></div>
+
+    <div class="topics-section">
+      <div class="topics-section-heading">
+        <div class="topics-section-heading__heading">
+          <h2>Topics</h2>
+        </div>
+        <div class="create-topic">
+          <button alBtn="secondary">
+            <span class="button-icon">
+              <i class="fas fa-plus"></i>
+            </span>
+            Add a New Topic
+          </button>
+          <!-- <div class="errors">
+            <al-alert [messages]="errors" type="error"></al-alert>
+          </div>
+          <div class="messages">
+            <al-alert [messages]="messages" type="success"></al-alert>
+          </div> -->
+          <div class="add-topic" *ngIf="createTopicToggle">
+            <!-- <form class="add-topic-form" (submit)="createTopic($event, topicName.value)"> -->
+            <form class="add-topic-form">
+              <input type="text" placeholder="Topic Name" class="add-topic-form__name" #topicName />
+              <button alBtn="secondary" size="tiny" class="add-topic-form__button">Create Topic</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <table class="topics-table">
+        <tr>
+          <th>Topic Name</th>
+          <th>Topic Name</th>
+          <th>Topic Name</th>
+          <th>Topic Name</th>
+          <th>Topic Name</th>
+        </tr>
+        <tr>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

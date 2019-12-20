@@ -94,8 +94,37 @@
     }
 
     .topics-section {
-      border: 1px solid black;
-      height: 60rem;
+      border: 1px solid getColor(blue-green-line);
+
+      .topics-section-heading {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid getColor(blue-green-line);
+        @include padding(sm);
+
+        &__heading {
+          @include padding(lg, r);
+          border-right: 1px solid getColor(blue-green-line);
+        }
+      }
+
+      table.topics-table {
+        // background-color: green;
+
+        width: 100%;
+        text-align: left;
+
+        th {
+          font-weight: bold;
+          @include padding(sm);
+        }
+
+        td {
+          @include padding(sm);
+        }
+
+        // display: table;
+      }
     }
   }
 }

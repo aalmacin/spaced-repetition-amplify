@@ -6,6 +6,7 @@
   @include padding(sm, bt);
   cursor: pointer;
   transition: transform 0.5s;
+  border: 0.1rem solid transparent;
 
   &.al-btn-primary {
     background-color: getColor(blue);
@@ -73,6 +74,7 @@
   }
 
   &.al-btn-animated {
+    border: 0.1rem solid transparent;
     background-color: getColor(blue);
     color: getColor(white);
     box-shadow: 0 1rem 5rem getColor(blue);

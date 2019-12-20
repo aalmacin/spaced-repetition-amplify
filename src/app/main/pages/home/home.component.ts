@@ -11,6 +11,7 @@ import { User } from '@spaced-repetition/types/user';
 export class HomeComponent implements OnDestroy {
   subscriptions = new Subscription();
   user: User;
+  createTopicToggle = false;
   constructor(public authService: AuthService) {
     this.subscriptions.add(
       this.authService.getCurrentUser().subscribe(user => {
