@@ -48,7 +48,7 @@ export class CustomApiService {
             id
             name
             user
-            cards {
+            cards(limit: 1000) {
               items {
                 __typename
                 id
