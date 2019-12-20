@@ -5,12 +5,6 @@
       <h2 class="header">Card Manager</h2>
 
       <div class="cards-container">
-        <div class="errors">
-          <al-alert [messages]="errors" type="error"></al-alert>
-        </div>
-        <div class="messages">
-          <al-alert [messages]="messages" type="success"></al-alert>
-        </div>
         <div class="togglers">
           <!-- <input type="checkbox" id="add-card-toggle" class="add-card-toggle" /> -->
           <input type="checkbox" id="filter-toggle" class="filter-toggle" />
@@ -26,7 +20,13 @@
           <div class="add-card">
             <form class="add-card__form" [formGroup]="addCardForm" (submit)="addNewCard()">
               <div class="errors">
-                <ng-container *ngIf="addCardForm.status === 'INVALID'">
+                <al-alert [messages]="errors" type="error"></al-alert>
+              </div>
+              <div class="messages">
+                <al-alert [messages]="messages" type="success"></al-alert>
+              </div>
+              <div class="errors">
+                <ng-container *ngIf="addCardForm.status === 'INVALID' && addCardForm.touched">
                   <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
                 </ng-container>
               </div>

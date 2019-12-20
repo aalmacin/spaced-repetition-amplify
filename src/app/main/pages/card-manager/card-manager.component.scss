@@ -119,13 +119,13 @@
           @include font-size(md);
         }
 
+        &__form {
+          // display: none;
+        }
+
         .errors,
         .messages {
           @include margin(md, b);
-        }
-
-        &__form {
-          // display: none;
         }
 
         &__front {
@@ -163,6 +163,8 @@
           background-position: 98% 50%;
           color: getColor(white);
           background-color: getColor(purple);
+          -webkit-appearance: none;
+          appearance: none;
 
           @include media(tablet) {
             background-size: 3%;
@@ -171,9 +173,10 @@
 
           @include media(desktop) {
             @include font-size(md);
-            background: none;
-            background-color: getColor(white);
-            color: getColor(black);
+            // background: none;
+            // background-color: getColor(white);
+            background-size: 2rem;
+            // color: getColor(black);
           }
 
           overflow: hidden;
