@@ -12,18 +12,25 @@ enum CardResult {
   PENDING = 'pending'
 }
 
+interface CardVM extends Card {
+  result: CardResult;
+}
+
 @Component({
   selector: 'app-study',
   templateUrl: './study.component.html',
   styleUrls: ['./study.component.scss']
 })
 export class StudyComponent implements OnDestroy {
-  cards: Card[] = [];
+  cards: CardVM[] = [];
   subscriptions = new Subscription();
   loading = true;
   errors: string[] = [];
   scheduledStudy = false;
-  cardResults: CardResult[] = [];
+  currentCardIndex = 0;
+  cardFrontIndex = 0;
+  cardBackIndex = 0;
+  isShow = false;
 
   constructor(private cardService: CardService, private activatedRoute: ActivatedRoute) {
     this.subscriptions.add(
@@ -39,8 +46,7 @@ export class StudyComponent implements OnDestroy {
         )
         .subscribe(cards => {
           this.loading = false;
-          this.cards = shuffle(cards);
-          this.cardResults = this.cards.map(() => CardResult.PENDING);
+          this.cards = shuffle(cards).map(card => ({ ...card, result: CardResult.PENDING }));
         })
     );
   }
@@ -84,16 +90,44 @@ export class StudyComponent implements OnDestroy {
     }
   }
 
+  public showAnswer() {
+    console.log('show answer');
+    this.isShow = true;
+    if (this.currentCardIndex !== 0) {
+      this.cardBackIndex = this.cardBackIndex + 1;
+    }
+  }
+
+  get indexInRange() {
+    return this.currentCardIndex + 1 < this.cards.length;
+  }
+
+  get frontToShow() {
+    return this.cards[this.cardFrontIndex];
+  }
+
+  get backToShow() {
+    return this.cards[this.cardBackIndex];
+  }
+
+  public showNext() {
+    this.isShow = false;
+    this.cardFrontIndex = this.cardFrontIndex + 1;
+    if (this.indexInRange) {
+      this.currentCardIndex++;
+    }
+  }
+
   private updateCardResults(i, cardResult: CardResult) {
-    this.cardResults[i] = cardResult;
+    this.cards[i].result = cardResult;
   }
 
   private updateHarderCards() {
-    const harderCards = this.cardResults
-      .map((r, i) => ({ r, i }))
-      .filter(c => c.r === CardResult.HARD)
-      .map(c => this.cards[c.i]);
-    this.cards = shuffle(harderCards).map(a => ({ ...a }));
-    this.cardResults = this.cards.map(() => CardResult.PENDING);
+    const harderCards = this.cards.filter(c => c.result === CardResult.HARD);
+    this.cards = shuffle(harderCards).map(a => ({ ...a, result: CardResult.PENDING }));
+  }
+
+  get currentCard() {
+    return this.cards[this.currentCardIndex];
   }
 }

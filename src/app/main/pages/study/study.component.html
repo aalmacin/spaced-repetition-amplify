@@ -1,12 +1,17 @@
-<div *ngIf="cardResults.length > 0 && !scheduledStudy" class="card-results">
-  <span
-    class="card-results__result"
-    [ngClass]="'card-results__result--' + cardResult"
-    *ngFor="let cardResult of cardResults; let i = index"
-    >{{ cardResults.length - i }}</span
-  >
-</div>
 <div class="study-page">
+  <div *ngIf="cards.length > 0 && !scheduledStudy" class="card-results">
+    <span
+      class="card-results__result"
+      [ngClass]="'card-results__result--' + card.result"
+      *ngFor="let card of cards; let i = index"
+    >
+      {{ i + 1 }}
+      <div class="card-result-info">
+        {{ card.front }}
+      </div>
+    </span>
+  </div>
+
   <app-loading *ngIf="loading; else study"></app-loading>
 
   <div class="errors">
@@ -14,6 +19,57 @@
   </div>
 
   <ng-template #study>
+    <div *ngIf="cards.length === 0">
+      <div class="no-cards__icon">
+        <i class="fas fa-couch"></i>
+      </div>
+      <p class="no-cards__message">
+        You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
+      </p>
+    </div>
+    <div>
+      <h3>Topic: {{ currentCard.topicName }}</h3>
+      <p>Card Number: {{ currentCardIndex + 1 }}</p>
+    </div>
+    <div class="flash-card" *ngIf="cards.length !== 0">
+      <div class="flash-card__face flash-card__face--front {{ isShow ? 'hide' : 'show' }}">
+        <p class="flash-card__face__question flash-card__face__question--front">{{ frontToShow.front }}</p>
+        <button class="flash-card__face__button" alBtn="secondary" size="large" (click)="showAnswer()">
+          Show Answer
+        </button>
+      </div>
+      <div class="flash-card__face flash-card__face--back {{ isShow ? 'show' : 'hide' }}">
+        <p class="flash-card__face__question">{{ backToShow.front }}</p>
+        <div class="flash-card__face__answer">
+          <h3>Answer:</h3>
+          <p class="flash-card__face__answer__text ">
+            {{ backToShow.back }}
+          </p>
+        </div>
+        <div class="flash-card__face__result-container">
+          <p class="flash-card__face__result--question">How difficult was it?</p>
+          <button
+            class="flash-card__face__result flash-card__face__result--hard"
+            alBtn="alert"
+            size="large"
+            (click)="showNext()"
+          >
+            Hard
+          </button>
+          <button
+            class="flash-card__face__result flash-card__face__result--easy"
+            alBtn="tertiary"
+            size="large"
+            (click)="showNext()"
+          >
+            Easy
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- <ng-template #study>
     <div *ngIf="cards.length > 0">
       <ng-container *ngFor="let card of cards; let i = index">
         <div class="flash-card">
@@ -74,5 +130,5 @@
         You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
       </p>
     </div>
-  </ng-template>
+  </ng-template> -->
 </div>
