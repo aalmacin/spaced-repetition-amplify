@@ -160,7 +160,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  max-width: 60%;
+  max-width: 90%;
+
+  @include media(desktop) {
+    max-width: 60%;
+  }
 
   &__result {
     display: inline-block;
