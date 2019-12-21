@@ -212,3 +212,19 @@
   //   // z-index: 9000;
   //   display: none;
 }
+
+.card-num {
+  display: flex;
+  justify-content: flex-end;
+  @include margin(md, br);
+  color: getColor(purple);
+  width: 90%;
+
+  @include media(desktop) {
+    width: 60%;
+  }
+
+  &__text {
+    display: inline-block;
+  }
+}

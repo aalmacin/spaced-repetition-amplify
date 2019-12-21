@@ -35,12 +35,11 @@ export class FlashCardComponent {
           }
         })
       );
-    } else {
-      this.cards[this.currentCardIndex] = {
-        ...this.currentCard,
-        result: CardResult.EASY
-      };
     }
+    this.cards[this.currentCardIndex] = {
+      ...this.currentCard,
+      result: CardResult.EASY
+    };
     this.save();
   }
 
@@ -53,12 +52,11 @@ export class FlashCardComponent {
           }
         })
       );
-    } else {
-      this.cards[this.currentCardIndex] = {
-        ...this.currentCard,
-        result: CardResult.HARD
-      };
     }
+    this.cards[this.currentCardIndex] = {
+      ...this.currentCard,
+      result: CardResult.HARD
+    };
     this.save();
   }
 

@@ -1,7 +1,7 @@
 @import 'framework.scss';
 
 :host {
-  border: none;
+  border: 0.1rem solid transparent;
   @include padding(md, lr);
   @include padding(sm, bt);
   cursor: pointer;

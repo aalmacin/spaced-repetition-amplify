@@ -1,6 +1,6 @@
 <div (blur)="clearCardResult()" class="card-result-info">&nbsp;{{ resultCard && resultCard.front }}</div>
 
-<div *ngIf="cards.length > 0 && !scheduledStudy" class="card-results" (mouseleave)="clearCardResult()">
+<div *ngIf="cards.length > 0" class="card-results" (mouseleave)="clearCardResult()">
   <div
     (mouseover)="showInfo(i)"
     class="card-results__result"
@@ -11,6 +11,10 @@
       {{ i + 1 }}
     </span>
   </div>
+</div>
+
+<div class="card-num">
+  <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
 </div>
 
 <div class="errors">
@@ -25,6 +29,7 @@
     You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
   </p>
 </div>
+
 <div class="flash-card">
   <div class="flash-card__face flash-card__face--front {{ isShow ? 'hide' : 'show' }}">
     <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
