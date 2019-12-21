@@ -1,10 +1,14 @@
+<div class="card-num">
+  <h3 class="card-num__heading">Cards</h3>
+  <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
+</div>
 <div #cardResultInfo (blur)="clearCardResult()" class="card-result-info">
   {{ resultCard && resultCard.front }}
 </div>
 
 <div *ngIf="cards.length > 0" class="card-results" (mouseleave)="clearCardResult()">
   <div
-    (mouseover)="showInfo(i)"
+    (mouseover)="showInfo($event, i)"
     class="card-results__result"
     *ngFor="let card of cards; let i = index"
     [ngClass]="'card-results__result--' + card.result"
@@ -13,11 +17,6 @@
       {{ i + 1 }}
     </span>
   </div>
-</div>
-
-<div class="card-num">
-  <h3 class="card-num__heading">Cards</h3>
-  <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
 </div>
 
 <div class="errors">

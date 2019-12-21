@@ -90,8 +90,10 @@ export class FlashCardComponent {
     return this.cards[this.currentCardIndex];
   }
 
-  public showInfo(i) {
+  public showInfo(e: MouseEvent, i) {
     this.resultCard = this.cards[i];
+    this.renderer.setStyle(this.cardResultInfo.nativeElement, 'left', `${e.clientX}px`);
+    this.renderer.setStyle(this.cardResultInfo.nativeElement, 'top', `${e.clientY}px`);
     this.renderer.addClass(this.cardResultInfo.nativeElement, 'show-card-result');
   }
 

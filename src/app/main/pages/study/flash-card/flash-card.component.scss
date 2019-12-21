@@ -150,7 +150,7 @@
 .card-results {
   margin: 0 auto;
   overflow-x: scroll;
-  @include margin();
+  @include margin(md, b);
   // @include padding(lg, b);
   display: flex;
   flex-direction: row;
@@ -175,6 +175,10 @@
 
     &--pending {
       background-color: getColor(gray-light-2);
+    }
+
+    &:hover {
+      background-color: getColor(white-2);
     }
   }
 }
@@ -207,23 +211,35 @@
 
 .card-result-info {
   @include margin(md, t);
-  position: absolute;
-  transform: translateY(-5rem);
+  position: fixed;
+  transform: translateX(-30%);
   background-color: getColor(white-2);
   @include padding(md);
   z-index: 9000;
   opacity: 0;
-  transition: all 500ms ease-in;
+  transition: opacity 300ms ease-in;
 
   &.show-card-result {
     opacity: 1;
   }
+
+  // border: 1px solid getColor(blue-green-line);
+  border-radius: 0.5rem;
+
+  // &::before {
+  //   content: '';
+  //   display: block;
+  //   transform: translateY(-2.2rem);
+  //   border-left: 1rem solid transparent;
+  //   border-right: 1rem solid transparent;
+  //   border-bottom: 1rem solid getColor(white-2);
+  // }
 }
 
 .card-num {
   display: flex;
   justify-content: space-between;
-  @include margin(md, br);
+  @include margin(md, tb);
   color: getColor(purple);
   width: 90%;
 
