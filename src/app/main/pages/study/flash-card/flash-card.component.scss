@@ -141,13 +141,22 @@
   }
 }
 
+:host {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .card-results {
+  margin: 0 auto;
+  overflow-x: scroll;
   @include margin();
-  text-align: center;
+  @include padding(lg, b);
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 30%;
 
   &__result {
     display: inline-block;
@@ -192,5 +201,19 @@
 
   p {
     @include margin(lg, tb);
+  }
+}
+
+.no-cards {
+  &__icon {
+    @include font-size(lg-3);
+  }
+
+  &__message {
+    @include font-size(md);
+
+    @include media(tablet) {
+      @include font-size(lg);
+    }
   }
 }
