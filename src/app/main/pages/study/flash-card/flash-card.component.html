@@ -1,8 +1,8 @@
-<div class="card-num">
+<div class="card-num" *ngIf="cards.length > 0">
   <h3 class="card-num__heading">Cards</h3>
   <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
 </div>
-<div #cardResultInfo (blur)="clearCardResult()" class="card-result-info">
+<div *ngIf="cards.length > 0" #cardResultInfo (blur)="clearCardResult()" class="card-result-info">
   {{ resultCard && resultCard.front }}
 </div>
 
@@ -23,7 +23,16 @@
   <al-alert [messages]="errors" type="error"></al-alert>
 </div>
 
-<div class="flash-card">
+<div *ngIf="cards.length === 0">
+  <div class="no-cards__icon">
+    <i class="fas fa-couch"></i>
+  </div>
+  <p class="no-cards__message">
+    You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
+  </p>
+</div>
+
+<div class="flash-card" *ngIf="cards.length > 0">
   <div class="flash-card__face flash-card__face--front {{ showBack ? 'hide' : 'show' }}">
     <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
     <p class="flash-card__face__question flash-card__face__question--front">{{ currentCard.front }}</p>
