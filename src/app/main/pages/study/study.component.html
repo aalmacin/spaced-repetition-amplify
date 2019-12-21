@@ -1,19 +1,10 @@
-<div *ngIf="cardResults.length > 0 && !scheduledStudy" class="card-results">
-  <span
-    class="card-results__result"
-    [ngClass]="'card-results__result--' + cardResult"
-    *ngFor="let cardResult of cardResults; let i = index"
-    >{{ cardResults.length - i }}</span
-  >
-</div>
 <div class="study-page">
   <app-loading *ngIf="loading; else study"></app-loading>
-
-  <div class="errors">
-    <al-alert [messages]="errors" type="error"></al-alert>
-  </div>
-
   <ng-template #study>
+    <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
+  </ng-template>
+
+  <!-- <ng-template #study>
     <div *ngIf="cards.length > 0">
       <ng-container *ngFor="let card of cards; let i = index">
         <div class="flash-card">
@@ -74,5 +65,5 @@
         You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
       </p>
     </div>
-  </ng-template>
+  </ng-template> -->
 </div>

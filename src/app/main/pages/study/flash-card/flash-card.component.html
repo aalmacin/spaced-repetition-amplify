@@ -1,0 +1,78 @@
+<div *ngIf="cards.length > 0 && !scheduledStudy" class="card-results">
+  <span
+    class="card-results__result"
+    [ngClass]="'card-results__result--' + card.result"
+    *ngFor="let card of cards; let i = index"
+  >
+    {{ i + 1 }}
+    <div class="card-result-info">
+      {{ card.front }}
+    </div>
+  </span>
+</div>
+<div class="errors">
+  <al-alert [messages]="errors" type="error"></al-alert>
+</div>
+
+<div *ngIf="cards.length === 0">
+  <div class="no-cards__icon">
+    <i class="fas fa-couch"></i>
+  </div>
+  <p class="no-cards__message">
+    You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
+  </p>
+</div>
+<div class="flash-card">
+  <div class="flash-card__face flash-card__face--front {{ isShow ? 'hide' : 'show' }}">
+    <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
+    <p class="flash-card__face__question flash-card__face__question--front">{{ currentCard.front }}</p>
+    <div class="flash-card__face__button-container">
+      <button class="flash-card__face__button" alBtn="secondary" size="large" (click)="showAnswer()">
+        Show Answer
+      </button>
+    </div>
+  </div>
+  <div class="flash-card__face flash-card__face--back {{ isShow ? 'show' : 'hide' }} ">
+    <h3 class="flash-card__face--front-topic {{ saved && 'saved' }}">{{ currentCard.topicName }}</h3>
+    <p class="flash-card__face__question {{ saved && 'saved' }}">{{ currentCard.front }}</p>
+    <div class="flash-card__face__answer {{ saved && 'saved' }}">
+      <h3>Answer:</h3>
+      <p class="flash-card__face__answer__text ">
+        {{ currentCard.back }}
+      </p>
+    </div>
+    <div class="flash-card__face__result-container" *ngIf="!saved">
+      <p class="flash-card__face__result--question">How difficult was it?</p>
+      <button
+        class="flash-card__face__result flash-card__face__result--hard"
+        alBtn="alert"
+        size="large"
+        (click)="harderCard()"
+      >
+        Hard
+      </button>
+      <button
+        class="flash-card__face__result flash-card__face__result--easy"
+        alBtn="tertiary"
+        size="large"
+        (click)="easierCard()"
+      >
+        Easy
+      </button>
+    </div>
+    <div class="saved-block" *ngIf="saved">
+      <p>Saved</p>
+
+      <div *ngIf="!last">
+        <button
+          class="flash-card__face__result flash-card__face__result--easy"
+          alBtn="tertiary"
+          size="large"
+          (click)="showNext()"
+        >
+          Go to next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
