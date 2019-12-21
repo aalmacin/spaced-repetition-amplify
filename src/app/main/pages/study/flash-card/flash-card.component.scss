@@ -3,8 +3,14 @@
 .flash-card {
   border-radius: 0.5rem;
   display: inline-block;
-  width: 30%;
-  height: 40vh;
+  width: 90%;
+  height: 50vh;
+
+  @include media(desktop) {
+    width: 30%;
+    height: 40vh;
+  }
+
   background-color: getColor(white);
   margin: 0 auto;
   position: relative;
