@@ -110,6 +110,10 @@
         justify-content: flex-end;
         align-items: flex-end;
         @include margin(md, b);
+
+        .flash-card__face__button {
+          @include margin(lg, b);
+        }
       }
     }
 
@@ -183,14 +187,21 @@
   }
 }
 
-.saved {
+.hide-back {
   display: none;
 }
 
 .saved-block {
   text-align: center;
 
-  p {
+  .saved-alert {
+    font-size: 2.2rem;
+    color: getColor(black);
+    font-weight: semibold;
+    @include margin(lg, tb);
+  }
+
+  .to-dashboard {
     @include margin(lg, tb);
   }
 }

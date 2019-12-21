@@ -12,10 +12,11 @@ import { shuffle } from 'lodash';
 export class FlashCardComponent {
   errors: string[] = [];
   currentCardIndex = 0;
-  isShow = false;
+  showBack = false;
   subscriptions = new Subscription();
   saved = false;
   last = false;
+  continue = false;
 
   @Input()
   scheduledStudy = false;
@@ -64,8 +65,9 @@ export class FlashCardComponent {
   }
 
   public showAnswer() {
-    this.isShow = true;
+    this.showBack = true;
     this.saved = false;
+    this.continue = false;
   }
 
   get indexInRange() {
@@ -80,7 +82,11 @@ export class FlashCardComponent {
   }
 
   public showNext() {
-    this.isShow = false;
+    this.showBack = false;
+    this.setLast();
+  }
+
+  public setLast() {
     if (this.currentCardIndex === this.cards.length - 1) {
       this.last = true;
     }
@@ -99,5 +105,19 @@ export class FlashCardComponent {
 
   public clearCardResult() {
     this.renderer.removeClass(this.cardResultInfo.nativeElement, 'show-card-result');
+  }
+
+  get hardCards() {
+    return this.cards.filter(card => card.result === CardResult.HARD);
+  }
+
+  public startHardCards() {
+    this.cards = shuffle(this.hardCards).map(card => ({ ...card, result: CardResult.PENDING }));
+    this.currentCardIndex = 0;
+    this.showBack = false;
+    this.saved = false;
+    this.continue = true;
+    this.last = false;
+    this.setLast();
   }
 }
