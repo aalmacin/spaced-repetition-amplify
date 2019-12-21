@@ -1,17 +1,4 @@
 <div class="study-page">
-  <div *ngIf="cards.length > 0 && !scheduledStudy" class="card-results">
-    <span
-      class="card-results__result"
-      [ngClass]="'card-results__result--' + card.result"
-      *ngFor="let card of cards; let i = index"
-    >
-      {{ i + 1 }}
-      <div class="card-result-info">
-        {{ card.front }}
-      </div>
-    </span>
-  </div>
-
   <app-loading *ngIf="loading; else study"></app-loading>
   <ng-template #study>
     <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
