@@ -7,7 +7,7 @@
   height: 50vh;
 
   @include media(desktop) {
-    width: 30%;
+    width: 60%;
     height: 40vh;
   }
 
@@ -156,27 +156,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  width: 30%;
+  max-width: 30%;
 
   &__result {
     display: inline-block;
-    @include padding(md);
-    cursor: pointer;
-
     border: 1px solid getColor(white);
 
-    .card-result-info {
-      position: absolute;
-      display: none;
-      z-index: 9000;
-    }
-
-    &:hover .card-result-info {
-      display: block;
-      background-color: getColor(white-2);
-      @include padding(lg);
-      transform: translate(-1rem, 1rem);
-    }
+    @include padding(md);
+    cursor: pointer;
 
     &--hard {
       background-color: getColor(red);
@@ -216,4 +203,12 @@
       @include font-size(lg);
     }
   }
+}
+
+.card-result-info {
+  @include margin(md, t);
+  //   // position: absolute;
+  //   // display: none;
+  //   // z-index: 9000;
+  //   display: none;
 }

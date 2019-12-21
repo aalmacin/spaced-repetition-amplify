@@ -1,15 +1,18 @@
-<div *ngIf="cards.length > 0 && !scheduledStudy" class="card-results">
-  <span
+<div (blur)="clearCardResult()" class="card-result-info">&nbsp;{{ resultCard && resultCard.front }}</div>
+
+<div *ngIf="cards.length > 0 && !scheduledStudy" class="card-results" (mouseleave)="clearCardResult()">
+  <div
+    (mouseover)="showInfo(i)"
     class="card-results__result"
-    [ngClass]="'card-results__result--' + card.result"
     *ngFor="let card of cards; let i = index"
+    [ngClass]="'card-results__result--' + card.result"
   >
-    {{ i + 1 }}
-    <div class="card-result-info">
-      {{ card.front }}
-    </div>
-  </span>
+    <span class="card-results__result__number">
+      {{ i + 1 }}
+    </span>
+  </div>
 </div>
+
 <div class="errors">
   <al-alert [messages]="errors" type="error"></al-alert>
 </div>

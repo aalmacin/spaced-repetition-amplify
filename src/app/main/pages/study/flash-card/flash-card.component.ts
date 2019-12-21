@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Card } from '@spaced-repetition/types/card';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { CardVM, CardResult } from '../study.component';
 import { Subscription } from 'rxjs';
@@ -23,6 +22,7 @@ export class FlashCardComponent {
 
   @Input()
   cards: CardVM[] = [];
+  resultCard: CardVM;
 
   constructor(private cardService: CardService) {}
 
@@ -71,10 +71,6 @@ export class FlashCardComponent {
     return this.currentCardIndex + 1 < this.cards.length;
   }
 
-  public animationEnded() {
-    alert('The end');
-  }
-
   save() {
     this.saved = true;
     if (this.indexInRange) {
@@ -91,5 +87,13 @@ export class FlashCardComponent {
 
   get currentCard() {
     return this.cards[this.currentCardIndex];
+  }
+
+  public showInfo(i) {
+    this.resultCard = this.cards[i];
+  }
+
+  public clearCardResult() {
+    this.resultCard = null;
   }
 }
