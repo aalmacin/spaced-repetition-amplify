@@ -12,6 +12,7 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { CardManagerComponent } from './pages/card-manager/card-manager.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlashCardComponent } from './pages/study/flash-card/flash-card.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FlashCardComponent } from './pages/study/flash-card/flash-card.componen
     StudyComponent,
     ProfileComponent,
     TopicsComponent,
+    HomeComponent,
     CardManagerComponent,
     FlashCardComponent
   ],
