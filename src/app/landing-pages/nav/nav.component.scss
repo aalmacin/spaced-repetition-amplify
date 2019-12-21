@@ -1,5 +1,17 @@
 @import 'framework.scss';
 
+.app-links {
+  .app-link {
+    display: inline-block;
+    @include margin(md, r);
+    border-bottom: 0.1rem solid getColor(blue-green-line);
+
+    &:hover {
+      border-bottom: none;
+    }
+  }
+}
+
 .nav {
   vertical-align: middle;
   line-height: 1;
@@ -17,6 +29,11 @@
   .nav-sign-out {
     @include margin(lg, r);
     display: inline-block;
+    border-bottom: 0.1rem solid getColor(blue-green-line);
+
+    &:hover {
+      border-bottom: none;
+    }
   }
 
   .nav-displayed {
@@ -37,6 +54,12 @@
 
     &__login {
       @include margin(lg, r);
+      display: inline-block;
+      border-bottom: 0.1rem solid getColor(blue-green-line);
+
+      &:hover {
+        border-bottom: none;
+      }
     }
 
     &__toggle-label {

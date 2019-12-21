@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { CardVM, CardResult } from '../study.component';
 import { Subscription } from 'rxjs';
@@ -24,7 +24,10 @@ export class FlashCardComponent {
   cards: CardVM[] = [];
   resultCard: CardVM;
 
-  constructor(private cardService: CardService) {}
+  @ViewChild('cardResultInfo')
+  cardResultInfo: ElementRef;
+
+  constructor(private cardService: CardService, private renderer: Renderer2) {}
 
   public easierCard() {
     if (this.scheduledStudy) {
@@ -89,9 +92,10 @@ export class FlashCardComponent {
 
   public showInfo(i) {
     this.resultCard = this.cards[i];
+    this.renderer.addClass(this.cardResultInfo.nativeElement, 'show-card-result');
   }
 
   public clearCardResult() {
-    this.resultCard = null;
+    this.renderer.removeClass(this.cardResultInfo.nativeElement, 'show-card-result');
   }
 }

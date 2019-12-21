@@ -1,4 +1,6 @@
-<div (blur)="clearCardResult()" class="card-result-info">&nbsp;{{ resultCard && resultCard.front }}</div>
+<div #cardResultInfo (blur)="clearCardResult()" class="card-result-info">
+  {{ resultCard && resultCard.front }}
+</div>
 
 <div *ngIf="cards.length > 0" class="card-results" (mouseleave)="clearCardResult()">
   <div
@@ -14,6 +16,7 @@
 </div>
 
 <div class="card-num">
+  <h3 class="card-num__heading">Cards</h3>
   <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
 </div>
 
