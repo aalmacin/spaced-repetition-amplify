@@ -3,6 +3,8 @@ import { CardService } from '@spaced-repetition/amplify/card.service';
 import { CardVM, CardResult } from '../study.component';
 import { Subscription } from 'rxjs';
 import { shuffle } from 'lodash';
+import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
+import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
 
 @Component({
   selector: 'app-flash-card',
@@ -112,7 +114,11 @@ export class FlashCardComponent {
   }
 
   public startHardCards() {
-    this.cards = shuffle(this.hardCards).map(card => ({ ...card, result: CardResult.PENDING }));
+    this.cards = shuffle(this.hardCards).map(card => ({
+      ...card,
+      result: CardResult.PENDING,
+      potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
+    }));
     this.currentCardIndex = 0;
     this.showBack = false;
     this.saved = false;

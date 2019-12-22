@@ -68,6 +68,12 @@
         Easy
       </button>
     </div>
+    <div class="next-study-if-easy" *ngIf="scheduledStudy">
+      Next study if Easy:
+      <span class="next-study-if-easy__date">
+        {{ currentCard.potentialNextStudy }}
+      </span>
+    </div>
     <div class="saved-block" *ngIf="saved && showBack">
       <p class="saved-alert">Saved!!</p>
 

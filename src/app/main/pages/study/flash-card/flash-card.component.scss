@@ -274,3 +274,16 @@
     white-space: pre;
   }
 }
+
+.next-study-if-easy {
+  @include margin(md, bt);
+  @include padding(lg, bt);
+  border-top: 1px solid getColor(blue-green-line);
+  text-align: center;
+  font-weight: bold;
+
+  &__date {
+    display: block;
+    font-weight: normal;
+  }
+}
