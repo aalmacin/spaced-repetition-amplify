@@ -12,6 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 0.1rem solid getColor(blue-green-line);
 
   &__header {
     display: inline-block;
@@ -84,7 +85,7 @@
     overflow: hidden;
     display: inline-block;
     width: 100%;
-    transition: all 0.5s ease-in;
+    transition: all 0.2s ease-in;
 
     .mobile-nav__pages {
       height: 100%;

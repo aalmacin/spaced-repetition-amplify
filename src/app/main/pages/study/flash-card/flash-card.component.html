@@ -47,9 +47,7 @@
     <p class="flash-card__face__question {{ (saved || continue) && 'hide-back' }}">{{ currentCard.front }}</p>
     <div class="flash-card__face__answer {{ (saved || continue) && 'hide-back' }}">
       <h3>Answer:</h3>
-      <p class="flash-card__face__answer__text ">
-        {{ currentCard.back }}
-      </p>
+      <pre class="flash-card__face__answer__text">{{ currentCard.back }}</pre>
     </div>
     <div class="flash-card__face__result-container {{ (saved || continue) && 'hide-back' }}" *ngIf="!saved">
       <p class="flash-card__face__result--question">How difficult was it?</p>

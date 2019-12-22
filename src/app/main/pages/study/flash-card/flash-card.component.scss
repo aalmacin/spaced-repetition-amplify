@@ -268,7 +268,9 @@
   }
 
   &__text {
-    display: inline-block;
-    @include margin(sm, r);
+    // display: inline-block;
+    // @include margin(sm, r);
+    // width: 100%;
+    white-space: pre;
   }
 }
