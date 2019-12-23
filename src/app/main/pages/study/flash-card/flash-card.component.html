@@ -6,12 +6,12 @@
   {{ resultCard && resultCard.front }}
 </div>
 
-<div *ngIf="cards.length > 0" class="card-results" (mouseleave)="clearCardResult()">
+<div #cardResults *ngIf="cards.length > 0" class="card-results" (mouseleave)="clearCardResult()">
   <div
     (mouseover)="showInfo($event, i)"
-    class="card-results__result"
+    class="card-results__result card-results__result--{{ i }}"
     *ngFor="let card of cards; let i = index"
-    [ngClass]="'card-results__result--' + card.result"
+    [ngClass]="'card-results__result--' + (currentCardIndex === i ? 'current' : card.result)"
   >
     <span class="card-results__result__number">
       {{ i + 1 }}

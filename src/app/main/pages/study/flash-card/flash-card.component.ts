@@ -20,6 +20,9 @@ export class FlashCardComponent {
   last = false;
   continue = false;
 
+  @ViewChild('cardResults')
+  cardResults: ElementRef;
+
   @Input()
   scheduledStudy = false;
 
@@ -86,6 +89,13 @@ export class FlashCardComponent {
   public showNext() {
     this.showBack = false;
     this.setLast();
+    if (this.cards.length) {
+      if (this.currentCardIndex > 4) {
+        const firstResult = this.cardResults.nativeElement.querySelector('.card-results__result--0');
+        const scrollAmt = firstResult.clientWidth;
+        this.cardResults.nativeElement.scrollLeft += scrollAmt;
+      }
+    }
   }
 
   public setLast() {

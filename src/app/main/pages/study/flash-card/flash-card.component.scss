@@ -154,6 +154,7 @@
 .card-results {
   margin: 0 auto;
   overflow-x: scroll;
+  scroll-behavior: smooth;
   @include margin(md, b);
   // @include padding(lg, b);
   display: flex;
@@ -185,8 +186,9 @@
       background-color: getColor(gray-light-2);
     }
 
+    &--current,
     &:hover {
-      background-color: getColor(white-2);
+      background-color: getColor(purple);
     }
   }
 }
