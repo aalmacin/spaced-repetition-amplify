@@ -133,6 +133,16 @@
                     <span class="card-info__value">
                       {{ card.topicName }}
                     </span>
+                    <span class="card-info__value card-info__form">
+                      <select #infoTopic>
+                        <option
+                          [selected]="topic.id === card.topicId"
+                          *ngFor="let topic of topics"
+                          [value]="topic.id"
+                          >{{ topic.name }}</option
+                        >
+                      </select>
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--front">
                     <span class="al-semibold">Front:</span>
@@ -189,7 +199,7 @@
                       class="card-info__action card-info__action--save"
                       alBtn="tertiary"
                       size="tiny"
-                      (click)="updateCard(card.id, infoFront.value, infoBack.value)"
+                      (click)="updateCard(card.id, infoTopic.value, infoFront.value, infoBack.value)"
                       ><i class="far fa-save"></i> Save</label
                     >
                     <label

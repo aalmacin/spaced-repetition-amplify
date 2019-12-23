@@ -122,10 +122,10 @@ export class CardManagerComponent implements OnInit, OnDestroy {
     this.filter();
   }
 
-  public updateCard(id: string, front: string, back: string) {
+  public updateCard(id: string, topicId: string, front: string, back: string) {
     this.loading = true;
     this.subscriptions.add(
-      this.cardService.updateCard({ id, front, back }, this.topicId).subscribe((res: any) => {
+      this.cardService.updateCard({ id, topicId, front, back }, this.topicId).subscribe((res: any) => {
         this.loading = false;
         if (res.error) {
           this.errors = [res.error];
