@@ -53,15 +53,13 @@ export class FlashCardComponent {
   }
 
   public harderCard() {
-    if (this.scheduledStudy) {
-      this.subscriptions.add(
-        this.cardService.updateCardToHard(this.currentCard).subscribe((result: any) => {
-          if (result.error) {
-            this.errors = [result.error];
-          }
-        })
-      );
-    }
+    this.subscriptions.add(
+      this.cardService.updateCardToHard(this.currentCard).subscribe((result: any) => {
+        if (result.error) {
+          this.errors = [result.error];
+        }
+      })
+    );
     this.cards[this.currentCardIndex] = {
       ...this.currentCard,
       result: CardResult.HARD
