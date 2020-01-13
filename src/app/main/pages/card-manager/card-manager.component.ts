@@ -6,7 +6,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-manager',
@@ -109,7 +109,6 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public setCards(cards: Card[]) {
     this.cards = cards;
     this.filteredCards.next(this.cards);
-    this.filter();
   }
 
   public changeSearchTerm(searchTerm: string) {
@@ -137,7 +136,20 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   }
 
   private filter() {
-    let filteredCards = this.cards;
+    if (!!this.topicId) {
+      this.cardService
+        .getAllCards()
+        .pipe(first())
+        .subscribe(cards => {
+          this.allFilter(cards);
+        });
+    } else {
+      this.allFilter(this.cards);
+    }
+  }
+
+  private allFilter(cards: Card[]) {
+    let filteredCards = cards;
     if (this.isReadyStudyOnly) {
       filteredCards = filteredCards.filter(card => card.isReadyToStudy);
     }
