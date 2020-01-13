@@ -4,7 +4,7 @@ import { addMinutes, addDays, getCurrentTimestamp } from './timestamp.func';
 export const getNextStudyDate = (lastStudy: number, box: Box): number => {
   switch (box) {
     case Box.VERY_HARD:
-      return addMinutes(lastStudy, 5);
+      return lastStudy;
     case Box.HARD:
       return addDays(lastStudy, 1);
     case Box.REGULAR:

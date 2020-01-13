@@ -66,26 +66,36 @@
       routerLinkActive="router-link-active"
       >Study</a
     >
-    <label for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
+    <label #mobileNavToggler for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
   </div>
   <div class="mobile-nav">
     <input type="checkbox" id="mobile-nav" class="mobile-nav__toggle" />
     <div class="mobile-nav__container">
       <ul class="mobile-nav__pages">
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+          <a [routerLink]="['/app', 'dashboard']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
+            >Dashboard</a
+          >
         </li>
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'profile']" routerLinkActive="router-link-active">Profile</a>
+          <a [routerLink]="['/app', 'profile']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
+            >Profile</a
+          >
         </li>
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'study']" routerLinkActive="router-link-active">Study</a>
+          <a [routerLink]="['/app', 'study']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
+            >Study</a
+          >
         </li>
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'topics']" routerLinkActive="router-link-active">Topics</a>
+          <a [routerLink]="['/app', 'topics']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
+            >Topics</a
+          >
         </li>
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'card-manager']" routerLinkActive="router-link-active">Card Manager</a>
+          <a [routerLink]="['/app', 'card-manager']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
+            >Card Manager</a
+          >
         </li>
         <li class="mobile-nav__page">
           <app-auth-sign-out></app-auth-sign-out>

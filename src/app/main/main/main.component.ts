@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { User } from 'src/app/types/user';
 
@@ -11,6 +11,9 @@ export class MainComponent {
   user: User;
   signedIn: boolean;
 
+  @ViewChild('mobileNavToggler')
+  private mobileNav: ElementRef;
+
   constructor(private amplifyService: AmplifyService) {
     this.amplifyService.authStateChange$.subscribe(authState => {
       this.signedIn = authState.state === 'signedIn';
@@ -20,5 +23,9 @@ export class MainComponent {
         this.user = authState.user;
       }
     });
+  }
+
+  toggleMobileNav() {
+    this.mobileNav.nativeElement.click();
   }
 }
