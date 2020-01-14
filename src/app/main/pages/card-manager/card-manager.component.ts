@@ -107,7 +107,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   }
 
   public setCards(cards: Card[]) {
-    this.cards = cards;
+    this.cards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
     this.filteredCards.next(this.cards);
   }
 
@@ -149,7 +149,7 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   }
 
   private allFilter(cards: Card[]) {
-    let filteredCards = cards;
+    let filteredCards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
     if (this.isReadyStudyOnly) {
       filteredCards = filteredCards.filter(card => card.isReadyToStudy);
     }
