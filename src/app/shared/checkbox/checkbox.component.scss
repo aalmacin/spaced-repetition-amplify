@@ -1,0 +1,67 @@
+@import '../../../styles/framework.scss';
+
+:host {
+  position: relative;
+}
+
+.checkbox-label {
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked {
+      & ~ .checkbox-custom {
+        background-color: getColor(blue-light-2);
+        border-radius: 5px;
+        transform: rotate(0deg) scale(1);
+        -webkit-transform: rotate(0deg) scale(1);
+        -ms-transform: rotate(0deg) scale(1);
+        opacity: 1;
+        border: 2px solid getColor(blue);
+
+        &::after {
+          transform: rotate(45deg) scale(1);
+          -webkit-transform: rotate(45deg) scale(1);
+          -ms-transform: rotate(45deg) scale(1);
+          opacity: 1;
+          left: 8px;
+          top: 3px;
+          width: 6px;
+          height: 12px;
+          border: solid getColor(blue);
+          border-width: 0 2px 2px 0;
+          background-color: transparent;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  .checkbox-custom {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid getColor(blue);
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: 12px;
+      top: 12px;
+      height: 0px;
+      width: 0px;
+      border-radius: 5px;
+      border: solid getColor(blue);
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(0deg) scale(0);
+      -ms-transform: rotate(0deg) scale(0);
+      transform: rotate(0deg) scale(0);
+      opacity: 1;
+    }
+  }
+}

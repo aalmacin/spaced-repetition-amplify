@@ -24,7 +24,8 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public addCardForm = this.fb.group({
     front: ['', Validators.required],
     back: ['', Validators.required],
-    topicId: ['', Validators.required]
+    topicId: ['', Validators.required],
+    withReverse: [false]
   });
   errors: string[] = [];
   messages: string[] = [];
