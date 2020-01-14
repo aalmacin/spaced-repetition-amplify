@@ -51,7 +51,8 @@
                 <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
               </select>
 
-              <app-checkbox></app-checkbox>
+              <br />
+              <app-checkbox formControlName="withReverse"></app-checkbox>
               <label>With Reverse?</label>
               <!-- <input type="checkbox" formControlName="topicId" name="topicWithReverse" id="topicWithReverse" /> -->
 

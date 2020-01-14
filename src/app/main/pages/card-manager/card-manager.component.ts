@@ -69,24 +69,25 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   }
 
   public addNewCard() {
-    if (this.addCardForm.status === 'VALID') {
-      this.loading = true;
-      this.subscriptions.add(
-        this.cardService.addNewCard(this.addCardForm.value, this.addCardForm.value.topicId).subscribe((result: any) => {
-          this.loading = false;
-          this.addCardForm.get('front').setValue('');
-          this.addCardForm.get('back').setValue('');
-          if (result.error) {
-            this.errors = [result.error];
-          } else {
-            this.messages = ['Successfully added card'];
-            this.setCards(result);
-          }
-        })
-      );
-    } else {
-      this.errors = ['Something went wrong while adding a new card.'];
-    }
+    // if (this.addCardForm.status === 'VALID') {
+    //   this.loading = true;
+    //   this.subscriptions.add(
+    //     this.cardService.addNewCard(this.addCardForm.value, this.addCardForm.value.topicId).subscribe((result: any) => {
+    //       this.loading = false;
+    //       this.addCardForm.get('front').setValue('');
+    //       this.addCardForm.get('back').setValue('');
+    //       if (result.error) {
+    //         this.errors = [result.error];
+    //       } else {
+    //         this.messages = ['Successfully added card'];
+    //         this.setCards(result);
+    //       }
+    //     })
+    //   );
+    // } else {
+    //   this.errors = ['Something went wrong while adding a new card.'];
+    // }
+    console.log(this.addCardForm.value);
   }
 
   public deleteCard(event: MouseEvent, cardId: string) {
