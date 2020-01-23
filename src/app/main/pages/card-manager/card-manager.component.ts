@@ -24,7 +24,8 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public addCardForm = this.fb.group({
     front: ['', Validators.required],
     back: ['', Validators.required],
-    topicId: ['', Validators.required]
+    topicId: ['', Validators.required],
+    reverseCard: [false]
   });
   errors: string[] = [];
   messages: string[] = [];
@@ -70,11 +71,13 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public addNewCard() {
     if (this.addCardForm.status === 'VALID') {
       this.loading = true;
+      const cardValues = { ...this.addCardForm.value };
       this.subscriptions.add(
-        this.cardService.addNewCard(this.addCardForm.value, this.addCardForm.value.topicId).subscribe((result: any) => {
+        this.cardService.addNewCard(cardValues, cardValues.topicId).subscribe((result: any) => {
           this.loading = false;
           this.addCardForm.get('front').setValue('');
           this.addCardForm.get('back').setValue('');
+          this.addCardForm.get('reverseCard').setValue(false);
           if (result.error) {
             this.errors = [result.error];
           } else {
@@ -83,6 +86,20 @@ export class CardManagerComponent implements OnInit, OnDestroy {
           }
         })
       );
+      if (cardValues.reverseCard) {
+        const reverseCardValues = { ...cardValues, back: cardValues.front, front: cardValues.back };
+        this.subscriptions.add(
+          this.cardService.addNewCard(reverseCardValues, reverseCardValues.topicId).subscribe((result: any) => {
+            this.loading = false;
+            if (result.error) {
+              this.errors = [result.error];
+            } else {
+              this.messages = ['Successfully added card'];
+              this.setCards(result);
+            }
+          })
+        );
+      }
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }

@@ -51,6 +51,11 @@
                 <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
               </select>
 
+              <div>
+                <input type="checkbox" formControlName="reverseCard" />
+                <label>Create Reverse Card</label>
+              </div>
+
               <button
                 class="add-card__submit"
                 [disabled]="addCardForm.status === 'INVALID'"
