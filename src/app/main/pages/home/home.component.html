@@ -1,27 +1,11 @@
 <div class="home-page">
   <div class="home-page-head">
+    <span class="home-page-head__cards">
+      <a alLink [underline]="true" [routerLink]="['/app', 'study']">Cards to Review: {{ studyCards.length }}</a>
+    </span>
     <span class="home-page-head__email">{{ user && user.email }}</span>
   </div>
   <div class="home-page__content">
-    <div class="home-page-stats">
-      <div class="stats-box stats-box--topics">
-        <span class="stats-box__heading">Topics:</span>
-        <span class="stats-box__number">2</span>
-      </div>
-      <div class="stats-box stats-box--cards">
-        <span class="stats-box__heading">Cards:</span>
-        <span class="stats-box__number">1</span>
-      </div>
-      <div class="stats-box stats-box--needs-review">
-        <span class="stats-box__heading">Needs Review:</span>
-        <span class="stats-box__number">3</span>
-      </div>
-      <div class="stats-box stats-box--next-study">
-        <span class="stats-box__heading">Next Study:</span>
-        <span class="stats-box__number">December 26, 2019</span>
-      </div>
-    </div>
-
     <div class="topics-section">
       <div class="topics-section-heading">
         <div class="topics-section-heading__heading">
