@@ -51,6 +51,11 @@
                 <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
               </select>
 
+              <div>
+                <input type="checkbox" formControlName="reverseCard" />
+                <label>Create Reverse Card</label>
+              </div>
+
               <button
                 class="add-card__submit"
                 [disabled]="addCardForm.status === 'INVALID'"
@@ -67,6 +72,9 @@
             <div class="filter__container">
               <div class="filter__field">
                 <label for="search" class="al-semibold">Filter</label>
+              </div>
+
+              <div class="filter__field">
                 <input
                   (input)="changeSearchTerm(searchTerm.value)"
                   #searchTerm
@@ -133,6 +141,16 @@
                     <span class="card-info__value">
                       {{ card.topicName }}
                     </span>
+                    <span class="card-info__value card-info__form">
+                      <select #infoTopic>
+                        <option
+                          [selected]="topic.id === card.topicId"
+                          *ngFor="let topic of topics"
+                          [value]="topic.id"
+                          >{{ topic.name }}</option
+                        >
+                      </select>
+                    </span>
                   </div>
                   <div class="card-info__field card-info__field--front">
                     <span class="al-semibold">Front:</span>
@@ -189,7 +207,7 @@
                       class="card-info__action card-info__action--save"
                       alBtn="tertiary"
                       size="tiny"
-                      (click)="updateCard(card.id, infoFront.value, infoBack.value)"
+                      (click)="updateCard(card.id, infoTopic.value, infoFront.value, infoBack.value)"
                       ><i class="far fa-save"></i> Save</label
                     >
                     <label

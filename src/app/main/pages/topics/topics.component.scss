@@ -32,7 +32,7 @@
         @include padding(sm);
         @include font-size(sm);
         flex-basis: 60%;
-        border: none;
+        border: 1px solid transparent;
         border-bottom: 0.1rem solid getColor(gray);
 
         @include media(tablet) {
@@ -41,15 +41,16 @@
         }
       }
 
-      &__button {
-        @include font-size(sm-2);
-        flex-basis: 30%;
+      // &__button {
+      //   @include font-size(lg-2);
+      //   text-transform: uppercase;
+      //   flex-basis: 30%;
 
-        @include media(tablet) {
-          @include font-size(sm);
-          flex-basis: 20%;
-        }
-      }
+      //   @include media(tablet) {
+      //     @include font-size(sm);
+      //     flex-basis: 20%;
+      //   }
+      // }
     }
   }
 

@@ -55,13 +55,14 @@ export class CardService {
   }
 
   public updateCard(
-    { id, front, back }: { id: string; front: string; back: string },
+    { id, topicId, front, back }: { id: string; topicId: string; front: string; back: string },
     pageTopicId = null
   ): Observable<Card[] | ApiError> {
     return of({ id, front, back }).pipe(
       switchMap(card =>
         this.apiService.UpdateCard({
           ...card,
+          cardTopicId: topicId,
           box: Box.VERY_HARD,
           lastStudy: getCurrentTimestamp()
         })

@@ -6,7 +6,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-manager',
@@ -24,7 +24,8 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public addCardForm = this.fb.group({
     front: ['', Validators.required],
     back: ['', Validators.required],
-    topicId: ['', Validators.required]
+    topicId: ['', Validators.required],
+    reverseCard: [false]
   });
   errors: string[] = [];
   messages: string[] = [];
@@ -70,11 +71,13 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   public addNewCard() {
     if (this.addCardForm.status === 'VALID') {
       this.loading = true;
+      const cardValues = { ...this.addCardForm.value };
       this.subscriptions.add(
-        this.cardService.addNewCard(this.addCardForm.value, this.addCardForm.value.topicId).subscribe((result: any) => {
+        this.cardService.addNewCard(cardValues, cardValues.topicId).subscribe((result: any) => {
           this.loading = false;
           this.addCardForm.get('front').setValue('');
           this.addCardForm.get('back').setValue('');
+          this.addCardForm.get('reverseCard').setValue(false);
           if (result.error) {
             this.errors = [result.error];
           } else {
@@ -83,6 +86,20 @@ export class CardManagerComponent implements OnInit, OnDestroy {
           }
         })
       );
+      if (cardValues.reverseCard) {
+        const reverseCardValues = { ...cardValues, back: cardValues.front, front: cardValues.back };
+        this.subscriptions.add(
+          this.cardService.addNewCard(reverseCardValues, reverseCardValues.topicId).subscribe((result: any) => {
+            this.loading = false;
+            if (result.error) {
+              this.errors = [result.error];
+            } else {
+              this.messages = ['Successfully added card'];
+              this.setCards(result);
+            }
+          })
+        );
+      }
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }
@@ -107,9 +124,8 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   }
 
   public setCards(cards: Card[]) {
-    this.cards = cards;
+    this.cards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
     this.filteredCards.next(this.cards);
-    this.filter();
   }
 
   public changeSearchTerm(searchTerm: string) {
@@ -122,10 +138,10 @@ export class CardManagerComponent implements OnInit, OnDestroy {
     this.filter();
   }
 
-  public updateCard(id: string, front: string, back: string) {
+  public updateCard(id: string, topicId: string, front: string, back: string) {
     this.loading = true;
     this.subscriptions.add(
-      this.cardService.updateCard({ id, front, back }, this.topicId).subscribe((res: any) => {
+      this.cardService.updateCard({ id, topicId, front, back }, this.topicId).subscribe((res: any) => {
         this.loading = false;
         if (res.error) {
           this.errors = [res.error];
@@ -137,7 +153,20 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   }
 
   private filter() {
-    let filteredCards = this.cards;
+    if (!!this.topicId) {
+      this.cardService
+        .getAllCards()
+        .pipe(first())
+        .subscribe(cards => {
+          this.allFilter(cards);
+        });
+    } else {
+      this.allFilter(this.cards);
+    }
+  }
+
+  private allFilter(cards: Card[]) {
+    let filteredCards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
     if (this.isReadyStudyOnly) {
       filteredCards = filteredCards.filter(card => card.isReadyToStudy);
     }

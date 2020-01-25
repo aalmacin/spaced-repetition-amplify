@@ -2,197 +2,24 @@
 
 .study-page {
   position: relative;
-  @include margin(lg-2);
+  @include margin(sm, lr);
+  @include margin(lg-2, tb);
   min-height: 78vh;
   text-align: center;
   display: flex;
-  height: 100%;
   justify-content: center;
-  flex-direction: column;
-  border: 1px solid getColor(blue-green-line);
 
-  // .flash-card {
-  //   text-align: center;
-  //   width: 100%;
-  //   height: 100%;
+  .study-page-content {
+    width: 100%;
 
-  //   background-color: getColor(white);
-
-  //   &__rotator {
-  //     display: none;
-
-  //     &:checked~.flash-card__face {
-  //       &--front {
-  //         transform: rotateY(-180deg);
-
-  //         @include media(tablet) {
-  //           transform: translateX(-50%) rotateY(-180deg);
-  //         }
-  //       }
-
-  //       &--back {
-  //         transform: rotateY(0deg);
-
-  //         @include media(tablet) {
-  //           transform: translateX(-50%) rotateY(0deg);
-  //         }
-
-  //         .flash-card__back-answer {
-  //           overflow: scroll;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   &__remover {
-  //     display: none;
-
-  //     &:checked~.flash-card__face {
-  //       opacity: 0;
-  //       display: inline-block;
-  //       position: absolute;
-  //       left: -99rem;
-
-  //       @include media(tablet) {
-  //         transform: translateX(-99rem);
-  //       }
-  //     }
-
-  //     &:checked~.flash-card__cover {
-  //       opacity: 0;
-  //       display: inline-block;
-  //       position: absolute;
-  //       left: -99rem;
-
-  //       @include media(tablet) {
-  //         transform: translateX(-99rem);
-  //       }
-  //     }
-  //   }
-
-  //   &__count {
-  //     background-color: getColor(blue-light);
-  //     display: inline-block;
-  //     @include font-size(sm-2);
-  //     @include padding(sm);
-  //     position: absolute;
-  //     top: 0;
-  //     right: 0;
-  //   }
-
-  //   &__topic {
-  //     @include font-size(sm-2);
-  //     @include padding(sm);
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //   }
-
-  //   &__cover {
-  //     position: absolute;
-  //     left: 0;
-  //     top: 0;
-  //     background-color: white;
-  //     width: 100%;
-  //     height: 100%;
-  //   }
-
-  //   &__face {
-  //     border: 0.1rem solid getColor(gray);
-  //     transition: all 0.5s ease-in;
-  //     @include padding(lg);
-  //     background-color: getColor(white);
-  //     backface-visibility: hidden;
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: center;
-  //     position: absolute;
-  //     height: 100%;
-  //     width: 100%;
-  //     left: 0;
-  //     top: 0;
-
-  //     @include media(tablet) {
-  //       width: 80%;
-  //     }
-
-  //     &--front {
-  //       transform: rotateY(0deg);
-
-  //       @include media(tablet) {
-  //         left: 50%;
-  //         transform: translateX(-50%) rotateY(0deg);
-  //       }
-  //     }
-
-  //     &--back {
-  //       @include font-size(md);
-  //       transform: rotateY(180deg);
-
-  //       @include media(tablet) {
-  //         left: 50%;
-  //         transform: translateX(-50%) rotateY(180deg);
-  //       }
-  //     }
-  //   }
-
-  //   &__front-text {
-  //     @include font-size(lg);
-  //     @include margin(lg, b);
-  //   }
-
-  //   &__back-question {
-  //     @include font-size(md);
-  //     @include font-weight(semibold);
-  //   }
-
-  //   &__back-answer {
-  //     @include margin(lg, tb);
-  //     max-height: 10rem;
-  //   }
-
-  //   &__result-container {
-  //     width: 100%;
-  //   }
-
-  //   &__result {
-  //     display: inline-block;
-
-  //     &--question {
-  //       @include font-weight(semibold);
-  //       @include padding(sm, b);
-  //       @include padding(lg, t);
-  //     }
-
-  //     &--hard {
-  //       @include margin(sm, r);
-  //     }
-  //   }
-
-  //   &__show-answer {
-  //     @include media(tablet) {
-  //       width: 75%;
-  //       margin: 0 auto;
-  //     }
-
-  //     @include media(desktop) {
-  //       width: 50%;
-  //       margin: 0 auto;
-  //     }
-  //   }
-  // }
-
-  .no-cards {
-    &__icon {
-      @include font-size(lg-3);
+    @include media(desktop) {
+      width: 60%;
     }
 
-    &__message {
-      @include font-size(md);
-
-      @include media(tablet) {
-        @include font-size(lg);
-      }
-    }
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid getColor(blue-green-line);
+    padding-bottom: 11rem;
   }
 }

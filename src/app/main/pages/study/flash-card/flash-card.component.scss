@@ -3,8 +3,14 @@
 .flash-card {
   border-radius: 0.5rem;
   display: inline-block;
-  width: 30%;
-  height: 40vh;
+  width: 90%;
+  min-height: 50vh;
+
+  @include media(desktop) {
+    width: 60%;
+    min-height: 40vh;
+  }
+
   background-color: getColor(white);
   margin: 0 auto;
   position: relative;
@@ -17,7 +23,7 @@
     border: 1px solid getColor(blue-green-line);
     border-radius: 0.5rem;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     transition: transform 0.5s ease-in;
     backface-visibility: hidden;
     display: flex;
@@ -61,6 +67,7 @@
       &__text {
         text-align: left;
         @include margin(sm, b);
+        white-space: pre-line;
       }
     }
 
@@ -104,6 +111,10 @@
         justify-content: flex-end;
         align-items: flex-end;
         @include margin(md, b);
+
+        .flash-card__face__button {
+          @include margin(lg, b);
+        }
       }
     }
 
@@ -135,33 +146,34 @@
   }
 }
 
+:host {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .card-results {
-  @include margin();
-  text-align: center;
+  margin: 0 auto;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  @include margin(md, b);
+  // @include padding(lg, b);
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  max-width: 90%;
+
+  @include media(desktop) {
+    max-width: 60%;
+  }
 
   &__result {
     display: inline-block;
-    @include padding(md);
-    cursor: pointer;
-
     border: 1px solid getColor(white);
 
-    .card-result-info {
-      position: absolute;
-      display: none;
-      z-index: 9000;
-    }
-
-    &:hover .card-result-info {
-      display: block;
-      background-color: getColor(white-2);
-      @include padding(lg);
-      transform: translate(-1rem, 1rem);
-    }
+    @include padding(md);
+    cursor: pointer;
 
     &--hard {
       background-color: getColor(red);
@@ -174,17 +186,108 @@
     &--pending {
       background-color: getColor(gray-light-2);
     }
+
+    &--current,
+    &:hover {
+      background-color: getColor(purple);
+    }
   }
 }
 
-.saved {
+.hide-back {
   display: none;
 }
 
 .saved-block {
   text-align: center;
 
-  p {
+  .saved-alert {
+    font-size: 2.2rem;
+    color: getColor(black);
+    font-weight: semibold;
     @include margin(lg, tb);
+  }
+
+  .to-dashboard {
+    @include margin(lg, tb);
+  }
+}
+
+.no-cards {
+  &__icon {
+    @include font-size(lg-3);
+  }
+
+  &__message {
+    @include font-size(md);
+
+    @include media(tablet) {
+      @include font-size(lg);
+    }
+  }
+}
+
+.card-result-info {
+  @include margin(md, t);
+  position: fixed;
+  transform: translateX(-30%);
+  background-color: getColor(white-2);
+  @include padding(md);
+  z-index: 9000;
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+
+  &.show-card-result {
+    opacity: 1;
+  }
+
+  // border: 1px solid getColor(blue-green-line);
+  border-radius: 0.5rem;
+
+  // &::before {
+  //   content: '';
+  //   display: block;
+  //   transform: translateY(-2.2rem);
+  //   border-left: 1rem solid transparent;
+  //   border-right: 1rem solid transparent;
+  //   border-bottom: 1rem solid getColor(white-2);
+  // }
+}
+
+.card-num {
+  display: flex;
+  justify-content: space-between;
+  @include margin(md, tb);
+  color: getColor(purple);
+  width: 90%;
+
+  @include media(desktop) {
+    width: 60%;
+  }
+
+  &__heading {
+    display: inline-block;
+    @include margin(md, l);
+  }
+
+  &__text {
+    // display: inline-block;
+    // @include margin(sm, r);
+    // width: 100%;
+    white-space: pre;
+  }
+}
+
+.next-study-if-easy {
+  @include margin(md, bt);
+  @include padding(lg, bt);
+  border-top: 1px solid getColor(blue-green-line);
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+
+  &__date {
+    display: block;
+    font-weight: normal;
   }
 }

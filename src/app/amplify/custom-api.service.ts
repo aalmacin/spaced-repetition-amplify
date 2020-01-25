@@ -11,12 +11,12 @@ import { getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.f
 })
 export class CustomApiService {
   public async getCardsByUser(user: User) {
-    const topics = await this.getTopics({ user: { eq: user.email } }, 1000);
+    const topics = await this.getTopics({ user: { eq: user.email } }, 5000);
     return this.getCardsFromTopics(topics);
   }
 
   public async getCardsByTopicId(user: User, topicId: string) {
-    const topics = await this.getTopics({ user: { eq: user.email }, id: { eq: topicId } }, 1000);
+    const topics = await this.getTopics({ user: { eq: user.email }, id: { eq: topicId } }, 5000);
     return this.getCardsFromTopics(topics);
   }
 
@@ -48,7 +48,7 @@ export class CustomApiService {
             id
             name
             user
-            cards(limit: 1000) {
+            cards(limit: 5000) {
               items {
                 __typename
                 id

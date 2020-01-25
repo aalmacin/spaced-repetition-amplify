@@ -1,18 +1,18 @@
 import { Box } from 'src/app/API.service';
-import { addDays, getCurrentTimestamp } from './timestamp.func';
+import { addMinutes, addDays, getCurrentTimestamp } from './timestamp.func';
 
 export const getNextStudyDate = (lastStudy: number, box: Box): number => {
   switch (box) {
     case Box.VERY_HARD:
-      return addDays(lastStudy, 1);
+      return lastStudy;
     case Box.HARD:
-      return addDays(lastStudy, 10);
+      return addDays(lastStudy, 1);
     case Box.REGULAR:
-      return addDays(lastStudy, 30);
+      return addDays(lastStudy, 10);
     case Box.EASY:
-      return addDays(lastStudy, 90);
+      return addDays(lastStudy, 30);
     case Box.VERY_EASY:
-      return addDays(lastStudy, 180);
+      return addDays(lastStudy, 90);
     default:
       throw new Error('Invalid Box');
   }

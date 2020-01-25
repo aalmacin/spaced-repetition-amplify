@@ -1,69 +1,9 @@
 <div class="study-page">
-  <app-loading *ngIf="loading; else study"></app-loading>
-  <ng-template #study>
-    <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
-  </ng-template>
-
-  <!-- <ng-template #study>
-    <div *ngIf="cards.length > 0">
-      <ng-container *ngFor="let card of cards; let i = index">
-        <div class="flash-card">
-          <input type="checkbox" id="flip-{{ i }}" class="flash-card__rotator" />
-          <input type="checkbox" id="remove-{{ i }}" class="flash-card__remover" />
-          <div class="flash-card__cover"></div>
-
-          <div class="flash-card__face flash-card__face--front">
-            <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
-            <div class="flash-card__topic">{{ card.topicName }}</div>
-
-            <div class="flash-card__front-text">
-              <pre>{{ card.front }}</pre>
-            </div>
-            <label class="flash-card__show-answer" alBtn="secondary" size="large" for="flip-{{ i }}">Flip</label>
-          </div>
-
-          <div class="flash-card__face flash-card__face--back">
-            <div class="flash-card__count">{{ cards.length - i }} of {{ cards.length }}</div>
-            <div class="flash-card__topic">{{ card.topicName }}</div>
-
-            <h3 class="flash-card__back-question">
-              <pre>{{ card.front }}</pre>
-            </h3>
-            <div class="flash-card__back-answer">
-              <pre>{{ card.back }}</pre>
-            </div>
-
-            <div class="flash-card__result-container">
-              <p class="flash-card__result--question">How difficult was it?</p>
-              <label
-                for="remove-{{ i }}"
-                class="flash-card__result--hard"
-                alBtn="alert"
-                size="large"
-                (click)="harderCard(card, i)"
-                >Hard</label
-              >
-              <label
-                for="remove-{{ i }}"
-                class="flash-card__result flash-card__result--easy"
-                alBtn="tertiary"
-                size="large"
-                (click)="easierCard(card, i)"
-                >Easy</label
-              >
-            </div>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-
-    <div class="no-cards">
-      <div class="no-cards__icon">
-        <i class="fas fa-couch"></i>
-      </div>
-      <p class="no-cards__message">
-        You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
-      </p>
-    </div>
-  </ng-template> -->
+  <div class="study-page-content">
+    <app-loading *ngIf="loading; else study"></app-loading>
+  </div>
 </div>
+
+<ng-template #study>
+  <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
+</ng-template>

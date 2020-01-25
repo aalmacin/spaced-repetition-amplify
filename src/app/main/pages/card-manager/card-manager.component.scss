@@ -69,6 +69,7 @@
         &:checked {
           & ~ .filter .filter__container {
             display: flex;
+            flex-direction: column;
           }
 
           & ~ .filter-toggler {
@@ -80,7 +81,7 @@
       .filter {
         &__container {
           display: none;
-          align-items: center;
+          align-items: stretch;
           @include padding(md, tb);
           @include margin(md, tb);
           border-top: 0.1rem solid getColor(gray-light);
@@ -89,15 +90,17 @@
 
         &__input {
           &--search {
-            @include padding(sm);
-            @include margin(md, l);
+            @include font-size(md);
+            @include padding(lg);
+            @include margin(md, tb);
+            width: 100%;
             border: none;
-            border-bottom: 0.1rem solid getColor(gray-light);
-            width: 55%;
+            border: 0.1rem solid getColor(gray-light);
+            // width: 100%;
 
-            @include media(tablet) {
-              width: 75%;
-            }
+            // @include media(tablet) {
+            //   width: 100%;
+            // }
           }
         }
 
@@ -106,8 +109,9 @@
         }
 
         &__field {
-          flex-basis: 50%;
+          // flex-basis: 100%;
           vertical-align: middle;
+          flex-basis: 100%;
         }
       }
 

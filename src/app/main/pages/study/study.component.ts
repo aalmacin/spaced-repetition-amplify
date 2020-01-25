@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { shuffle } from 'lodash';
+import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
+import { getCurrentTimestamp, getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 
 export enum CardResult {
   EASY = 'easy',
@@ -14,6 +16,7 @@ export enum CardResult {
 
 export interface CardVM extends Card {
   result: CardResult;
+  potentialNextStudy: string;
 }
 
 @Component({
@@ -41,7 +44,11 @@ export class StudyComponent implements OnDestroy {
         )
         .subscribe(cards => {
           this.loading = false;
-          this.cards = shuffle(cards).map(card => ({ ...card, result: CardResult.PENDING }));
+          this.cards = shuffle(cards).map(card => ({
+            ...card,
+            result: CardResult.PENDING,
+            potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
+          }));
         })
     );
   }
