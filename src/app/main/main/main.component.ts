@@ -20,7 +20,7 @@ export class MainComponent {
       if (!authState.user) {
         this.user = null;
       } else {
-        this.user = authState.user;
+        this.user = authState.user.attributes;
       }
     });
   }

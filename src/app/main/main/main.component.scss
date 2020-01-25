@@ -10,7 +10,7 @@
   position: relative;
 
   display: flex;
-  justify-content: stretch;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid getColor(blue-green-line);
 
@@ -22,10 +22,14 @@
   }
 
   &__pages {
-    display: flex;
-    flex-grow: 3;
-    align-items: stretch;
-    justify-content: center;
+    display: none;
+
+    @include media(desktop) {
+      display: flex;
+      flex-grow: 3;
+      align-items: stretch;
+      justify-content: center;
+    }
 
     .nav__pages-side {
       @include media(tablet) {
@@ -50,7 +54,7 @@
     @include font-size(sm);
     @include margin(md, r);
 
-    @include media(tablet) {
+    @include media(desktop) {
       display: none;
     }
   }
@@ -63,14 +67,16 @@
   }
 
   .mobile-nav-toggler {
-    @include media(tablet) {
+    @include media(desktop) {
       display: none;
     }
   }
 }
 
 .mobile-nav {
-  @include media(tablet) {
+  display: flex;
+
+  @include media(desktop) {
     display: none;
   }
 
@@ -117,5 +123,10 @@
         }
       }
     }
+  }
+
+  &__email {
+    display: inline-block;
+    font-size: 1.4rem;
   }
 }

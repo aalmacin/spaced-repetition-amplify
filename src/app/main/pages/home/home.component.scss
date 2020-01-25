@@ -17,6 +17,7 @@
 .home-page {
   background-color: getColor(blue-light-2);
   min-height: 100vh;
+  @include margin(md, t);
 
   .home-page-head {
     padding: 1rem;
@@ -32,15 +33,29 @@
     }
 
     &__email {
+      display: none;
+
+      @include media(tablet) {
+        display: inline-block;
+      }
     }
   }
 
   &__content {
-    width: 70%;
+    width: 95%;
     margin: 0 auto;
 
+    @include media(tablet) {
+      width: 70%;
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+    }
+
     .topics-section {
-      border: 1px solid getColor(blue-green-line);
+      @include padding(md, t);
 
       .topics-section-heading {
         display: flex;
@@ -52,24 +67,6 @@
           @include padding(lg, r);
           border-right: 1px solid getColor(blue-green-line);
         }
-      }
-
-      table.topics-table {
-        // background-color: green;
-
-        width: 100%;
-        text-align: left;
-
-        th {
-          font-weight: bold;
-          @include padding(sm);
-        }
-
-        td {
-          @include padding(sm);
-        }
-
-        // display: table;
       }
     }
   }

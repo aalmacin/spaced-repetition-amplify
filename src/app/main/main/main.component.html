@@ -1,7 +1,9 @@
 <div class="main">
   <div class="nav">
     <h1 class="nav__header">
-      <app-main-logo></app-main-logo>
+      <a [routerLink]="['/app', 'home']">
+        <app-main-logo></app-main-logo>
+      </a>
     </h1>
     <div class="nav__pages">
       <ul class="nav__pages-side nav__pages-side--left">
@@ -52,15 +54,17 @@
         </li>
       </ul>
     </div>
-    <a
-      alBtn="primary"
-      size="small"
-      class="nav__study"
-      [routerLink]="['/app', 'study']"
-      routerLinkActive="router-link-active"
-      >Study</a
-    >
-    <label #mobileNavToggler for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
+    <div>
+      <a
+        alBtn="primary"
+        size="small"
+        class="nav__study"
+        [routerLink]="['/app', 'study']"
+        routerLinkActive="router-link-active"
+        >Study</a
+      >
+      <label #mobileNavToggler for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
+    </div>
   </div>
   <div class="mobile-nav">
     <input type="checkbox" id="mobile-nav" class="mobile-nav__toggle" />
@@ -86,6 +90,9 @@
         </li>
         <li class="mobile-nav__page">
           <app-auth-sign-out></app-auth-sign-out>
+        </li>
+        <li class="mobile-nav__email">
+          {{ user && user.email }}
         </li>
       </ul>
     </div>
