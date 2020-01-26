@@ -156,38 +156,6 @@
           }
         }
 
-        &__topic {
-          width: 100%;
-          @include margin(md, b);
-          @include font-size(sm);
-
-          background: url('../../../../assets/white-arrow.svg');
-          background-size: 4%;
-          background-repeat: no-repeat;
-          background-position: 98% 50%;
-          color: getColor(white);
-          background-color: getColor(purple);
-          -webkit-appearance: none;
-          appearance: none;
-
-          @include media(tablet) {
-            background-size: 3%;
-            @include font-size(md);
-          }
-
-          @include media(desktop) {
-            @include font-size(md);
-            // background: none;
-            // background-color: getColor(white);
-            background-size: 2rem;
-            // color: getColor(black);
-          }
-
-          overflow: hidden;
-          border-radius: 0;
-          @include padding(md);
-        }
-
         &__submit {
           &:disabled {
             background-color: getColor(gray-light);

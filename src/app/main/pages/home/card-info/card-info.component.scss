@@ -1,0 +1,82 @@
+@import 'framework.scss';
+
+.card-header {
+  &__section {
+    display: flex;
+
+    .card-header__section-title {
+      font-weight: bold;
+      @include margin(sm, r);
+    }
+  }
+}
+
+.card-info {
+  @include padding(md);
+  display: flex;
+  flex-direction: column;
+
+  &__next-study {
+    @include padding(md, b);
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: stretch;
+  }
+
+  &__action {
+    flex-basis: 100%;
+
+    &--save {
+      @include margin(sm, r);
+    }
+  }
+
+  &__topic {
+    .card-info__topic-select {
+      width: 100%;
+      @include margin(md, b);
+      @include font-size(sm);
+
+      background: url('../../../../../assets/white-arrow.svg');
+      background-size: 4%;
+      background-repeat: no-repeat;
+      background-position: 98% 50%;
+      color: getColor(white);
+      background-color: getColor(purple);
+      -webkit-appearance: none;
+      appearance: none;
+
+      @include media(tablet) {
+        background-size: 3%;
+        @include font-size(md);
+      }
+
+      @include media(desktop) {
+        @include font-size(md);
+        background-size: 2rem;
+      }
+
+      overflow: hidden;
+      border-radius: 0;
+      @include padding(md);
+    }
+  }
+}
+
+.card-info__label {
+  @include font-size(md);
+  @include margin(md, t);
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  @include font-size(md);
+  border: 1px solid getColor(blue-green-line);
+}
+
+.icon {
+  @include font-size(sm-2);
+}

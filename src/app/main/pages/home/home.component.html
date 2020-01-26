@@ -11,8 +11,7 @@
         <h2>Topics</h2>
         <al-accordion *ngFor="let topic of topics" [expanded]="topic.name === 'Untitled'">
           <al-accordion-header>
-            {{ topic.name }}
-            ({{ topic.cards.length }})
+            {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cards.length }})
           </al-accordion-header>
           <al-accordion-body>
             <app-topic-form [topic]="topic"></app-topic-form>

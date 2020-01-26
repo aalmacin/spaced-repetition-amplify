@@ -97,7 +97,7 @@
         </div>
 
         <ng-container *ngIf="(filteredCards | async).length > 0; else noCards">
-          <div class="card-header">
+          <!-- <div class="card-header">
             <div class="card-header__topic-name">Topic Name</div>
             <div class="card-header__front">Front</div>
             <div class="card-header__back">Back</div>
@@ -105,121 +105,9 @@
             <div class="card-header__ready">Ready to Study</div>
             <div class="card-header__next-study">Next Study</div>
             <div class="card-header__action"></div>
-          </div>
+          </div> -->
           <div class="cards" *ngFor="let card of filteredCards | async; let i = index">
-            <input id="toggle-{{ i }}" class="card-toggle" type="checkbox" />
-            <div class="card card--collapsed">
-              <div class="card__topic-name">{{ card.topicName }}</div>
-              <div class="card__front al-ellipsis">{{ card.front }}</div>
-              <div class="card__back al-ellipsis">{{ card.back }}</div>
-              <div class="card__box">
-                {{ card.box }}
-              </div>
-              <div class="card__ready">
-                {{ card.isReadyToStudy ? 'yes' : 'no' }}
-              </div>
-              <div class="card__next-study">
-                {{ card.nextStudyDate }}
-              </div>
-              <label for="toggle-{{ i }}" class="card__action card__action--expand"
-                ><i class="fas fa-caret-left"></i
-              ></label>
-              <label for="toggle-{{ i }}" class="card__action card__action--collapse"
-                ><i class="fas fa-caret-down"></i
-              ></label>
-            </div>
-            <div class="card card--expanded">
-              <div class="card-info">
-                <div class="card-info__fields">
-                  <input type="checkbox" class="card-info__toggle" id="toggle-form-{{ i }}" />
-                  <div class="card-info__field card-info__field--topic">
-                    <span class="al-semibold card-info__label">Topic:</span>
-                    <span class="card-info__value">
-                      {{ card.topicName }}
-                    </span>
-                    <span class="card-info__value card-info__form">
-                      <select #infoTopic>
-                        <option
-                          [selected]="topic.id === card.topicId"
-                          *ngFor="let topic of topics"
-                          [value]="topic.id"
-                          >{{ topic.name }}</option
-                        >
-                      </select>
-                    </span>
-                  </div>
-                  <div class="card-info__field card-info__field--front">
-                    <span class="al-semibold">Front:</span>
-                    <span class="card-info__value card-info__display">
-                      <pre>{{ card.front }}</pre>
-                    </span>
-                    <span class="card-info__value card-info__form">
-                      <textarea class="card-info__update-input" type="text" #infoFront>{{ card.front }}</textarea>
-                    </span>
-                  </div>
-                  <div class="card-info__field card-info__field--back">
-                    <span class="al-semibold">Back:</span>
-                    <span class="card-info__value card-info__display">
-                      <pre>{{ card.back }}</pre>
-                    </span>
-                    <span class="card-info__value card-info__form">
-                      <textarea class="card-info__update-input" type="text" #infoBack>{{ card.back }}</textarea>
-                    </span>
-                  </div>
-                  <div class="card-info__field card-info__field--box">
-                    <span class="al-semibold">Box:</span>
-                    <span class="card-info__value">
-                      {{ card.box }}
-                    </span>
-                  </div>
-                  <div class="card-info__field card-info__field--ready">
-                    <span class="al-semibold">Ready to study:</span>
-                    <span class="card-info__value">
-                      {{ card.isReadyToStudy ? 'yes' : 'no' }}
-                    </span>
-                  </div>
-                  <div class="card-info__field card-info__field--last-study">
-                    <span class="al-semibold">Last Study:</span>
-                    <span class="card-info__value">
-                      {{ card.lastStudyDate }}
-                    </span>
-                  </div>
-                  <div class="card-info__field card-info__field--next-study">
-                    <span class="al-semibold">Next Study:</span>
-                    <span class="card-info__value">
-                      {{ card.nextStudyDate }}
-                    </span>
-                  </div>
-                  <div class="card-info__actions">
-                    <label
-                      for="toggle-form-{{ i }}"
-                      class="card-info__action card-info__action--edit"
-                      alBtn="secondary"
-                      size="tiny"
-                      ><i class="far fa-edit"></i> Edit</label
-                    >
-                    <label
-                      for="toggle-form-{{ i }}"
-                      class="card-info__action card-info__action--save"
-                      alBtn="tertiary"
-                      size="tiny"
-                      (click)="updateCard(card.id, infoTopic.value, infoFront.value, infoBack.value)"
-                      ><i class="far fa-save"></i> Save</label
-                    >
-                    <label
-                      for="toggle-form-{{ i }}"
-                      class="card-info__action card-info__action--cancel"
-                      alBtn="plain"
-                      size="tiny"
-                      ><i class="far fa-window-close"></i> Cancel</label
-                    >
-                    <a class="card-info__action" alBtn="alert" size="tiny" (click)="deleteCard($event, card.id)"
-                      ><i class="far fa-trash-alt"></i> Delete</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
+            <app-card-info [card]="card"></app-card-info>
           </div>
         </ng-container>
       </div>

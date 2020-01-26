@@ -2,6 +2,10 @@
 
 h2 {
   @include font-size(lg);
+
+  .icon {
+    @include font-size(sm);
+  }
 }
 
 input {
