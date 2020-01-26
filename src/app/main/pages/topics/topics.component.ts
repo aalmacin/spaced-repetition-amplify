@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { AppState, selectTopics } from '@spaced-repetition/reducers';
 
 @Component({
   selector: 'app-topics',
@@ -19,9 +21,10 @@ export class TopicsComponent implements OnDestroy {
   public errors: string[] = [];
   public messages: string[] = [];
 
-  constructor(private topicService: TopicService, private renderer: Renderer2) {
+  constructor(private topicService: TopicService, private renderer: Renderer2, private store: Store<AppState>) {
     this.loading = true;
-    this.topicSubscription = this.topicService.getTopics().subscribe(topics => {
+
+    this.topicSubscription = this.store.pipe(select(selectTopics)).subscribe(topics => {
       this.loading = false;
       this.topics = topics;
     });

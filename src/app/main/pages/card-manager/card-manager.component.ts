@@ -5,6 +5,8 @@ import { CardService } from '@spaced-repetition/amplify/card.service';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { first } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { selectTopics, AppState } from '@spaced-repetition/reducers';
 
 @Component({
   selector: 'app-card-manager',
@@ -29,18 +31,19 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   @Input()
   cards: Card[] = [];
 
-  constructor(private cardService: CardService, private topicService: TopicService) {}
+  constructor(private cardService: CardService, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     if (this.topicId) {
       this.subscriptions.add(
-        combineLatest(this.topicService.getTopics(), this.cardService.getCardsByTopicId(this.topicId)).subscribe(
-          ([topics, cards]) => {
-            this.topics = topics;
-            this.setCards(cards);
-            this.loading = false;
-          }
-        )
+        combineLatest(
+          this.store.pipe(select(selectTopics)),
+          this.cardService.getCardsByTopicId(this.topicId)
+        ).subscribe(([topics, cards]) => {
+          this.topics = topics;
+          this.setCards(cards);
+          this.loading = false;
+        })
       );
     }
   }

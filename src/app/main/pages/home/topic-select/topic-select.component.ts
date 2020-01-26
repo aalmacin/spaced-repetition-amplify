@@ -2,7 +2,8 @@ import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angu
 import { Card } from '@spaced-repetition/types/card';
 import { Topic } from '@spaced-repetition/types/topic';
 import { Subscription } from 'rxjs';
-import { TopicService } from '@spaced-repetition/amplify/topic.service';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectTopics } from '@spaced-repetition/reducers';
 
 @Component({
   selector: 'app-topic-select',
@@ -20,11 +21,11 @@ export class TopicSelectComponent implements OnInit, OnDestroy {
 
   subscriptions = new Subscription();
 
-  constructor(public topicService: TopicService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.subscriptions.add(
-      this.topicService.getTopics().subscribe(topics => {
+      this.store.pipe(select(selectTopics)).subscribe(topics => {
         this.topics = topics;
       })
     );

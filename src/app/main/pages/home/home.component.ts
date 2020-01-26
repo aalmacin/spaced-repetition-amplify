@@ -7,6 +7,8 @@ import { Topic } from '@spaced-repetition/types/topic';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from '@spaced-repetition/types/card';
 import { isTopicArr } from './topic.func';
+import { AppState, selectTopics } from '@spaced-repetition/reducers';
+import { Store, select } from '@ngrx/store';
 
 interface TopicWithCards extends Topic {
   cards: Card[];
@@ -27,11 +29,16 @@ export class HomeComponent implements OnDestroy {
   studyCards: Card[] = [];
   addNewCard = false;
 
-  constructor(public authService: AuthService, public topicService: TopicService, public cardService: CardService) {
+  constructor(
+    public authService: AuthService,
+    public topicService: TopicService,
+    public cardService: CardService,
+    private store: Store<AppState>
+  ) {
     this.subscriptions.add(
       combineLatest(
         this.authService.getCurrentUser(),
-        this.topicService.getTopics(),
+        this.store.pipe(select(selectTopics)),
         this.cardService.getAllCards()
       ).subscribe(([user, topics, cards]) => {
         this.user = user;
