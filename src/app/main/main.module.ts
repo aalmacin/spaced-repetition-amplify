@@ -20,6 +20,7 @@ import { CardManagerComponent } from './pages/card-manager/card-manager.componen
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlashCardComponent } from './pages/study/flash-card/flash-card.component';
+import { TopicFormComponent } from './pages/home/topic-form/topic-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FlashCardComponent } from './pages/study/flash-card/flash-card.componen
     StudyComponent,
     TopicsComponent,
     CardManagerComponent,
-    FlashCardComponent
+    FlashCardComponent,
+    TopicFormComponent
   ],
   imports: [AuthModule, CommonModule, FormsModule, ReactiveFormsModule, MainRoutingModule, SharedModule]
 })

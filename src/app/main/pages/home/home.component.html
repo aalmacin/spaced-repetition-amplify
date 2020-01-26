@@ -8,18 +8,21 @@
   <div class="home-page__content">
     <div class="topics-section">
       <div class="accordion">
-        <al-accordion *ngFor="let topic of topics">
+        <h2>Topics</h2>
+        <al-accordion *ngFor="let topic of topics" [expanded]="topic.name === 'Untitled'">
           <al-accordion-header>
             {{ topic.name }}
+            ({{ topic.cards.length }})
           </al-accordion-header>
           <al-accordion-body>
-            <p>{{ topic.name }}</p>
+            <app-topic-form [topic]="topic"></app-topic-form>
+            <app-card-manager [topicId]="topic.id"></app-card-manager>
           </al-accordion-body>
         </al-accordion>
       </div>
       <div class="topics-section-heading">
         <div class="create-topic">
-          <button alBtn="secondary">
+          <button alBtn="secondary" class="create-topic-button" (click)="addNewTopic()">
             <span class="button-icon">
               <i class="fas fa-plus"></i>
             </span>

@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Card } from '@spaced-repetition/types/card';
 import { Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, first } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-manager',
@@ -14,7 +13,6 @@ import { map, switchMap, first } from 'rxjs/operators';
   styleUrls: ['./card-manager.component.scss']
 })
 export class CardManagerComponent implements OnInit, OnDestroy {
-  cards: Card[] = [];
   filteredCards: BehaviorSubject<Card[]> = new BehaviorSubject([]);
   subscriptions: Subscription = new Subscription();
   loading = true;
@@ -31,38 +29,29 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   messages: string[] = [];
   topics: Topic[] = [];
   searchTerm = '';
-  topicId;
 
-  constructor(
-    private cardService: CardService,
-    private topicService: TopicService,
-    private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
-  ) {
-    const cards$ = this.activatedRoute.queryParams.pipe(
-      map(q => q.topicId),
-      switchMap(topicId => {
-        if (topicId) {
-          this.addCardForm.reset({ topicId, front: '', back: '' });
-          this.topicId = topicId;
-          return this.cardService.getCardsByTopicId(topicId);
-        } else {
-          return this.cardService.getAllCards();
-        }
-      })
-    );
-    const topics$ = this.topicService.getTopics();
+  @Input()
+  topicId = '';
 
-    this.subscriptions.add(
-      combineLatest(topics$, cards$).subscribe(([topics, cards]) => {
-        this.topics = topics;
-        this.setCards(cards);
-        this.loading = false;
-      })
-    );
+  @Input()
+  cards: Card[] = [];
+
+  constructor(private cardService: CardService, private topicService: TopicService, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.addCardForm.reset({ topicId: this.topicId, front: '', back: '' });
+    if (this.topicId) {
+      this.subscriptions.add(
+        combineLatest(this.topicService.getTopics(), this.cardService.getCardsByTopicId(this.topicId)).subscribe(
+          ([topics, cards]) => {
+            this.topics = topics;
+            this.setCards(cards);
+            this.loading = false;
+          }
+        )
+      );
+    }
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();

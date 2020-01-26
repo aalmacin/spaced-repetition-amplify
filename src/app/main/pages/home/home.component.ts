@@ -6,12 +6,11 @@ import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from '@spaced-repetition/types/card';
-import {
-  getTimestampFromDate,
-  getCurrentTimestamp,
-  getCurrentDate,
-  getDateFormat
-} from '@spaced-repetition/main/shared/timestamp.func';
+import { isTopicArr } from './topic.func';
+
+interface TopicWithCards extends Topic {
+  cards: Card[];
+}
 
 @Component({
   selector: 'app-home',
@@ -23,10 +22,9 @@ export class HomeComponent implements OnDestroy {
   user: User;
   createTopicToggle = false;
   loading = true;
-  topics: Topic[] = [];
+  topics: TopicWithCards[] = [];
   cards: Card[] = [];
   studyCards: Card[] = [];
-  nextStudy = '';
 
   constructor(public authService: AuthService, public topicService: TopicService, public cardService: CardService) {
     this.subscriptions.add(
@@ -37,30 +35,31 @@ export class HomeComponent implements OnDestroy {
       ).subscribe(([user, topics, cards]) => {
         this.user = user;
         this.loading = false;
-        this.topics = topics;
         this.cards = cards;
-        this.studyCards = this.cards
-          .filter(card => card.isReadyToStudy)
-          .sort((a, b) => {
-            return (
-              getTimestampFromDate(getDateFormat(b.nextStudyDate)) -
-              getTimestampFromDate(getDateFormat(a.nextStudyDate))
-            );
-          });
-        if (this.studyCards.length > 0) {
-          const nextStudyCard = this.studyCards[0];
-          const nextStudyTimestamp = getTimestampFromDate(nextStudyCard.nextStudyDate);
-          if (nextStudyTimestamp <= getCurrentTimestamp()) {
-            this.nextStudy = getCurrentDate();
-          } else {
-            this.nextStudy = getDateFormat(nextStudyCard.nextStudyDate);
-          }
-        }
+        this.topics = this.setTopicWithCards(topics, cards);
+        this.studyCards = this.cards.filter(card => card.isReadyToStudy);
       })
     );
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  addNewTopic() {
+    this.subscriptions.add(
+      this.topicService.addTopic('Untitled').subscribe(result => {
+        if (isTopicArr(result)) {
+          this.topics = this.setTopicWithCards(result, this.cards);
+        }
+      })
+    );
+  }
+
+  setTopicWithCards(topics: Topic[], cards: Card[]) {
+    return topics.map(topic => ({
+      ...topic,
+      cards: cards.filter(card => card.topicId === topic.id)
+    }));
   }
 }

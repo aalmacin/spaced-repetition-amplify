@@ -1,0 +1,2 @@
+<h2 *ngIf="!editMode" (click)="enableEditMode()">{{ topicName }}</h2>
+<input *ngIf="editMode" [ngModel]="topicName" (change)="updateTopic($event)" (blur)="disableEditMode()" />

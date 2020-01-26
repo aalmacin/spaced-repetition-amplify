@@ -48,7 +48,6 @@
     background-color: getColor(blue-light-2);
     width: 100%;
 
-    transition: all 500ms ease-out;
     display: inline-block;
     overflow: hidden;
     vertical-align: top;
@@ -59,6 +58,7 @@
 
     &--collapsed {
       height: 0px;
+      transition: all 500ms ease-in;
     }
 
     &--expanded {
@@ -67,6 +67,7 @@
       border-top: none;
       transform: scaleY(1);
       height: auto;
+      transition: all 500ms ease-out;
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, switchMap, filter, catchError } from 'rxjs/operators';
-import { Observable, defer, of } from 'rxjs';
+import { Observable, defer, of, from } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { APIService } from '@spaced-repetition/API.service';
@@ -33,6 +33,21 @@ export class TopicService {
       switchMap(user => this.apiService.CreateTopic({ user: user.email, name })),
       switchMap(() => this.getTopics()),
       catchError(() => of({ error: 'An error occured while adding topic.' }))
+    );
+  }
+
+  public updateTopic(id: string, name: string): Observable<Topic | ApiError> {
+    if (!name) {
+      return of({ error: 'Name cannot be empty' });
+    }
+    if (!id) {
+      return of({ error: 'Id cannot be empty' });
+    }
+    return from(this.apiService.UpdateTopic({ name, id })).pipe(
+      switchMap(topic => of(topic)),
+      catchError(err => {
+        return of({ error: 'An error occured while updating topic.' });
+      })
     );
   }
 }

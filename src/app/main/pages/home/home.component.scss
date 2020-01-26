@@ -52,6 +52,13 @@
     .accordion {
       display: flex;
       flex-direction: column;
+
+      .accordion-card {
+        display: flex;
+        flex-direction: column;
+
+        @include padding(lg);
+      }
     }
 
     .topics-section {
@@ -59,13 +66,19 @@
 
       .topics-section-heading {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
         border-bottom: 1px solid getColor(blue-green-line);
-        @include padding(sm);
+        @include padding(sm, t);
 
-        &__heading {
-          @include padding(lg, r);
-          border-right: 1px solid getColor(blue-green-line);
+        .create-topic {
+          display: flex;
+          width: 100%;
+
+          .create-topic-button {
+            flex-basis: 100%;
+            flex-grow: 2;
+          }
         }
       }
     }

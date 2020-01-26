@@ -2,16 +2,12 @@
   <app-loading *ngIf="loading; else cardManager"></app-loading>
   <ng-template #cardManager>
     <ng-container>
-      <h2 class="header">Card Manager</h2>
+      <h2 class="header">Cards</h2>
 
       <div class="cards-container">
         <div class="togglers">
-          <!-- <input type="checkbox" id="add-card-toggle" class="add-card-toggle" /> -->
           <input type="checkbox" id="filter-toggle" class="filter-toggle" />
-          <label class="add-card-toggler" for="add-card-toggle">
-            <!-- Add Card -->
-            <!-- <i class="fas fa-plus-square"></i> -->
-          </label>
+          <label class="add-card-toggler" for="add-card-toggle"> </label>
           <label *ngIf="cards.length > 0" class="filter-toggler" for="filter-toggle">
             Filter
             <i class="fas fa-filter"></i>

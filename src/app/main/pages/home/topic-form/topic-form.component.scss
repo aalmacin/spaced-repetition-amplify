@@ -1,0 +1,9 @@
+@import 'framework.scss';
+
+h2 {
+  @include font-size(lg);
+}
+
+input {
+  @include font-size(lg);
+}
