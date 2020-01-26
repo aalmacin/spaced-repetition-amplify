@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Subscription } from 'rxjs';
@@ -20,6 +20,9 @@ export class AddNewCardComponent implements OnInit {
     reverseCard: [false]
   });
   loading = false;
+
+  @Output()
+  closeModal = new EventEmitter();
 
   constructor(private cardService: CardService, private fb: FormBuilder) {}
 
@@ -65,5 +68,9 @@ export class AddNewCardComponent implements OnInit {
   changeTopic(topicId) {
     const control = this.addCardForm.get('topicId');
     control.setValue(topicId);
+  }
+
+  closeCard() {
+    this.closeModal.emit(true);
   }
 }

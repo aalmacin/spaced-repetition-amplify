@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from '@spaced-repetition/amplify/auth.service';
 import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectUser } from '@spaced-repetition/reducers';
 
 @Component({
   selector: 'app-landing-page-nav',
@@ -11,8 +13,8 @@ export class NavComponent implements OnDestroy {
   public loggedIn = false;
   loggedInSubscription: Subscription;
 
-  constructor(public authService: AuthService) {
-    this.loggedInSubscription = this.authService.getCurrentUser().subscribe(user => {
+  constructor(private store: Store<AppState>) {
+    this.loggedInSubscription = this.store.pipe(select(selectUser)).subscribe(user => {
       this.loggedIn = !!user;
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { AuthService } from '@spaced-repetition/amplify/auth.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { User } from '@spaced-repetition/types/user';
@@ -7,8 +7,9 @@ import { Topic } from '@spaced-repetition/types/topic';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from '@spaced-repetition/types/card';
 import { isTopicArr } from './topic.func';
-import { AppState, selectTopics } from '@spaced-repetition/reducers';
+import { AppState, selectTopics, selectUser } from '@spaced-repetition/reducers';
 import { Store, select } from '@ngrx/store';
+import { KEY_ESCAPE } from '@spaced-repetition/app.constants';
 
 interface TopicWithCards extends Topic {
   cards: Card[];
@@ -37,7 +38,7 @@ export class HomeComponent implements OnDestroy {
   ) {
     this.subscriptions.add(
       combineLatest(
-        this.authService.getCurrentUser(),
+        this.store.pipe(select(selectUser)),
         this.store.pipe(select(selectTopics)),
         this.cardService.getAllCards()
       ).subscribe(([user, topics, cards]) => {
@@ -48,6 +49,15 @@ export class HomeComponent implements OnDestroy {
         this.studyCards = this.cards.filter(card => card.isReadyToStudy);
       })
     );
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    switch (event.key) {
+      case KEY_ESCAPE:
+        this.addNewCard = false;
+        break;
+    }
   }
 
   ngOnDestroy() {
@@ -73,5 +83,9 @@ export class HomeComponent implements OnDestroy {
 
   toggleAddNewCard() {
     this.addNewCard = !this.addNewCard;
+  }
+
+  closeAddNewCardModal() {
+    this.addNewCard = false;
   }
 }

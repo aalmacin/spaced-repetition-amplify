@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, pipe } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { makeBoxEasier } from '../main/shared/study.func';
-import { AuthService } from './auth.service';
 import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
 import { switchMap, filter, catchError, map } from 'rxjs/operators';
 import { ApiError } from '@spaced-repetition/types/api-error';
 import { APIService, Box } from '@spaced-repetition/API.service';
 import { CustomApiService } from './custom-api.service';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectUser } from '@spaced-repetition/reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,11 @@ export class CardService {
   public constructor(
     private customApiService: CustomApiService,
     private apiService: APIService,
-    private authService: AuthService
+    private store: Store<AppState>
   ) {}
+
   public getAllCards(): Observable<Card[]> {
-    return this.authService.getCurrentUser().pipe(
+    return this.store.pipe(select(selectUser)).pipe(
       switchMap(user => this.customApiService.getCardsByUser(user)),
       catchError(() => null),
       filter((res: any) => !!res)
@@ -31,7 +33,7 @@ export class CardService {
   }
 
   public getCardsByTopicId(topicId: any): Observable<Card[]> {
-    return this.authService.getCurrentUser().pipe(
+    return this.store.pipe(select(selectUser)).pipe(
       switchMap(user => this.customApiService.getCardsByTopicId(user, topicId)),
       catchError(() => null),
       filter((res: any) => !!res)
@@ -39,7 +41,7 @@ export class CardService {
   }
 
   public addNewCard({ front, back, topicId }, pageTopicId = null): Observable<Card[] | ApiError> {
-    return this.authService.getCurrentUser().pipe(
+    return this.store.pipe(select(selectUser)).pipe(
       switchMap(_ =>
         this.apiService.CreateCard({
           front,

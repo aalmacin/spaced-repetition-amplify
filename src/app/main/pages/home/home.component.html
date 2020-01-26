@@ -16,7 +16,7 @@
             </span>
             Add a new Card
           </button>
-          <app-add-new-card *ngIf="addNewCard"></app-add-new-card>
+          <app-add-new-card *ngIf="addNewCard" (closeModal)="closeAddNewCardModal()"></app-add-new-card>
         </div>
         <al-accordion *ngFor="let topic of topics" [expanded]="topic.name === 'Untitled'">
           <al-accordion-header>
