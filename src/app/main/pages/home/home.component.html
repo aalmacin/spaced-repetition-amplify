@@ -8,7 +8,16 @@
   <div class="home-page__content">
     <div class="topics-section">
       <div class="accordion">
-        <h2>Topics</h2>
+        <div class="topics-header">
+          <h2>Topics</h2>
+          <button alBtn="secondary" class="create-card-button" (click)="toggleAddNewCard()">
+            <span class="button-icon">
+              <i class="fas fa-plus"></i>
+            </span>
+            Add a new Card
+          </button>
+          <app-add-new-card *ngIf="addNewCard"></app-add-new-card>
+        </div>
         <al-accordion *ngFor="let topic of topics" [expanded]="topic.name === 'Untitled'">
           <al-accordion-header>
             {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cards.length }})

@@ -114,63 +114,6 @@
           flex-basis: 100%;
         }
       }
-
-      .add-card {
-        @include margin(lg, tb);
-        @include font-size(sm);
-
-        @include media(tablet) {
-          @include font-size(md);
-        }
-
-        &__form {
-          // display: none;
-        }
-
-        .errors,
-        .messages {
-          @include margin(md, b);
-        }
-
-        &__front {
-          width: 100%;
-          border: 0.1rem solid getColor(gray-light);
-          @include margin(md, b);
-          @include padding(md);
-          @include font-size(sm);
-
-          @include media(tablet) {
-            @include font-size(md);
-          }
-        }
-
-        &__back {
-          width: 100%;
-          border: 0.1rem solid getColor(gray-light);
-          @include margin(md, b);
-          @include padding(md);
-          @include font-size(sm);
-
-          @include media(tablet) {
-            @include font-size(md);
-          }
-        }
-
-        &__submit {
-          &:disabled {
-            background-color: getColor(gray-light);
-            color: getColor(gray);
-            border: none;
-
-            &:hover,
-            &:active {
-              border: none;
-              background-color: getColor(gray-light);
-              color: getColor(gray);
-            }
-          }
-        }
-      }
     }
 
     %topicName {

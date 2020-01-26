@@ -25,6 +25,7 @@ export class HomeComponent implements OnDestroy {
   topics: TopicWithCards[] = [];
   cards: Card[] = [];
   studyCards: Card[] = [];
+  addNewCard = false;
 
   constructor(public authService: AuthService, public topicService: TopicService, public cardService: CardService) {
     this.subscriptions.add(
@@ -61,5 +62,9 @@ export class HomeComponent implements OnDestroy {
       ...topic,
       cards: cards.filter(card => card.topicId === topic.id)
     }));
+  }
+
+  toggleAddNewCard() {
+    this.addNewCard = !this.addNewCard;
   }
 }

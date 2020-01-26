@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CardService } from '@spaced-repetition/amplify/card.service';
-import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Card } from '@spaced-repetition/types/card';
 import { Topic } from '@spaced-repetition/types/topic';
 
@@ -10,7 +9,7 @@ import { Topic } from '@spaced-repetition/types/topic';
   templateUrl: './card-info.component.html',
   styleUrls: ['./card-info.component.scss']
 })
-export class CardInfoComponent implements OnInit, OnDestroy {
+export class CardInfoComponent implements OnInit {
   @Input()
   card = null;
 
@@ -25,21 +24,10 @@ export class CardInfoComponent implements OnInit, OnDestroy {
   messages = [];
   editFrontMode = false;
   editBackMode = false;
-  topics: Topic[] = [];
 
-  constructor(private cardService: CardService, public topicService: TopicService) {}
+  constructor(public cardService: CardService) {}
 
-  ngOnInit() {
-    this.subscriptions.add(
-      this.topicService.getTopics().subscribe(topics => {
-        this.topics = topics;
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
+  ngOnInit() {}
 
   private updateCard({ topicId, front, back }: Partial<Card>) {
     this.loading = true;
@@ -88,7 +76,7 @@ export class CardInfoComponent implements OnInit, OnDestroy {
     this.updateCard({ front: this.card.front, back: e.target.value, topicId: this.card.topicId });
   }
 
-  updateTopic(e) {
-    this.updateCard({ front: this.card.front, back: this.card.back, topicId: e.target.value });
+  updateTopic(topicId) {
+    this.updateCard({ front: this.card.front, back: this.card.back, topicId });
   }
 }

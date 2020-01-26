@@ -50,11 +50,7 @@
       </div>
 
       <div class="card-info__topic">
-        <select class="card-info__topic-select" (change)="updateTopic($event)">
-          <option [selected]="topic.id === card.topicId" *ngFor="let topic of topics" [value]="topic.id">{{
-            topic.name
-          }}</option>
-        </select>
+        <app-topic-select [card]="card" (changeTopic)="updateTopic($event)"></app-topic-select>
       </div>
 
       <div class="card-info__box">

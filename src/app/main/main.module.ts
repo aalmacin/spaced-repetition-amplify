@@ -22,6 +22,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlashCardComponent } from './pages/study/flash-card/flash-card.component';
 import { TopicFormComponent } from './pages/home/topic-form/topic-form.component';
 import { CardInfoComponent } from './pages/home/card-info/card-info.component';
+import { AddNewCardComponent } from './pages/home/add-new-card/add-new-card.component';
+import { TopicSelectComponent } from './pages/home/topic-select/topic-select.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { CardInfoComponent } from './pages/home/card-info/card-info.component';
     CardManagerComponent,
     FlashCardComponent,
     TopicFormComponent,
-    CardInfoComponent
+    CardInfoComponent,
+    AddNewCardComponent,
+    TopicSelectComponent
   ],
   imports: [AuthModule, CommonModule, FormsModule, ReactiveFormsModule, MainRoutingModule, SharedModule]
 })
