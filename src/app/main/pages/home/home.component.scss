@@ -17,19 +17,25 @@
 .home-page {
   background-color: getColor(blue-light-2);
   min-height: 100vh;
-  @include margin(md, t);
+  margin: 0;
+
+  @include media(desktop) {
+    @include margin(md, t);
+  }
 
   .home-page-head {
-    padding: 1rem;
     border-bottom: 1px solid getColor(blue-green-line);
     background-color: getColor(white);
     font-size: 1.6rem;
     box-shadow: 0rem 1.2rem 2rem -1.8rem getColor(shadow-dark);
     color: getColor(black);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    @include padding(sm);
 
-    &__cards {
+    @include media(desktop) {
+      @include padding(md);
+      justify-content: space-between;
     }
 
     &__email {
