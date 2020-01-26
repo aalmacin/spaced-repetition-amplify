@@ -2,13 +2,11 @@
   <app-loading *ngIf="loading; else cardManager"></app-loading>
   <ng-template #cardManager>
     <ng-container>
-      <h2 class="header">Cards</h2>
-
       <div class="cards-container">
         <div class="togglers">
-          <input type="checkbox" id="filter-toggle" class="filter-toggle" />
+          <input type="checkbox" id="filter-toggle-{{ topicId }}" class="filter-toggle" />
           <label class="add-card-toggler" for="add-card-toggle"> </label>
-          <label *ngIf="cards.length > 0" class="filter-toggler" for="filter-toggle">
+          <label *ngIf="cards.length > 0" class="filter-toggler" for="filter-toggle-{{ topicId }}">
             Filter
             <i class="fas fa-filter"></i>
           </label>
@@ -16,14 +14,14 @@
           <div class="filter">
             <div class="filter__container">
               <div class="filter__field">
-                <label for="search" class="al-semibold">Filter</label>
+                <label for="{{ topicId }}-search" class="al-semibold">Filter</label>
               </div>
 
               <div class="filter__field">
                 <input
                   (input)="changeSearchTerm(searchTerm.value)"
                   #searchTerm
-                  id="search"
+                  id="{{ topicId }}-search"
                   class="filter__input filter__input--search"
                   type="text"
                   placeholder="Search Term: Topic Name/Front/Back"
