@@ -28,10 +28,7 @@
       placeholder="Ex. 42 is the meaning of life according to Hitchikers Guide to the Galaxy (Back/Answer)"
     ></textarea>
 
-    <select class="add-card__topic" formControlName="topicId" name="topicId">
-      <option value="">Select Topic</option>
-      <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
-    </select>
+    <app-topic-select (changeTopic)="changeTopic($event)"></app-topic-select>
 
     <div>
       <input type="checkbox" formControlName="reverseCard" />

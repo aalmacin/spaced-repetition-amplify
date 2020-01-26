@@ -61,4 +61,9 @@ export class AddNewCardComponent implements OnInit {
       this.errors = ['Something went wrong while adding a new card.'];
     }
   }
+
+  changeTopic(topicId) {
+    const control = this.addCardForm.get('topicId');
+    control.setValue(topicId);
+  }
 }

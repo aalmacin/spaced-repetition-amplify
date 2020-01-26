@@ -23,7 +23,7 @@
       <div class="card-info__front">
         <label class="card-info__label" for="card-front-{{ card.id }}">Front:</label>
         <p (click)="setEditFrontMode(true)" *ngIf="!editFrontMode">
-          {{ card.front }}<span class="icon fas fa-pencil-alt"></span>
+          <span class="icon fas fa-pencil-alt"></span> {{ card.front }}
         </p>
         <textarea
           (change)="updateFront($event)"
@@ -37,7 +37,7 @@
       <div class="card-info__back">
         <label class="card-info__label" id="card-back-{{ card.id }}">Back:</label>
         <p (click)="setEditBackMode(true)" *ngIf="!editBackMode">
-          {{ card.back }} <span class="icon fas fa-pencil-alt"></span>
+          <span class="icon fas fa-pencil-alt"></span> {{ card.back }}
         </p>
         <textarea
           (change)="updateBack($event)"

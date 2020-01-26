@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Card } from '@spaced-repetition/types/card';
 import { Topic } from '@spaced-repetition/types/topic';
-import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Subscription } from 'rxjs';
 import { TopicService } from '@spaced-repetition/amplify/topic.service';
 

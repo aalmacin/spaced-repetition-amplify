@@ -1,4 +1,6 @@
 <select class="topic-select" (change)="updateTopic($event)">
+  <option disabled selected value> -- select a topic -- </option>
+
   <option [selected]="card && topic.id === card.topicId" *ngFor="let topic of topics" [value]="topic.id">{{
     topic.name
   }}</option>

@@ -1,7 +1,10 @@
 @import 'framework.scss';
 
-h2 {
+.heading {
   @include font-size(lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .icon {
     @include font-size(sm);
