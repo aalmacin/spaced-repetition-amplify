@@ -3,12 +3,12 @@ import { Observable, of } from 'rxjs';
 import { makeBoxEasier } from '../main/shared/study.func';
 import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
-import { switchMap, filter, catchError, map } from 'rxjs/operators';
-import { ApiError } from '@spaced-repetition/types/api-status';
+import { switchMap, filter, catchError } from 'rxjs/operators';
 import { APIService, Box } from '@spaced-repetition/API.service';
 import { CustomApiService } from './custom-api.service';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { ApiStatus } from '@spaced-repetition/types/api-status';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class CardService {
     );
   }
 
-  public addNewCard({ front, back, topicId }, pageTopicId = null): Observable<Card[] | ApiError> {
+  public addNewCard({ front, back, topicId }, pageTopicId = null): Observable<ApiStatus<Card[]>> {
     return this.store.pipe(select(selectUser)).pipe(
       switchMap(_ =>
         this.apiService.CreateCard({
@@ -55,7 +55,7 @@ export class CardService {
   public updateCard(
     { id, topicId, front, back }: { id: string; topicId: string; front: string; back: string },
     pageTopicId = null
-  ): Observable<Card[] | ApiError> {
+  ): Observable<ApiStatus<Card[]>> {
     return of({ id, front, back }).pipe(
       switchMap(card =>
         this.apiService.UpdateCard({
@@ -96,7 +96,7 @@ export class CardService {
     );
   }
 
-  public deleteCard(cardId: string, pageTopicId = null): Observable<Card[] | ApiError> {
+  public deleteCard(cardId: string, pageTopicId = null): Observable<ApiStatus<Card[]>> {
     return of(cardId).pipe(
       switchMap(id => this.deleteCardInAmplify(id)),
       switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),

@@ -92,7 +92,12 @@ export class AppEffects {
     ofType(UserActionTypes.LoadUser),
     switchMap(() =>
       this.authService.getCurrentUser().pipe(
-        map(res => new LoadUserSuccess(res)),
+        map(res => {
+          if (res.success) {
+            return new LoadUserSuccess(res.data);
+          }
+          return new LoadUserFailure();
+        }),
         catchError(() => of(new LoadUserFailure()))
       )
     )

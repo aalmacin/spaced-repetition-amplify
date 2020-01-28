@@ -59,7 +59,7 @@ export class CustomApiService {
           topicId
           isReadyToStudy
           nextStudyDate
-          lastStudyDate 
+          lastStudyDate
         }
       }
     `;

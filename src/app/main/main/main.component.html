@@ -32,16 +32,6 @@
             class="nav-link"
             alLink="animated"
             color="secondary"
-            [routerLink]="['/app', 'topics']"
-            routerLinkActive="router-link-active"
-            >Topics</a
-          >
-        </li>
-        <li class="nav__page">
-          <a
-            class="nav-link"
-            alLink="animated"
-            color="secondary"
             [routerLink]="['/app', 'card-manager']"
             routerLinkActive="router-link-active"
             >Card Manager</a
@@ -76,11 +66,6 @@
         <li class="mobile-nav__page">
           <a [routerLink]="['/app', 'study']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
             >Study</a
-          >
-        </li>
-        <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'topics']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Topics</a
           >
         </li>
         <li class="mobile-nav__page">

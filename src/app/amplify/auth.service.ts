@@ -20,7 +20,7 @@ export class AuthService {
     return defer(async () => this.logoutToAmplify());
   }
 
-  public register({ email, password }: { email: string; password: string }): Observable<ApiError | User | null> {
+  public register({ email, password }: { email: string; password: string }): Observable<ApiStatus<User | null>> {
     return defer(async () => this.registerToAmplify(email, password));
   }
 
@@ -35,21 +35,25 @@ export class AuthService {
     return result;
   }
 
-  private async loginToAmplify(email, password) {
+  private async loginToAmplify(email, password): Promise<ApiStatus<User | null>> {
     try {
       const user = await Auth.signIn(email, password);
-      return { email: user.attributes.email };
+      return { data: { email: user.attributes.email }, success: true };
     } catch (error) {
-      return (error.message && { error: error.message }) || { error: 'An error occured' };
+      return (
+        (error.message && { success: false, error: error.message }) || { success: false, error: 'An error occured' }
+      );
     }
   }
 
-  private async registerToAmplify(email, password) {
+  private async registerToAmplify(email, password): Promise<ApiStatus<User | null>> {
     try {
       const res = await Auth.signUp(email, password);
-      return { email: res.user.getUsername() };
+      return { data: { email: res.user.getUsername() }, success: true };
     } catch (error) {
-      return (error.message && { error: error.message }) || { error: 'An error occured' };
+      return (
+        (error.message && { error: error.message, success: false }) || { error: 'An error occured', success: false }
+      );
     }
   }
 
@@ -63,12 +67,12 @@ export class AuthService {
     }
   }
 
-  private async getCurrentUserFromAmplify(): Promise<User | null> {
+  private async getCurrentUserFromAmplify(): Promise<ApiStatus<User | null>> {
     try {
       const user = await Auth.currentAuthenticatedUser();
-      return { email: user.attributes.email };
+      return { data: { email: user.attributes.email }, success: true };
     } catch (error) {
-      return null;
+      return { success: false };
     }
   }
 }

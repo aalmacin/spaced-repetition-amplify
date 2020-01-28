@@ -14,8 +14,6 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { StudyComponent } from './pages/study/study.component';
 
-import { TopicsComponent } from './pages/topics/topics.component';
-
 import { CardManagerComponent } from './pages/card-manager/card-manager.component';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -30,7 +28,6 @@ import { TopicSelectComponent } from './pages/home/topic-select/topic-select.com
     MainComponent,
     HomeComponent,
     StudyComponent,
-    TopicsComponent,
     CardManagerComponent,
     FlashCardComponent,
     TopicFormComponent,
