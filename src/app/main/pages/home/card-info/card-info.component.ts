@@ -34,7 +34,7 @@ export class CardInfoComponent implements OnInit {
   private updateCard({ topicId, front, back }: Partial<Card>) {
     this.loading = true;
     this.subscriptions.add(
-      this.cardService.updateCard({ id: this.card.id, topicId, front, back }, this.topicId).subscribe((res: any) => {
+      this.cardService.updateCard({ id: this.card.id, topicId, front, back }).subscribe((res: any) => {
         this.loading = false;
         this.store.dispatch(new LoadTopics());
         if (res.error) {
@@ -49,7 +49,7 @@ export class CardInfoComponent implements OnInit {
     if (confirm(`Are you sure you want to delete?`)) {
       this.loading = true;
       this.subscriptions.add(
-        this.cardService.deleteCard(this.card.id, this.topicId).subscribe((result: any) => {
+        this.cardService.deleteCard(this.card.id).subscribe((result: any) => {
           this.loading = false;
           if (result.error) {
             this.errors = [result.error];

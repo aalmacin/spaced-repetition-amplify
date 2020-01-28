@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { makeBoxEasier } from '../main/shared/study.func';
 import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
-import { switchMap, filter, catchError } from 'rxjs/operators';
+import { switchMap, filter, catchError, map } from 'rxjs/operators';
 import { APIService, Box } from '@spaced-repetition/API.service';
 import { CustomApiService } from './custom-api.service';
 import { Store, select } from '@ngrx/store';
@@ -28,15 +28,7 @@ export class CardService {
     return this.customApiService.getCardsByUser();
   }
 
-  public getCardsByTopicId(topicId: any): Observable<Card[]> {
-    return this.store.pipe(select(selectUser)).pipe(
-      switchMap(user => this.customApiService.getCardsByTopicId(user, topicId)),
-      catchError(() => null),
-      filter((res: any) => !!res)
-    );
-  }
-
-  public addNewCard({ front, back, topicId }, pageTopicId = null): Observable<ApiStatus<Card[]>> {
+  public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<Card[]>> {
     return this.store.pipe(select(selectUser)).pipe(
       switchMap(_ =>
         this.apiService.CreateCard({
@@ -47,15 +39,12 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),
-      catchError(() => of({ error: 'An error occured while adding a card.' }))
+      map(() => ({ success: true })),
+      catchError(() => of({ success: false, error: 'An error occured while adding a card.' }))
     );
   }
 
-  public updateCard(
-    { id, topicId, front, back }: { id: string; topicId: string; front: string; back: string },
-    pageTopicId = null
-  ): Observable<ApiStatus<Card[]>> {
+  public updateCard({ id, topicId, front, back }: Partial<Card>): Observable<ApiStatus<Card[]>> {
     return of({ id, front, back }).pipe(
       switchMap(card =>
         this.apiService.UpdateCard({
@@ -65,8 +54,8 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),
-      catchError(() => of({ error: 'An error occured while updating the card.' }))
+      map(() => ({ success: true })),
+      catchError(() => of({ success: false, error: 'An error occured while updating the card.' }))
     );
   }
 
@@ -96,11 +85,11 @@ export class CardService {
     );
   }
 
-  public deleteCard(cardId: string, pageTopicId = null): Observable<ApiStatus<Card[]>> {
+  public deleteCard(cardId: string): Observable<ApiStatus<Card[]>> {
     return of(cardId).pipe(
       switchMap(id => this.deleteCardInAmplify(id)),
-      switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),
-      catchError(() => of({ error: 'An error occured while deleting the card' }))
+      map(() => ({ success: true })),
+      catchError(() => of({ success: false, error: 'An error occured while deleting the card' }))
     );
   }
 

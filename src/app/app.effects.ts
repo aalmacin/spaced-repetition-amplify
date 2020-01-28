@@ -13,15 +13,47 @@ import {
   UpdateTopicFailure,
   UpdateTopic
 } from './topic.actions';
-import { of } from 'rxjs';
+import { of, combineLatest } from 'rxjs';
 import { UserActionTypes, LoadUserSuccess, LoadUserFailure, LoadUser } from './user.actions';
 import { AuthService } from './amplify/auth.service';
 import { CardService } from './amplify/card.service';
-import { LoadStudyCardsSuccess, CardActionTypes, LoadStudyCardsFailure, LoadStudyCards } from './card.actions';
+import {
+  LoadStudyCardsSuccess,
+  CardActionTypes,
+  LoadStudyCardsFailure,
+  LoadStudyCards,
+  AddCard,
+  AddCardSuccess,
+  AddCardFailure
+} from './card.actions';
 import { TopicService } from './amplify/topic.service';
 
 @Injectable()
 export class AppEffects {
+  @Effect()
+  addCard$ = this.actions$.pipe(
+    ofType<AddCard>(CardActionTypes.AddCard),
+    map(action => action.payload),
+    switchMap(cardValues => {
+      const createAddCard$ = values => this.cardService.addNewCard(values).pipe(filter(res => res.success));
+      if (cardValues.reverseCard) {
+        return combineLatest(
+          createAddCard$(cardValues),
+          createAddCard$({ topicId: cardValues.topicId, front: cardValues.back, back: cardValues.front })
+        ).pipe(
+          filter(([res1, res2]) => res1.success && res2.success),
+          map(() => new AddCardSuccess()),
+          catchError(() => of(new AddCardFailure()))
+        );
+      }
+      return createAddCard$(cardValues).pipe(
+        filter(res => res.success),
+        map(() => new AddCardSuccess()),
+        catchError(() => of(new AddCardFailure()))
+      );
+    })
+  );
+
   @Effect()
   addTopic$ = this.actions$.pipe(
     ofType(TopicActionTypes.AddTopic),
@@ -35,8 +67,8 @@ export class AppEffects {
   );
 
   @Effect()
-  addTopicSuccess$ = this.actions$.pipe(
-    ofType(TopicActionTypes.AddTopicSuccess),
+  reloadTopics$ = this.actions$.pipe(
+    ofType(TopicActionTypes.AddTopicSuccess, TopicActionTypes.UpdateTopicSuccess),
     map(() => new LoadTopics())
   );
 
@@ -51,12 +83,6 @@ export class AppEffects {
         catchError(() => of(new UpdateTopicFailure()))
       )
     )
-  );
-
-  @Effect()
-  updateTopicSuccess$ = this.actions$.pipe(
-    ofType(TopicActionTypes.UpdateTopicSuccess),
-    map(() => new LoadTopics())
   );
 
   @Effect()

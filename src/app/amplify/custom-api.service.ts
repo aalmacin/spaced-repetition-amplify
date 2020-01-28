@@ -1,23 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ModelTopicFilterInput, ListTopicsQuery, ModelCardFilterInput } from '@spaced-repetition/API.service';
+import { ModelTopicFilterInput, ListTopicsQuery } from '@spaced-repetition/API.service';
 import { API, graphqlOperation } from 'aws-amplify';
-import { User } from '@spaced-repetition/types/user';
-import { map, pipe, flatten, filter } from 'ramda';
-import { isReadyToStudy, getNextStudyDate } from '@spaced-repetition/main/shared/study.func';
-import { getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { switchMap } from 'rxjs/operators';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomApiService {
-  // public async getCardsByUser(user: User) {
-  //   const topics = await this.getTopics({ user: { eq: user.email } }, 5000);
-  //   return this.getCardsFromTopics(topics);
-  // }
-
   public constructor(private store: Store<AppState>) {}
 
   public getTopicWithCards() {
@@ -26,25 +17,6 @@ export class CustomApiService {
 
   public getCardsByUser() {
     return this.store.select(selectUser).pipe(switchMap(user => this.getStudyCards(user.email, 5000)));
-  }
-
-  public async getCardsByTopicId(user: User, topicId: string) {
-    const topics = await this.getTopics({ user: { eq: user.email }, id: { eq: topicId } }, 5000);
-    return this.getCardsFromTopics(topics);
-  }
-
-  private getCardsFromTopics(topics: any) {
-    return pipe(
-      filter((r: any) => r.cards.items.length > 0),
-      map((r: any) => map((rr: any) => ({ ...rr, topicId: r.id, topicName: r.name }), r.cards.items)),
-      flatten,
-      map((r: any) => ({
-        ...r,
-        isReadyToStudy: isReadyToStudy(r.lastStudy, r.box),
-        nextStudyDate: getDateFromTimestamp(getNextStudyDate(r.lastStudy, r.box)),
-        lastStudyDate: getDateFromTimestamp(r.lastStudy)
-      }))
-    )([...topics.items]);
   }
 
   private async getStudyCards(userId: string, limit = 10) {

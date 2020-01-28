@@ -2,6 +2,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Subscription } from 'rxjs';
+import { AppState } from '@spaced-repetition/reducers';
+import { Store } from '@ngrx/store';
+import { AddCard } from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-add-new-card',
@@ -19,12 +22,11 @@ export class AddNewCardComponent implements OnInit {
     topicId: ['', Validators.required],
     reverseCard: [false]
   });
-  loading = false;
 
   @Output()
   closeModal = new EventEmitter();
 
-  constructor(private cardService: CardService, private fb: FormBuilder) {}
+  constructor(private store: Store<AppState>, private cardService: CardService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.addCardForm.reset({ topicId: '', front: '', back: '' });
@@ -32,34 +34,8 @@ export class AddNewCardComponent implements OnInit {
 
   public addNewCard() {
     if (this.addCardForm.status === 'VALID') {
-      this.loading = true;
       const cardValues = { ...this.addCardForm.value };
-      this.subscriptions.add(
-        this.cardService.addNewCard(cardValues, cardValues.topicId).subscribe((result: any) => {
-          this.loading = false;
-          this.addCardForm.get('front').setValue('');
-          this.addCardForm.get('back').setValue('');
-          this.addCardForm.get('reverseCard').setValue(false);
-          if (result.error) {
-            this.errors = [result.error];
-          } else {
-            this.messages = ['Successfully added card'];
-          }
-        })
-      );
-      if (cardValues.reverseCard) {
-        const reverseCardValues = { ...cardValues, back: cardValues.front, front: cardValues.back };
-        this.subscriptions.add(
-          this.cardService.addNewCard(reverseCardValues, reverseCardValues.topicId).subscribe((result: any) => {
-            this.loading = false;
-            if (result.error) {
-              this.errors = [result.error];
-            } else {
-              this.messages = ['Successfully added card'];
-            }
-          })
-        );
-      }
+      this.store.dispatch(new AddCard(cardValues));
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }

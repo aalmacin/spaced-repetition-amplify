@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { CardService } from '@spaced-repetition/amplify/card.service';
+import { Component, OnDestroy } from '@angular/core';
 import { Card } from 'src/app/types/card';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
 import { shuffle } from 'lodash';
 import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
 import { getCurrentTimestamp, getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectReadyToStudyCards } from '@spaced-repetition/reducers';
 
 export enum CardResult {
   EASY = 'easy',
@@ -30,30 +29,23 @@ export class StudyComponent implements OnDestroy {
   subscriptions = new Subscription();
   scheduledStudy = false;
 
-  constructor(private cardService: CardService, private activatedRoute: ActivatedRoute) {
+  constructor(private store: Store<AppState>) {
     this.subscriptions.add(
-      this.activatedRoute.queryParams
-        .pipe(
-          map(q => q.topicId),
-          tap(topicId => {
-            this.scheduledStudy = !!!topicId;
-          }),
-          switchMap(topicId =>
-            topicId ? this.cardService.getCardsByTopicId(topicId) : this.cardService.getAllStudyCards()
-          )
-        )
-        .subscribe(cards => {
-          this.loading = false;
-          this.cards = shuffle(cards).map(card => ({
-            ...card,
-            result: CardResult.PENDING,
-            potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
-          }));
-        })
+      this.store.pipe(select(selectReadyToStudyCards)).subscribe(cards => {
+        this.cards = this.transformCardToVM(shuffle(cards));
+      })
     );
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  private transformCardToVM(cards): CardVM[] {
+    return cards.map(card => ({
+      ...card,
+      result: CardResult.PENDING,
+      potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
+    }));
   }
 }
