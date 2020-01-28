@@ -3,10 +3,10 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppActionTypes } from './app.actions';
 import { switchMap, catchError, map } from 'rxjs/operators';
 import { LoadTopics, TopicActionTypes, LoadTopicsSuccess, LoadTopicsFailure } from './topic.actions';
-import { TopicService } from './amplify/topic.service';
 import { of } from 'rxjs';
 import { UserActionTypes, LoadUserSuccess, LoadUserFailure, LoadUser } from './user.actions';
 import { AuthService } from './amplify/auth.service';
+import { CardService } from './amplify/card.service';
 
 @Injectable()
 export class AppEffects {
@@ -20,7 +20,7 @@ export class AppEffects {
   loadTopics$ = this.actions$.pipe(
     ofType(TopicActionTypes.LoadTopics),
     switchMap(() =>
-      this.topicService.getTopics().pipe(
+      this.cardService.getAllTopicWithCards().pipe(
         map(res => new LoadTopicsSuccess(res)),
         catchError(() => of(new LoadTopicsFailure()))
       )
@@ -43,5 +43,5 @@ export class AppEffects {
     ofType(UserActionTypes.LoadUserSuccess),
     switchMap(() => [new LoadTopics()])
   );
-  constructor(private actions$: Actions, private topicService: TopicService, private authService: AuthService) {}
+  constructor(private actions$: Actions, private cardService: CardService, private authService: AuthService) {}
 }

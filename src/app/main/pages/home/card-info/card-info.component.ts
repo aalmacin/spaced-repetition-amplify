@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from '@spaced-repetition/types/card';
-import { Topic } from '@spaced-repetition/types/topic';
+import { AppState } from '@spaced-repetition/reducers';
+import { LoadTopics } from '@spaced-repetition/topic.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-card-info',
@@ -25,7 +27,7 @@ export class CardInfoComponent implements OnInit {
   editFrontMode = false;
   editBackMode = false;
 
-  constructor(public cardService: CardService) {}
+  constructor(public cardService: CardService, private store: Store<AppState>) {}
 
   ngOnInit() {}
 
@@ -34,6 +36,7 @@ export class CardInfoComponent implements OnInit {
     this.subscriptions.add(
       this.cardService.updateCard({ id: this.card.id, topicId, front, back }, this.topicId).subscribe((res: any) => {
         this.loading = false;
+        this.store.dispatch(new LoadTopics());
         if (res.error) {
           this.errors = [res.error];
         }
@@ -69,11 +72,11 @@ export class CardInfoComponent implements OnInit {
   }
 
   updateFront(e) {
-    this.updateCard({ front: e.target.value, back: this.card.back, topicId: this.card.topicId });
+    this.updateCard({ front: e.target.value, back: this.card.back, topicId: this.topicId });
   }
 
   updateBack(e) {
-    this.updateCard({ front: this.card.front, back: e.target.value, topicId: this.card.topicId });
+    this.updateCard({ front: this.card.front, back: e.target.value, topicId: this.topicId });
   }
 
   updateTopic(topicId) {

@@ -18,13 +18,13 @@
           </button>
           <app-add-new-card *ngIf="addNewCard" (closeModal)="closeAddNewCardModal()"></app-add-new-card>
         </div>
-        <al-accordion *ngFor="let topic of topics" [expanded]="topic.name === 'Untitled'">
+        <al-accordion *ngFor="let topic of topicWithCards" [expanded]="topic.name === 'Untitled'">
           <al-accordion-header>
             {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cards.length }})
           </al-accordion-header>
           <al-accordion-body>
             <app-topic-form [topic]="topic"></app-topic-form>
-            <app-card-manager [topicId]="topic.id"></app-card-manager>
+            <app-card-manager [topicId]="topic.id" [cards]="topic.cards"></app-card-manager>
           </al-accordion-body>
         </al-accordion>
       </div>

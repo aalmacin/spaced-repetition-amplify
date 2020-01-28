@@ -1,4 +1,7 @@
-<div class="card-manager">
+<div class="cards" *ngFor="let card of cards">
+  <app-card-info [card]="card" [topicId]="topicId"></app-card-info>
+</div>
+<!-- <div class="card-manager">
   <app-loading *ngIf="loading; else cardManager"></app-loading>
   <ng-template #cardManager>
     <ng-container>
@@ -44,18 +47,6 @@
         </div>
 
         <ng-container *ngIf="(filteredCards | async).length > 0; else noCards">
-          <!-- <div class="card-header">
-            <div class="card-header__topic-name">Topic Name</div>
-            <div class="card-header__front">Front</div>
-            <div class="card-header__back">Back</div>
-            <div class="card-header__box">Box</div>
-            <div class="card-header__ready">Ready to Study</div>
-            <div class="card-header__next-study">Next Study</div>
-            <div class="card-header__action"></div>
-          </div> -->
-          <div class="cards" *ngFor="let card of filteredCards | async; let i = index">
-            <app-card-info [card]="card"></app-card-info>
-          </div>
         </ng-container>
       </div>
     </ng-container>
@@ -72,4 +63,4 @@
       If that's not the case, you might be having connectivity issues. Try again later.
     </p>
   </div>
-</ng-template>
+</ng-template> -->

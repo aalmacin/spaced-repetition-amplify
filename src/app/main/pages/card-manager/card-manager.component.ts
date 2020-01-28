@@ -6,7 +6,7 @@ import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Topic } from '@spaced-repetition/types/topic';
 import { first } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import { selectTopics, AppState } from '@spaced-repetition/reducers';
+import { selectTopics, AppState, selectTopicsById } from '@spaced-repetition/reducers';
 
 @Component({
   selector: 'app-card-manager',
@@ -31,18 +31,14 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   @Input()
   cards: Card[] = [];
 
-  constructor(private cardService: CardService, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     if (this.topicId) {
       this.subscriptions.add(
-        combineLatest(
-          this.store.pipe(select(selectTopics)),
-          this.cardService.getCardsByTopicId(this.topicId)
-        ).subscribe(([topics, cards]) => {
+        this.store.pipe(select(selectTopics)).subscribe(topics => {
           this.topics = topics;
-          this.setCards(cards);
-          this.loading = false;
+          // this.loading = false;
         })
       );
     }
@@ -52,51 +48,50 @@ export class CardManagerComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  public setCards(cards: Card[]) {
-    this.cards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
-    this.filteredCards.next(this.cards);
-  }
+  // public setCards() {
+  //   this.cards = this.cards.sort((a, b) => b.lastStudy - a.lastStudy);
+  //   this.filteredCards.next(this.cards);
+  // }
 
-  public changeSearchTerm(searchTerm: string) {
-    this.searchTerm = searchTerm;
-    this.filter();
-  }
+  // public changeSearchTerm(searchTerm: string) {
+  //   this.searchTerm = searchTerm;
+  //   this.filter();
+  // }
 
-  public changeIsReadyStudy() {
-    this.isReadyStudyOnly = !this.isReadyStudyOnly;
-    this.filter();
-  }
+  // public changeIsReadyStudy() {
+  //   this.isReadyStudyOnly = !this.isReadyStudyOnly;
+  //   this.filter();
+  // }
 
-  private filter() {
-    if (!!this.topicId) {
-      this.cardService
-        .getAllCards()
-        .pipe(first())
-        .subscribe(cards => {
-          this.allFilter(cards);
-        });
-    } else {
-      this.allFilter(this.cards);
-    }
-  }
+  // private filter() {
+  //   if (!!this.topicId) {
+  //     this.cardService
+  //       .getAllTopicWithCards()
+  //       .pipe(first())
+  //       .subscribe(cards => {
+  //         this.allFilter(cards);
+  //       });
+  //   } else {
+  //     this.allFilter(this.cards);
+  //   }
+  // }
 
-  private allFilter(cards: Card[]) {
-    let filteredCards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
-    if (this.isReadyStudyOnly) {
-      filteredCards = filteredCards.filter(card => card.isReadyToStudy);
-    }
+  // private allFilter(cards: Card[]) {
+  //   let filteredCards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
+  //   if (this.isReadyStudyOnly) {
+  //     filteredCards = filteredCards.filter(card => card.isReadyToStudy);
+  //   }
 
-    if (this.searchTerm) {
-      filteredCards = filteredCards.filter(
-        card =>
-          card.front.toLowerCase().search(this.searchTerm.toLowerCase()) >= 0 ||
-          card.back.toLowerCase().search(this.searchTerm.toLowerCase()) >= 0
-      );
-    }
-    this.filteredCards.next(filteredCards);
-  }
-
-  toggleCardInfo(cardId) {
-    alert(cardId);
-  }
+  //   if (this.searchTerm) {
+  //     filteredCards = filteredCards.filter(
+  //       card =>
+  //         card.front.toLowerCase().search(this.searchTerm.toLowerCase()) >= 0 ||
+  //         card.back.toLowerCase().search(this.searchTerm.toLowerCase()) >= 0
+  //     );
+  //   }
+  //   this.filteredCards.next(filteredCards);
+  // }
+  // toggleCardInfo(cardId) {
+  //   alert(cardId);
+  // }
 }

@@ -50,7 +50,7 @@
       </div>
 
       <div class="card-info__topic">
-        <app-topic-select [card]="card" (changeTopic)="updateTopic($event)"></app-topic-select>
+        <app-topic-select [selectedTopicId]="topicId" (changeTopic)="updateTopic($event)"></app-topic-select>
       </div>
 
       <div class="card-info__box">

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { Card } from '@spaced-repetition/types/card';
 import { Topic } from '@spaced-repetition/types/topic';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -12,7 +11,7 @@ import { AppState, selectTopics } from '@spaced-repetition/reducers';
 })
 export class TopicSelectComponent implements OnInit, OnDestroy {
   @Input()
-  card: Card;
+  selectedTopicId: string;
 
   topics: Topic[];
 

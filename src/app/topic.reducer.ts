@@ -1,7 +1,7 @@
-import { Topic } from './types/topic';
+import { TopicWithCards } from './types/topic';
 import { TopicActionTypes, TopicActions } from './topic.actions';
 
-export type TopicState = Topic[];
+export type TopicState = TopicWithCards[];
 
 export const initialState: TopicState = [];
 

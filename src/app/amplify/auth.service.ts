@@ -56,7 +56,6 @@ export class AuthService {
   private async confirmUserInAmplify(email, code) {
     try {
       const res = await Auth.confirmSignUp(email, code);
-      console.log(res);
       return res;
     } catch (error) {
       console.log(error);

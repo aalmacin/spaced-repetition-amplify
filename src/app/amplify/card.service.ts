@@ -20,16 +20,12 @@ export class CardService {
     private store: Store<AppState>
   ) {}
 
-  public getAllCards(): Observable<Card[]> {
-    return this.store.pipe(select(selectUser)).pipe(
-      switchMap(user => this.customApiService.getCardsByUser(user)),
-      catchError(() => null),
-      filter((res: any) => !!res)
-    );
+  public getAllTopicWithCards() {
+    return this.customApiService.getTopicWithCards();
   }
 
   public getAllStudyCards(): Observable<Card[]> {
-    return this.getAllCards().pipe(map(cards => cards.filter(card => card.isReadyToStudy)));
+    return this.getAllTopicWithCards().pipe(map(topicWithCards => topicWithCards.filter(card => card.isReadyToStudy)));
   }
 
   public getCardsByTopicId(topicId: any): Observable<Card[]> {
@@ -51,7 +47,7 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
+      switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),
       catchError(() => of({ error: 'An error occured while adding a card.' }))
     );
   }
@@ -69,7 +65,7 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
+      switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),
       catchError(() => of({ error: 'An error occured while updating the card.' }))
     );
   }
@@ -103,7 +99,7 @@ export class CardService {
   public deleteCard(cardId: string, pageTopicId = null): Observable<Card[] | ApiError> {
     return of(cardId).pipe(
       switchMap(id => this.deleteCardInAmplify(id)),
-      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
+      switchMap(() => (!!!pageTopicId ? this.getAllTopicWithCards() : this.getCardsByTopicId(pageTopicId))),
       catchError(() => of({ error: 'An error occured while deleting the card' }))
     );
   }
