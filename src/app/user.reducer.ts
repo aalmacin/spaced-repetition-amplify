@@ -3,9 +3,7 @@ import { UserActions, UserActionTypes } from './user.actions';
 
 export type UserState = User;
 
-export const initialState: UserState = {
-  email: ''
-};
+export const initialState: UserState = null;
 
 export function userReducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {

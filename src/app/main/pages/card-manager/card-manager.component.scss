@@ -124,7 +124,7 @@
     %front {
       flex-basis: 40%;
 
-      @include media(desktop) {
+      @include media(tablet) {
         flex-basis: 20%;
       }
     }
@@ -137,7 +137,7 @@
       flex-basis: 10%;
       display: none;
 
-      @include media(desktop) {
+      @include media(tablet) {
         display: inline-block;
       }
     }
@@ -146,7 +146,7 @@
       flex-basis: 5%;
       display: none;
 
-      @include media(desktop) {
+      @include media(tablet) {
         display: inline-block;
       }
     }
@@ -155,7 +155,7 @@
       flex-basis: 10%;
       display: none;
 
-      @include media(desktop) {
+      @include media(tablet) {
         display: inline-block;
       }
     }
@@ -246,7 +246,7 @@
       &__front {
         @extend %front;
 
-        @include media(desktop) {
+        @include media(tablet) {
           text-decoration: none;
         }
 
@@ -261,7 +261,7 @@
       &__back {
         @extend %back;
 
-        @include media(desktop) {
+        @include media(tablet) {
           text-decoration: none;
         }
 

@@ -12,7 +12,7 @@
   .study-page-content {
     width: 100%;
 
-    @include media(desktop) {
+    @include media(tablet) {
       width: 60%;
     }
 

@@ -24,7 +24,7 @@
   &__pages {
     display: none;
 
-    @include media(desktop) {
+    @include media(tablet) {
       display: flex;
       flex-grow: 3;
       align-items: stretch;
@@ -54,7 +54,7 @@
     @include font-size(sm);
     @include margin(md, r);
 
-    @include media(desktop) {
+    @include media(tablet) {
       display: none;
     }
   }
@@ -67,7 +67,7 @@
   }
 
   .mobile-nav-toggler {
-    @include media(desktop) {
+    @include media(tablet) {
       display: none;
     }
   }
@@ -76,7 +76,7 @@
 .mobile-nav {
   display: flex;
 
-  @include media(desktop) {
+  @include media(tablet) {
     display: none;
   }
 

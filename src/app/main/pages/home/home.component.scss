@@ -19,7 +19,7 @@
   min-height: 100vh;
   margin: 0;
 
-  @include media(desktop) {
+  @include media(tablet) {
     @include margin(md, t);
   }
 
@@ -33,7 +33,7 @@
     justify-content: flex-end;
     @include padding(sm);
 
-    @include media(desktop) {
+    @include media(tablet) {
       @include padding(md);
       justify-content: space-between;
     }

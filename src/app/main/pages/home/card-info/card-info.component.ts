@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Card } from '@spaced-repetition/types/card';
 import { AppState } from '@spaced-repetition/reducers';
-import { LoadTopics } from '@spaced-repetition/topic.actions';
 import { Store } from '@ngrx/store';
+import { UpdateCard, DeleteCard } from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-card-info',
@@ -20,44 +19,23 @@ export class CardInfoComponent implements OnInit {
 
   subscriptions = new Subscription();
 
-  loading = false;
-
   errors = [];
   messages = [];
   editFrontMode = false;
   editBackMode = false;
 
-  constructor(public cardService: CardService, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {}
 
   private updateCard({ topicId, front, back }: Partial<Card>) {
-    this.loading = true;
-    this.subscriptions.add(
-      this.cardService.updateCard({ id: this.card.id, topicId, front, back }).subscribe((res: any) => {
-        this.loading = false;
-        this.store.dispatch(new LoadTopics());
-        if (res.error) {
-          this.errors = [res.error];
-        }
-      })
-    );
+    this.store.dispatch(new UpdateCard({ id: this.card.id, topicId, front, back }));
   }
 
   public deleteCard(event: MouseEvent) {
     event.preventDefault();
     if (confirm(`Are you sure you want to delete?`)) {
-      this.loading = true;
-      this.subscriptions.add(
-        this.cardService.deleteCard(this.card.id).subscribe((result: any) => {
-          this.loading = false;
-          if (result.error) {
-            this.errors = [result.error];
-          } else {
-            this.messages = ['Successfully deleted card'];
-          }
-        })
-      );
+      this.store.dispatch(new DeleteCard(this.card.id));
     }
   }
 

@@ -37,6 +37,13 @@ type AddCardPayload = {
   reverseCard: boolean;
 };
 
+type UpdateCardPayload = {
+  id: string;
+  front: string;
+  back: string;
+  topicId: string;
+};
+
 export class AddCard implements Action {
   readonly type = CardActionTypes.AddCard;
 
@@ -53,6 +60,8 @@ export class AddCardFailure implements Action {
 
 export class UpdateCard implements Action {
   readonly type = CardActionTypes.UpdateCard;
+
+  public constructor(public readonly payload: UpdateCardPayload) {}
 }
 
 export class UpdateCardSuccess implements Action {
@@ -65,6 +74,8 @@ export class UpdateCardFailure implements Action {
 
 export class DeleteCard implements Action {
   readonly type = CardActionTypes.DeleteCard;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class DeleteCardSuccess implements Action {

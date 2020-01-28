@@ -24,7 +24,13 @@ import {
   LoadStudyCards,
   AddCard,
   AddCardSuccess,
-  AddCardFailure
+  AddCardFailure,
+  UpdateCard,
+  UpdateCardSuccess,
+  UpdateCardFailure,
+  DeleteCard,
+  DeleteCardSuccess,
+  DeleteCardFailure
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 
@@ -55,6 +61,32 @@ export class AppEffects {
   );
 
   @Effect()
+  updateCard$ = this.actions$.pipe(
+    ofType<UpdateCard>(CardActionTypes.UpdateCard),
+    map(action => action.payload),
+    switchMap(cardValues => {
+      return this.cardService.updateCard(cardValues).pipe(
+        filter(res => res.success),
+        map(() => new UpdateCardSuccess()),
+        catchError(() => of(new UpdateCardFailure()))
+      );
+    })
+  );
+
+  @Effect()
+  deleteCard$ = this.actions$.pipe(
+    ofType<DeleteCard>(CardActionTypes.DeleteCard),
+    map(action => action.payload),
+    switchMap(cardId => {
+      return this.cardService.deleteCard(cardId).pipe(
+        filter(res => res.success),
+        map(() => new DeleteCardSuccess()),
+        catchError(() => of(new DeleteCardFailure()))
+      );
+    })
+  );
+
+  @Effect()
   addTopic$ = this.actions$.pipe(
     ofType(TopicActionTypes.AddTopic),
     switchMap(() =>
@@ -68,8 +100,20 @@ export class AppEffects {
 
   @Effect()
   reloadTopics$ = this.actions$.pipe(
-    ofType(TopicActionTypes.AddTopicSuccess, TopicActionTypes.UpdateTopicSuccess),
+    ofType(
+      TopicActionTypes.AddTopicSuccess,
+      TopicActionTypes.UpdateTopicSuccess,
+      CardActionTypes.AddCardSuccess,
+      CardActionTypes.UpdateCardSuccess,
+      CardActionTypes.DeleteCardSuccess
+    ),
     map(() => new LoadTopics())
+  );
+
+  @Effect()
+  reloadStudyCards$ = this.actions$.pipe(
+    ofType(CardActionTypes.AddCardSuccess, CardActionTypes.UpdateCardSuccess, CardActionTypes.DeleteCardSuccess),
+    map(() => new LoadStudyCards())
   );
 
   @Effect()

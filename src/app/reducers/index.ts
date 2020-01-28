@@ -7,7 +7,7 @@ import { CardState, cardReducer } from '@spaced-repetition/card.reducer';
 
 export interface AppState {
   topics: TopicState;
-  user: UserState;
+  user?: UserState;
   studyCards: CardState;
 }
 

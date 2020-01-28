@@ -1,9 +1,5 @@
 <div class="study-page">
   <div class="study-page-content">
-    <app-loading *ngIf="loading; else study"></app-loading>
+    <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
   </div>
 </div>
-
-<ng-template #study>
-  <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
-</ng-template>

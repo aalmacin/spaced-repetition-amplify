@@ -27,7 +27,7 @@ export class StudyComponent implements OnDestroy {
   loading = true;
   cards: CardVM[] = [];
   subscriptions = new Subscription();
-  scheduledStudy = false;
+  scheduledStudy = true;
 
   constructor(private store: Store<AppState>) {
     this.subscriptions.add(

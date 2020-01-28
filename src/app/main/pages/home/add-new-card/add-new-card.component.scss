@@ -32,7 +32,7 @@
     width: 95%;
     text-align: center;
 
-    @include media(desktop) {
+    @include media(tablet) {
       width: 50%;
     }
   }
@@ -42,7 +42,7 @@
     flex-direction: column;
     width: 95%;
 
-    @include media(desktop) {
+    @include media(tablet) {
       width: 50%;
     }
   }

@@ -6,7 +6,7 @@
   width: 90%;
   min-height: 50vh;
 
-  @include media(desktop) {
+  @include media(tablet) {
     width: 60%;
     min-height: 40vh;
   }
@@ -164,7 +164,7 @@
   justify-content: flex-start;
   max-width: 90%;
 
-  @include media(desktop) {
+  @include media(tablet) {
     max-width: 60%;
   }
 
@@ -261,7 +261,7 @@
   color: getColor(purple);
   width: 90%;
 
-  @include media(desktop) {
+  @include media(tablet) {
     width: 60%;
   }
 
