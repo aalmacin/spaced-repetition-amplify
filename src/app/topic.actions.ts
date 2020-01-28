@@ -7,7 +7,10 @@ export enum TopicActionTypes {
   LoadTopicsFailure = '[Topic] Load Topics Failure',
   AddTopic = '[Topic] Add Topic',
   AddTopicSuccess = '[Topic] Add Topic Success',
-  AddTopicFailure = '[Topic] Add Topic Failure'
+  AddTopicFailure = '[Topic] Add Topic Failure',
+  UpdateTopic = '[Topic] Update Topic',
+  UpdateTopicSuccess = '[Topic] Update Topic Success',
+  UpdateTopicFailure = '[Topic] Update Topic Failure'
 }
 
 export class LoadTopics implements Action {
@@ -36,10 +39,27 @@ export class AddTopicFailure implements Action {
   readonly type = TopicActionTypes.AddTopicFailure;
 }
 
+export class UpdateTopic implements Action {
+  readonly type = TopicActionTypes.UpdateTopic;
+
+  constructor(public readonly payload: { id: string; name: string }) {}
+}
+
+export class UpdateTopicSuccess implements Action {
+  readonly type = TopicActionTypes.UpdateTopicSuccess;
+}
+
+export class UpdateTopicFailure implements Action {
+  readonly type = TopicActionTypes.UpdateTopicFailure;
+}
+
 export type TopicActions =
   | LoadTopics
   | LoadTopicsSuccess
   | LoadTopicsFailure
   | AddTopic
   | AddTopicSuccess
-  | AddTopicFailure;
+  | AddTopicFailure
+  | UpdateTopic
+  | UpdateTopicSuccess
+  | UpdateTopicFailure;

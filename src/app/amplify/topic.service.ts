@@ -46,9 +46,11 @@ export class TopicService {
     if (!name) {
       return of({ success: false, error: 'Name cannot be empty' });
     }
+
     if (!id) {
       return of({ success: false, error: 'Id cannot be empty' });
     }
+
     return from(this.apiService.UpdateTopic({ name, id })).pipe(
       switchMap(topic => of({ success: true, data: topic })),
       catchError(() => of({ success: false, error: 'An error occured while updating topic.' }))

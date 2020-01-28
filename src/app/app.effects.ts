@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppActionTypes } from './app.actions';
-import { switchMap, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map, filter } from 'rxjs/operators';
 import {
   LoadTopics,
   TopicActionTypes,
   LoadTopicsSuccess,
   LoadTopicsFailure,
   AddTopicFailure,
-  AddTopicSuccess
+  AddTopicSuccess,
+  UpdateTopicSuccess,
+  UpdateTopicFailure,
+  UpdateTopic
 } from './topic.actions';
 import { of } from 'rxjs';
 import { UserActionTypes, LoadUserSuccess, LoadUserFailure, LoadUser } from './user.actions';
@@ -24,6 +27,7 @@ export class AppEffects {
     ofType(TopicActionTypes.AddTopic),
     switchMap(() =>
       this.topicService.addTopic('Untitled').pipe(
+        filter(res => res.success),
         map(() => new AddTopicSuccess()),
         catchError(() => of(new AddTopicFailure()))
       )
@@ -33,6 +37,25 @@ export class AppEffects {
   @Effect()
   addTopicSuccess$ = this.actions$.pipe(
     ofType(TopicActionTypes.AddTopicSuccess),
+    map(() => new LoadTopics())
+  );
+
+  @Effect()
+  updateTopic$ = this.actions$.pipe(
+    ofType<UpdateTopic>(TopicActionTypes.UpdateTopic),
+    map(action => action.payload),
+    switchMap(action =>
+      this.topicService.updateTopic(action.id, action.name).pipe(
+        filter(res => res.success),
+        map(() => new UpdateTopicSuccess()),
+        catchError(() => of(new UpdateTopicFailure()))
+      )
+    )
+  );
+
+  @Effect()
+  updateTopicSuccess$ = this.actions$.pipe(
+    ofType(TopicActionTypes.UpdateTopicSuccess),
     map(() => new LoadTopics())
   );
 

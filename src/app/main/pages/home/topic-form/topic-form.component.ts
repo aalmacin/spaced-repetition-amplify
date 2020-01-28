@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Topic } from '@spaced-repetition/types/topic';
-import { TopicService } from '@spaced-repetition/amplify/topic.service';
 import { Subscription } from 'rxjs';
-import { isTopic } from '../topic.func';
+import { AppState } from '@spaced-repetition/reducers';
+import { Store } from '@ngrx/store';
+import { UpdateTopic } from '@spaced-repetition/topic.actions';
 
 @Component({
   selector: 'app-topic-form',
@@ -19,7 +20,7 @@ export class TopicFormComponent implements OnInit, OnDestroy {
 
   topicName = '';
 
-  constructor(private topicService: TopicService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     if (this.topic) {
@@ -37,13 +38,7 @@ export class TopicFormComponent implements OnInit, OnDestroy {
 
   updateTopic(e: any) {
     if (e.target && e.target.value) {
-      this.subscriptions.add(
-        this.topicService.updateTopic(this.topic.id, e.target.value).subscribe(t => {
-          if (isTopic(t)) {
-            this.topicName = t.name;
-          }
-        })
-      );
+      this.store.dispatch(new UpdateTopic({ id: this.topic.id, name: e.target.value }));
     }
   }
 

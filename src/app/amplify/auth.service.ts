@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
 import { defer, Observable } from 'rxjs';
 import { User } from '../types/user';
-import { ApiError } from '@spaced-repetition/types/api-status';
+import { ApiStatus } from '@spaced-repetition/types/api-status';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public getCurrentUser(): Observable<User | null> {
+  public getCurrentUser(): Observable<ApiStatus<User | null>> {
     return defer(async () => this.getCurrentUserFromAmplify());
   }
 
-  public login(email: string, password: string): Observable<ApiError | User | null> {
+  public login(email: string, password: string): Observable<ApiStatus<User | null>> {
     return defer(async () => this.loginToAmplify(email, password));
   }
 
@@ -24,7 +24,7 @@ export class AuthService {
     return defer(async () => this.registerToAmplify(email, password));
   }
 
-  public confirmUser(email: string, code: string): Observable<ApiError | User | null> {
+  public confirmUser(email: string, code: string): Observable<ApiStatus<User | null>> {
     return defer(async () => this.confirmUserInAmplify(email, code));
   }
 
