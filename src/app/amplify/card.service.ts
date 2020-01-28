@@ -4,7 +4,7 @@ import { makeBoxEasier } from '../main/shared/study.func';
 import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
 import { switchMap, filter, catchError, map } from 'rxjs/operators';
-import { ApiError } from '@spaced-repetition/types/api-error';
+import { ApiError } from '@spaced-repetition/types/api-status';
 import { APIService, Box } from '@spaced-repetition/API.service';
 import { CustomApiService } from './custom-api.service';
 import { Store, select } from '@ngrx/store';
@@ -25,7 +25,7 @@ export class CardService {
   }
 
   public getAllStudyCards(): Observable<Card[]> {
-    return this.getAllTopicWithCards().pipe(map(topicWithCards => topicWithCards.filter(card => card.isReadyToStudy)));
+    return this.customApiService.getCardsByUser();
   }
 
   public getCardsByTopicId(topicId: any): Observable<Card[]> {

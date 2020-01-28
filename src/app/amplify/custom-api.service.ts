@@ -51,11 +51,15 @@ export class CustomApiService {
     const statement = `
       query GetStudyCards($userId: String, $limit: Int) {
         studyCards(userId: $userId, limit: $limit) {
-            id
-            front
-            back
-            lastStudy
-            box
+          id
+          front
+          back
+          lastStudy
+          box
+          topicId
+          isReadyToStudy
+          nextStudyDate
+          lastStudyDate 
         }
       }
     `;

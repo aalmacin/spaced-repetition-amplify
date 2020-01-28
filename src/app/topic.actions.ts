@@ -4,7 +4,10 @@ import { TopicWithCards } from './types/topic';
 export enum TopicActionTypes {
   LoadTopics = '[Topic] Load Topics',
   LoadTopicsSuccess = '[Topic] Load Topics Success',
-  LoadTopicsFailure = '[Topic] Load Topics Failure'
+  LoadTopicsFailure = '[Topic] Load Topics Failure',
+  AddTopic = '[Topic] Add Topic',
+  AddTopicSuccess = '[Topic] Add Topic Success',
+  AddTopicFailure = '[Topic] Add Topic Failure'
 }
 
 export class LoadTopics implements Action {
@@ -21,4 +24,22 @@ export class LoadTopicsFailure implements Action {
   readonly type = TopicActionTypes.LoadTopicsFailure;
 }
 
-export type TopicActions = LoadTopics | LoadTopicsSuccess | LoadTopicsFailure;
+export class AddTopic implements Action {
+  readonly type = TopicActionTypes.AddTopic;
+}
+
+export class AddTopicSuccess implements Action {
+  readonly type = TopicActionTypes.AddTopicSuccess;
+}
+
+export class AddTopicFailure implements Action {
+  readonly type = TopicActionTypes.AddTopicFailure;
+}
+
+export type TopicActions =
+  | LoadTopics
+  | LoadTopicsSuccess
+  | LoadTopicsFailure
+  | AddTopic
+  | AddTopicSuccess
+  | AddTopicFailure;

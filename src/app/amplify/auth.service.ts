@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
 import { defer, Observable } from 'rxjs';
 import { User } from '../types/user';
-import { ApiError } from '@spaced-repetition/types/api-error';
+import { ApiError } from '@spaced-repetition/types/api-status';
 
 @Injectable({
   providedIn: 'root'
