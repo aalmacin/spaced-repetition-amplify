@@ -3,12 +3,12 @@ import { Observable, of } from 'rxjs';
 import { makeBoxEasier } from '../main/shared/study.func';
 import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
-import { switchMap, filter, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { APIService, Box } from '@spaced-repetition/API.service';
 import { CustomApiService } from './custom-api.service';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
-import { ApiStatus } from '@spaced-repetition/types/api-status';
+import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,12 @@ export class CardService {
         })
       ),
       map(() => ({ success: true })),
-      catchError(() => of({ success: false, error: 'An error occured while adding a card.' }))
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while adding a card.', type: ApiErrorType.GenericAPIException }
+        })
+      )
     );
   }
 
@@ -55,7 +60,12 @@ export class CardService {
         })
       ),
       map(() => ({ success: true })),
-      catchError(() => of({ success: false, error: 'An error occured while updating the card.' }))
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while updating the card.', type: ApiErrorType.GenericAPIException }
+        })
+      )
     );
   }
 
@@ -69,7 +79,9 @@ export class CardService {
         })
       ),
       map(res => ({ success: true, data: res })),
-      catchError(() => of({ success: false, error: 'Failed to update card.' }))
+      catchError(() =>
+        of({ success: false, error: { message: 'Failed to update card.', type: ApiErrorType.GenericAPIException } })
+      )
     );
   }
 
@@ -83,7 +95,9 @@ export class CardService {
         })
       ),
       map(res => ({ success: true, data: res })),
-      catchError(() => of({ success: false, error: 'Failed to update card.' }))
+      catchError(() =>
+        of({ success: false, error: { message: 'Failed to update card.', type: ApiErrorType.GenericAPIException } })
+      )
     );
   }
 
@@ -91,7 +105,12 @@ export class CardService {
     return of(cardId).pipe(
       switchMap(id => this.deleteCardInAmplify(id)),
       map(() => ({ success: true })),
-      catchError(() => of({ success: false, error: 'An error occured while deleting the card' }))
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while deleting the card', type: ApiErrorType.GenericAPIException }
+        })
+      )
     );
   }
 

@@ -5,6 +5,12 @@ export enum UserActionTypes {
   SignIn = '[User] Sign In',
   SignInSuccess = '[User] Sign In Success',
   SignInFailure = '[User] Sign In Failure',
+  SignUp = '[User] Sign Up',
+  SignUpSuccess = '[User] Sign Up Success',
+  SignUpFailure = '[User] Sign Up Failure',
+  ConfirmUser = '[User] Confirm User',
+  ConfirmUserSuccess = '[User] Confirm User Success',
+  ConfirmUserFailure = '[User] Confirm User Failure',
   SignOut = '[User] Sign Out',
   SignOutFailure = '[User] Sign Out Failure',
   LoadUser = '[User] Load User',
@@ -26,11 +32,44 @@ export class SignIn implements Action {
 export class SignInSuccess implements Action {
   readonly type = UserActionTypes.SignInSuccess;
 
-  public constructor(public readonly payload: string) {}
+  public constructor(public readonly payload: { email: string; confirmed: boolean }) {}
 }
 
 export class SignInFailure implements Action {
   readonly type = UserActionTypes.SignInFailure;
+}
+
+export interface SignUpPayload {
+  email: string;
+  password: string;
+}
+
+export class SignUp implements Action {
+  readonly type = UserActionTypes.SignUp;
+
+  public constructor(public readonly payload: SignUpPayload) {}
+}
+
+export class SignUpSuccess implements Action {
+  readonly type = UserActionTypes.SignUpSuccess;
+
+  public constructor(public readonly payload: User) {}
+}
+
+export class SignUpFailure implements Action {
+  readonly type = UserActionTypes.SignUpFailure;
+}
+
+export class ConfirmUser implements Action {
+  readonly type = UserActionTypes.ConfirmUser;
+}
+
+export class ConfirmUserSuccess implements Action {
+  readonly type = UserActionTypes.ConfirmUserSuccess;
+}
+
+export class ConfirmUserFailure implements Action {
+  readonly type = UserActionTypes.ConfirmUserFailure;
 }
 
 export class SignOut implements Action {
@@ -59,6 +98,12 @@ export type UserActions =
   | SignIn
   | SignInSuccess
   | SignInFailure
+  | SignUp
+  | SignUpSuccess
+  | SignUpFailure
+  | ConfirmUser
+  | ConfirmUserSuccess
+  | ConfirmUserFailure
   | SignOut
   | SignOutFailure
   | LoadUser

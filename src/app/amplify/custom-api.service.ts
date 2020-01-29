@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ModelTopicFilterInput, ListTopicsQuery } from '@spaced-repetition/API.service';
 import { API, graphqlOperation } from 'aws-amplify';
 import { switchMap } from 'rxjs/operators';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
@@ -41,48 +40,6 @@ export class CustomApiService {
     gqlAPIServiceArguments.limit = limit;
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return response.data.studyCards;
-  }
-
-  private async getTopics(
-    filtered?: ModelTopicFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListTopicsQuery> {
-    const statement = `
-      query GetCardsByUser($filter: ModelTopicFilterInput, $limit: Int, $nextToken: String) {
-        listTopics(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            id
-            name
-            user
-            cards(limit: 5000) {
-              items {
-                __typename
-                id
-                front
-                back
-                lastStudy
-                box
-              }
-            }
-          }
-        }
-      }
-    `;
-    const gqlAPIServiceArguments: any = {};
-    if (filtered) {
-      gqlAPIServiceArguments.filter = filtered;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
-    return response.data.listTopics as ListTopicsQuery;
   }
 
   private async topicWithCards(userId: string) {

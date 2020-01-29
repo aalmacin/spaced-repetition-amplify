@@ -1,7 +1,9 @@
 import { Component, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { AmplifyService } from 'aws-amplify-angular';
 import { User } from 'src/app/types/user';
 import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -16,17 +18,19 @@ export class MainComponent implements OnInit, OnDestroy {
   @ViewChild('mobileNavToggler')
   private mobileNav: ElementRef;
 
-  // TODO: Check if this can be replaced by ngrx
-  constructor(private amplifyService: AmplifyService) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
     this.subscriptions.add(
-      this.amplifyService.authStateChange$.subscribe(authState => {
-        this.signedIn = authState.state === 'signedIn';
-        if (!authState.user) {
-          this.user = null;
-        } else {
-          this.user = authState.user.attributes;
+      this.store.pipe(select(selectUser)).subscribe(user => {
+        if (user && !user.confirmed) {
+          this.router.navigate(['/auth', 'confirm']);
+        }
+        if (!user) {
+          this.router.navigate(['/auth', 'signin']);
+        }
+        if (user && user.confirmed) {
+          this.user = user;
         }
       })
     );

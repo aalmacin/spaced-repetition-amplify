@@ -23,7 +23,10 @@ import {
   SignOutFailure,
   SignIn,
   SignInFailure,
-  SignInSuccess
+  SignInSuccess,
+  SignUp,
+  SignUpSuccess,
+  SignUpFailure
 } from './user.actions';
 import { AuthService } from './amplify/auth.service';
 import { CardService } from './amplify/card.service';
@@ -51,6 +54,7 @@ import {
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { Router } from '@angular/router';
+import { ApiErrorType, ApiStatus } from './types/api-status';
 
 @Injectable()
 export class AppEffects {
@@ -229,7 +233,15 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(({ email, password }) =>
       this.authService.login(email, password).pipe(
-        switchMap(res => [new SignInSuccess(res.data.email)]),
+        map(res => {
+          if (res.success) {
+            return new SignInSuccess({ email: res.data.email, confirmed: true });
+          }
+          if (res.error && res.error.type === ApiErrorType.UserNotConfirmedException) {
+            return new SignInSuccess({ email, confirmed: false });
+          }
+          return new SignInFailure();
+        }),
         catchError(() => of(new SignInFailure()))
       )
     )
@@ -239,6 +251,19 @@ export class AppEffects {
   signInSuccess$ = this.actions$.pipe(
     ofType(UserActionTypes.SignInSuccess),
     switchMap(() => [new LoadApplication()])
+  );
+
+  @Effect()
+  signUp$ = this.actions$.pipe(
+    ofType<SignUp>(UserActionTypes.SignUp),
+    map(action => action.payload),
+    switchMap(payload =>
+      this.authService.register(payload).pipe(
+        filter(res => res.success),
+        switchMap(res => [new SignUpSuccess(res.data)]),
+        catchError(() => of(new SignUpFailure()))
+      )
+    )
   );
 
   @Effect()

@@ -12,6 +12,9 @@
           >Study Now</a
         >
       </div>
+      <div class="app-link" *ngIf="!loggedIn">
+        <a alLink class="nav-list__link" [routerLink]="['/auth', 'signup']">Register</a>
+      </div>
       <div *ngIf="loggedIn; else signIn" class="nav-sign-out">
         <app-auth-sign-out></app-auth-sign-out>
       </div>
