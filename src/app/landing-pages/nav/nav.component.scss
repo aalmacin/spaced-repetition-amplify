@@ -1,6 +1,12 @@
 @import 'framework.scss';
 
 .app-links {
+  display: block;
+
+  @include media(tablet) {
+    display: inline-block;
+  }
+
   .app-link {
     display: inline-block;
     @include margin(md, r);
@@ -38,14 +44,22 @@
 
   .nav-displayed {
     background-color: getColor(white);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     position: fixed;
     width: 100vw;
     top: 0;
     left: 0;
     z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    @include media(tablet) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+    }
 
     &__header {
       display: inline-block;

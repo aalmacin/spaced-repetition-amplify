@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppState } from '@spaced-repetition/reducers';
 import { Store } from '@ngrx/store';
@@ -15,11 +15,9 @@ export class AddNewCardComponent implements OnInit {
   messages = [];
   subscriptions = new Subscription();
 
-  public addCardForm = this.fb.group({
-    front: ['', Validators.required],
-    back: ['', Validators.required],
+  mainForm = this.fb.group({
     topicId: ['', Validators.required],
-    reverseCard: [false]
+    cards: this.fb.array([this.createAddCardForm()])
   });
 
   @Output()
@@ -28,24 +26,46 @@ export class AddNewCardComponent implements OnInit {
   constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.addCardForm.reset({ topicId: '', front: '', back: '' });
+    this.mainForm.reset();
   }
 
   public addNewCard() {
-    if (this.addCardForm.status === 'VALID') {
-      const cardValues = { ...this.addCardForm.value };
-      this.store.dispatch(new AddCard(cardValues));
+    if (this.mainForm.status === 'VALID') {
+      const mainFormValue = this.mainForm.value;
+      mainFormValue.cards.forEach(addCardForm => {
+        const cardValues = { ...addCardForm, topicId: mainFormValue.topicId };
+        this.store.dispatch(new AddCard(cardValues));
+      });
+      this.mainForm.reset();
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }
   }
 
   changeTopic(topicId) {
-    const control = this.addCardForm.get('topicId');
+    const control = this.mainForm.get('topicId');
     control.setValue(topicId);
   }
 
   closeCard() {
     this.closeModal.emit(true);
+  }
+
+  moreCard(e) {
+    const control = this.mainForm.get('cards') as FormArray;
+    control.push(this.createAddCardForm());
+    e.preventDefault();
+  }
+
+  get cardForms() {
+    return (this.mainForm.get('cards') as FormArray).controls;
+  }
+
+  private createAddCardForm() {
+    return this.fb.group({
+      front: ['', Validators.required],
+      back: ['', Validators.required],
+      reverseCard: [false]
+    });
   }
 }

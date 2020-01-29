@@ -65,7 +65,7 @@
     color: getColor(black);
     text-transform: uppercase;
     border-radius: 0.5rem;
-    border: 0.1rem solid getColor(black);
+    border: 0.1rem solid getColor(gray);
 
     &:hover {
       background-color: getColor(gray-light);

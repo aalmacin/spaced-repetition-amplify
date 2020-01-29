@@ -91,3 +91,30 @@
     }
   }
 }
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 48vh;
+
+  &__form {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    @include margin(md, tb);
+
+    .cards__form-input-container {
+      flex-basis: 100%;
+      @include margin(md, lr);
+    }
+  }
+
+  .reverse-card-label {
+    @include margin(sm, l);
+  }
+}
+
+.more-cards {
+  @include margin(sm, tb);
+}
