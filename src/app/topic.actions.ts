@@ -10,7 +10,8 @@ export enum TopicActionTypes {
   AddTopicFailure = '[Topic] Add Topic Failure',
   UpdateTopic = '[Topic] Update Topic',
   UpdateTopicSuccess = '[Topic] Update Topic Success',
-  UpdateTopicFailure = '[Topic] Update Topic Failure'
+  UpdateTopicFailure = '[Topic] Update Topic Failure',
+  ResetTopicWithCards = '[Topic] Reset Topic With Cards'
 }
 
 export class LoadTopics implements Action {
@@ -53,6 +54,10 @@ export class UpdateTopicFailure implements Action {
   readonly type = TopicActionTypes.UpdateTopicFailure;
 }
 
+export class ResetTopicWithCards implements Action {
+  readonly type = TopicActionTypes.ResetTopicWithCards;
+}
+
 export type TopicActions =
   | LoadTopics
   | LoadTopicsSuccess
@@ -62,4 +67,5 @@ export type TopicActions =
   | AddTopicFailure
   | UpdateTopic
   | UpdateTopicSuccess
-  | UpdateTopicFailure;
+  | UpdateTopicFailure
+  | ResetTopicWithCards;

@@ -8,7 +8,11 @@ export const initialState: UserState = null;
 export function userReducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
     case UserActionTypes.LoadUserSuccess:
-      return { ...action.payload };
+      return { ...state, ...action.payload };
+    case UserActionTypes.SignInSuccess:
+      return { ...state, email: action.payload };
+    case UserActionTypes.SignOut:
+      return null;
     default:
       return state;
   }

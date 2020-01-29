@@ -9,6 +9,8 @@ export function cardReducer(state = initialState, action: CardActions): CardStat
   switch (action.type) {
     case CardActionTypes.LoadStudyCardsSuccess:
       return [...action.payload];
+    case CardActionTypes.ResetStudyCards:
+      return [];
     default:
       return state;
   }

@@ -19,7 +19,8 @@ export enum CardActionTypes {
   UpdateCardToEasyFailure = '[Card] Update Card To Easy Failure',
   UpdateCardToHard = '[Card] Update Card To Hard',
   UpdateCardToHardSuccess = '[Card] Update Card To Hard Success',
-  UpdateCardToHardFailure = '[Card] Update Card To Hard Failure'
+  UpdateCardToHardFailure = '[Card] Update Card To Hard Failure',
+  ResetStudyCards = '[Card] Reset Study Cards'
 }
 
 export class LoadStudyCards implements Action {
@@ -123,6 +124,10 @@ export class UpdateCardToHardFailure implements Action {
   readonly type = CardActionTypes.UpdateCardToHardFailure;
 }
 
+export class ResetStudyCards implements Action {
+  readonly type = CardActionTypes.ResetStudyCards;
+}
+
 export type CardActions =
   | LoadStudyCards
   | LoadStudyCardsSuccess
@@ -138,4 +143,5 @@ export type CardActions =
   | UpdateCardToEasyFailure
   | UpdateCardToHard
   | UpdateCardToHardSuccess
-  | UpdateCardToHardFailure;
+  | UpdateCardToHardFailure
+  | ResetStudyCards;

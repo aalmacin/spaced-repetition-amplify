@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { AppActionTypes } from './app.actions';
-import { switchMap, catchError, map, filter } from 'rxjs/operators';
+import { AppActionTypes, LoadApplication } from './app.actions';
+import { switchMap, catchError, map, filter, tap } from 'rxjs/operators';
 import {
   LoadTopics,
   TopicActionTypes,
@@ -11,10 +11,20 @@ import {
   AddTopicSuccess,
   UpdateTopicSuccess,
   UpdateTopicFailure,
-  UpdateTopic
+  UpdateTopic,
+  ResetTopicWithCards
 } from './topic.actions';
 import { of, combineLatest } from 'rxjs';
-import { UserActionTypes, LoadUserSuccess, LoadUserFailure, LoadUser } from './user.actions';
+import {
+  UserActionTypes,
+  LoadUserSuccess,
+  LoadUserFailure,
+  LoadUser,
+  SignOutFailure,
+  SignIn,
+  SignInFailure,
+  SignInSuccess
+} from './user.actions';
 import { AuthService } from './amplify/auth.service';
 import { CardService } from './amplify/card.service';
 import {
@@ -36,9 +46,11 @@ import {
   UpdateCardToEasyFailure,
   UpdateCardToHard,
   UpdateCardToHardSuccess,
-  UpdateCardToHardFailure
+  UpdateCardToHardFailure,
+  ResetStudyCards
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AppEffects {
@@ -210,6 +222,36 @@ export class AppEffects {
     ofType(UserActionTypes.LoadUserSuccess),
     switchMap(() => [new LoadTopics(), new LoadStudyCards()])
   );
+
+  @Effect()
+  signIn$ = this.actions$.pipe(
+    ofType<SignIn>(UserActionTypes.SignIn),
+    map(action => action.payload),
+    switchMap(({ email, password }) =>
+      this.authService.login(email, password).pipe(
+        switchMap(res => [new SignInSuccess(res.data.email)]),
+        catchError(() => of(new SignInFailure()))
+      )
+    )
+  );
+
+  @Effect()
+  signInSuccess$ = this.actions$.pipe(
+    ofType(UserActionTypes.SignInSuccess),
+    switchMap(() => [new LoadApplication()])
+  );
+
+  @Effect()
+  signOut$ = this.actions$.pipe(
+    ofType(UserActionTypes.SignOut),
+    switchMap(() =>
+      this.authService.logOut().pipe(
+        switchMap(() => [new ResetStudyCards(), new ResetTopicWithCards()]),
+        catchError(() => of(new SignOutFailure()))
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private topicService: TopicService,

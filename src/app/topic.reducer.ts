@@ -9,6 +9,8 @@ export function topicReducer(state = initialState, action: TopicActions): TopicS
   switch (action.type) {
     case TopicActionTypes.LoadTopicsSuccess:
       return action.payload;
+    case TopicActionTypes.ResetTopicWithCards:
+      return [];
     default:
       return state;
   }
