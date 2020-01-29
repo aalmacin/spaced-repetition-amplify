@@ -13,7 +13,13 @@ export enum CardActionTypes {
   UpdateCardFailure = '[Card] Update Card Failure',
   DeleteCard = '[Card] Delete Card',
   DeleteCardSuccess = '[Card] Delete Card Success',
-  DeleteCardFailure = '[Card] Delete Card Failure'
+  DeleteCardFailure = '[Card] Delete Card Failure',
+  UpdateCardToEasy = '[Card] Update Card To Easy',
+  UpdateCardToEasySuccess = '[Card] Update Card To Easy Success',
+  UpdateCardToEasyFailure = '[Card] Update Card To Easy Failure',
+  UpdateCardToHard = '[Card] Update Card To Hard',
+  UpdateCardToHardSuccess = '[Card] Update Card To Hard Success',
+  UpdateCardToHardFailure = '[Card] Update Card To Hard Failure'
 }
 
 export class LoadStudyCards implements Action {
@@ -86,6 +92,37 @@ export class DeleteCardFailure implements Action {
   readonly type = CardActionTypes.DeleteCardFailure;
 }
 
+export class UpdateCardToEasy implements Action {
+  readonly type = CardActionTypes.UpdateCardToEasy;
+
+  public constructor(public readonly payload: Card) {}
+}
+
+export class UpdateCardToEasySuccess implements Action {
+  readonly type = CardActionTypes.UpdateCardToEasySuccess;
+
+  public constructor(public readonly payload: Partial<Card>) {}
+}
+
+export class UpdateCardToEasyFailure implements Action {
+  readonly type = CardActionTypes.UpdateCardToEasyFailure;
+}
+
+export class UpdateCardToHard implements Action {
+  readonly type = CardActionTypes.UpdateCardToHard;
+
+  public constructor(public readonly payload: Card) {}
+}
+
+export class UpdateCardToHardSuccess implements Action {
+  readonly type = CardActionTypes.UpdateCardToHardSuccess;
+  public constructor(public readonly payload: Partial<Card>) {}
+}
+
+export class UpdateCardToHardFailure implements Action {
+  readonly type = CardActionTypes.UpdateCardToHardFailure;
+}
+
 export type CardActions =
   | LoadStudyCards
   | LoadStudyCardsSuccess
@@ -95,4 +132,10 @@ export type CardActions =
   | AddCardFailure
   | UpdateCard
   | UpdateCardSuccess
-  | UpdateCardFailure;
+  | UpdateCardFailure
+  | UpdateCardToEasy
+  | UpdateCardToEasySuccess
+  | UpdateCardToEasyFailure
+  | UpdateCardToHard
+  | UpdateCardToHardSuccess
+  | UpdateCardToHardFailure;

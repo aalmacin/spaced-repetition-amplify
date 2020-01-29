@@ -30,12 +30,44 @@ import {
   UpdateCardFailure,
   DeleteCard,
   DeleteCardSuccess,
-  DeleteCardFailure
+  DeleteCardFailure,
+  UpdateCardToEasy,
+  UpdateCardToEasySuccess,
+  UpdateCardToEasyFailure,
+  UpdateCardToHard,
+  UpdateCardToHardSuccess,
+  UpdateCardToHardFailure
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 
 @Injectable()
 export class AppEffects {
+  @Effect()
+  updateCardToEasy$ = this.actions$.pipe(
+    ofType<UpdateCardToEasy>(CardActionTypes.UpdateCardToEasy),
+    map(action => action.payload),
+    switchMap(cardValues => {
+      return this.cardService.updateCardToEasy(cardValues).pipe(
+        filter(res => res.success),
+        map(res => new UpdateCardToEasySuccess(res.data)),
+        catchError(() => of(new UpdateCardToEasyFailure()))
+      );
+    })
+  );
+
+  @Effect()
+  updateCardToHard$ = this.actions$.pipe(
+    ofType<UpdateCardToHard>(CardActionTypes.UpdateCardToHard),
+    map(action => action.payload),
+    switchMap(cardValues => {
+      return this.cardService.updateCardToHard(cardValues).pipe(
+        filter(res => res.success),
+        map(res => new UpdateCardToHardSuccess(res.data)),
+        catchError(() => of(new UpdateCardToHardFailure()))
+      );
+    })
+  );
+
   @Effect()
   addCard$ = this.actions$.pipe(
     ofType<AddCard>(CardActionTypes.AddCard),

@@ -59,7 +59,7 @@ export class CardService {
     );
   }
 
-  public updateCardToEasy(card: Card) {
+  public updateCardToEasy(card: Card): Observable<ApiStatus<Partial<Card>>> {
     return of(card).pipe(
       switchMap(({ id, box }) =>
         this.apiService.UpdateCard({
@@ -68,11 +68,12 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      catchError(() => of({ error: 'Failed to update card.' }))
+      map(res => ({ success: true, data: res })),
+      catchError(() => of({ success: false, error: 'Failed to update card.' }))
     );
   }
 
-  public updateCardToHard(card: Card) {
+  public updateCardToHard(card: Card): Observable<ApiStatus<Partial<Card>>> {
     return of(card).pipe(
       switchMap(({ id }) =>
         this.apiService.UpdateCard({
@@ -81,7 +82,8 @@ export class CardService {
           lastStudy: getCurrentTimestamp()
         })
       ),
-      catchError(() => of({ error: 'Failed to update card.' }))
+      map(res => ({ success: true, data: res })),
+      catchError(() => of({ success: false, error: 'Failed to update card.' }))
     );
   }
 

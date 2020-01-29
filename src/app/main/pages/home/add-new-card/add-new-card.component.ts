@@ -26,7 +26,7 @@ export class AddNewCardComponent implements OnInit {
   @Output()
   closeModal = new EventEmitter();
 
-  constructor(private store: Store<AppState>, private cardService: CardService, private fb: FormBuilder) {}
+  constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.addCardForm.reset({ topicId: '', front: '', back: '' });
