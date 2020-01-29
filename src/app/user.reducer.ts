@@ -8,9 +8,11 @@ export const initialState: UserState = null;
 export function userReducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
     case UserActionTypes.LoadUserSuccess:
-      return { ...state, ...action.payload };
+      return { ...state, email: action.payload.email, confirmed: action.payload.confirmed };
     case UserActionTypes.SignUpSuccess:
-      return { ...state, ...action.payload };
+      return { ...state, email: action.payload.email, confirmed: action.payload.confirmed };
+    case UserActionTypes.SignInSuccess:
+      return { ...state, email: action.payload.email, confirmed: action.payload.confirmed };
     case UserActionTypes.SignInSuccess:
       return { ...state, email: action.payload.email, confirmed: action.payload.confirmed };
     case UserActionTypes.SignOut:

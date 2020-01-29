@@ -60,8 +60,15 @@ export class SignUpFailure implements Action {
   readonly type = UserActionTypes.SignUpFailure;
 }
 
+export interface ConfirmUserPayload {
+  email: string;
+  code: string;
+}
+
 export class ConfirmUser implements Action {
   readonly type = UserActionTypes.ConfirmUser;
+
+  public constructor(public readonly payload: ConfirmUserPayload) {}
 }
 
 export class ConfirmUserSuccess implements Action {

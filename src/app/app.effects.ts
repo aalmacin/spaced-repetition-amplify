@@ -26,7 +26,10 @@ import {
   SignInSuccess,
   SignUp,
   SignUpSuccess,
-  SignUpFailure
+  SignUpFailure,
+  ConfirmUser,
+  ConfirmUserSuccess,
+  ConfirmUserFailure
 } from './user.actions';
 import { AuthService } from './amplify/auth.service';
 import { CardService } from './amplify/card.service';
@@ -53,8 +56,7 @@ import {
   ResetStudyCards
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
-import { Router } from '@angular/router';
-import { ApiErrorType, ApiStatus } from './types/api-status';
+import { ApiErrorType } from './types/api-status';
 
 @Injectable()
 export class AppEffects {
@@ -179,7 +181,7 @@ export class AppEffects {
 
   @Effect()
   loadApplication$ = this.actions$.pipe(
-    ofType(AppActionTypes.LoadApplication),
+    ofType(AppActionTypes.LoadApplication, UserActionTypes.ConfirmUserSuccess),
     map(() => new LoadUser())
   );
 
@@ -251,6 +253,18 @@ export class AppEffects {
   signInSuccess$ = this.actions$.pipe(
     ofType(UserActionTypes.SignInSuccess),
     switchMap(() => [new LoadApplication()])
+  );
+
+  @Effect()
+  confirmUser$ = this.actions$.pipe(
+    ofType<ConfirmUser>(UserActionTypes.ConfirmUser),
+    map(action => action.payload),
+    switchMap(({ email, code }) =>
+      this.authService.confirmUser(email, code).pipe(
+        map(() => new ConfirmUserSuccess()),
+        catchError(() => of(new ConfirmUserFailure()))
+      )
+    )
   );
 
   @Effect()

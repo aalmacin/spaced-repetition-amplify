@@ -12,7 +12,10 @@ import { SignUpPayload } from '@spaced-repetition/user.actions';
 export class AuthService {
   public getCurrentUser(): Observable<ApiStatus<User>> {
     return from(Auth.currentAuthenticatedUser()).pipe(
-      map(user => ({ data: { email: user.attributes.email, confirmed: user.userConfirmed }, success: true })),
+      map(user => ({
+        data: { email: user.attributes.email, confirmed: user.attributes.email_verified },
+        success: true
+      })),
       catchError(error =>
         of({
           success: false,
