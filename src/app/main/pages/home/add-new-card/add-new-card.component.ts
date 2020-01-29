@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import { CardService } from '@spaced-repetition/amplify/card.service';
 import { Subscription } from 'rxjs';
 import { AppState } from '@spaced-repetition/reducers';
 import { Store } from '@ngrx/store';

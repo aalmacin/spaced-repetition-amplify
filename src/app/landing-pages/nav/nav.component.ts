@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthService } from '@spaced-repetition/amplify/auth.service';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';

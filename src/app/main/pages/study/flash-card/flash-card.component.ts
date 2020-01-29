@@ -1,10 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { CardService } from '@spaced-repetition/amplify/card.service';
 import { CardVM, CardResult } from '../study.component';
 import { Subscription } from 'rxjs';
-import { shuffle } from 'lodash';
-import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
-import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
 import { Store } from '@ngrx/store';
 import { AppState } from '@spaced-repetition/reducers';
 import { UpdateCardToEasy, UpdateCardToHard, LoadStudyCards } from '@spaced-repetition/card.actions';
