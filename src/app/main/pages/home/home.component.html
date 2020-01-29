@@ -18,6 +18,10 @@
           </button>
           <app-add-new-card *ngIf="addNewCard" (closeModal)="closeAddNewCardModal()"></app-add-new-card>
         </div>
+        <div class="topics-section__search">
+          <input class="topics-section__search-input" #searchInput />
+          <button alBtn="plain" (click)="searchCards(searchInput.value)">Search</button>
+        </div>
         <al-accordion *ngFor="let topic of topicWithCards" [expanded]="topic.name === 'Untitled'">
           <al-accordion-header>
             {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cards.length }})

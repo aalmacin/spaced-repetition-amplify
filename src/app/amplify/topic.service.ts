@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap, filter, catchError } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { Observable, of, from } from 'rxjs';
 import { Topic } from '@spaced-repetition/types/topic';
 import { APIService } from '@spaced-repetition/API.service';
@@ -18,17 +18,8 @@ export class TopicService {
     private store: Store<AppState>
   ) {}
 
-  public getTopics(): Observable<Topic[]> {
-    return this.store.pipe(select(selectUser)).pipe(
-      switchMap(user => this.customApiService.getCardsByUser()),
-      filter((res: any) => res && res.items),
-      map((res: any) =>
-        res.items.map(item => ({
-          id: item.id,
-          name: item.name
-        }))
-      )
-    );
+  filterCards(filter: string) {
+    return this.customApiService.filterCards(filter);
   }
 
   public addTopic(name: string): Observable<ApiStatus<Topic>> {

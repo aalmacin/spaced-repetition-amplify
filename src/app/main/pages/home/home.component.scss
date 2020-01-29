@@ -75,6 +75,17 @@
         justify-content: space-between;
       }
 
+      &__search {
+        display: flex;
+        @include margin(md, t);
+
+        &-input {
+          width: 100%;
+          @include margin(sm, r);
+          @include font-size();
+        }
+      }
+
       .topics-section-heading {
         display: flex;
         justify-content: center;

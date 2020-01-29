@@ -6,7 +6,7 @@ import { AppState, selectUser, selectTopicWithCards, selectReadyToStudyCards } f
 import { Store, select } from '@ngrx/store';
 import { KEY_ESCAPE } from '@spaced-repetition/app.constants';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
-import { AddTopic } from '@spaced-repetition/topic.actions';
+import { AddTopic, FilterCards } from '@spaced-repetition/topic.actions';
 
 @Component({
   selector: 'app-home',
@@ -64,5 +64,9 @@ export class HomeComponent implements OnDestroy {
 
   closeAddNewCardModal() {
     this.addNewCard = false;
+  }
+
+  searchCards(searchStr: string) {
+    this.store.dispatch(new FilterCards(searchStr));
   }
 }

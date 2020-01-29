@@ -11,7 +11,10 @@ export enum TopicActionTypes {
   UpdateTopic = '[Topic] Update Topic',
   UpdateTopicSuccess = '[Topic] Update Topic Success',
   UpdateTopicFailure = '[Topic] Update Topic Failure',
-  ResetTopicWithCards = '[Topic] Reset Topic With Cards'
+  ResetTopicWithCards = '[Topic] Reset Topic With Cards',
+  FilterCards = '[Topic] Filter Cards',
+  FilterCardsSuccess = '[Topic] Filter Cards Success',
+  FilterCardsFailure = '[Topic] Filter Cards Failure'
 }
 
 export class LoadTopics implements Action {
@@ -58,6 +61,22 @@ export class ResetTopicWithCards implements Action {
   readonly type = TopicActionTypes.ResetTopicWithCards;
 }
 
+export class FilterCards implements Action {
+  readonly type = TopicActionTypes.FilterCards;
+
+  constructor(public readonly payload: string) {}
+}
+
+export class FilterCardsSuccess implements Action {
+  readonly type = TopicActionTypes.FilterCardsSuccess;
+
+  constructor(public readonly payload: TopicWithCards[]) {}
+}
+
+export class FilterCardsFailure implements Action {
+  readonly type = TopicActionTypes.FilterCardsFailure;
+}
+
 export type TopicActions =
   | LoadTopics
   | LoadTopicsSuccess
@@ -68,4 +87,7 @@ export type TopicActions =
   | UpdateTopic
   | UpdateTopicSuccess
   | UpdateTopicFailure
-  | ResetTopicWithCards;
+  | ResetTopicWithCards
+  | FilterCards
+  | FilterCardsSuccess
+  | FilterCardsFailure;

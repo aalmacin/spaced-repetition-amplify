@@ -8,7 +8,9 @@ export const initialState: TopicState = [];
 export function topicReducer(state = initialState, action: TopicActions): TopicState {
   switch (action.type) {
     case TopicActionTypes.LoadTopicsSuccess:
-      return action.payload;
+      return [...action.payload];
+    case TopicActionTypes.FilterCardsSuccess:
+      return [...action.payload];
     case TopicActionTypes.ResetTopicWithCards:
       return [];
     default:

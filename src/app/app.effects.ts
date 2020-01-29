@@ -12,7 +12,10 @@ import {
   UpdateTopicSuccess,
   UpdateTopicFailure,
   UpdateTopic,
-  ResetTopicWithCards
+  ResetTopicWithCards,
+  FilterCards,
+  FilterCardsSuccess,
+  FilterCardsFailure
 } from './topic.actions';
 import { of, combineLatest } from 'rxjs';
 import {
@@ -192,6 +195,18 @@ export class AppEffects {
       this.cardService.getAllTopicWithCards().pipe(
         map(res => new LoadTopicsSuccess(res)),
         catchError(() => of(new LoadTopicsFailure()))
+      )
+    )
+  );
+
+  @Effect()
+  filterCards$ = this.actions$.pipe(
+    ofType<FilterCards>(TopicActionTypes.FilterCards),
+    map(action => action.payload),
+    switchMap(searchStr =>
+      this.topicService.filterCards(searchStr).pipe(
+        map(res => new LoadTopicsSuccess(res)),
+        catchError(() => of(new FilterCardsFailure()))
       )
     )
   );
