@@ -50,63 +50,94 @@
   &__content {
     width: 95%;
     margin: 0 auto;
+    @include padding(lg, t);
 
-    @include media(desktop) {
-      width: 40%;
-    }
-
-    .accordion {
+    .topics-section {
       display: flex;
       flex-direction: column;
 
-      .study-cards-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        @include margin(md, tb);
-      }
-
-      .accordion-card {
-        display: flex;
-        flex-direction: column;
-
-        @include padding(lg);
-      }
-    }
-
-    .topics-section {
-      @include padding(md, t);
-
-      .topics-header {
-        display: flex;
+      @include media(desktop) {
+        flex-direction: row-reverse;
         justify-content: space-between;
       }
 
-      &__search {
-        display: flex;
-        @include margin(md, t);
+      .sidebar {
+        @include media(desktop) {
+          flex-basis: 30%;
+          @include margin(lg, l);
+          @include padding(lg, l);
+          border-left: 1px solid getColor(blue-green-line);
+        }
 
-        &-input {
-          width: 100%;
-          @include margin(sm, r);
-          @include font-size();
+        .topics-header {
+          @include padding(md, t);
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .topics-section__search {
+          display: flex;
+          @include margin(md, t);
+
+          &-input {
+            width: 100%;
+            @include margin(sm, r);
+            @include font-size();
+          }
         }
       }
+    }
 
-      .topics-section-heading {
+    .accordion-container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+
+      .accordion {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid getColor(blue-green-line);
-        @include margin(lg, t);
+        flex-direction: column;
 
-        .create-topic {
+        .heading-desktop {
+          display: none;
+
+          @include media(desktop) {
+            display: block;
+          }
+        }
+
+        @include media(desktop) {
+          width: 65%;
+        }
+
+        .study-cards-container {
           display: flex;
-          width: 100%;
+          align-items: center;
+          justify-content: center;
+          @include margin(md, tb);
+        }
 
-          .create-topic-button {
-            flex-basis: 100%;
-            flex-grow: 2;
+        .accordion-card {
+          display: flex;
+          flex-direction: column;
+
+          @include padding(lg);
+        }
+
+        .topics-section-heading {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-bottom: 1px solid getColor(blue-green-line);
+          @include margin(lg, t);
+
+          .create-topic {
+            display: flex;
+            width: 100%;
+
+            .create-topic-button {
+              flex-basis: 100%;
+              flex-grow: 2;
+            }
           }
         }
       }
