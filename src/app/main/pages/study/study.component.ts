@@ -7,7 +7,7 @@ import { getCurrentTimestamp, getDateFromTimestamp } from '@spaced-repetition/ma
 import { Store, select } from '@ngrx/store';
 import { AppState, selectReadyToStudyCards, selectStudyCards } from '@spaced-repetition/reducers';
 import { ActivatedRoute } from '@angular/router';
-import { LoadStudyCardsForTopic } from '@spaced-repetition/card.actions';
+import { LoadStudyCardsForTopic, LoadStudyCards } from '@spaced-repetition/card.actions';
 
 export enum CardResult {
   EASY = 'easy',
@@ -37,10 +37,10 @@ export class StudyComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.router.queryParams.subscribe(params => {
         if (params.topicId) {
-          this.store.dispatch(new LoadStudyCardsForTopic(params.topicId));
           this.scheduledStudy = false;
           this.topicId = params.topicId;
         }
+        this.store.dispatch(this.topicId ? new LoadStudyCardsForTopic(this.topicId) : new LoadStudyCards());
 
         const selector = this.topicId ? selectStudyCards : selectReadyToStudyCards;
         this.subscriptions.add(

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnDestroy, HostListener, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '@spaced-repetition/types/user';
 import { Card } from '@spaced-repetition/types/card';
