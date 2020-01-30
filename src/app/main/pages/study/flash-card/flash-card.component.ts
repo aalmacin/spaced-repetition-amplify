@@ -3,7 +3,12 @@ import { CardVM, CardResult } from '../study.component';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@spaced-repetition/reducers';
-import { UpdateCardToEasy, UpdateCardToHard, LoadStudyCards } from '@spaced-repetition/card.actions';
+import {
+  UpdateCardToEasy,
+  UpdateCardToHard,
+  LoadStudyCards,
+  LoadStudyCardsForTopic
+} from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-flash-card',
@@ -26,6 +31,9 @@ export class FlashCardComponent {
   scheduledStudy = false;
 
   @Input()
+  topicId?: string = null;
+
+  @Input()
   cards: CardVM[] = [];
   resultCard: CardVM;
 
@@ -35,7 +43,9 @@ export class FlashCardComponent {
   constructor(private store: Store<AppState>, private renderer: Renderer2) {}
 
   public easierCard() {
-    this.store.dispatch(new UpdateCardToEasy(this.currentCard));
+    if (this.scheduledStudy) {
+      this.store.dispatch(new UpdateCardToEasy(this.currentCard));
+    }
     this.cards[this.currentCardIndex] = {
       ...this.currentCard,
       result: CardResult.EASY
@@ -107,7 +117,12 @@ export class FlashCardComponent {
   }
 
   public startHardCards() {
-    this.store.dispatch(new LoadStudyCards());
+    if (!this.scheduledStudy && this.topicId) {
+      alert('here');
+      this.store.dispatch(new LoadStudyCardsForTopic(this.topicId));
+    } else {
+      this.store.dispatch(new LoadStudyCards());
+    }
     this.currentCardIndex = 0;
     this.showBack = false;
     this.saved = false;

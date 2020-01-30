@@ -5,6 +5,9 @@ export enum CardActionTypes {
   LoadStudyCards = '[Card] Load Study Cards',
   LoadStudyCardsSuccess = '[Card] Load Study Cards Success',
   LoadStudyCardsFailure = '[Card] Load Study Cards Failure',
+  LoadStudyCardsForTopic = '[Card] Load Study Cards For Topic',
+  LoadStudyCardsForTopicSuccess = '[Card] Load Study Cards For Topic Success',
+  LoadStudyCardsForTopicFailure = '[Card] Load Study Cards For Topic Failure',
   AddCard = '[Card] Add Card',
   AddCardSuccess = '[Card] Add Card Success',
   AddCardFailure = '[Card] Add Card Failure',
@@ -35,6 +38,22 @@ export class LoadStudyCardsSuccess implements Action {
 
 export class LoadStudyCardsFailure implements Action {
   readonly type = CardActionTypes.LoadStudyCardsFailure;
+}
+
+export class LoadStudyCardsForTopic implements Action {
+  readonly type = CardActionTypes.LoadStudyCardsForTopic;
+
+  public constructor(public payload: string) {}
+}
+
+export class LoadStudyCardsForTopicSuccess implements Action {
+  readonly type = CardActionTypes.LoadStudyCardsForTopicSuccess;
+
+  public constructor(public payload: Card[]) {}
+}
+
+export class LoadStudyCardsForTopicFailure implements Action {
+  readonly type = CardActionTypes.LoadStudyCardsForTopicFailure;
 }
 
 type AddCardPayload = {
@@ -132,6 +151,9 @@ export type CardActions =
   | LoadStudyCards
   | LoadStudyCardsSuccess
   | LoadStudyCardsFailure
+  | LoadStudyCardsForTopic
+  | LoadStudyCardsForTopicSuccess
+  | LoadStudyCardsForTopicFailure
   | AddCard
   | AddCardSuccess
   | AddCardFailure

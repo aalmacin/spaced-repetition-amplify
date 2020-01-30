@@ -1,19 +1,14 @@
 <div class="main">
   <div class="nav">
     <h1 class="nav__header">
-      <a [routerLink]="['/app', 'home']">
+      <a href="/app/home">
         <app-main-logo></app-main-logo>
       </a>
     </h1>
     <div class="nav__pages">
       <ul class="nav__pages-side nav__pages-side--left">
         <li class="nav__page">
-          <a
-            class="nav-link"
-            alLink="animated"
-            color="secondary"
-            [routerLink]="['/app', 'home']"
-            routerLinkActive="router-link-active"
+          <a class="nav-link" alLink="animated" color="secondary" href="/app/home" routerLinkActive="router-link-active"
             >Home</a
           >
         </li>
@@ -22,7 +17,7 @@
             class="nav-link"
             alLink="animated"
             color="secondary"
-            [routerLink]="['/app', 'study']"
+            href="/app/study"
             routerLinkActive="router-link-active"
             >Study</a
           >
@@ -35,12 +30,7 @@
       </ul>
     </div>
     <div>
-      <a
-        alBtn="primary"
-        size="small"
-        class="nav__study"
-        [routerLink]="['/app', 'study']"
-        routerLinkActive="router-link-active"
+      <a alBtn="primary" size="small" class="nav__study" href="/app/study" routerLinkActive="router-link-active"
         >Study</a
       >
       <label #mobileNavToggler for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
@@ -51,12 +41,10 @@
     <div class="mobile-nav__container">
       <ul class="mobile-nav__pages">
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'home']" routerLinkActive="router-link-active" (click)="toggleMobileNav()">Home</a>
+          <a href="/app/home" routerLinkActive="router-link-active" (click)="toggleMobileNav()">Home</a>
         </li>
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'study']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Study</a
-          >
+          <a href="/app/study" routerLinkActive="router-link-active" (click)="toggleMobileNav()">Study</a>
         </li>
         <li class="mobile-nav__page">
           <app-auth-sign-out></app-auth-sign-out>

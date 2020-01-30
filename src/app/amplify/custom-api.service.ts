@@ -28,10 +28,14 @@ export class CustomApiService {
     return this.store.select(selectUser).pipe(switchMap(user => this.getStudyCards(user.email, 5000)));
   }
 
-  private async getStudyCards(userId: string, limit = 10) {
+  getCardsByTopicId(topicId: string): Observable<Card[]> {
+    return this.store.select(selectUser).pipe(switchMap(user => this.getStudyCards(user.email, 5000, topicId)));
+  }
+
+  private async getStudyCards(userId: string, limit = 10, topicId?: string) {
     const statement = `
-      query GetStudyCards($userId: String, $limit: Int) {
-        studyCards(userId: $userId, limit: $limit) {
+      query GetStudyCards($userId: String, $limit: Int, $topicId: String) {
+        studyCards(userId: $userId, topicId: $topicId, limit: $limit) {
           id
           front
           back
@@ -48,6 +52,9 @@ export class CustomApiService {
     gqlAPIServiceArguments.userId = userId;
 
     gqlAPIServiceArguments.limit = limit;
+    if (topicId) {
+      gqlAPIServiceArguments.topicId = topicId;
+    }
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return response.data.studyCards;
   }

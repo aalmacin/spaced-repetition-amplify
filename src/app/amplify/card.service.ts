@@ -28,6 +28,10 @@ export class CardService {
     return this.customApiService.getCardsByUser();
   }
 
+  public getAllStudyCardsByTopicId(topicId: string): Observable<Card[]> {
+    return this.customApiService.getCardsByTopicId(topicId);
+  }
+
   public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<Card[]>> {
     return this.store.pipe(select(selectUser)).pipe(
       switchMap(_ =>

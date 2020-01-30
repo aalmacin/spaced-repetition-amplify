@@ -14,8 +14,8 @@ import {
   UpdateTopic,
   ResetTopicWithCards,
   FilterCards,
-  FilterCardsSuccess,
-  FilterCardsFailure
+  FilterCardsFailure,
+  FilterCardsSuccess
 } from './topic.actions';
 import { of, combineLatest } from 'rxjs';
 import {
@@ -56,7 +56,10 @@ import {
   UpdateCardToHard,
   UpdateCardToHardSuccess,
   UpdateCardToHardFailure,
-  ResetStudyCards
+  ResetStudyCards,
+  LoadStudyCardsForTopic,
+  LoadStudyCardsForTopicSuccess,
+  LoadStudyCardsForTopicFailure
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
@@ -205,7 +208,7 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(searchStr =>
       this.topicService.filterCards(searchStr).pipe(
-        map(res => new LoadTopicsSuccess(res)),
+        map(res => new FilterCardsSuccess(res)),
         catchError(() => of(new FilterCardsFailure()))
       )
     )
@@ -218,6 +221,18 @@ export class AppEffects {
       this.cardService.getAllStudyCards().pipe(
         map(res => new LoadStudyCardsSuccess(res)),
         catchError(() => of(new LoadStudyCardsFailure()))
+      )
+    )
+  );
+
+  @Effect()
+  loadStudyCardsForTopic$ = this.actions$.pipe(
+    ofType<LoadStudyCardsForTopic>(CardActionTypes.LoadStudyCardsForTopic),
+    map(action => action.payload),
+    switchMap(topicId =>
+      this.cardService.getAllStudyCardsByTopicId(topicId).pipe(
+        map(res => new LoadStudyCardsForTopicSuccess(res)),
+        catchError(() => of(new LoadStudyCardsForTopicFailure()))
       )
     )
   );
