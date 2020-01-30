@@ -32,7 +32,7 @@
     width: 95%;
     text-align: center;
 
-    @include media(tablet) {
+    @include media(desktop) {
       width: 50%;
     }
   }
@@ -42,7 +42,7 @@
     flex-direction: column;
     width: 95%;
 
-    @include media(tablet) {
+    @include media(desktop) {
       width: 50%;
     }
   }
@@ -105,8 +105,12 @@
     @include margin(md, tb);
 
     .cards__form-input-container {
-      flex-basis: 100%;
+      // flex-basis: 100%;
       @include margin(md, lr);
+
+      &--back {
+        flex-grow: 2;
+      }
     }
   }
 
