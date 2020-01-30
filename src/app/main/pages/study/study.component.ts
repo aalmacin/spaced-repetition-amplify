@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { CardService } from '@spaced-repetition/amplify/card.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Card } from 'src/app/types/card';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
 import { shuffle } from 'lodash';
 import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
 import { getCurrentTimestamp, getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectReadyToStudyCards, selectStudyCards } from '@spaced-repetition/reducers';
+import { ActivatedRoute } from '@angular/router';
+import { LoadStudyCardsForTopic } from '@spaced-repetition/card.actions';
 
 export enum CardResult {
   EASY = 'easy',
@@ -24,36 +25,43 @@ export interface CardVM extends Card {
   templateUrl: './study.component.html',
   styleUrls: ['./study.component.scss']
 })
-export class StudyComponent implements OnDestroy {
+export class StudyComponent implements OnInit, OnDestroy {
   loading = true;
   cards: CardVM[] = [];
   subscriptions = new Subscription();
-  scheduledStudy = false;
+  scheduledStudy = true;
+  topicId?: string = null;
 
-  constructor(private cardService: CardService, private activatedRoute: ActivatedRoute) {
+  constructor(private store: Store<AppState>, private router: ActivatedRoute) {}
+
+  ngOnInit() {
     this.subscriptions.add(
-      this.activatedRoute.queryParams
-        .pipe(
-          map(q => q.topicId),
-          tap(topicId => {
-            this.scheduledStudy = !!!topicId;
-          }),
-          switchMap(topicId =>
-            topicId ? this.cardService.getCardsByTopicId(topicId) : this.cardService.getAllStudyCards()
-          )
-        )
-        .subscribe(cards => {
-          this.loading = false;
-          this.cards = shuffle(cards).map(card => ({
-            ...card,
-            result: CardResult.PENDING,
-            potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
-          }));
-        })
+      this.router.queryParams.subscribe(params => {
+        if (params.topicId) {
+          this.store.dispatch(new LoadStudyCardsForTopic(params.topicId));
+          this.scheduledStudy = false;
+          this.topicId = params.topicId;
+        }
+
+        const selector = this.topicId ? selectStudyCards : selectReadyToStudyCards;
+        this.subscriptions.add(
+          this.store.pipe(select(selector)).subscribe(cards => {
+            this.cards = this.transformCardToVM(shuffle(cards));
+          })
+        );
+      })
     );
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  private transformCardToVM(cards): CardVM[] {
+    return cards.map(card => ({
+      ...card,
+      result: CardResult.PENDING,
+      potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
+    }));
   }
 }

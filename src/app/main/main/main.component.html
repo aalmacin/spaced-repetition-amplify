@@ -1,104 +1,56 @@
 <div class="main">
   <div class="nav">
     <h1 class="nav__header">
-      <app-main-logo></app-main-logo>
+      <a href="/app/home">
+        <app-main-logo></app-main-logo>
+      </a>
     </h1>
-    <ul class="nav__pages">
-      <li class="nav__page">
-        <a
-          class="nav-link"
-          alLink="animated"
-          color="secondary"
-          [routerLink]="['/app', 'dashboard']"
-          routerLinkActive="router-link-active"
-          >Dashboard</a
-        >
-      </li>
-      <li class="nav__page">
-        <a
-          class="nav-link"
-          alLink="animated"
-          color="secondary"
-          [routerLink]="['/app', 'profile']"
-          routerLinkActive="router-link-active"
-          >Profile</a
-        >
-      </li>
-      <li class="nav__page">
-        <a
-          class="nav-link"
-          alLink="animated"
-          color="secondary"
-          [routerLink]="['/app', 'study']"
-          routerLinkActive="router-link-active"
-          >Study</a
-        >
-      </li>
-      <li class="nav__page">
-        <a
-          class="nav-link"
-          alLink="animated"
-          color="secondary"
-          [routerLink]="['/app', 'topics']"
-          routerLinkActive="router-link-active"
-          >Topics</a
-        >
-      </li>
-      <li class="nav__page">
-        <a
-          class="nav-link"
-          alLink="animated"
-          color="secondary"
-          [routerLink]="['/app', 'card-manager']"
-          routerLinkActive="router-link-active"
-          >Card Manager</a
-        >
-      </li>
-      <li class="nav__page">
-        <app-auth-sign-out></app-auth-sign-out>
-      </li>
-    </ul>
-    <a
-      alBtn="primary"
-      size="small"
-      class="nav__study"
-      [routerLink]="['/app', 'study']"
-      routerLinkActive="router-link-active"
-      >Study</a
-    >
-    <label #mobileNavToggler for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
+    <div class="nav__pages">
+      <ul class="nav__pages-side nav__pages-side--left">
+        <li class="nav__page">
+          <a class="nav-link" alLink="animated" color="secondary" href="/app/home" routerLinkActive="router-link-active"
+            >Home</a
+          >
+        </li>
+        <li class="nav__page">
+          <a
+            class="nav-link"
+            alLink="animated"
+            color="secondary"
+            href="/app/study"
+            routerLinkActive="router-link-active"
+            >Study</a
+          >
+        </li>
+      </ul>
+      <ul class="nav__pages-side nav__pages-side--right">
+        <li class="nav__page">
+          <app-auth-sign-out></app-auth-sign-out>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <a alBtn="primary" size="small" class="nav__study" href="/app/study" routerLinkActive="router-link-active"
+        >Study</a
+      >
+      <label #mobileNavToggler for="mobile-nav" class="mobile-nav-toggler"><i class="fas fa-bars"></i></label>
+    </div>
   </div>
   <div class="mobile-nav">
     <input type="checkbox" id="mobile-nav" class="mobile-nav__toggle" />
     <div class="mobile-nav__container">
       <ul class="mobile-nav__pages">
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'dashboard']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Dashboard</a
-          >
+          <a href="/app/home" routerLinkActive="router-link-active" (click)="toggleMobileNav()">Home</a>
         </li>
         <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'profile']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Profile</a
-          >
-        </li>
-        <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'study']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Study</a
-          >
-        </li>
-        <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'topics']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Topics</a
-          >
-        </li>
-        <li class="mobile-nav__page">
-          <a [routerLink]="['/app', 'card-manager']" routerLinkActive="router-link-active" (click)="toggleMobileNav()"
-            >Card Manager</a
-          >
+          <a href="/app/study" routerLinkActive="router-link-active" (click)="toggleMobileNav()">Study</a>
         </li>
         <li class="mobile-nav__page">
           <app-auth-sign-out></app-auth-sign-out>
+        </li>
+        <li class="mobile-nav__email">
+          {{ user && user.email }}
         </li>
       </ul>
     </div>

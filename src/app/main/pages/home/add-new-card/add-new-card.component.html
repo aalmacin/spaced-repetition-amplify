@@ -1,0 +1,66 @@
+<div class="add-card">
+  <div alBtn="plain" (click)="closeCard()" class="close fas fa-times"></div>
+  <h2>Create a new Card(s)</h2>
+  <form class="add-card__form" [formGroup]="mainForm" (submit)="addNewCard()">
+    <div class="errors">
+      <al-alert [messages]="errors" type="error"></al-alert>
+    </div>
+    <div class="messages">
+      <al-alert [messages]="messages" type="success"></al-alert>
+    </div>
+    <div class="errors">
+      <ng-container *ngIf="mainForm.status === 'INVALID' && mainForm.touched">
+        <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
+      </ng-container>
+    </div>
+    <div formArrayName="cards" class="cards">
+      <div class="cards__form" [formGroupName]="i" *ngFor="let card of cardForms; let i = index">
+        <div class="cards__form-input-container">
+          <label for="{{ i }}-card-front">Front</label>
+          <input
+            #front
+            class="cards__form-input add-card__front"
+            id="{{ i }}-card-front"
+            formControlName="front"
+            name="front"
+            placeholder="Ex. What is life? (Front/Question)"
+          />
+        </div>
+        <div class="cards__form-input-container cards__form-input-container--back">
+          <label for="{{ i }}-card-back">Back</label>
+          <textarea
+            #back
+            rows="2"
+            id="{{ i }}-card-back"
+            class="cards__form-input add-card__back"
+            formControlName="back"
+            name="back"
+            placeholder="Ex. 42"
+          ></textarea>
+        </div>
+
+        <div class="cards__form-input-container">
+          <input id="{{ i }}-reverse" type="checkbox" formControlName="reverseCard" />
+          <label for="{{ i }}-reverse" class="reverse-card-label">Create Reverse Card</label>
+        </div>
+      </div>
+    </div>
+
+    <app-topic-select (changeTopic)="changeTopic($event)"></app-topic-select>
+
+    <button class="more-cards" alBtn="plain" (click)="moreCard($event)"><span class="fas fa-plus"></span> More</button>
+
+    <button
+      class="add-card__submit"
+      [disabled]="mainForm.status === 'INVALID'"
+      alBtn="primary"
+      size="fit"
+      type="secondary"
+    >
+      Create Cards
+    </button>
+  </form>
+  <div (click)="closeCard()" alBtn="plain" class="close-modal-button-bottom">
+    Close Modal
+  </div>
+</div>

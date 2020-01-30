@@ -1,31 +1,46 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@spaced-repetition/amplify/auth.service';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { Subscription } from 'rxjs';
+import { SignIn } from '@spaced-repetition/user.actions';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit, OnDestroy {
   public loading = false;
   public errors: string[] = [];
+  public subscriptions = new Subscription();
 
   @Input()
-  private navigateTo: string[] = ['/app', 'dashboard'];
+  private navigateTo: string[] = ['/app', 'home'];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.store.pipe(select(selectUser)).subscribe(user => {
+        if (!!user) {
+          this.router.navigate(this.navigateTo);
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
   signIn(event: any, email: string, password: string) {
     event.preventDefault();
-    this.loading = true;
-    this.authService.login(email, password).subscribe((res: any) => {
-      if (res.error) {
-        this.loading = false;
-        this.errors = [res.error];
-      } else {
-        this.router.navigate(this.navigateTo);
-      }
-    });
+    this.store.dispatch(
+      new SignIn({
+        email,
+        password
+      })
+    );
   }
 }

@@ -1,0 +1,124 @@
+@import 'framework.scss';
+
+.add-card {
+  @include margin(lg, tb);
+  @include font-size(sm);
+
+  @include media(tablet) {
+    @include font-size(md);
+  }
+
+  background-color: getColor(white-2);
+  z-index: 100;
+  position: fixed;
+  top: -2rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .close {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .close-modal-button-bottom {
+    position: fixed;
+    bottom: 1rem;
+    width: 95%;
+    text-align: center;
+
+    @include media(desktop) {
+      width: 50%;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+
+    @include media(desktop) {
+      width: 50%;
+    }
+  }
+
+  .errors,
+  .messages {
+    @include margin(md, b);
+  }
+
+  &__front {
+    width: 100%;
+    border: 0.1rem solid getColor(gray-light);
+    @include margin(md, b);
+    @include padding(md);
+    @include font-size(sm);
+
+    @include media(tablet) {
+      @include font-size(md);
+    }
+  }
+
+  &__back {
+    width: 100%;
+    border: 0.1rem solid getColor(gray-light);
+    @include margin(md, b);
+    @include padding(md);
+    @include font-size(sm);
+
+    @include media(tablet) {
+      @include font-size(md);
+    }
+  }
+
+  &__submit {
+    &:disabled {
+      background-color: getColor(gray-light);
+      color: getColor(gray);
+      border: none;
+
+      &:hover,
+      &:active {
+        border: none;
+        background-color: getColor(gray-light);
+        color: getColor(gray);
+      }
+    }
+  }
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 48vh;
+
+  &__form {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    @include margin(md, tb);
+
+    .cards__form-input-container {
+      // flex-basis: 100%;
+      @include margin(md, lr);
+
+      &--back {
+        flex-grow: 2;
+      }
+    }
+  }
+
+  .reverse-card-label {
+    @include margin(sm, l);
+  }
+}
+
+.more-cards {
+  @include margin(sm, tb);
+}

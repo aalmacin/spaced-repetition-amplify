@@ -17,113 +17,129 @@
 .home-page {
   background-color: getColor(blue-light-2);
   min-height: 100vh;
+  margin: 0;
+
+  @include media(tablet) {
+    @include margin(md, t);
+  }
 
   .home-page-head {
-    padding: 1rem;
     border-bottom: 1px solid getColor(blue-green-line);
     background-color: getColor(white);
     font-size: 1.6rem;
     box-shadow: 0rem 1.2rem 2rem -1.8rem getColor(shadow-dark);
-    text-align: right;
+    color: getColor(black);
+    display: flex;
+    justify-content: flex-end;
+    @include padding(sm);
+
+    @include media(tablet) {
+      @include padding(md);
+      justify-content: space-between;
+    }
 
     &__email {
-      color: getColor(black);
+      display: none;
+
+      @include media(tablet) {
+        display: inline-block;
+      }
     }
   }
 
   &__content {
-    width: 70%;
+    width: 95%;
     margin: 0 auto;
+    @include padding(lg, t);
 
-    .home-page-stats {
+    .topics-section {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
 
-      .stats-box {
-        flex-basis: 25%;
-        display: inline-block;
-        @include padding(lg-2, tlr);
-        @include margin(lg-3, t);
-        @include margin(lg-2, b);
-        border-radius: 0.5rem;
-        min-height: 18rem;
-        // box-shadow: 0.3rem 1.2rem 5rem -1rem getColor(shadow-light);
-        color: getColor(white-2);
-        font-family: Coda;
+      @include media(desktop) {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
 
-        &:not(:last-child) {
-          @include margin(lg, r);
+      .sidebar {
+        @include media(desktop) {
+          flex-basis: 30%;
+          @include margin(lg, l);
+          @include padding(lg, l);
+          border-left: 1px solid getColor(blue-green-line);
         }
 
-        &__heading {
-          font-size: 2rem;
-          display: block;
+        .topics-header {
+          @include padding(md, t);
+          display: flex;
+          justify-content: space-between;
         }
 
-        &__number {
-          font-size: 5.6rem;
-          display: block;
-        }
+        .topics-section__search {
+          display: flex;
+          @include margin(md, t);
 
-        &--topics {
-          background: linear-gradient(to top left, #73bcd8 1rem, #537bec);
-          animation: upAndDown 200ms 200ms;
-        }
-
-        &--cards {
-          background: linear-gradient(to top left, #84ffa4 1rem, #1ca058);
-          animation: upAndDown 200ms 300ms;
-        }
-
-        &--needs-review {
-          background: linear-gradient(to top left, #f1cab9 1rem, #ca5f19);
-          animation: upAndDown 200ms 500ms;
-        }
-
-        &--next-study {
-          background: linear-gradient(to top left, #f897f0 1rem, #c514b6);
-          animation: upAndDown 200ms 700ms;
-
-          .stats-box__number {
-            font-size: 2.4rem;
-            margin-top: 2.2rem;
+          &-input {
+            width: 100%;
+            @include margin(sm, r);
+            @include font-size();
           }
         }
       }
     }
 
-    .topics-section {
-      border: 1px solid getColor(blue-green-line);
+    .accordion-container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
 
-      .topics-section-heading {
+      .accordion {
         display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid getColor(blue-green-line);
-        @include padding(sm);
+        flex-direction: column;
 
-        &__heading {
-          @include padding(lg, r);
-          border-right: 1px solid getColor(blue-green-line);
-        }
-      }
+        .heading-desktop {
+          display: none;
 
-      table.topics-table {
-        // background-color: green;
-
-        width: 100%;
-        text-align: left;
-
-        th {
-          font-weight: bold;
-          @include padding(sm);
+          @include media(desktop) {
+            display: block;
+          }
         }
 
-        td {
-          @include padding(sm);
+        @include media(desktop) {
+          width: 65%;
         }
 
-        // display: table;
+        .study-cards-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          @include margin(md, tb);
+        }
+
+        .accordion-card {
+          display: flex;
+          flex-direction: column;
+
+          @include padding(lg);
+        }
+
+        .topics-section-heading {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-bottom: 1px solid getColor(blue-green-line);
+          @include margin(lg, t);
+
+          .create-topic {
+            display: flex;
+            width: 100%;
+
+            .create-topic-button {
+              flex-basis: 100%;
+              flex-grow: 2;
+            }
+          }
+        }
       }
     }
   }

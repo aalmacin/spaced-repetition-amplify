@@ -8,7 +8,7 @@
   width: 100vw;
   height: 50vh;
 
-  @include media(desktop) {
+  @include media(tablet) {
     height: 85vh;
   }
 

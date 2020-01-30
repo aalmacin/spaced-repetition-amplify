@@ -1,10 +1,14 @@
 import { Component, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { CardService } from '@spaced-repetition/amplify/card.service';
 import { CardVM, CardResult } from '../study.component';
 import { Subscription } from 'rxjs';
-import { shuffle } from 'lodash';
-import { getDateFromTimestamp, getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
-import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
+import { Store } from '@ngrx/store';
+import { AppState } from '@spaced-repetition/reducers';
+import {
+  UpdateCardToEasy,
+  UpdateCardToHard,
+  LoadStudyCards,
+  LoadStudyCardsForTopic
+} from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-flash-card',
@@ -27,23 +31,20 @@ export class FlashCardComponent {
   scheduledStudy = false;
 
   @Input()
+  topicId?: string = null;
+
+  @Input()
   cards: CardVM[] = [];
   resultCard: CardVM;
 
   @ViewChild('cardResultInfo')
   cardResultInfo: ElementRef;
 
-  constructor(private cardService: CardService, private renderer: Renderer2) {}
+  constructor(private store: Store<AppState>, private renderer: Renderer2) {}
 
   public easierCard() {
     if (this.scheduledStudy) {
-      this.subscriptions.add(
-        this.cardService.updateCardToEasy(this.currentCard).subscribe((result: any) => {
-          if (result.error) {
-            this.errors = [result.error];
-          }
-        })
-      );
+      this.store.dispatch(new UpdateCardToEasy(this.currentCard));
     }
     this.cards[this.currentCardIndex] = {
       ...this.currentCard,
@@ -53,13 +54,7 @@ export class FlashCardComponent {
   }
 
   public harderCard() {
-    this.subscriptions.add(
-      this.cardService.updateCardToHard(this.currentCard).subscribe((result: any) => {
-        if (result.error) {
-          this.errors = [result.error];
-        }
-      })
-    );
+    this.store.dispatch(new UpdateCardToHard(this.currentCard));
     this.cards[this.currentCardIndex] = {
       ...this.currentCard,
       result: CardResult.HARD
@@ -122,11 +117,12 @@ export class FlashCardComponent {
   }
 
   public startHardCards() {
-    this.cards = shuffle(this.hardCards).map(card => ({
-      ...card,
-      result: CardResult.PENDING,
-      potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
-    }));
+    if (!this.scheduledStudy && this.topicId) {
+      alert('here');
+      this.store.dispatch(new LoadStudyCardsForTopic(this.topicId));
+    } else {
+      this.store.dispatch(new LoadStudyCards());
+    }
     this.currentCardIndex = 0;
     this.showBack = false;
     this.saved = false;
