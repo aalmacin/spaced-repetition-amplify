@@ -254,12 +254,6 @@ export class AppEffects {
   );
 
   @Effect()
-  loadUserSuccess$ = this.actions$.pipe(
-    ofType(UserActionTypes.LoadUserSuccess),
-    switchMap(() => [new LoadTopics(), new LoadStudyCards()])
-  );
-
-  @Effect()
   signIn$ = this.actions$.pipe(
     ofType<SignIn>(UserActionTypes.SignIn),
     map(action => action.payload),

@@ -3,7 +3,6 @@
     <app-main-logo size="big"></app-main-logo>
   </div>
   <form (submit)="signIn($event, email.value, password.value)" class="form sign-in">
-    <p *ngIf="loading" class="loading"><app-loading></app-loading></p>
     <div class="errors">
       <al-alert [messages]="errors" type="error"></al-alert>
     </div>

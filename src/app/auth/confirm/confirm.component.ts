@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent implements OnInit, OnDestroy {
-  public loading = false;
   public errors: string[] = [];
   subscriptions = new Subscription();
 
@@ -22,7 +21,6 @@ export class ConfirmComponent implements OnInit, OnDestroy {
 
   confirm(event: MouseEvent, email: string, code: string) {
     event.preventDefault();
-    this.loading = true;
     this.store.dispatch(new ConfirmUser({ email, code }));
   }
 

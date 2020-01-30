@@ -5,7 +5,6 @@
     </div>
   </div>
   <form (submit)="register($event, email.value, password.value, confirmPassword.value)" class="form sign-up">
-    <p *ngIf="loading" class="loading"><app-loading></app-loading></p>
     <div class="errors">
       <al-alert [messages]="errors" type="error"></al-alert>
     </div>

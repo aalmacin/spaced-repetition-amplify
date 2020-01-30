@@ -10,7 +10,7 @@
       animation-iteration-count: infinite;
     }
 
-    @include font-size(lg-3);
+    @include font-size(lg-4);
 
     &.al-loading-primary {
       color: getColor(blue);

@@ -11,7 +11,6 @@ import { SignUp } from '@spaced-repetition/user.actions';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit, OnDestroy {
-  public loading = false;
   public errors: string[] = [];
   subscriptions = new Subscription();
 
@@ -25,7 +24,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
       this.errors = ['Password did not match with confirmation'];
       return;
     }
-    this.loading = true;
     this.store.dispatch(new SignUp({ email, password }));
   }
 

@@ -160,6 +160,9 @@ export type CardActions =
   | UpdateCard
   | UpdateCardSuccess
   | UpdateCardFailure
+  | DeleteCard
+  | DeleteCardSuccess
+  | DeleteCardFailure
   | UpdateCardToEasy
   | UpdateCardToEasySuccess
   | UpdateCardToEasyFailure

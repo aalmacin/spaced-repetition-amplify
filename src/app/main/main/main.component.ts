@@ -1,8 +1,8 @@
-import { Component, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { User } from 'src/app/types/user';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { AppState, selectUser, selectLoading } from '@spaced-repetition/reducers';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions = new Subscription();
   user: User;
   signedIn: boolean;
 
   @ViewChild('mobileNavToggler')
   private mobileNav: ElementRef;
+
+  loading = true;
 
   constructor(private store: Store<AppState>, private router: Router) {}
 
@@ -38,6 +40,14 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.subscriptions.add(
+      this.store.pipe(select(selectLoading)).subscribe(loading => {
+        this.loading = loading;
+      })
+    );
   }
 
   toggleMobileNav() {

@@ -58,7 +58,8 @@ $font-sizes: (
   md: #{$base-font-size},
   lg: calc(#{$base-font-size} * 1.5),
   lg-2: calc(#{$base-font-size} * 2),
-  lg-3: calc(#{$base-font-size} * 3)
+  lg-3: calc(#{$base-font-size} * 3),
+  lg-4: calc(#{$base-font-size} * 6)
 );
 
 $text-default-font-weight: map-get($font-weights, normal);

@@ -26,7 +26,6 @@ export interface CardVM extends Card {
   styleUrls: ['./study.component.scss']
 })
 export class StudyComponent implements OnInit, OnDestroy {
-  loading = true;
   cards: CardVM[] = [];
   subscriptions = new Subscription();
   scheduledStudy = true;

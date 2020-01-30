@@ -6,14 +6,15 @@ import { AppState, selectUser, selectTopicWithCards, selectReadyToStudyCards } f
 import { Store, select } from '@ngrx/store';
 import { KEY_ESCAPE } from '@spaced-repetition/app.constants';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
-import { AddTopic, FilterCards } from '@spaced-repetition/topic.actions';
+import { AddTopic, FilterCards, LoadTopics } from '@spaced-repetition/topic.actions';
+import { LoadStudyCards } from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   user: User;
   createTopicToggle = false;
@@ -22,7 +23,20 @@ export class HomeComponent implements OnDestroy {
   studyCards: Card[] = [];
   addNewCard = false;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {}
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    switch (event.key) {
+      case KEY_ESCAPE:
+        this.addNewCard = false;
+        break;
+    }
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new LoadTopics());
+    this.store.dispatch(new LoadStudyCards());
     this.subscriptions
       .add(
         this.store.pipe(select(selectUser)).subscribe(user => {
@@ -39,15 +53,6 @@ export class HomeComponent implements OnDestroy {
           this.studyCards = studyCards;
         })
       );
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    switch (event.key) {
-      case KEY_ESCAPE:
-        this.addNewCard = false;
-        break;
-    }
   }
 
   ngOnDestroy() {

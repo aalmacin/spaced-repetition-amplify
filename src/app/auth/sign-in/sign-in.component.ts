@@ -11,7 +11,6 @@ import { SignIn } from '@spaced-repetition/user.actions';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit, OnDestroy {
-  public loading = false;
   public errors: string[] = [];
   public subscriptions = new Subscription();
 
