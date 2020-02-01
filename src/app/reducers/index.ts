@@ -5,7 +5,7 @@ import { userReducer, UserState } from '@spaced-repetition/user.reducer';
 import { Topic } from '@spaced-repetition/types/topic';
 import { CardState, cardReducer } from '@spaced-repetition/card.reducer';
 import { loadingReducer, LoadingState } from '@spaced-repetition/loading.reducer';
-import { MessageState, messageReducer, MessageContext } from '@spaced-repetition/error.reducer';
+import { MessageState, messageReducer, MessageContext } from '@spaced-repetition/message.reducer';
 
 export interface AppState {
   topics: TopicState;

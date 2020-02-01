@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { User } from './types/user';
-import { ErrorMessage } from './error.reducer';
+import { ErrorMessage } from './message.reducer';
 
 export enum UserActionTypes {
   SignIn = '[User] Sign In',

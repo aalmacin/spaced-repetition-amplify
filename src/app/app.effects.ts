@@ -63,7 +63,7 @@ import {
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
-import { MessageContext } from './error.reducer';
+import { MessageContext } from './message.reducer';
 
 @Injectable()
 export class AppEffects {
