@@ -12,6 +12,8 @@ export function userReducer(state = initialState, action: UserActions): UserStat
     case UserActionTypes.SignInSuccess:
     case UserActionTypes.SignInSuccess:
       return { ...state, email: action.payload.email, confirmed: action.payload.confirmed };
+    case UserActionTypes.ConfirmUserSuccess:
+      return null;
     case UserActionTypes.SignOut:
       return null;
     default:

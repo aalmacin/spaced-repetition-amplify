@@ -38,6 +38,7 @@ export class SignInSuccess implements Action {
 
 export class SignInFailure implements Action {
   readonly type = UserActionTypes.SignInFailure;
+  public constructor(public readonly payload: string) {}
 }
 
 export interface SignUpPayload {
@@ -60,7 +61,7 @@ export class SignUpSuccess implements Action {
 export class SignUpFailure implements Action {
   readonly type = UserActionTypes.SignUpFailure;
 
-  public constructor(public readonly payload: ErrorMessage[]) {}
+  public constructor(public readonly payload: string) {}
 }
 
 export interface ConfirmUserPayload {
@@ -80,6 +81,7 @@ export class ConfirmUserSuccess implements Action {
 
 export class ConfirmUserFailure implements Action {
   readonly type = UserActionTypes.ConfirmUserFailure;
+  public constructor(public readonly payload: string) {}
 }
 
 export class SignOut implements Action {

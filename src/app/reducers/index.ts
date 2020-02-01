@@ -58,7 +58,22 @@ export const selectSuccess = createSelector(
   messages => messages.success
 );
 
+export const selectSignInErrors = createSelector(
+  selectErrors,
+  errors => errors.filter(error => error.context === MessageContext.LOGIN).map(error => error.message)
+);
+
 export const selectSignUpErrors = createSelector(
   selectErrors,
   errors => errors.filter(error => error.context === MessageContext.REGISTER).map(error => error.message)
+);
+
+export const selectConfirmErrors = createSelector(
+  selectErrors,
+  errors => errors.filter(error => error.context === MessageContext.CONFIRM).map(error => error.message)
+);
+
+export const selectConfirmSuccess = createSelector(
+  selectSuccess,
+  successs => successs.filter(success => success.context === MessageContext.CONFIRM).map(success => success.message)
 );

@@ -67,7 +67,7 @@ export class AuthService {
 
   public confirmUser(email: string, code: string): Observable<ApiStatus<User>> {
     return from(Auth.confirmSignUp(email, code)).pipe(
-      map(res => ({ success: true, data: { email: res.user.getUsername(), confirmed: res.userConfirmed } })),
+      map(res => ({ success: res === 'SUCCESS', data: { email, confirmed: true } })),
       catchError(error =>
         of({
           error: { message: (error && error.message) || 'An error occured', type: ApiErrorType.GenericAPIException },

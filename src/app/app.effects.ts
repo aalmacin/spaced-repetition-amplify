@@ -188,7 +188,7 @@ export class AppEffects {
 
   @Effect()
   loadApplication$ = this.actions$.pipe(
-    ofType(AppActionTypes.LoadApplication, UserActionTypes.ConfirmUserSuccess),
+    ofType(AppActionTypes.LoadApplication),
     map(() => new LoadUser())
   );
 
@@ -267,9 +267,9 @@ export class AppEffects {
           if (res.error && res.error.type === ApiErrorType.UserNotConfirmedException) {
             return new SignInSuccess({ email, confirmed: false });
           }
-          return new SignInFailure();
+          return new SignInFailure(res.error.message);
         }),
-        catchError(() => of(new SignInFailure()))
+        catchError(res => of(new SignInFailure(res.message || 'An error occured')))
       )
     )
   );
@@ -286,8 +286,10 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(({ email, code }) =>
       this.authService.confirmUser(email, code).pipe(
-        map(() => new ConfirmUserSuccess()),
-        catchError(() => of(new ConfirmUserFailure()))
+        map(res =>
+          res.success ? new ConfirmUserSuccess() : new ConfirmUserFailure(res.error.message || 'An error occured')
+        ),
+        catchError(res => of(new ConfirmUserFailure(res.message || 'An error occured')))
       )
     )
   );
@@ -298,18 +300,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(payload =>
       this.authService.register(payload).pipe(
-        map(res =>
-          res.success
-            ? new SignUpSuccess(res.data)
-            : new SignUpFailure([{ message: res.error.message, context: MessageContext.REGISTER }])
-        ),
-        catchError(res =>
-          of(
-            new SignUpFailure([
-              { message: (res && res.message) || 'An error occured', context: MessageContext.REGISTER }
-            ])
-          )
-        )
+        map(res => (res.success ? new SignUpSuccess(res.data) : new SignUpFailure(res.error.message))),
+        catchError(res => of(new SignUpFailure(res.message || 'An error occured')))
       )
     )
   );

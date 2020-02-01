@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { AppState, selectUser, selectSignInErrors } from '@spaced-repetition/reducers';
 import { Subscription } from 'rxjs';
 import { SignIn } from '@spaced-repetition/user.actions';
 
@@ -20,13 +20,19 @@ export class SignInComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.store.pipe(select(selectUser)).subscribe(user => {
-        if (!!user) {
-          this.router.navigate(this.navigateTo);
-        }
-      })
-    );
+    this.subscriptions
+      .add(
+        this.store.pipe(select(selectUser)).subscribe(user => {
+          if (!!user) {
+            this.router.navigate(this.navigateTo);
+          }
+        })
+      )
+      .add(
+        this.store.pipe(select(selectSignInErrors)).subscribe(errors => {
+          this.errors = errors;
+        })
+      );
   }
 
   ngOnDestroy() {

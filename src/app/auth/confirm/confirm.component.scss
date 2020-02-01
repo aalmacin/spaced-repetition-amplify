@@ -13,6 +13,15 @@
     display: inline-block;
     transform: translate(-50%, -50%);
 
+    .confirm-button {
+      @include margin(lg, tb);
+      width: 100%;
+    }
+
+    .go-back {
+      @include margin(lg, tb);
+    }
+
     .logo {
       display: inline-block;
     }
@@ -43,4 +52,8 @@
       }
     }
   }
+}
+
+p {
+  @include padding(md, tb);
 }

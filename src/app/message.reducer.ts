@@ -30,8 +30,14 @@ export const initialState: MessageState = {
 
 export function messageReducer(state = initialState, action: UserActions): MessageState {
   switch (action.type) {
+    case UserActionTypes.ConfirmUserSuccess:
+      return { ...state, success: [{ message: 'Successfully confirmed', context: MessageContext.CONFIRM }] };
+    case UserActionTypes.SignInFailure:
+      return { ...state, errors: [{ message: action.payload, context: MessageContext.LOGIN }] };
+    case UserActionTypes.ConfirmUserFailure:
+      return { ...state, errors: [{ message: action.payload, context: MessageContext.CONFIRM }] };
     case UserActionTypes.SignUpFailure:
-      return { ...state, errors: action.payload };
+      return { ...state, errors: [{ message: action.payload, context: MessageContext.REGISTER }] };
     default:
       return state;
   }
