@@ -5,19 +5,22 @@ import { userReducer, UserState } from '@spaced-repetition/user.reducer';
 import { Topic } from '@spaced-repetition/types/topic';
 import { CardState, cardReducer } from '@spaced-repetition/card.reducer';
 import { loadingReducer, LoadingState } from '@spaced-repetition/loading.reducer';
+import { MessageState, messageReducer, MessageContext } from '@spaced-repetition/error.reducer';
 
 export interface AppState {
   topics: TopicState;
   user?: UserState;
   studyCards: CardState;
   loading: LoadingState;
+  messages: MessageState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   topics: topicReducer,
   user: userReducer,
   studyCards: cardReducer,
-  loading: loadingReducer
+  loading: loadingReducer,
+  messages: messageReducer
 };
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
@@ -41,4 +44,21 @@ export const selectLoading = (state: AppState) => state.loading;
 export const selectReadyToStudyCards = createSelector(
   selectStudyCards,
   studyCards => studyCards.filter(c => c.isReadyToStudy)
+);
+
+export const selectMessages = (state: AppState) => state.messages;
+
+export const selectErrors = createSelector(
+  selectMessages,
+  messages => messages.errors
+);
+
+export const selectSuccess = createSelector(
+  selectMessages,
+  messages => messages.success
+);
+
+export const selectSignUpErrors = createSelector(
+  selectErrors,
+  errors => errors.filter(error => error.context === MessageContext.REGISTER).map(error => error.message)
 );

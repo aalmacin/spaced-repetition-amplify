@@ -63,6 +63,7 @@ import {
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
+import { MessageContext } from './error.reducer';
 
 @Injectable()
 export class AppEffects {
@@ -297,9 +298,18 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(payload =>
       this.authService.register(payload).pipe(
-        filter(res => res.success),
-        switchMap(res => [new SignUpSuccess(res.data)]),
-        catchError(() => of(new SignUpFailure()))
+        map(res =>
+          res.success
+            ? new SignUpSuccess(res.data)
+            : new SignUpFailure([{ message: res.error.message, context: MessageContext.REGISTER }])
+        ),
+        catchError(res =>
+          of(
+            new SignUpFailure([
+              { message: (res && res.message) || 'An error occured', context: MessageContext.REGISTER }
+            ])
+          )
+        )
       )
     )
   );

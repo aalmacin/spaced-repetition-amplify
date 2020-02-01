@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { User } from './types/user';
+import { ErrorMessage } from './error.reducer';
 
 export enum UserActionTypes {
   SignIn = '[User] Sign In',
@@ -58,6 +59,8 @@ export class SignUpSuccess implements Action {
 
 export class SignUpFailure implements Action {
   readonly type = UserActionTypes.SignUpFailure;
+
+  public constructor(public readonly payload: ErrorMessage[]) {}
 }
 
 export interface ConfirmUserPayload {

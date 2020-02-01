@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { AppState, selectUser, selectSignUpErrors } from '@spaced-repetition/reducers';
 import { SignUp } from '@spaced-repetition/user.actions';
 
 @Component({
@@ -28,13 +28,19 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.add(
-      this.store.pipe(select(selectUser)).subscribe(user => {
-        if (!!user) {
-          this.router.navigate(this.navigateTo);
-        }
-      })
-    );
+    this.subscriptions
+      .add(
+        this.store.pipe(select(selectUser)).subscribe(user => {
+          if (!!user) {
+            this.router.navigate(this.navigateTo);
+          }
+        })
+      )
+      .add(
+        this.store.pipe(select(selectSignUpErrors)).subscribe(errors => {
+          this.errors = errors;
+        })
+      );
   }
 
   ngOnDestroy() {
