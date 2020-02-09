@@ -82,6 +82,8 @@ export class AddCardSuccess implements Action {
 
 export class AddCardFailure implements Action {
   readonly type = CardActionTypes.AddCardFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class UpdateCard implements Action {

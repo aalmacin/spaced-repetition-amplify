@@ -34,18 +34,9 @@ export class CardService {
     return this.customApiService.getCardsByTopicId(topicId);
   }
 
-  public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<Card[]>> {
-    return this.store.pipe(select(selectUser)).pipe(
-      switchMap(_ =>
-        this.apiService.CreateCard({
-          front,
-          back,
-          box: Box.VERY_HARD,
-          cardTopicId: topicId,
-          lastStudy: getCurrentTimestamp()
-        })
-      ),
-      map(() => ({ success: true })),
+  public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<boolean>> {
+    return this.customApiRdsService.newCard(topicId, front, back).pipe(
+      map(res => ({ success: res })),
       catchError(() =>
         of({
           success: false,

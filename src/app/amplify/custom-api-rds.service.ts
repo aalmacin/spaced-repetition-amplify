@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Box } from '@spaced-repetition/types/box';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
 import { switchMap } from 'rxjs/operators';
 import { Card } from '@spaced-repetition/types/card';
@@ -40,6 +40,10 @@ export class CustomApiRdsService {
       select(selectUser),
       switchMap(user => this.updateTopic(id, name, user.email))
     );
+  }
+
+  public newCard(topicId: string, front: string, back: string): Observable<boolean> {
+    return from(this.createCard(topicId, front, back));
   }
 
   private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
@@ -136,7 +140,7 @@ export class CustomApiRdsService {
 
   private async createCard(topicId: string, front: string, back: string) {
     const statement = `
-      mutation CreateCard($topicId: String, $front: String, $back: String) {
+      mutation CreateCard($topicId: String!, $front: String!, $back: String!) {
         createCardRDS(topicId: $topicId, front: $front, back: $back) {
           success
         }

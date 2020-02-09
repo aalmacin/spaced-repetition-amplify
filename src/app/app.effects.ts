@@ -97,21 +97,23 @@ export class AppEffects {
     ofType<AddCard>(CardActionTypes.AddCard),
     map(action => action.payload),
     switchMap(cardValues => {
-      const createAddCard$ = values => this.cardService.addNewCard(values).pipe(filter(res => res.success));
+      const createAddCard$ = values => this.cardService.addNewCard(values);
       if (cardValues.reverseCard) {
         return combineLatest(
           createAddCard$(cardValues),
           createAddCard$({ topicId: cardValues.topicId, front: cardValues.back, back: cardValues.front })
         ).pipe(
-          filter(([res1, res2]) => res1.success && res2.success),
-          map(() => new AddCardSuccess()),
-          catchError(() => of(new AddCardFailure()))
+          map(([res1, res2]) =>
+            res1.success && res2.success
+              ? new AddCardSuccess()
+              : new AddCardFailure('res1 error: ' + res1.error.message + ' | res2 error: ' + res2.error.message)
+          ),
+          catchError(() => of(new AddCardFailure('Failed creating card')))
         );
       }
       return createAddCard$(cardValues).pipe(
-        filter(res => res.success),
-        map(() => new AddCardSuccess()),
-        catchError(() => of(new AddCardFailure()))
+        map(res => (res.success ? new AddCardSuccess() : new AddCardFailure(res.error.message))),
+        catchError(() => of(new AddCardFailure('Failed creating card')))
       );
     })
   );
