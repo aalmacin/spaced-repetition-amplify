@@ -58,6 +58,10 @@ export class CustomApiRdsService {
     return from(this.updateCardRDSToEasy(topicId, box));
   }
 
+  public removeCard(id: string, topicId: string): Observable<boolean> {
+    return from(this.deleteCard(id, topicId));
+  }
+
   private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
     const statement = `
       query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean) {
@@ -219,7 +223,7 @@ export class CustomApiRdsService {
   private async deleteCard(id: string, topicId: string) {
     const statement = `
       mutation DeleteCard($id: String!, $topicId: String!){
-        deleteCardRDS(id: $id, topicId: $topicId!){
+        deleteCardRDS(id: $id, topicId: $topicId){
           success
         }
       }

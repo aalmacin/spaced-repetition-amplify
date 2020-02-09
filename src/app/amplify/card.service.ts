@@ -82,9 +82,8 @@ export class CardService {
     );
   }
 
-  public deleteCard(cardId: string): Observable<ApiStatus<Card[]>> {
-    return of(cardId).pipe(
-      switchMap(id => this.deleteCardInAmplify(id)),
+  public deleteCard(id: string, topicId: string): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.removeCard(id, topicId).pipe(
       map(() => ({ success: true })),
       catchError(() =>
         of({
@@ -93,12 +92,5 @@ export class CardService {
         })
       )
     );
-  }
-
-  private async deleteCardInAmplify(id: string) {
-    const res = await this.apiService.DeleteCard({
-      id
-    });
-    return res;
   }
 }

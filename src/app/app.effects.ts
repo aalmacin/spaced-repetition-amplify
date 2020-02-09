@@ -134,11 +134,10 @@ export class AppEffects {
   deleteCard$ = this.actions$.pipe(
     ofType<DeleteCard>(CardActionTypes.DeleteCard),
     map(action => action.payload),
-    switchMap(cardId => {
-      return this.cardService.deleteCard(cardId).pipe(
-        filter(res => res.success),
-        map(() => new DeleteCardSuccess()),
-        catchError(() => of(new DeleteCardFailure()))
+    switchMap(({ id, topicId }) => {
+      return this.cardService.deleteCard(id, topicId).pipe(
+        map(res => (res.success ? new DeleteCardSuccess() : new DeleteCardFailure(res.error.message))),
+        catchError(() => of(new DeleteCardFailure('Failed deleting card')))
       );
     })
   );

@@ -102,10 +102,15 @@ export class UpdateCardFailure implements Action {
   public constructor(public readonly payload: string) {}
 }
 
+interface DeleteCardPayload {
+  id: string;
+  topicId: string;
+}
+
 export class DeleteCard implements Action {
   readonly type = CardActionTypes.DeleteCard;
 
-  public constructor(public readonly payload: string) {}
+  public constructor(public readonly payload: DeleteCardPayload) {}
 }
 
 export class DeleteCardSuccess implements Action {
@@ -114,6 +119,8 @@ export class DeleteCardSuccess implements Action {
 
 export class DeleteCardFailure implements Action {
   readonly type = CardActionTypes.DeleteCardFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class UpdateCardToEasy implements Action {

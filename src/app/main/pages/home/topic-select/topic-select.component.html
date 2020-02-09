@@ -1,5 +1,5 @@
 <select class="topic-select" (change)="updateTopic($event)">
-  <option disabled selected value> -- select a topic -- </option>
+  <option disabled [selected]="selectedTopicId === null" value> -- select a topic -- </option>
 
   <option [selected]="topic.id === selectedTopicId" *ngFor="let topic of topics" [value]="topic.id">{{
     topic.name
