@@ -6,6 +6,7 @@ import { AppState, selectUser } from '@spaced-repetition/reducers';
 import { Observable } from 'rxjs';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
 import { switchMap } from 'rxjs/operators';
+import { Card } from '@spaced-repetition/types/card';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,14 @@ export class CustomApiRdsService {
     return this.store.select(selectUser).pipe(switchMap(user => this.allTopics(user.email, 100)));
   }
 
-  private async allStudyCards(userId: string, limit = 10, page = 1) {
+  public getCardsByUser(): Observable<Card[]> {
+    return this.store.select(selectUser).pipe(switchMap(user => this.allStudyCards(user.email, true, 100, 1)));
+  }
+
+  private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
     const statement = `
-      query AllStudyCards($userId: String, $limit: Int, $page: Int) {
-        allStudyCards(userId: $userId, limit: $limit, page: $page) {
+      query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean) {
+        allStudyCards(userId: $userId, filter: $filter, limit: $limit, page: $page, isReadyStudyOnly: $isReadyStudyOnly) {
           id
           front
           back
@@ -35,10 +40,16 @@ export class CustomApiRdsService {
         }
       }
     `;
-    const gqlAPIServiceArguments: any = {};
-    gqlAPIServiceArguments.userId = userId;
-    gqlAPIServiceArguments.limit = limit;
-    gqlAPIServiceArguments.page = page;
+    const gqlAPIServiceArguments: any = {
+      userId,
+      limit,
+      page,
+      isReadyStudyOnly
+    };
+
+    if (isReadyStudyOnly !== null) {
+      gqlAPIServiceArguments.isReadyStudyOnly = isReadyStudyOnly;
+    }
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return response.data.allStudyCards;

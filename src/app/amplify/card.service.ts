@@ -27,7 +27,7 @@ export class CardService {
   }
 
   public getAllStudyCards(): Observable<Card[]> {
-    return this.customApiService.getCardsByUser();
+    return this.customApiRdsService.getCardsByUser();
   }
 
   public getAllStudyCardsByTopicId(topicId: string): Observable<Card[]> {
