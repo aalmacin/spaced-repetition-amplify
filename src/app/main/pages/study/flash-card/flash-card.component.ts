@@ -118,7 +118,6 @@ export class FlashCardComponent {
 
   public startHardCards() {
     if (!this.scheduledStudy && this.topicId) {
-      alert('here');
       this.store.dispatch(new LoadStudyCardsForTopic(this.topicId));
     } else {
       this.store.dispatch(new LoadStudyCards());

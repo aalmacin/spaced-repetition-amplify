@@ -50,6 +50,14 @@ export class CustomApiRdsService {
     return from(this.updateCard(id, topicId, front, back));
   }
 
+  public updateCardToHard(topicId: string): Observable<boolean> {
+    return from(this.updateCardRDSToHard(topicId));
+  }
+
+  public updateCardToEasy(topicId: string, box: Box): Observable<boolean> {
+    return from(this.updateCardRDSToEasy(topicId, box));
+  }
+
   private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
     const statement = `
       query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean) {
@@ -177,31 +185,31 @@ export class CustomApiRdsService {
     return response.data;
   }
 
-  private async updateCardRDSToHard(topicId: string) {
+  private async updateCardRDSToHard(id: string) {
     const statement = `
-      mutation UpdateCardToHard($topicId: String){
-        updateCardRDSToHard(topicId: $topicId){
+      mutation UpdateCardToHard($id: String!){
+        updateCardRDSToHard(id: $id){
           success
         }
       }
     `;
     const gqlAPIServiceArguments: any = {};
-    gqlAPIServiceArguments.topicId = topicId;
+    gqlAPIServiceArguments.id = id;
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return response.data;
   }
 
-  private async updateCardRDSToEasy(topicId: string, box: Box) {
+  private async updateCardRDSToEasy(id: string, box: Box) {
     const statement = `
-      mutation UpdateCardRDSToEasy($topicId: String, $box: Box){
-        updateCardRDSToEasy(topicId: $topicId, box: $box) {
+      mutation UpdateCardRDSToEasy($id: String!, $box: Box!){
+        updateCardRDSToEasy(id: $id, box: $box) {
           success
         }
       }
     `;
     const gqlAPIServiceArguments: any = {};
-    gqlAPIServiceArguments.topicId = topicId;
+    gqlAPIServiceArguments.id = id;
     gqlAPIServiceArguments.box = box;
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
@@ -210,7 +218,7 @@ export class CustomApiRdsService {
 
   private async deleteCard(id: string, topicId: string) {
     const statement = `
-      mutation DeleteCard($id: String, $topicId: String){
+      mutation DeleteCard($id: String!, $topicId: String!){
         deleteCardRDS(id: $id, topicId: $topicId!){
           success
         }

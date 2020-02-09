@@ -58,34 +58,26 @@ export class CardService {
     );
   }
 
-  public updateCardToEasy(card: Card): Observable<ApiStatus<Partial<Card>>> {
-    return of(card).pipe(
-      switchMap(({ id, box }) =>
-        this.apiService.UpdateCard({
-          id,
-          box: makeBoxEasier(box),
-          lastStudy: getCurrentTimestamp()
-        })
-      ),
+  public updateCardToEasy(card: Card): Observable<ApiStatus<Partial<boolean>>> {
+    return this.customApiRdsService.updateCardToEasy(card.id, makeBoxEasier(card.box)).pipe(
       map(res => ({ success: true, data: res })),
       catchError(() =>
-        of({ success: false, error: { message: 'Failed to update card.', type: ApiErrorType.GenericAPIException } })
+        of({
+          success: false,
+          error: { message: 'Failed to update card to easy.', type: ApiErrorType.GenericAPIException }
+        })
       )
     );
   }
 
-  public updateCardToHard(card: Card): Observable<ApiStatus<Partial<Card>>> {
-    return of(card).pipe(
-      switchMap(({ id }) =>
-        this.apiService.UpdateCard({
-          id,
-          box: Box.VERY_HARD,
-          lastStudy: getCurrentTimestamp()
-        })
-      ),
+  public updateCardToHard(card: Card): Observable<ApiStatus<Partial<boolean>>> {
+    return this.customApiRdsService.updateCardToHard(card.id).pipe(
       map(res => ({ success: true, data: res })),
       catchError(() =>
-        of({ success: false, error: { message: 'Failed to update card.', type: ApiErrorType.GenericAPIException } })
+        of({
+          success: false,
+          error: { message: 'Failed to update card to hard.', type: ApiErrorType.GenericAPIException }
+        })
       )
     );
   }
