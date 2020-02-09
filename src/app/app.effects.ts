@@ -63,7 +63,6 @@ import {
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
-import { MessageContext } from './message.reducer';
 
 @Injectable()
 export class AppEffects {
@@ -147,10 +146,9 @@ export class AppEffects {
   addTopic$ = this.actions$.pipe(
     ofType(TopicActionTypes.AddTopic),
     switchMap(() =>
-      this.topicService.addTopic('Untitled').pipe(
-        filter(res => res.success),
-        map(() => new AddTopicSuccess()),
-        catchError(() => of(new AddTopicFailure()))
+      this.topicService.addTopic().pipe(
+        map(res => (res.success ? new AddTopicSuccess() : new AddTopicFailure(res.error.message))),
+        catchError(() => of(new AddTopicFailure('An error occured.')))
       )
     )
   );
@@ -179,9 +177,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(action =>
       this.topicService.updateTopic(action.id, action.name).pipe(
-        filter(res => res.success),
-        map(() => new UpdateTopicSuccess()),
-        catchError(() => of(new UpdateTopicFailure()))
+        map(res => (res.success ? new UpdateTopicSuccess() : new UpdateTopicFailure(res.error.message))),
+        catchError(() => of(new UpdateTopicFailure('Failed Updating topic')))
       )
     )
   );

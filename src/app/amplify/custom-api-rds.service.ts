@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Box } from '@spaced-repetition/types/box';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
 import { Observable } from 'rxjs';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
@@ -15,11 +15,31 @@ export class CustomApiRdsService {
   public constructor(private store: Store<AppState>) {}
 
   public getTopicWithCards(): Observable<TopicWithCards[]> {
-    return this.store.select(selectUser).pipe(switchMap(user => this.allTopics(user.email, 100)));
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.allTopics(user.email, 100))
+    );
   }
 
-  public getCardsByUser(): Observable<Card[]> {
-    return this.store.select(selectUser).pipe(switchMap(user => this.allStudyCards(user.email, true, 100, 1)));
+  public getAllStudyCards(): Observable<Card[]> {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.allStudyCards(user.email, true, 1000, 1))
+    );
+  }
+
+  public newTopic(name): Observable<boolean> {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.createTopic(name, user.email))
+    );
+  }
+
+  public editTopic(id: string, name: string): Observable<boolean> {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.updateTopic(id, name, user.email))
+    );
   }
 
   private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
@@ -83,14 +103,14 @@ export class CustomApiRdsService {
 
   private async createTopic(name: string, userId: string) {
     const statement = `
-      mutation CreateTopic($name: String, $userId: String) {
+      mutation CreateTopic($name: String!, $userId: String!) {
         createTopicRDS(name: $name, userId: $userId) {
           success
         }
       }
     `;
     const gqlAPIServiceArguments: any = {};
-    gqlAPIServiceArguments.limit = name;
+    gqlAPIServiceArguments.name = name;
     gqlAPIServiceArguments.userId = userId;
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
@@ -99,7 +119,7 @@ export class CustomApiRdsService {
 
   private async updateTopic(id: string, name: string, userId: string) {
     const statement = `
-      UpdateTopic($id: String, $name: String, $userId: String) {
+      mutation UpdateTopic($id: String!, $name: String!, $userId: String!) {
         updateTopicRDS(id: $id, name: $name, userId: $userId) {
           success
         }
@@ -107,7 +127,7 @@ export class CustomApiRdsService {
     `;
     const gqlAPIServiceArguments: any = {};
     gqlAPIServiceArguments.id = id;
-    gqlAPIServiceArguments.limit = name;
+    gqlAPIServiceArguments.name = name;
     gqlAPIServiceArguments.userId = userId;
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
@@ -116,7 +136,7 @@ export class CustomApiRdsService {
 
   private async createCard(topicId: string, front: string, back: string) {
     const statement = `
-      CreateCard($topicId: String, $front: String, $back: String) {
+      mutation CreateCard($topicId: String, $front: String, $back: String) {
         createCardRDS(topicId: $topicId, front: $front, back: $back) {
           success
         }
@@ -133,7 +153,7 @@ export class CustomApiRdsService {
 
   private async updateCard(id: string, topicId: string, front: string, back: string) {
     const statement = `
-      UpdateCard($id: String, $topicId: String, $front: String, $back: String){
+      mutation UpdateCard($id: String, $topicId: String, $front: String, $back: String){
         updateCardRDS(id: $id, topicId: $topicId, front: $front, back: $back){
           success
         }
@@ -151,7 +171,7 @@ export class CustomApiRdsService {
 
   private async updateCardRDSToHard(topicId: string) {
     const statement = `
-      UpdateCardToHard($topicId: String){
+      mutation UpdateCardToHard($topicId: String){
         updateCardRDSToHard(topicId: $topicId){
           success
         }
@@ -166,7 +186,7 @@ export class CustomApiRdsService {
 
   private async updateCardRDSToEasy(topicId: string, box: Box) {
     const statement = `
-      UpdateCardRDSToEasy($topicId: String, $box: Box){
+      mutation UpdateCardRDSToEasy($topicId: String, $box: Box){
         updateCardRDSToEasy(topicId: $topicId, box: $box) {
           success
         }
@@ -182,7 +202,7 @@ export class CustomApiRdsService {
 
   private async deleteCard(id: string, topicId: string) {
     const statement = `
-      DeleteCard($id: String, $topicId: String){
+      mutation DeleteCard($id: String, $topicId: String){
         deleteCardRDS(id: $id, topicId: $topicId!){
           success
         }

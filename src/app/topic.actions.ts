@@ -41,6 +41,8 @@ export class AddTopicSuccess implements Action {
 
 export class AddTopicFailure implements Action {
   readonly type = TopicActionTypes.AddTopicFailure;
+
+  constructor(public readonly payload: string) {}
 }
 
 export class UpdateTopic implements Action {
@@ -55,6 +57,7 @@ export class UpdateTopicSuccess implements Action {
 
 export class UpdateTopicFailure implements Action {
   readonly type = TopicActionTypes.UpdateTopicFailure;
+  constructor(public readonly payload: string) {}
 }
 
 export class ResetTopicWithCards implements Action {
