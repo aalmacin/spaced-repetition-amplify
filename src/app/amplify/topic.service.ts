@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { switchMap, catchError } from 'rxjs/operators';
-import { Observable, of, from } from 'rxjs';
-import { Topic } from '@spaced-repetition/types/topic';
-import { APIService } from '@spaced-repetition/API.service';
+import { Observable, of } from 'rxjs';
 import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
-import { AppState } from '@spaced-repetition/reducers';
-import { Store } from '@ngrx/store';
 import { CustomApiService } from './custom-api.service';
 import { CustomApiRdsService } from './custom-api-rds.service';
 
@@ -13,11 +9,7 @@ import { CustomApiRdsService } from './custom-api-rds.service';
   providedIn: 'root'
 })
 export class TopicService {
-  public constructor(
-    private apiService: APIService,
-    private customApiService: CustomApiService,
-    private customApiRdsService: CustomApiRdsService
-  ) {}
+  public constructor(private customApiService: CustomApiService, private customApiRdsService: CustomApiRdsService) {}
 
   filterCards(filter: string) {
     return this.customApiService.filterCards(filter);

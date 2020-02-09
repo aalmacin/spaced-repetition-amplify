@@ -28,6 +28,13 @@ export class CustomApiRdsService {
     );
   }
 
+  public getCardsByTopicId(topicId: string): Observable<Card[]> {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.allStudyCards(user.email, null, 1000, 1, topicId))
+    );
+  }
+
   public newTopic(name): Observable<boolean> {
     return this.store.pipe(
       select(selectUser),
@@ -62,10 +69,22 @@ export class CustomApiRdsService {
     return from(this.deleteCard(id, topicId));
   }
 
-  private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
+  private async allStudyCards(
+    userId: string,
+    isReadyStudyOnly: boolean = null,
+    limit = 100,
+    page = 1,
+    topicId: string = null
+  ) {
     const statement = `
-      query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean) {
-        allStudyCards(userId: $userId, filter: $filter, limit: $limit, page: $page, isReadyStudyOnly: $isReadyStudyOnly) {
+      query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean, $topicId: String) {
+        allStudyCards(userId: $userId,
+          filter: $filter,
+          limit: $limit,
+          page: $page,
+          isReadyStudyOnly: $isReadyStudyOnly,
+          topicId: $topicId
+        ) {
           id
           front
           back
@@ -86,6 +105,9 @@ export class CustomApiRdsService {
       page,
       isReadyStudyOnly
     };
+    if (topicId) {
+      gqlAPIServiceArguments.topicId = topicId;
+    }
 
     if (isReadyStudyOnly !== null) {
       gqlAPIServiceArguments.isReadyStudyOnly = isReadyStudyOnly;

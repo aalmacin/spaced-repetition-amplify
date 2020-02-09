@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { makeBoxEasier } from '../main/shared/study.func';
-import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
-import { switchMap, catchError, map } from 'rxjs/operators';
-import { APIService, Box } from '@spaced-repetition/API.service';
-import { CustomApiService } from './custom-api.service';
-import { Store, select } from '@ngrx/store';
-import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { catchError, map } from 'rxjs/operators';
 import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
 import { CustomApiRdsService } from './custom-api-rds.service';
 
@@ -15,12 +10,7 @@ import { CustomApiRdsService } from './custom-api-rds.service';
   providedIn: 'root'
 })
 export class CardService {
-  public constructor(
-    private customApiService: CustomApiService,
-    private customApiRdsService: CustomApiRdsService,
-    private apiService: APIService,
-    private store: Store<AppState>
-  ) {}
+  public constructor(private customApiRdsService: CustomApiRdsService) {}
 
   public getAllTopicWithCards() {
     return this.customApiRdsService.getTopicWithCards();
@@ -31,7 +21,7 @@ export class CardService {
   }
 
   public getAllStudyCardsByTopicId(topicId: string): Observable<Card[]> {
-    return this.customApiService.getCardsByTopicId(topicId);
+    return this.customApiRdsService.getCardsByTopicId(topicId);
   }
 
   public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<boolean>> {
