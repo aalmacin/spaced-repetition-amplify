@@ -124,9 +124,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(cardValues => {
       return this.cardService.updateCard(cardValues).pipe(
-        filter(res => res.success),
-        map(() => new UpdateCardSuccess()),
-        catchError(() => of(new UpdateCardFailure()))
+        map(res => (res.success ? new UpdateCardSuccess() : new UpdateCardFailure(res.error.message))),
+        catchError(() => of(new UpdateCardFailure('Failed updating card')))
       );
     })
   );

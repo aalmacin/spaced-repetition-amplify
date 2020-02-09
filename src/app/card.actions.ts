@@ -98,6 +98,8 @@ export class UpdateCardSuccess implements Action {
 
 export class UpdateCardFailure implements Action {
   readonly type = CardActionTypes.UpdateCardFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class DeleteCard implements Action {

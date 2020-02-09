@@ -46,17 +46,9 @@ export class CardService {
     );
   }
 
-  public updateCard({ id, topicId, front, back }: Partial<Card>): Observable<ApiStatus<Card[]>> {
-    return of({ id, front, back }).pipe(
-      switchMap(card =>
-        this.apiService.UpdateCard({
-          ...card,
-          cardTopicId: topicId,
-          box: Box.VERY_HARD,
-          lastStudy: getCurrentTimestamp()
-        })
-      ),
-      map(() => ({ success: true })),
+  public updateCard({ id, topicId, front, back }: Partial<Card>): Observable<ApiStatus<boolean>> {
+    return this.customApiRdsService.editCard(id, topicId, front, back).pipe(
+      map(res => ({ success: res })),
       catchError(() =>
         of({
           success: false,

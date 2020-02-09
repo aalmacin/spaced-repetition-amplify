@@ -46,6 +46,10 @@ export class CustomApiRdsService {
     return from(this.createCard(topicId, front, back));
   }
 
+  public editCard(id: string, topicId: string, front: string, back: string): Observable<boolean> {
+    return from(this.updateCard(id, topicId, front, back));
+  }
+
   private async allStudyCards(userId: string, isReadyStudyOnly: boolean = null, limit = 100, page = 1) {
     const statement = `
       query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean) {
@@ -157,7 +161,7 @@ export class CustomApiRdsService {
 
   private async updateCard(id: string, topicId: string, front: string, back: string) {
     const statement = `
-      mutation UpdateCard($id: String, $topicId: String, $front: String, $back: String){
+      mutation UpdateCard($id: String!, $topicId: String!, $front: String!, $back: String!){
         updateCardRDS(id: $id, topicId: $topicId, front: $front, back: $back){
           success
         }
