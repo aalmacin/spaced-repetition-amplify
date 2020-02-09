@@ -1,11 +1,22 @@
 import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Box } from '@spaced-repetition/types/box';
+import { Store } from '@ngrx/store';
+import { AppState, selectUser } from '@spaced-repetition/reducers';
+import { Observable } from 'rxjs';
+import { TopicWithCards } from '@spaced-repetition/types/topic';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomApiRdsService {
+  public constructor(private store: Store<AppState>) {}
+
+  public getTopicWithCards(): Observable<TopicWithCards[]> {
+    return this.store.select(selectUser).pipe(switchMap(user => this.allTopics(user.email, 100)));
+  }
+
   private async allStudyCards(userId: string, limit = 10, page = 1) {
     const statement = `
       query AllStudyCards($userId: String, $limit: Int, $page: Int) {

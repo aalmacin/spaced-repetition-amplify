@@ -9,6 +9,7 @@ import { CustomApiService } from './custom-api.service';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
 import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
+import { CustomApiRdsService } from './custom-api-rds.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,13 @@ import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
 export class CardService {
   public constructor(
     private customApiService: CustomApiService,
+    private customApiRdsService: CustomApiRdsService,
     private apiService: APIService,
     private store: Store<AppState>
   ) {}
 
   public getAllTopicWithCards() {
-    return this.customApiService.getTopicWithCards();
+    return this.customApiRdsService.getTopicWithCards();
   }
 
   public getAllStudyCards(): Observable<Card[]> {
