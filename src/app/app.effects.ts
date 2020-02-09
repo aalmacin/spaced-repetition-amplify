@@ -72,7 +72,7 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(cardValues => {
       return this.cardService.updateCardToEasy(cardValues).pipe(
-        map(res => (res.success ? new UpdateCardToEasySuccess(res.data) : res.error.message)),
+        map(res => (res.success ? new UpdateCardToEasySuccess() : res.error.message)),
         catchError(() => of(new UpdateCardToEasyFailure('Failed updating card to easy')))
       );
     })
@@ -84,9 +84,7 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(cardValues => {
       return this.cardService.updateCardToHard(cardValues).pipe(
-        map(res =>
-          res.success ? new UpdateCardToHardSuccess(res.data) : new UpdateCardToHardFailure(res.error.message)
-        ),
+        map(res => (res.success ? new UpdateCardToHardSuccess() : new UpdateCardToHardFailure(res.error.message))),
         catchError(() => of(new UpdateCardToHardFailure('Failed updating card to hard')))
       );
     })

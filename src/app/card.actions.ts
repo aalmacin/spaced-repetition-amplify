@@ -131,8 +131,6 @@ export class UpdateCardToEasy implements Action {
 
 export class UpdateCardToEasySuccess implements Action {
   readonly type = CardActionTypes.UpdateCardToEasySuccess;
-
-  public constructor(public readonly payload: Partial<Card>) {}
 }
 
 export class UpdateCardToEasyFailure implements Action {
@@ -149,7 +147,6 @@ export class UpdateCardToHard implements Action {
 
 export class UpdateCardToHardSuccess implements Action {
   readonly type = CardActionTypes.UpdateCardToHardSuccess;
-  public constructor(public readonly payload: Partial<Card>) {}
 }
 
 export class UpdateCardToHardFailure implements Action {

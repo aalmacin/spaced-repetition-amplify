@@ -21,7 +21,7 @@ export class CustomApiRdsService {
     );
   }
 
-  public filterTopicWithCards(filter: string): Observable<Card[]> {
+  public filterTopicWithCards(filter: string): Observable<TopicWithCards[]> {
     return this.store.pipe(
       select(selectUser),
       switchMap(user => this.allTopics(user.email, 100, filter))
@@ -120,8 +120,13 @@ export class CustomApiRdsService {
       gqlAPIServiceArguments.isReadyStudyOnly = isReadyStudyOnly;
     }
 
-    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
-    return response.data.allStudyCards;
+    try {
+      const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
+      return response.data.allStudyCards;
+    } catch (e) {
+      console.error(e);
+      throw Error('Failed to query all study cards');
+    }
   }
 
   private async allTopics(userId: string, limit = 10, filter: string = null) {
