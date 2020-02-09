@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { switchMap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
-import { CustomApiService } from './custom-api.service';
 import { CustomApiRdsService } from './custom-api-rds.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
-  public constructor(private customApiService: CustomApiService, private customApiRdsService: CustomApiRdsService) {}
+  public constructor(private customApiRdsService: CustomApiRdsService) {}
 
   filterCards(filter: string) {
-    return this.customApiService.filterCards(filter);
+    return this.customApiRdsService.filterTopicWithCards(filter);
   }
 
   public addTopic(): Observable<ApiStatus<boolean>> {

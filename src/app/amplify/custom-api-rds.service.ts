@@ -21,6 +21,13 @@ export class CustomApiRdsService {
     );
   }
 
+  public filterTopicWithCards(filter: string): Observable<Card[]> {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.allTopics(user.email, 100, filter))
+    );
+  }
+
   public getAllStudyCards(): Observable<Card[]> {
     return this.store.pipe(
       select(selectUser),
@@ -117,10 +124,10 @@ export class CustomApiRdsService {
     return response.data.allStudyCards;
   }
 
-  private async allTopics(userId: string, limit = 10) {
+  private async allTopics(userId: string, limit = 10, filter: string = null) {
     const statement = `
-      query AllTopics($userId: String, $limit: Int) {
-        allTopics(userId: $userId, limit: $limit) {
+      query AllTopics($userId: String, $limit: Int, $filter: String) {
+        allTopics(userId: $userId, limit: $limit, filter: $filter) {
           id
           name
           user
@@ -138,6 +145,10 @@ export class CustomApiRdsService {
     const gqlAPIServiceArguments: any = {};
     gqlAPIServiceArguments.userId = userId;
     gqlAPIServiceArguments.limit = limit;
+
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return response.data.allTopics;
