@@ -4,7 +4,7 @@ import { Box } from '@spaced-repetition/types/box';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectUser } from '@spaced-repetition/reducers';
 import { Observable, from } from 'rxjs';
-import { TopicWithCards } from '@spaced-repetition/types/topic';
+import { TopicWithCards, Topic } from '@spaced-repetition/types/topic';
 import { switchMap } from 'rxjs/operators';
 import { Card } from '@spaced-repetition/types/card';
 
@@ -13,6 +13,13 @@ import { Card } from '@spaced-repetition/types/card';
 })
 export class CustomApiRdsService {
   public constructor(private store: Store<AppState>) {}
+
+  public getTopics(): Observable<Topic[]> {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.topics(user.email))
+    );
+  }
 
   public getTopicWithCards(): Observable<TopicWithCards[]> {
     return this.store.pipe(
@@ -74,6 +81,30 @@ export class CustomApiRdsService {
 
   public removeCard(id: string, topicId: string): Observable<boolean> {
     return from(this.deleteCard(id, topicId));
+  }
+
+  private async topics(userId: string) {
+    const statement = `
+      query Topics($userId: String!) {
+        topics(userId: $userId) {
+          id
+          name
+          cardCount
+        }
+      }
+    `;
+
+    const gqlAPIServiceArguments: any = {
+      userId
+    };
+
+    try {
+      const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
+      return response.data.topics;
+    } catch (e) {
+      console.error(e);
+      throw Error('Failed to query topics');
+    }
   }
 
   private async allStudyCards(

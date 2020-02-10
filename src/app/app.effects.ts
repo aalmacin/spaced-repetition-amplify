@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppActionTypes, LoadApplication } from './app.actions';
-import { switchMap, catchError, map, filter, tap } from 'rxjs/operators';
+import { switchMap, catchError, map, filter, tap, withLatestFrom } from 'rxjs/operators';
 import {
   LoadTopics,
   TopicActionTypes,
@@ -63,6 +63,8 @@ import {
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
+import { select, Store } from '@ngrx/store';
+import { selectUser, AppState } from './reducers';
 
 @Injectable()
 export class AppEffects {
@@ -190,10 +192,14 @@ export class AppEffects {
   @Effect()
   loadTopics$ = this.actions$.pipe(
     ofType(TopicActionTypes.LoadTopics),
+    select(selectUser),
     switchMap(() =>
-      this.cardService.getAllTopicWithCards().pipe(
-        map(res => new LoadTopicsSuccess(res)),
-        catchError(() => of(new LoadTopicsFailure()))
+      this.topicService.getTopics().pipe(
+        withLatestFrom(this.store.pipe(select(selectUser))),
+        map(([res, user]) => new LoadTopicsSuccess(res.map(t => ({ ...t, user: user.email, cards: [] })))),
+        catchError(() => {
+          return of(new LoadTopicsFailure());
+        })
       )
     )
   );
@@ -314,6 +320,7 @@ export class AppEffects {
 
   constructor(
     private actions$: Actions,
+    private store: Store<AppState>,
     private topicService: TopicService,
     private cardService: CardService,
     private authService: AuthService

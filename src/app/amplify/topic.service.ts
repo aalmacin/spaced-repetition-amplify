@@ -10,6 +10,10 @@ import { CustomApiRdsService } from './custom-api-rds.service';
 export class TopicService {
   public constructor(private customApiRdsService: CustomApiRdsService) {}
 
+  getTopics() {
+    return this.customApiRdsService.getTopics();
+  }
+
   filterCards(filter: string) {
     return this.customApiRdsService.filterTopicWithCards(filter);
   }
