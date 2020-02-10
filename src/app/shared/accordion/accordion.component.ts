@@ -1,5 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
-import { EventEmitter } from 'events';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'al-accordion',

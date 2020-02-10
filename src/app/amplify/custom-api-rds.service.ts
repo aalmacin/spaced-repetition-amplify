@@ -14,6 +14,10 @@ import { Card } from '@spaced-repetition/types/card';
 export class CustomApiRdsService {
   public constructor(private store: Store<AppState>) {}
 
+  public getCardsForTopic(id: string) {
+    return this.getCardsByTopicId(id);
+  }
+
   public getTopics(): Observable<Topic[]> {
     return this.store.pipe(
       select(selectUser),

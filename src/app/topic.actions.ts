@@ -1,7 +1,11 @@
 import { Action } from '@ngrx/store';
 import { TopicWithCards } from './types/topic';
+import { Card } from './types/card';
 
 export enum TopicActionTypes {
+  LoadCardsForTopic = '[Topic] Load Cards For Topic',
+  LoadCardsForTopicSuccess = '[Topic] Load Cards For Topic Success',
+  LoadCardsForTopicFailure = '[Topic] Load Cards For Topic Failure',
   LoadTopics = '[Topic] Load Topics',
   LoadTopicsSuccess = '[Topic] Load Topics Success',
   LoadTopicsFailure = '[Topic] Load Topics Failure',
@@ -15,6 +19,29 @@ export enum TopicActionTypes {
   FilterCards = '[Topic] Filter Cards',
   FilterCardsSuccess = '[Topic] Filter Cards Success',
   FilterCardsFailure = '[Topic] Filter Cards Failure'
+}
+
+export class LoadCardsForTopic implements Action {
+  readonly type = TopicActionTypes.LoadCardsForTopic;
+
+  constructor(public payload: string) {}
+}
+
+export interface LoadCardsForTopicSuccessPayload {
+  topicId: string;
+  cards: Card[];
+}
+
+export class LoadCardsForTopicSuccess implements Action {
+  readonly type = TopicActionTypes.LoadCardsForTopicSuccess;
+
+  constructor(public payload: LoadCardsForTopicSuccessPayload) {}
+}
+
+export class LoadCardsForTopicFailure implements Action {
+  readonly type = TopicActionTypes.LoadCardsForTopicFailure;
+
+  constructor(public payload: string) {}
 }
 
 export class LoadTopics implements Action {
@@ -81,6 +108,9 @@ export class FilterCardsFailure implements Action {
 }
 
 export type TopicActions =
+  | LoadCardsForTopic
+  | LoadCardsForTopicSuccess
+  | LoadCardsForTopicFailure
   | LoadTopics
   | LoadTopicsSuccess
   | LoadTopicsFailure

@@ -11,6 +11,11 @@ export function topicReducer(state = initialState, action: TopicActions): TopicS
       return [...action.payload];
     case TopicActionTypes.FilterCardsSuccess:
       return [...action.payload];
+    case TopicActionTypes.LoadCardsForTopicSuccess:
+      const topics = [...state];
+      const topicIdx = topics.findIndex(t => t.id === action.payload.topicId);
+      topics[topicIdx].cards = action.payload.cards;
+      return [...topics];
     case TopicActionTypes.ResetTopicWithCards:
       return [];
     default:

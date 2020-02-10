@@ -3,12 +3,25 @@ import { switchMap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
 import { CustomApiRdsService } from './custom-api-rds.service';
+import { Card } from '@spaced-repetition/types/card';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
   public constructor(private customApiRdsService: CustomApiRdsService) {}
+
+  getCardsForTopic(id: string): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.getCardsForTopic(id).pipe(
+      switchMap(res => of({ success: true, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while getting cards for topic.', type: ApiErrorType.GenericAPIException }
+        })
+      )
+    );
+  }
 
   getTopics() {
     return this.customApiRdsService.getTopics();

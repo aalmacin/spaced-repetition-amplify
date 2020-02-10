@@ -15,7 +15,10 @@ import {
   ResetTopicWithCards,
   FilterCards,
   FilterCardsFailure,
-  FilterCardsSuccess
+  FilterCardsSuccess,
+  LoadCardsForTopic,
+  LoadCardsForTopicSuccess,
+  LoadCardsForTopicFailure
 } from './topic.actions';
 import { of, combineLatest } from 'rxjs';
 import {
@@ -145,6 +148,38 @@ export class AppEffects {
   );
 
   @Effect()
+  loadCardsForTopic$ = this.actions$.pipe(
+    ofType<LoadCardsForTopic>(TopicActionTypes.LoadCardsForTopic),
+    map(action => action.payload),
+    switchMap(topicId =>
+      this.cardService.getAllStudyCardsByTopicId(topicId).pipe(
+        map(res =>
+          res.success
+            ? new LoadCardsForTopicSuccess({ topicId, cards: res.data })
+            : new LoadCardsForTopicFailure(res.error.message)
+        ),
+        catchError(() => of(new LoadCardsForTopicFailure('Failed loading study cards for topic')))
+      )
+    )
+  );
+
+  @Effect()
+  loadStudyCardsForTopic$ = this.actions$.pipe(
+    ofType<LoadStudyCardsForTopic>(TopicActionTypes.LoadCardsForTopic),
+    map(action => action.payload),
+    switchMap(id =>
+      this.topicService.getCardsForTopic(id).pipe(
+        map(res =>
+          res.success
+            ? new LoadStudyCardsForTopicSuccess(res.data)
+            : new LoadStudyCardsForTopicFailure(res.error.message)
+        ),
+        catchError(() => of(new LoadStudyCardsForTopicFailure('An error occured.')))
+      )
+    )
+  );
+
+  @Effect()
   addTopic$ = this.actions$.pipe(
     ofType(TopicActionTypes.AddTopic),
     switchMap(() =>
@@ -225,18 +260,6 @@ export class AppEffects {
       this.cardService.getAllStudyCards().pipe(
         map(res => new LoadStudyCardsSuccess(res)),
         catchError(() => of(new LoadStudyCardsFailure()))
-      )
-    )
-  );
-
-  @Effect()
-  loadStudyCardsForTopic$ = this.actions$.pipe(
-    ofType<LoadStudyCardsForTopic>(CardActionTypes.LoadStudyCardsForTopic),
-    map(action => action.payload),
-    switchMap(topicId =>
-      this.cardService.getAllStudyCardsByTopicId(topicId).pipe(
-        map(res => new LoadStudyCardsForTopicSuccess(res)),
-        catchError(() => of(new LoadStudyCardsForTopicFailure()))
       )
     )
   );

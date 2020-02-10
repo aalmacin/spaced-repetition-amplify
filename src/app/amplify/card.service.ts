@@ -24,8 +24,19 @@ export class CardService {
     return this.customApiRdsService.getStudyCardCount();
   }
 
-  public getAllStudyCardsByTopicId(topicId: string): Observable<Card[]> {
-    return this.customApiRdsService.getCardsByTopicId(topicId);
+  public getAllStudyCardsByTopicId(topicId: string): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.getCardsByTopicId(topicId).pipe(
+      map(res => ({ success: true, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: {
+            message: 'An error occured while getting all study cards by topic',
+            type: ApiErrorType.GenericAPIException
+          }
+        })
+      )
+    );
   }
 
   public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<boolean>> {

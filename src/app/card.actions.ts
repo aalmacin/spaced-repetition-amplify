@@ -57,6 +57,8 @@ export class LoadStudyCardsForTopicSuccess implements Action {
 
 export class LoadStudyCardsForTopicFailure implements Action {
   readonly type = CardActionTypes.LoadStudyCardsForTopicFailure;
+
+  public constructor(public payload: string) {}
 }
 
 type AddCardPayload = {

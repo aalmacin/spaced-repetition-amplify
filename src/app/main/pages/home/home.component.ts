@@ -6,7 +6,7 @@ import { AppState, selectUser, selectTopicWithCards, selectCardsToStudyCount } f
 import { Store, select } from '@ngrx/store';
 import { KEY_ESCAPE } from '@spaced-repetition/app.constants';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
-import { AddTopic, FilterCards, LoadTopics } from '@spaced-repetition/topic.actions';
+import { AddTopic, FilterCards, LoadTopics, LoadCardsForTopic } from '@spaced-repetition/topic.actions';
 import { LoadStudyCards, LoadStudyCardCount } from '@spaced-repetition/card.actions';
 
 @Component({
@@ -72,5 +72,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   searchCards(searchStr: string) {
     this.store.dispatch(new FilterCards(searchStr));
+  }
+
+  loadTopic(topicId: string) {
+    this.store.dispatch(new LoadCardsForTopic(topicId));
   }
 }
