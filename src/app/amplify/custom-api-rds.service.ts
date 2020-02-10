@@ -42,6 +42,13 @@ export class CustomApiRdsService {
     );
   }
 
+  public getStudyCardCount() {
+    return this.store.pipe(
+      select(selectUser),
+      switchMap(user => this.studyCardCount(user.email))
+    );
+  }
+
   public getCardsByTopicId(topicId: string): Observable<Card[]> {
     return this.store.pipe(
       select(selectUser),
@@ -303,5 +310,24 @@ export class CustomApiRdsService {
 
     const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return response.data;
+  }
+
+  private async studyCardCount(userId: string) {
+    const statement = `
+    query CardsToReviewCount($userId: String!) {
+      cardsToReviewCount(userId: $userId)
+    }
+    `;
+    const gqlAPIServiceArguments: any = {
+      userId
+    };
+
+    try {
+      const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
+      return response.data.cardsToReviewCount;
+    } catch (e) {
+      console.error(e);
+      throw Error('Failed to query study card count');
+    }
   }
 }

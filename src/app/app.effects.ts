@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppActionTypes, LoadApplication } from './app.actions';
-import { switchMap, catchError, map, filter, tap, withLatestFrom } from 'rxjs/operators';
+import { switchMap, catchError, map, withLatestFrom } from 'rxjs/operators';
 import {
   LoadTopics,
   TopicActionTypes,
@@ -59,7 +59,9 @@ import {
   ResetStudyCards,
   LoadStudyCardsForTopic,
   LoadStudyCardsForTopicSuccess,
-  LoadStudyCardsForTopicFailure
+  LoadStudyCardsForTopicFailure,
+  LoadStudyCardCountSuccess,
+  LoadStudyCardCountFailure
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
@@ -235,6 +237,17 @@ export class AppEffects {
       this.cardService.getAllStudyCardsByTopicId(topicId).pipe(
         map(res => new LoadStudyCardsForTopicSuccess(res)),
         catchError(() => of(new LoadStudyCardsForTopicFailure()))
+      )
+    )
+  );
+
+  @Effect()
+  loadStudyCardCount$ = this.actions$.pipe(
+    ofType(CardActionTypes.LoadStudyCardCount),
+    switchMap(() =>
+      this.cardService.getStudyCardCount().pipe(
+        map(res => new LoadStudyCardCountSuccess(res)),
+        catchError(() => of(new LoadStudyCardCountFailure()))
       )
     )
   );

@@ -20,6 +20,10 @@ export class CardService {
     return this.customApiRdsService.getAllStudyCards();
   }
 
+  getStudyCardCount() {
+    return this.customApiRdsService.getStudyCardCount();
+  }
+
   public getAllStudyCardsByTopicId(topicId: string): Observable<Card[]> {
     return this.customApiRdsService.getCardsByTopicId(topicId);
   }

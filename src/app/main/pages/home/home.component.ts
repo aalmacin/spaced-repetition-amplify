@@ -2,12 +2,12 @@ import { Component, OnDestroy, HostListener, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '@spaced-repetition/types/user';
 import { Card } from '@spaced-repetition/types/card';
-import { AppState, selectUser, selectTopicWithCards, selectReadyToStudyCards } from '@spaced-repetition/reducers';
+import { AppState, selectUser, selectTopicWithCards, selectCardsToStudyCount } from '@spaced-repetition/reducers';
 import { Store, select } from '@ngrx/store';
 import { KEY_ESCAPE } from '@spaced-repetition/app.constants';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
 import { AddTopic, FilterCards, LoadTopics } from '@spaced-repetition/topic.actions';
-import { LoadStudyCards } from '@spaced-repetition/card.actions';
+import { LoadStudyCards, LoadStudyCardCount } from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: User;
   createTopicToggle = false;
   topicWithCards: TopicWithCards[] = [];
-  cards: Card[] = [];
-  studyCards: Card[] = [];
+  cardsToStudyCount = 0;
   addNewCard = false;
 
   constructor(private store: Store<AppState>) {}
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(new LoadTopics());
-    this.store.dispatch(new LoadStudyCards());
+    this.store.dispatch(new LoadStudyCardCount());
     this.subscriptions
       .add(
         this.store.pipe(select(selectUser)).subscribe(user => {
@@ -49,8 +48,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
       )
       .add(
-        this.store.pipe(select(selectReadyToStudyCards)).subscribe(studyCards => {
-          this.studyCards = studyCards;
+        this.store.pipe(select(selectCardsToStudyCount)).subscribe(cardsToStudyCount => {
+          this.cardsToStudyCount = cardsToStudyCount;
         })
       );
   }

@@ -1,7 +1,7 @@
 <div class="home-page">
   <div class="home-page-head">
     <span class="home-page-head__cards">
-      <a alLink [underline]="true" href="/app/study">Cards to Review: {{ studyCards.length }}</a>
+      <a alLink [underline]="true" href="/app/study">Cards to Review: {{ cardsToStudyCount }}</a>
     </span>
     <span class="home-page-head__email">{{ user && user.email }}</span>
   </div>
@@ -32,6 +32,9 @@
             </al-accordion-header>
             <al-accordion-body>
               <app-topic-form [topic]="topic"></app-topic-form>
+              <div *ngIf="topic.cardCount > 0 && topic.cards.length === 0">
+                <app-loading></app-loading>
+              </div>
               <div class="study-cards-container">
                 <a alBtn="secondary" href="/app/study?topicId={{ topic.id }}">Study Cards</a>
               </div>
