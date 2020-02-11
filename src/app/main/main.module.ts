@@ -22,6 +22,9 @@ import { TopicFormComponent } from './pages/home/topic-form/topic-form.component
 import { CardInfoComponent } from './pages/home/card-info/card-info.component';
 import { AddNewCardComponent } from './pages/home/add-new-card/add-new-card.component';
 import { TopicSelectComponent } from './pages/home/topic-select/topic-select.component';
+import { TopicsComponent } from './pages/home/topics/topics.component';
+import { TopicComponent } from './pages/home/topic/topic.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -33,8 +36,18 @@ import { TopicSelectComponent } from './pages/home/topic-select/topic-select.com
     TopicFormComponent,
     CardInfoComponent,
     AddNewCardComponent,
-    TopicSelectComponent
+    TopicSelectComponent,
+    TopicsComponent,
+    TopicComponent
   ],
-  imports: [AuthModule, CommonModule, FormsModule, ReactiveFormsModule, MainRoutingModule, SharedModule]
+  imports: [
+    AuthModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MainRoutingModule,
+    SharedModule,
+    NgxPaginationModule
+  ]
 })
 export class MainModule {}

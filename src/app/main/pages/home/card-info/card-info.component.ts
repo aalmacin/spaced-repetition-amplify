@@ -35,7 +35,7 @@ export class CardInfoComponent implements OnInit {
   public deleteCard(event: MouseEvent) {
     event.preventDefault();
     if (confirm(`Are you sure you want to delete?`)) {
-      this.store.dispatch(new DeleteCard(this.card.id));
+      this.store.dispatch(new DeleteCard({ topicId: this.topicId, id: this.card.id }));
     }
   }
 

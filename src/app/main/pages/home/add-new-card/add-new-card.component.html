@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <app-topic-select (changeTopic)="changeTopic($event)"></app-topic-select>
+    <app-topic-select [selectedTopicId]="mainForm.value.topicId" (changeTopic)="changeTopic($event)"></app-topic-select>
 
     <button class="more-cards" alBtn="plain" (click)="moreCard($event)"><span class="fas fa-plus"></span> More</button>
 

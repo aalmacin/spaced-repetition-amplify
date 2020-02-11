@@ -1,3 +1,23 @@
-<div class="cards" *ngFor="let card of cards">
+<div
+  class="cards"
+  *ngFor="let card of cards | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalCardCount }"
+>
   <app-card-info [card]="card" [topicId]="topicId"></app-card-info>
+</div>
+
+<div class="pagination">
+  <pagination-controls
+    (pageChange)="pageChanged($event)"
+    (pageBoundsCorrection)="pageChanged($event)"
+    maxSize="9"
+    directionLinks="true"
+    autoHide="true"
+    responsive="true"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page"
+  >
+  </pagination-controls>
 </div>

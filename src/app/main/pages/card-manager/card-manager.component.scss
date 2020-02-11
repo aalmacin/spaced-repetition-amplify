@@ -417,3 +417,15 @@
 .no-cards {
   text-align: center;
 }
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @include margin(lg, t);
+
+  &__btn {
+    @include margin(sm, lr);
+  }
+}

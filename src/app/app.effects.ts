@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppActionTypes, LoadApplication } from './app.actions';
-import { switchMap, catchError, map, filter, tap } from 'rxjs/operators';
+import { switchMap, catchError, map, withLatestFrom } from 'rxjs/operators';
 import {
   LoadTopics,
   TopicActionTypes,
@@ -15,7 +15,10 @@ import {
   ResetTopicWithCards,
   FilterCards,
   FilterCardsFailure,
-  FilterCardsSuccess
+  FilterCardsSuccess,
+  LoadCardsForTopic,
+  LoadCardsForTopicSuccess,
+  LoadCardsForTopicFailure
 } from './topic.actions';
 import { of, combineLatest } from 'rxjs';
 import {
@@ -59,11 +62,14 @@ import {
   ResetStudyCards,
   LoadStudyCardsForTopic,
   LoadStudyCardsForTopicSuccess,
-  LoadStudyCardsForTopicFailure
+  LoadStudyCardsForTopicFailure,
+  LoadStudyCardCountSuccess,
+  LoadStudyCardCountFailure
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
-import { MessageContext } from './message.reducer';
+import { select, Store } from '@ngrx/store';
+import { selectUser, AppState } from './reducers';
 
 @Injectable()
 export class AppEffects {
@@ -73,9 +79,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(cardValues => {
       return this.cardService.updateCardToEasy(cardValues).pipe(
-        filter(res => res.success),
-        map(res => new UpdateCardToEasySuccess(res.data)),
-        catchError(() => of(new UpdateCardToEasyFailure()))
+        map(res => (res.success ? new UpdateCardToEasySuccess() : res.error.message)),
+        catchError(() => of(new UpdateCardToEasyFailure('Failed updating card to easy')))
       );
     })
   );
@@ -86,9 +91,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(cardValues => {
       return this.cardService.updateCardToHard(cardValues).pipe(
-        filter(res => res.success),
-        map(res => new UpdateCardToHardSuccess(res.data)),
-        catchError(() => of(new UpdateCardToHardFailure()))
+        map(res => (res.success ? new UpdateCardToHardSuccess() : new UpdateCardToHardFailure(res.error.message))),
+        catchError(() => of(new UpdateCardToHardFailure('Failed updating card to hard')))
       );
     })
   );
@@ -98,21 +102,23 @@ export class AppEffects {
     ofType<AddCard>(CardActionTypes.AddCard),
     map(action => action.payload),
     switchMap(cardValues => {
-      const createAddCard$ = values => this.cardService.addNewCard(values).pipe(filter(res => res.success));
+      const createAddCard$ = values => this.cardService.addNewCard(values);
       if (cardValues.reverseCard) {
         return combineLatest(
           createAddCard$(cardValues),
           createAddCard$({ topicId: cardValues.topicId, front: cardValues.back, back: cardValues.front })
         ).pipe(
-          filter(([res1, res2]) => res1.success && res2.success),
-          map(() => new AddCardSuccess()),
-          catchError(() => of(new AddCardFailure()))
+          map(([res1, res2]) =>
+            res1.success && res2.success
+              ? new AddCardSuccess()
+              : new AddCardFailure('res1 error: ' + res1.error.message + ' | res2 error: ' + res2.error.message)
+          ),
+          catchError(() => of(new AddCardFailure('Failed creating card')))
         );
       }
       return createAddCard$(cardValues).pipe(
-        filter(res => res.success),
-        map(() => new AddCardSuccess()),
-        catchError(() => of(new AddCardFailure()))
+        map(res => (res.success ? new AddCardSuccess() : new AddCardFailure(res.error.message))),
+        catchError(() => of(new AddCardFailure('Failed creating card')))
       );
     })
   );
@@ -123,9 +129,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(cardValues => {
       return this.cardService.updateCard(cardValues).pipe(
-        filter(res => res.success),
-        map(() => new UpdateCardSuccess()),
-        catchError(() => of(new UpdateCardFailure()))
+        map(res => (res.success ? new UpdateCardSuccess() : new UpdateCardFailure(res.error.message))),
+        catchError(() => of(new UpdateCardFailure('Failed updating card')))
       );
     })
   );
@@ -134,23 +139,53 @@ export class AppEffects {
   deleteCard$ = this.actions$.pipe(
     ofType<DeleteCard>(CardActionTypes.DeleteCard),
     map(action => action.payload),
-    switchMap(cardId => {
-      return this.cardService.deleteCard(cardId).pipe(
-        filter(res => res.success),
-        map(() => new DeleteCardSuccess()),
-        catchError(() => of(new DeleteCardFailure()))
+    switchMap(({ id, topicId }) => {
+      return this.cardService.deleteCard(id, topicId).pipe(
+        map(res => (res.success ? new DeleteCardSuccess() : new DeleteCardFailure(res.error.message))),
+        catchError(() => of(new DeleteCardFailure('Failed deleting card')))
       );
     })
+  );
+
+  @Effect()
+  loadCardsForTopic$ = this.actions$.pipe(
+    ofType<LoadCardsForTopic>(TopicActionTypes.LoadCardsForTopic),
+    map(action => action.payload),
+    switchMap(({ topicId, limit, page }) =>
+      this.topicService.getCardsForTopic(topicId, null, limit, page).pipe(
+        map(res =>
+          res.success
+            ? new LoadCardsForTopicSuccess({ topicId, cards: res.data })
+            : new LoadCardsForTopicFailure(res.error.message)
+        ),
+        catchError(() => of(new LoadCardsForTopicFailure('Failed loading study cards for topic')))
+      )
+    )
+  );
+
+  @Effect()
+  loadStudyCardsForTopic$ = this.actions$.pipe(
+    ofType<LoadStudyCardsForTopic>(CardActionTypes.LoadStudyCardsForTopic),
+    map(action => action.payload),
+    switchMap(id =>
+      this.cardService.getAllStudyCardsByTopicId(id).pipe(
+        map(res =>
+          res.success
+            ? new LoadStudyCardsForTopicSuccess(res.data)
+            : new LoadStudyCardsForTopicFailure(res.error.message)
+        ),
+        catchError(() => of(new LoadStudyCardsForTopicFailure('An error occured.')))
+      )
+    )
   );
 
   @Effect()
   addTopic$ = this.actions$.pipe(
     ofType(TopicActionTypes.AddTopic),
     switchMap(() =>
-      this.topicService.addTopic('Untitled').pipe(
-        filter(res => res.success),
-        map(() => new AddTopicSuccess()),
-        catchError(() => of(new AddTopicFailure()))
+      this.topicService.addTopic().pipe(
+        map(res => (res.success ? new AddTopicSuccess() : new AddTopicFailure(res.error.message))),
+        catchError(() => of(new AddTopicFailure('An error occured.')))
       )
     )
   );
@@ -179,9 +214,8 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(action =>
       this.topicService.updateTopic(action.id, action.name).pipe(
-        filter(res => res.success),
-        map(() => new UpdateTopicSuccess()),
-        catchError(() => of(new UpdateTopicFailure()))
+        map(res => (res.success ? new UpdateTopicSuccess() : new UpdateTopicFailure(res.error.message))),
+        catchError(() => of(new UpdateTopicFailure('Failed Updating topic')))
       )
     )
   );
@@ -195,10 +229,14 @@ export class AppEffects {
   @Effect()
   loadTopics$ = this.actions$.pipe(
     ofType(TopicActionTypes.LoadTopics),
+    select(selectUser),
     switchMap(() =>
-      this.cardService.getAllTopicWithCards().pipe(
-        map(res => new LoadTopicsSuccess(res)),
-        catchError(() => of(new LoadTopicsFailure()))
+      this.topicService.getTopics().pipe(
+        withLatestFrom(this.store.pipe(select(selectUser))),
+        map(([res, user]) => new LoadTopicsSuccess(res.map(t => ({ ...t, user: user.email, cards: [] })))),
+        catchError(() => {
+          return of(new LoadTopicsFailure());
+        })
       )
     )
   );
@@ -227,13 +265,12 @@ export class AppEffects {
   );
 
   @Effect()
-  loadStudyCardsForTopic$ = this.actions$.pipe(
-    ofType<LoadStudyCardsForTopic>(CardActionTypes.LoadStudyCardsForTopic),
-    map(action => action.payload),
-    switchMap(topicId =>
-      this.cardService.getAllStudyCardsByTopicId(topicId).pipe(
-        map(res => new LoadStudyCardsForTopicSuccess(res)),
-        catchError(() => of(new LoadStudyCardsForTopicFailure()))
+  loadStudyCardCount$ = this.actions$.pipe(
+    ofType(CardActionTypes.LoadStudyCardCount),
+    switchMap(() =>
+      this.cardService.getStudyCardCount().pipe(
+        map(res => new LoadStudyCardCountSuccess(res)),
+        catchError(() => of(new LoadStudyCardCountFailure()))
       )
     )
   );
@@ -319,6 +356,7 @@ export class AppEffects {
 
   constructor(
     private actions$: Actions,
+    private store: Store<AppState>,
     private topicService: TopicService,
     private cardService: CardService,
     private authService: AuthService

@@ -1,0 +1,12 @@
+<al-accordion
+  *ngFor="let topic of topicWithCards"
+  [expanded]="topic.name === 'Untitled'"
+  (expand)="loadTopic(topic.id)"
+>
+  <al-accordion-header>
+    {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cardCount }})
+  </al-accordion-header>
+  <al-accordion-body>
+    <app-topic *ngIf="topic.cardCount > 0 && loadedTopics.includes(topic.id)" [topic]="topic"></app-topic>
+  </al-accordion-body>
+</al-accordion>

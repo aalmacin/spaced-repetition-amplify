@@ -4,6 +4,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { Topic } from '@spaced-repetition/types/topic';
 import { select, Store } from '@ngrx/store';
 import { selectTopics, AppState } from '@spaced-repetition/reducers';
+import { LoadCardsForTopic } from '@spaced-repetition/topic.actions';
 
 @Component({
   selector: 'app-card-manager',
@@ -22,10 +23,17 @@ export class CardManagerComponent implements OnInit, OnDestroy {
   searchTerm = '';
 
   @Input()
+  totalCardCount = 0;
+
+  @Input()
   topicId = '';
 
   @Input()
   cards: Card[] = [];
+
+  limit = 10;
+
+  page = 1;
 
   constructor(private store: Store<AppState>) {}
 
@@ -37,9 +45,15 @@ export class CardManagerComponent implements OnInit, OnDestroy {
         })
       );
     }
+    this.store.dispatch(new LoadCardsForTopic({ topicId: this.topicId, limit: this.limit, page: 1 }));
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  pageChanged(n: number) {
+    this.page = n;
+    this.store.dispatch(new LoadCardsForTopic({ topicId: this.topicId, limit: this.limit, page: this.page }));
   }
 }

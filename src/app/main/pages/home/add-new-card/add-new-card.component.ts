@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppState } from '@spaced-repetition/reducers';
@@ -36,7 +36,7 @@ export class AddNewCardComponent implements OnInit {
         const cardValues = { ...addCardForm, topicId: mainFormValue.topicId };
         this.store.dispatch(new AddCard(cardValues));
       });
-      this.mainForm.reset();
+      this.reset();
     } else {
       this.errors = ['Something went wrong while adding a new card.'];
     }
@@ -66,6 +66,13 @@ export class AddNewCardComponent implements OnInit {
       front: ['', Validators.required],
       back: ['', Validators.required],
       reverseCard: [false]
+    });
+  }
+
+  private reset() {
+    this.mainForm = this.fb.group({
+      topicId: [null, Validators.required],
+      cards: this.fb.array([this.createAddCardForm()])
     });
   }
 }

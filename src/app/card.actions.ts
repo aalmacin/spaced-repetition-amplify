@@ -5,6 +5,9 @@ export enum CardActionTypes {
   LoadStudyCards = '[Card] Load Study Cards',
   LoadStudyCardsSuccess = '[Card] Load Study Cards Success',
   LoadStudyCardsFailure = '[Card] Load Study Cards Failure',
+  LoadStudyCardCount = '[Card] Load Study Card Count',
+  LoadStudyCardCountSuccess = '[Card] Load Study Card Count Success',
+  LoadStudyCardCountFailure = '[Card] Load Study Card Count Failure',
   LoadStudyCardsForTopic = '[Card] Load Study Cards For Topic',
   LoadStudyCardsForTopicSuccess = '[Card] Load Study Cards For Topic Success',
   LoadStudyCardsForTopicFailure = '[Card] Load Study Cards For Topic Failure',
@@ -54,6 +57,8 @@ export class LoadStudyCardsForTopicSuccess implements Action {
 
 export class LoadStudyCardsForTopicFailure implements Action {
   readonly type = CardActionTypes.LoadStudyCardsForTopicFailure;
+
+  public constructor(public payload: string) {}
 }
 
 type AddCardPayload = {
@@ -82,6 +87,8 @@ export class AddCardSuccess implements Action {
 
 export class AddCardFailure implements Action {
   readonly type = CardActionTypes.AddCardFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class UpdateCard implements Action {
@@ -96,12 +103,19 @@ export class UpdateCardSuccess implements Action {
 
 export class UpdateCardFailure implements Action {
   readonly type = CardActionTypes.UpdateCardFailure;
+
+  public constructor(public readonly payload: string) {}
+}
+
+interface DeleteCardPayload {
+  id: string;
+  topicId: string;
 }
 
 export class DeleteCard implements Action {
   readonly type = CardActionTypes.DeleteCard;
 
-  public constructor(public readonly payload: string) {}
+  public constructor(public readonly payload: DeleteCardPayload) {}
 }
 
 export class DeleteCardSuccess implements Action {
@@ -110,6 +124,8 @@ export class DeleteCardSuccess implements Action {
 
 export class DeleteCardFailure implements Action {
   readonly type = CardActionTypes.DeleteCardFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class UpdateCardToEasy implements Action {
@@ -120,12 +136,12 @@ export class UpdateCardToEasy implements Action {
 
 export class UpdateCardToEasySuccess implements Action {
   readonly type = CardActionTypes.UpdateCardToEasySuccess;
-
-  public constructor(public readonly payload: Partial<Card>) {}
 }
 
 export class UpdateCardToEasyFailure implements Action {
   readonly type = CardActionTypes.UpdateCardToEasyFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class UpdateCardToHard implements Action {
@@ -136,21 +152,39 @@ export class UpdateCardToHard implements Action {
 
 export class UpdateCardToHardSuccess implements Action {
   readonly type = CardActionTypes.UpdateCardToHardSuccess;
-  public constructor(public readonly payload: Partial<Card>) {}
 }
 
 export class UpdateCardToHardFailure implements Action {
   readonly type = CardActionTypes.UpdateCardToHardFailure;
+
+  public constructor(public readonly payload: string) {}
 }
 
 export class ResetStudyCards implements Action {
   readonly type = CardActionTypes.ResetStudyCards;
 }
 
+export class LoadStudyCardCount implements Action {
+  readonly type = CardActionTypes.LoadStudyCardCount;
+}
+
+export class LoadStudyCardCountSuccess implements Action {
+  readonly type = CardActionTypes.LoadStudyCardCountSuccess;
+
+  public constructor(public payload: number) {}
+}
+
+export class LoadStudyCardCountFailure implements Action {
+  readonly type = CardActionTypes.LoadStudyCardCountFailure;
+}
+
 export type CardActions =
   | LoadStudyCards
   | LoadStudyCardsSuccess
   | LoadStudyCardsFailure
+  | LoadStudyCardCount
+  | LoadStudyCardCountSuccess
+  | LoadStudyCardCountFailure
   | LoadStudyCardsForTopic
   | LoadStudyCardsForTopicSuccess
   | LoadStudyCardsForTopicFailure

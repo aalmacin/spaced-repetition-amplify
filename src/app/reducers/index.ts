@@ -28,7 +28,7 @@ export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [
 export const selectTopicWithCards = (state: AppState) => state.topics;
 export const selectTopics = createSelector(
   selectTopicWithCards,
-  (topicWithCards: TopicState): Topic[] => topicWithCards.map(({ id, name }) => ({ id, name }))
+  (topicWithCards: TopicState): Topic[] => topicWithCards.map(({ id, name, cardCount }) => ({ id, name, cardCount }))
 );
 export const selectUser = (state: AppState) => state.user;
 
@@ -37,7 +37,17 @@ export const selectTopicsById = createSelector(
   (topicWithCards, topicId: string) => topicWithCards.find(topic => topic.id === topicId)
 );
 
-export const selectStudyCards = (state: AppState) => state.studyCards;
+export const selectCardState = (state: AppState) => state.studyCards;
+
+export const selectStudyCards = createSelector(
+  selectCardState,
+  (state: CardState) => state.cards
+);
+
+export const selectCardsToStudyCount = createSelector(
+  selectCardState,
+  (state: CardState) => state.cardsToStudyCount
+);
 
 export const selectLoading = (state: AppState) => state.loading;
 
