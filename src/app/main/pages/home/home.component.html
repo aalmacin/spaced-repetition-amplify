@@ -26,33 +26,7 @@
       <div class="accordion-container">
         <div class="accordion">
           <h2 class="heading-desktop">Topics</h2>
-          <al-accordion
-            *ngFor="let topic of topicWithCards"
-            [expanded]="topic.name === 'Untitled'"
-            (expand)="loadTopic(topic.id)"
-          >
-            <al-accordion-header>
-              {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cardCount }})
-            </al-accordion-header>
-            <al-accordion-body>
-              <app-topic-form [topic]="topic"></app-topic-form>
-              <div>
-                <button alBtn="secondary" class="create-card-button" (click)="toggleAddNewCard()">
-                  <span class="button-icon">
-                    <i class="fas fa-plus"></i>
-                  </span>
-                  Add a new Card
-                </button>
-              </div>
-              <div *ngIf="topic.cardCount > 0 && topic.cards.length === 0">
-                <app-loading></app-loading>
-              </div>
-              <div *ngIf="topic.cardCount > 0" class="study-cards-container">
-                <a alBtn="secondary" href="/app/study?topicId={{ topic.id }}">Study Cards</a>
-              </div>
-              <app-card-manager [topicId]="topic.id" [cards]="topic.cards"></app-card-manager>
-            </al-accordion-body>
-          </al-accordion>
+          <app-topics [topicWithCards]="topicWithCards"></app-topics>
           <div class="topics-section-heading">
             <div class="create-topic">
               <button alBtn="secondary" class="create-topic-button" (click)="addNewTopic()">

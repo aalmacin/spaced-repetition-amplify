@@ -14,10 +14,6 @@ import { Card } from '@spaced-repetition/types/card';
 export class CustomApiRdsService {
   public constructor(private store: Store<AppState>) {}
 
-  public getCardsForTopic(id: string) {
-    return this.getCardsByTopicId(id);
-  }
-
   public getTopics(): Observable<Topic[]> {
     return this.store.pipe(
       select(selectUser),
@@ -53,10 +49,15 @@ export class CustomApiRdsService {
     );
   }
 
-  public getCardsByTopicId(topicId: string): Observable<Card[]> {
+  public getCardsByTopicId(
+    topicId: string,
+    isReadyStudyOnly: boolean = null,
+    limit = 1000,
+    page = 1
+  ): Observable<Card[]> {
     return this.store.pipe(
       select(selectUser),
-      switchMap(user => this.allStudyCards(user.email, null, 1000, 1, topicId))
+      switchMap(user => this.allStudyCards(user.email, isReadyStudyOnly, limit, page, topicId))
     );
   }
 
@@ -178,6 +179,7 @@ export class CustomApiRdsService {
           id
           name
           user
+          cardCount
           cards {
             id
             front

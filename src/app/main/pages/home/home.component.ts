@@ -1,13 +1,12 @@
 import { Component, OnDestroy, HostListener, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '@spaced-repetition/types/user';
-import { Card } from '@spaced-repetition/types/card';
 import { AppState, selectUser, selectTopicWithCards, selectCardsToStudyCount } from '@spaced-repetition/reducers';
 import { Store, select } from '@ngrx/store';
 import { KEY_ESCAPE } from '@spaced-repetition/app.constants';
 import { TopicWithCards } from '@spaced-repetition/types/topic';
 import { AddTopic, FilterCards, LoadTopics, LoadCardsForTopic } from '@spaced-repetition/topic.actions';
-import { LoadStudyCards, LoadStudyCardCount } from '@spaced-repetition/card.actions';
+import { LoadStudyCardCount } from '@spaced-repetition/card.actions';
 
 @Component({
   selector: 'app-home',
@@ -72,9 +71,5 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   searchCards(searchStr: string) {
     this.store.dispatch(new FilterCards(searchStr));
-  }
-
-  loadTopic(topicId: string) {
-    this.store.dispatch(new LoadCardsForTopic(topicId));
   }
 }

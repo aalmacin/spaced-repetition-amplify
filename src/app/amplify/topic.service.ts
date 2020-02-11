@@ -11,8 +11,8 @@ import { Card } from '@spaced-repetition/types/card';
 export class TopicService {
   public constructor(private customApiRdsService: CustomApiRdsService) {}
 
-  getCardsForTopic(id: string): Observable<ApiStatus<Card[]>> {
-    return this.customApiRdsService.getCardsForTopic(id).pipe(
+  getCardsForTopic(id: string, isReadyStudyOnly: boolean = null, limit = 10, page = 1): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.getCardsByTopicId(id, isReadyStudyOnly, limit, page).pipe(
       switchMap(res => of({ success: true, data: res })),
       catchError(() =>
         of({

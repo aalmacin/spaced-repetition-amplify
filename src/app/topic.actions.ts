@@ -21,10 +21,16 @@ export enum TopicActionTypes {
   FilterCardsFailure = '[Topic] Filter Cards Failure'
 }
 
+export interface LoadCardsForTopicPayload {
+  topicId: string;
+  limit: number;
+  page: number;
+}
+
 export class LoadCardsForTopic implements Action {
   readonly type = TopicActionTypes.LoadCardsForTopic;
 
-  constructor(public payload: string) {}
+  constructor(public payload: LoadCardsForTopicPayload) {}
 }
 
 export interface LoadCardsForTopicSuccessPayload {

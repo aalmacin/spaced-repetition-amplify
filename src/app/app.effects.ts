@@ -151,8 +151,8 @@ export class AppEffects {
   loadCardsForTopic$ = this.actions$.pipe(
     ofType<LoadCardsForTopic>(TopicActionTypes.LoadCardsForTopic),
     map(action => action.payload),
-    switchMap(topicId =>
-      this.cardService.getAllStudyCardsByTopicId(topicId).pipe(
+    switchMap(({ topicId, limit, page }) =>
+      this.topicService.getCardsForTopic(topicId, null, limit, page).pipe(
         map(res =>
           res.success
             ? new LoadCardsForTopicSuccess({ topicId, cards: res.data })
@@ -165,10 +165,10 @@ export class AppEffects {
 
   @Effect()
   loadStudyCardsForTopic$ = this.actions$.pipe(
-    ofType<LoadStudyCardsForTopic>(TopicActionTypes.LoadCardsForTopic),
+    ofType<LoadStudyCardsForTopic>(CardActionTypes.LoadStudyCardsForTopic),
     map(action => action.payload),
     switchMap(id =>
-      this.topicService.getCardsForTopic(id).pipe(
+      this.cardService.getAllStudyCardsByTopicId(id).pipe(
         map(res =>
           res.success
             ? new LoadStudyCardsForTopicSuccess(res.data)
