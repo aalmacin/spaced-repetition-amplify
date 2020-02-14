@@ -12,10 +12,6 @@ import { CustomApiRdsService } from './custom-api-rds.service';
 export class CardService {
   public constructor(private customApiRdsService: CustomApiRdsService) {}
 
-  public getAllTopicWithCards() {
-    return this.customApiRdsService.getTopicWithCards();
-  }
-
   public getAllStudyCards(): Observable<Card[]> {
     return this.customApiRdsService.getAllStudyCards();
   }

@@ -7,6 +7,8 @@ export const initialState: TopicState = [];
 
 export function topicReducer(state = initialState, action: TopicActions): TopicState {
   switch (action.type) {
+    case TopicActionTypes.FilterCards:
+      return state.map(topic => ({ ...topic, cards: [] }));
     case TopicActionTypes.LoadTopicsSuccess:
       return [...action.payload];
     case TopicActionTypes.FilterCardsSuccess:

@@ -62,6 +62,12 @@
       }
 
       .sidebar {
+        .filter {
+          display: flex;
+          justify-content: flex-end;
+          @include padding;
+        }
+
         @include media(desktop) {
           flex-basis: 30%;
           @include margin(lg, l);

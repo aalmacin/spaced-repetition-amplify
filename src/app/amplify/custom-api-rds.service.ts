@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Box } from '@spaced-repetition/types/box';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectUser } from '@spaced-repetition/reducers';
-import { Observable, from } from 'rxjs';
+import { AppState, selectUser, selectFilter } from '@spaced-repetition/reducers';
+import { Observable, from, combineLatest } from 'rxjs';
 import { TopicWithCards, Topic } from '@spaced-repetition/types/topic';
 import { switchMap } from 'rxjs/operators';
 import { Card } from '@spaced-repetition/types/card';
@@ -21,17 +21,10 @@ export class CustomApiRdsService {
     );
   }
 
-  public getTopicWithCards(): Observable<TopicWithCards[]> {
-    return this.store.pipe(
-      select(selectUser),
-      switchMap(user => this.allTopics(user.email, 100))
-    );
-  }
-
   public filterTopicWithCards(filter: string): Observable<TopicWithCards[]> {
     return this.store.pipe(
       select(selectUser),
-      switchMap(user => this.allTopics(user.email, 100, filter))
+      switchMap(user => this.topics(user.email, filter))
     );
   }
 
@@ -55,9 +48,8 @@ export class CustomApiRdsService {
     limit = 1000,
     page = 1
   ): Observable<Card[]> {
-    return this.store.pipe(
-      select(selectUser),
-      switchMap(user => this.allStudyCards(user.email, isReadyStudyOnly, limit, page, topicId))
+    return combineLatest(this.store.select(selectUser), this.store.select(selectFilter)).pipe(
+      switchMap(([user, filter]) => this.allStudyCards(user.email, isReadyStudyOnly, limit, page, topicId, filter))
     );
   }
 
@@ -95,10 +87,10 @@ export class CustomApiRdsService {
     return from(this.deleteCard(id, topicId));
   }
 
-  private async topics(userId: string) {
+  private async topics(userId: string, filter: string = null) {
     const statement = `
-      query Topics($userId: String!) {
-        topics(userId: $userId) {
+      query Topics($userId: String!, $filter: String) {
+        topics(userId: $userId, filter: $filter) {
           id
           name
           cardCount
@@ -109,6 +101,10 @@ export class CustomApiRdsService {
     const gqlAPIServiceArguments: any = {
       userId
     };
+
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
 
     try {
       const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
@@ -124,7 +120,8 @@ export class CustomApiRdsService {
     isReadyStudyOnly: boolean = null,
     limit = 100,
     page = 1,
-    topicId: string = null
+    topicId: string = null,
+    filter: string = null
   ) {
     const statement = `
       query AllStudyCards($userId: String, $filter: String, $limit: Int, $page: Int, $isReadyStudyOnly: Boolean, $topicId: String) {
@@ -161,6 +158,10 @@ export class CustomApiRdsService {
 
     if (isReadyStudyOnly !== null) {
       gqlAPIServiceArguments.isReadyStudyOnly = isReadyStudyOnly;
+    }
+
+    if (filter !== null) {
+      gqlAPIServiceArguments.filter = filter;
     }
 
     try {

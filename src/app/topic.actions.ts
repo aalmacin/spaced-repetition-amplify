@@ -16,6 +16,7 @@ export enum TopicActionTypes {
   UpdateTopicSuccess = '[Topic] Update Topic Success',
   UpdateTopicFailure = '[Topic] Update Topic Failure',
   ResetTopicWithCards = '[Topic] Reset Topic With Cards',
+  ClearFilter = '[Topic] Clear Filter',
   FilterCards = '[Topic] Filter Cards',
   FilterCardsSuccess = '[Topic] Filter Cards Success',
   FilterCardsFailure = '[Topic] Filter Cards Failure'
@@ -97,6 +98,10 @@ export class ResetTopicWithCards implements Action {
   readonly type = TopicActionTypes.ResetTopicWithCards;
 }
 
+export class ClearFilter implements Action {
+  readonly type = TopicActionTypes.ClearFilter;
+}
+
 export class FilterCards implements Action {
   readonly type = TopicActionTypes.FilterCards;
 
@@ -128,5 +133,6 @@ export type TopicActions =
   | UpdateTopicFailure
   | ResetTopicWithCards
   | FilterCards
+  | ClearFilter
   | FilterCardsSuccess
   | FilterCardsFailure;

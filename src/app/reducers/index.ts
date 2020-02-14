@@ -51,6 +51,11 @@ export const selectCardsToStudyCount = createSelector(
 
 export const selectLoading = (state: AppState) => state.loading;
 
+export const selectFilter = createSelector(
+  selectCardState,
+  cardState => cardState.filter
+);
+
 export const selectReadyToStudyCards = createSelector(
   selectStudyCards,
   studyCards => studyCards.filter(c => c.isReadyToStudy)

@@ -247,10 +247,17 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(searchStr =>
       this.topicService.filterCards(searchStr).pipe(
-        map(res => new FilterCardsSuccess(res)),
+        withLatestFrom(this.store.pipe(select(selectUser))),
+        map(([res, user]) => new FilterCardsSuccess(res.map(t => ({ ...t, user: user.email, cards: [] })))),
         catchError(() => of(new FilterCardsFailure()))
       )
     )
+  );
+
+  @Effect()
+  clearFilter$ = this.actions$.pipe(
+    ofType(TopicActionTypes.ClearFilter),
+    map(() => new LoadTopics())
   );
 
   @Effect()
