@@ -83,11 +83,9 @@ export class FlashCardComponent {
     this.showBack = false;
     this.setLast();
     if (this.cards.length) {
-      if (this.currentCardIndex > 4) {
-        const firstResult = this.cardResults.nativeElement.querySelector('.card-results__result--0');
-        const scrollAmt = firstResult.clientWidth;
-        this.cardResults.nativeElement.scrollLeft += scrollAmt;
-      }
+      const firstResult = this.cardResults.nativeElement.querySelector('.card-results__result--0');
+      const scrollAmt = firstResult.clientWidth + 2;
+      this.cardResults.nativeElement.scrollLeft = scrollAmt * this.currentCardIndex - scrollAmt * 3;
     }
   }
 

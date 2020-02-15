@@ -1,4 +1,12 @@
 <h2 *ngIf="!editMode" (click)="enableEditMode()" class="heading">
   <span class="icon fas fa-pencil-alt"></span> <span>{{ topicName }}</span>
 </h2>
-<input *ngIf="editMode" [ngModel]="topicName" (change)="updateTopic($event)" (blur)="disableEditMode()" />
+<div class="edit-form">
+  <input
+    class="edit-form__input"
+    *ngIf="editMode"
+    [ngModel]="topicName"
+    (change)="updateTopic($event)"
+    (blur)="disableEditMode()"
+  />
+</div>

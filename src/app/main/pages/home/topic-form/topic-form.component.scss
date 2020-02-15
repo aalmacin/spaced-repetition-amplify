@@ -11,6 +11,15 @@
   }
 }
 
-input {
-  @include font-size(lg);
+.edit-form {
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    border: 1px solid getColor(blue-green-line);
+    border-radius: 5px;
+
+    @include padding(sm);
+    @include font-size(lg);
+  }
 }
