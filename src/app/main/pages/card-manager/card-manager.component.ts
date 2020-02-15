@@ -45,7 +45,6 @@ export class CardManagerComponent implements OnInit, OnDestroy {
         })
       );
     }
-    this.store.dispatch(new LoadCardsForTopic({ topicId: this.topicId, limit: this.limit, page: 1 }));
   }
 
   ngOnDestroy() {

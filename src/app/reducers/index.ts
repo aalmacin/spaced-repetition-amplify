@@ -30,6 +30,11 @@ export const selectTopics = createSelector(
   selectTopicWithCards,
   (topicWithCards: TopicState): Topic[] => topicWithCards.map(({ id, name, cardCount }) => ({ id, name, cardCount }))
 );
+export const selectLoadedTopicIds = createSelector(
+  selectTopicWithCards,
+  (topicWithCards: TopicState): string[] =>
+    topicWithCards.filter(t => t.cardCount > 0 && t.cards.length > 0).map(t => t.id)
+);
 export const selectUser = (state: AppState) => state.user;
 
 export const selectTopicsById = createSelector(

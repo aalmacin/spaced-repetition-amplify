@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppActionTypes, LoadApplication } from './app.actions';
-import { switchMap, catchError, map, withLatestFrom } from 'rxjs/operators';
+import { switchMap, catchError, map, withLatestFrom, first } from 'rxjs/operators';
 import {
   LoadTopics,
   TopicActionTypes,
@@ -229,10 +229,14 @@ export class AppEffects {
   @Effect()
   loadTopics$ = this.actions$.pipe(
     ofType(TopicActionTypes.LoadTopics),
-    select(selectUser),
     switchMap(() =>
       this.topicService.getTopics().pipe(
-        withLatestFrom(this.store.pipe(select(selectUser))),
+        withLatestFrom(
+          this.store.pipe(
+            select(selectUser),
+            first()
+          )
+        ),
         map(([res, user]) => new LoadTopicsSuccess(res.map(t => ({ ...t, user: user.email, cards: [] })))),
         catchError(() => {
           return of(new LoadTopicsFailure());
@@ -247,7 +251,12 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(searchStr =>
       this.topicService.filterCards(searchStr).pipe(
-        withLatestFrom(this.store.pipe(select(selectUser))),
+        withLatestFrom(
+          this.store.pipe(
+            select(selectUser),
+            first()
+          )
+        ),
         map(([res, user]) => new FilterCardsSuccess(res.map(t => ({ ...t, user: user.email, cards: [] })))),
         catchError(() => of(new FilterCardsFailure()))
       )

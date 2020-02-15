@@ -5,3 +5,9 @@
   justify-content: center;
   @include padding;
 }
+
+.no-cards {
+  display: flex;
+  justify-content: center;
+  @include padding(lg);
+}
