@@ -167,14 +167,14 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    if (this.currentCardIndex + 1 < this.cards.length) {
-      this.currentIndex$.next(this.currentCardIndex + 1);
-    }
-
     if (this.cards.length) {
       const firstResult = this.cardResults.nativeElement.querySelector('.card-results__result--0');
       const scrollAmt = firstResult.clientWidth + 2;
       this.cardResults.nativeElement.scrollLeft = scrollAmt * this.currentCardIndex - scrollAmt * 3;
+    }
+
+    if (this.currentCardIndex + 1 < this.cards.length) {
+      this.currentIndex$.next(this.currentCardIndex + 1);
     }
   }
 

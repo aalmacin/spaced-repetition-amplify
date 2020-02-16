@@ -35,7 +35,11 @@
 </div>
 
 <div class="flash-card" *ngIf="currentCard && !currentCard.status.saved">
-  <div class="flash-card__face flash-card__face--front {{ currentCard.status.showBack ? 'hide' : 'show' }}">
+  <div
+    class="flash-card__face flash-card__face--front {{
+      currentCard.status.showBack || (currentCard.status.showBack && !currentCard.status.saved) ? 'hide' : 'show'
+    }}"
+  >
     <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
     <p class="flash-card__face__question flash-card__face__question--front">{{ currentCard.front }}</p>
     <div class="flash-card__face__button-container">
@@ -44,7 +48,11 @@
       </button>
     </div>
   </div>
-  <div class="flash-card__face flash-card__face--back {{ currentCard.status.showBack ? 'show' : 'hide' }} ">
+  <div
+    class="flash-card__face flash-card__face--back {{
+      currentCard.status.showBack || (currentCard.status.showBack && !currentCard.status.saved) ? 'show' : 'hide'
+    }}"
+  >
     <h3 class="flash-card__face--front-topic {{ currentCard.status.saved && 'hide-back' }}">
       {{ currentCard.topicName }}
     </h3>
