@@ -77,13 +77,13 @@ export class StudyComponent implements OnInit, OnDestroy {
           if (params.topicId) {
             this.scheduledStudy = false;
           }
-          this.topicId$.next(params.topicId || 'no-topic');
-          this.store.dispatch(this.topicId ? new LoadStudyCardsForTopic(this.topicId) : new LoadStudyCards());
+          this.topicId$.next(params.topicId || null);
         })
       )
       .add(
         this.topicId$.asObservable().subscribe(topicId => {
           this.topicId = topicId;
+          this.store.dispatch(this.topicId ? new LoadStudyCardsForTopic(this.topicId) : new LoadStudyCards());
         })
       )
       .add(
