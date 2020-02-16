@@ -68,6 +68,8 @@ export class StudyComponent implements OnInit, OnDestroy {
 
   last = false;
 
+  cardResWidths = [];
+
   constructor(private store: Store<AppState>, private router: ActivatedRoute, private renderer: Renderer2) {}
 
   ngOnInit() {
@@ -139,7 +141,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   public easierCard() {
-    if (this.scheduledStudy) {
+    if (this.scheduledStudy && this.currentCard.result === CardResult.PENDING) {
       this.store.dispatch(new UpdateCardToEasy(this.currentCard));
     }
 
@@ -168,9 +170,21 @@ export class StudyComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.cards.length) {
-      const firstResult = this.cardResults.nativeElement.querySelector('.card-results__result--0');
-      const scrollAmt = firstResult.clientWidth + 2;
-      this.cardResults.nativeElement.scrollLeft = scrollAmt * this.currentCardIndex - scrollAmt * 3;
+      const currResult = this.cardResults.nativeElement.querySelector(
+        `.card-results__result--${this.currentCardIndex}`
+      );
+
+      this.cardResWidths.push(currResult.clientWidth + 2);
+
+      const scrollAmt = this.cardResWidths.reduce((a, v) => v + a, 0);
+
+      if (this.currentCardIndex >= 4) {
+        let total = 0;
+        for (let i = this.currentCardIndex; i > this.currentCardIndex - 4; i--) {
+          total += this.cardResWidths[i];
+        }
+        this.cardResults.nativeElement.scrollLeft = scrollAmt - total;
+      }
     }
 
     if (this.currentCardIndex + 1 < this.cards.length) {

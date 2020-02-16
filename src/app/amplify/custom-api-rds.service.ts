@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState, selectUser, selectFilter } from '@spaced-repetition/reducers';
 import { Observable, from, combineLatest } from 'rxjs';
 import { TopicWithCards, Topic } from '@spaced-repetition/types/topic';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, withLatestFrom } from 'rxjs/operators';
 import { Card } from '@spaced-repetition/types/card';
 
 @Injectable({
@@ -17,7 +17,8 @@ export class CustomApiRdsService {
   public getTopics(): Observable<Topic[]> {
     return this.store.pipe(
       select(selectUser),
-      switchMap(user => this.topics(user.email))
+      withLatestFrom(this.store.pipe(select(selectFilter))),
+      switchMap(([user, filter]) => this.topics(user.email, filter))
     );
   }
 

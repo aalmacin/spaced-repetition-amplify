@@ -127,7 +127,7 @@ export class AppEffects {
   @Effect()
   cardActions$ = this.actions$.pipe(
     ofType(CardActionTypes.AddCardSuccess, CardActionTypes.UpdateCardSuccess, CardActionTypes.DeleteCardSuccess),
-    map(() => new LoadStudyCardCount())
+    switchMap(() => [new LoadStudyCardCount(), new LoadTopics()])
   );
 
   @Effect()
@@ -238,12 +238,7 @@ export class AppEffects {
     ofType(TopicActionTypes.LoadTopics),
     switchMap(() =>
       this.topicService.getTopics().pipe(
-        withLatestFrom(
-          this.store.pipe(
-            select(selectUser),
-            first()
-          )
-        ),
+        withLatestFrom(this.store.pipe(select(selectUser))),
         map(([res, user]) => new LoadTopicsSuccess(res.map(t => ({ ...t, user: user.email, cards: [] })))),
         catchError(() => {
           return of(new LoadTopicsFailure());
