@@ -315,3 +315,30 @@
     font-weight: normal;
   }
 }
+
+.finished-studying {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  & > * {
+    @include padding;
+  }
+
+  &__finished {
+    @include font-size(md);
+  }
+
+  &__info {
+    @include font-size(lg);
+
+    &__bold {
+      font-weight: bold;
+    }
+  }
+
+  &__instruction {
+    @include font-size(sm);
+  }
+}

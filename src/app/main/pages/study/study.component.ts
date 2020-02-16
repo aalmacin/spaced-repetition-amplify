@@ -63,6 +63,9 @@ export class StudyComponent implements OnInit, OnDestroy {
   cards$ = new BehaviorSubject<CardVM[]>([]);
   cards: CardVM[] = [];
 
+  hardCardsCount$ = new BehaviorSubject(0);
+  hardCardsCount = 0;
+
   last = false;
 
   constructor(private store: Store<AppState>, private router: ActivatedRoute, private renderer: Renderer2) {}
@@ -98,6 +101,8 @@ export class StudyComponent implements OnInit, OnDestroy {
       .add(
         this.cards$.asObservable().subscribe(cards => {
           this.cards = cards;
+
+          this.hardCardsCount$.next(cards.filter(card => card.result === CardResult.HARD).length);
         })
       )
       .add(
@@ -116,6 +121,11 @@ export class StudyComponent implements OnInit, OnDestroy {
           const updatedCards = [...this.cards];
           updatedCards[this.currentCardIndex] = { ...currentCard };
           this.cards$.next(updatedCards);
+        })
+      )
+      .add(
+        this.hardCardsCount$.asObservable().subscribe(hardCardsCount => {
+          this.hardCardsCount = hardCardsCount;
         })
       );
   }
@@ -177,10 +187,6 @@ export class StudyComponent implements OnInit, OnDestroy {
 
   public clearCardResult() {
     this.renderer.removeClass(this.cardResultInfo.nativeElement, 'show-card-result');
-  }
-
-  get hardCards() {
-    return this.cards.filter(card => card.result === CardResult.HARD);
   }
 
   public startHardCards() {
