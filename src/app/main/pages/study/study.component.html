@@ -2,7 +2,12 @@
   <h3 class="card-num__heading">Cards</h3>
   <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
 </div>
-<div *ngIf="cards.length > 0" #cardResultInfo (blur)="clearCardResult()" class="card-result-info">
+<div
+  *ngIf="currentCard && cards.length > 0 && !(last && currentCard.status.saved)"
+  #cardResultInfo
+  (blur)="clearCardResult()"
+  class="card-result-info"
+>
   {{ resultCard && resultCard.front }}
 </div>
 
@@ -29,7 +34,7 @@
   <al-alert [messages]="errors" type="error"></al-alert>
 </div>
 
-<div class="flash-card" *ngIf="cards.length > 0 && currentCard && !currentCard.status.saved">
+<div class="flash-card" *ngIf="currentCard && !currentCard.status.saved">
   <div class="flash-card__face flash-card__face--front {{ currentCard.status.showBack ? 'hide' : 'show' }}">
     <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
     <p class="flash-card__face__question flash-card__face__question--front">{{ currentCard.front }}</p>
@@ -50,10 +55,7 @@
       <h3>Answer:</h3>
       <pre class="flash-card__face__answer__text">{{ currentCard.back }}</pre>
     </div>
-    <div
-      class="flash-card__face__result-container {{ currentCard.status.saved && 'hide-back' }}"
-      *ngIf="!currentCard.status.saved"
-    >
+    <div class="flash-card__face__result-container {{ currentCard.status.saved && 'hide-back' }}">
       <p class="flash-card__face__result--question">How difficult was it?</p>
       <button
         class="flash-card__face__result flash-card__face__result--hard"
@@ -72,7 +74,7 @@
         Easy
       </button>
     </div>
-    <div class="next-study-if-easy" *ngIf="scheduledStudy && !currentCard.status.saved">
+    <div class="next-study-if-easy" *ngIf="scheduledStudy">
       Next study if Easy:
       <span class="next-study-if-easy__date">
         {{ currentCard.potentialNextStudy }}
