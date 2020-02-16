@@ -64,7 +64,8 @@ import {
   LoadStudyCardsForTopicSuccess,
   LoadStudyCardsForTopicFailure,
   LoadStudyCardCountSuccess,
-  LoadStudyCardCountFailure
+  LoadStudyCardCountFailure,
+  LoadStudyCardCount
 } from './card.actions';
 import { TopicService } from './amplify/topic.service';
 import { ApiErrorType } from './types/api-status';
@@ -121,6 +122,12 @@ export class AppEffects {
         catchError(() => of(new AddCardFailure('Failed creating card')))
       );
     })
+  );
+
+  @Effect()
+  cardActions$ = this.actions$.pipe(
+    ofType(CardActionTypes.AddCardSuccess, CardActionTypes.UpdateCardSuccess, CardActionTypes.DeleteCardSuccess),
+    map(() => new LoadStudyCardCount())
   );
 
   @Effect()

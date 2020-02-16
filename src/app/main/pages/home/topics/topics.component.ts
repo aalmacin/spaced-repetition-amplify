@@ -17,7 +17,7 @@ export class TopicsComponent implements OnInit, OnDestroy {
   loadedTopics = [];
   subscriptions = new Subscription();
 
-  private constructor(private store: Store<AppState>) {}
+  public constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.subscriptions.add(

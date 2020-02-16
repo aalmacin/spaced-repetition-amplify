@@ -17,14 +17,12 @@ import { StudyComponent } from './pages/study/study.component';
 import { CardManagerComponent } from './pages/card-manager/card-manager.component';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlashCardComponent } from './pages/study/flash-card/flash-card.component';
 import { TopicFormComponent } from './pages/home/topic-form/topic-form.component';
 import { CardInfoComponent } from './pages/home/card-info/card-info.component';
 import { AddNewCardComponent } from './pages/home/add-new-card/add-new-card.component';
 import { TopicSelectComponent } from './pages/home/topic-select/topic-select.component';
-import { TopicsComponent } from './pages/home/topics/topics.component';
-import { TopicComponent } from './pages/home/topic/topic.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TopicsComponent } from './pages/home/topics/topics.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +30,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HomeComponent,
     StudyComponent,
     CardManagerComponent,
-    FlashCardComponent,
     TopicFormComponent,
     CardInfoComponent,
     AddNewCardComponent,
     TopicSelectComponent,
-    TopicsComponent,
-    TopicComponent
+    TopicsComponent
   ],
   imports: [
     AuthModule,

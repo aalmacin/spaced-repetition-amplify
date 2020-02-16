@@ -14,7 +14,7 @@
       <al-alert [messages]="errors" type="error"></al-alert>
     </div>
 
-    <button class="confirm-form__submit" alBtn="primary" size="small">Confirm</button> -->
+    <button class="confirm-form__submit" alBtn="primary" size="small">Confirm</button>
     <div *ngIf="code && !currentEmail">
       <label class="confirm-form__label">Enter your email:</label>
       <br />
@@ -24,6 +24,5 @@
     </div>
     <p *ngIf="!code">Check the email you registered with to verify your account.</p>
     <a class="go-back" href="/" alLink [underline]="true">Go back to landing page</a>
-    <!-- </form> -->
   </div>
 </div>

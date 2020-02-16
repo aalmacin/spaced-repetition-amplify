@@ -7,6 +7,17 @@
     {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cardCount }})
   </al-accordion-header>
   <al-accordion-body>
-    <app-topic [topic]="topic"></app-topic>
+    <app-topic-form [topic]="topic"></app-topic-form>
+
+    <div *ngIf="topic.cardCount > 0 && topic.cards.length === 0">
+      <app-loading></app-loading>
+    </div>
+    <div *ngIf="topic.cardCount > 0" class="study-cards-container">
+      <a alBtn="secondary" href="/app/study?topicId={{ topic.id }}">Study Cards</a>
+    </div>
+    <div *ngIf="topic.cardCount === 0" class="no-cards">
+      <p>No cards. Add a new card</p>
+    </div>
+    <app-card-manager [totalCardCount]="topic.cardCount" [topicId]="topic.id" [cards]="topic.cards"></app-card-manager>
   </al-accordion-body>
 </al-accordion>
