@@ -29,15 +29,6 @@
   <al-alert [messages]="errors" type="error"></al-alert>
 </div>
 
-<div *ngIf="cards.length === 0">
-  <div class="no-cards__icon">
-    <i class="fas fa-couch"></i>
-  </div>
-  <p class="no-cards__message">
-    You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
-  </p>
-</div>
-
 <div class="flash-card" *ngIf="cards.length > 0 && currentCard && !currentCard.status.saved">
   <div class="flash-card__face flash-card__face--front {{ currentCard.status.showBack ? 'hide' : 'show' }}">
     <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
