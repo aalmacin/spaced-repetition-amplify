@@ -141,7 +141,7 @@ export class StudyComponent implements OnInit, OnDestroy {
   }
 
   public easierCard() {
-    if (this.scheduledStudy && this.currentCard.result === CardResult.PENDING) {
+    if (this.scheduledStudy && this.currentCard.result !== CardResult.EASY) {
       this.store.dispatch(new UpdateCardToEasy(this.currentCard));
     }
 
@@ -174,7 +174,9 @@ export class StudyComponent implements OnInit, OnDestroy {
         `.card-results__result--${this.currentCardIndex}`
       );
 
-      this.cardResWidths.push(currResult.clientWidth + 2);
+      if (this.currentCardIndex === this.cardResWidths.length) {
+        this.cardResWidths.push(currResult.clientWidth + 2);
+      }
 
       const scrollAmt = this.cardResWidths.reduce((a, v) => v + a, 0);
 
@@ -187,8 +189,10 @@ export class StudyComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.currentCardIndex + 1 < this.cards.length) {
-      this.currentIndex$.next(this.currentCardIndex + 1);
+    const nextPending = this.cards.findIndex(c => c.result === CardResult.PENDING);
+
+    if (nextPending > -1) {
+      this.currentIndex$.next(nextPending);
     }
   }
 
@@ -214,7 +218,14 @@ export class StudyComponent implements OnInit, OnDestroy {
   public clickResult(i) {
     const card = this.cards[i];
     if (card.result !== CardResult.PENDING) {
-      console.log(card);
+      this.currentIndex$.next(i);
+      this.currentCard$.next({
+        ...card,
+        status: {
+          showBack: false,
+          saved: false
+        }
+      });
     }
   }
 
