@@ -18,10 +18,10 @@
           </button>
           <app-add-new-card *ngIf="addNewCard" (closeModal)="closeAddNewCardModal()"></app-add-new-card>
         </div>
-        <div class="topics-section__search">
+        <form class="topics-section__search" (submit)="searchCards(searchInput.value)">
           <input class="topics-section__search-input" #searchInput />
-          <button alBtn="plain" (click)="searchCards(searchInput.value)">Search</button>
-        </div>
+          <button alBtn="plain">Search</button>
+        </form>
         <div class="filter" *ngIf="filter">
           <button alBtn="alert" (click)="clearFilter()">Filter: {{ filter }} <i class="fas fa-times"></i></button>
         </div>

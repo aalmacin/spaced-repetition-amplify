@@ -10,13 +10,13 @@ import { AddCard } from '@spaced-repetition/card.actions';
   templateUrl: './add-new-card.component.html',
   styleUrls: ['./add-new-card.component.scss']
 })
-export class AddNewCardComponent implements OnInit {
+export class AddNewCardComponent {
   errors = [];
   messages = [];
   subscriptions = new Subscription();
 
   mainForm = this.fb.group({
-    topicId: ['', Validators.required],
+    topicId: [null, Validators.required],
     cards: this.fb.array([this.createAddCardForm()])
   });
 
@@ -24,10 +24,6 @@ export class AddNewCardComponent implements OnInit {
   closeModal = new EventEmitter();
 
   constructor(private store: Store<AppState>, private fb: FormBuilder) {}
-
-  ngOnInit() {
-    this.mainForm.reset();
-  }
 
   public addNewCard() {
     if (this.mainForm.status === 'VALID') {
@@ -48,6 +44,7 @@ export class AddNewCardComponent implements OnInit {
   }
 
   closeCard() {
+    this.mainForm.reset();
     this.closeModal.emit(true);
   }
 
@@ -65,7 +62,7 @@ export class AddNewCardComponent implements OnInit {
     return this.fb.group({
       front: ['', Validators.required],
       back: ['', Validators.required],
-      reverseCard: [false]
+      reverseCard: ['checked']
     });
   }
 
