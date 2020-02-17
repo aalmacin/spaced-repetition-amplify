@@ -15,36 +15,39 @@
     </div>
     <div formArrayName="cards" class="cards">
       <div class="cards__form" [formGroupName]="i" *ngFor="let card of cardForms; let i = index">
-        <div class="cards__form-input-container">
+        <div class="cards__form-input-container cards__form-input-container--front">
           <label for="{{ i }}-card-front">Front</label>
           <div class="add-card__front-container">
-            <input
+            <textarea
+              rows="1"
               #front
               class="cards__form-input add-card__front"
               id="{{ i }}-card-front"
               formControlName="front"
               name="front"
               placeholder="Ex. What is life? (Front/Question)"
-            />
+            ></textarea>
           </div>
         </div>
         <div class="cards__form-input-container cards__form-input-container--back">
           <label for="{{ i }}-card-back">Back</label>
           <div class="add-card__back-container">
-            <input
+            <textarea
+              rows="1"
               #back
               id="{{ i }}-card-back"
               class="cards__form-input add-card__back"
               formControlName="back"
               name="back"
               placeholder="Ex. 42"
-            />
+            ></textarea>
           </div>
         </div>
 
-        <div class="cards__form-input-container">
-          <input id="{{ i }}-reverse" type="checkbox" formControlName="reverseCard" />
-          <label for="{{ i }}-reverse" class="reverse-card-label">Create Reverse Card</label>
+        <div class="cards__form-input-container cards__form-input-container--reverse">
+          <app-checkbox formControlName="reverseCard"></app-checkbox>
+          <label for="{{ i }}-reverse" class="reverse-card-label">Reverse</label>
+          <!-- <input id="{{ i }}-reverse" type="checkbox" formControlName="reverseCard" /> -->
         </div>
       </div>
     </div>

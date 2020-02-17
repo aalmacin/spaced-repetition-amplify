@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LinkComponent } from './link/link.component';
 import { MainLogoComponent } from './main-logo/main-logo.component';
 import { LoadingComponent } from './loading/loading.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { HeaderComponent } from './accordion/header/header.component';
 import { BodyComponent } from './accordion/body/body.component';
@@ -18,6 +19,7 @@ import { BodyComponent } from './accordion/body/body.component';
     LinkComponent,
     MainLogoComponent,
     LoadingComponent,
+    CheckboxComponent,
     AccordionComponent,
     HeaderComponent,
     BodyComponent
@@ -30,6 +32,7 @@ import { BodyComponent } from './accordion/body/body.component';
     LinkComponent,
     MainLogoComponent,
     LoadingComponent,
+    CheckboxComponent,
     AccordionComponent,
     HeaderComponent,
     BodyComponent

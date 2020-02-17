@@ -79,6 +79,10 @@
           @include padding(md, t);
           display: flex;
           justify-content: space-between;
+
+          @include media(desktop) {
+            flex-direction: column;
+          }
         }
 
         .topics-section__search {

@@ -43,7 +43,7 @@
     width: 95%;
 
     @include media(desktop) {
-      width: 50%;
+      width: 60%;
     }
   }
 
@@ -54,15 +54,9 @@
 
   &__back-container,
   &__front-container {
-    height: 10vh;
-    width: 30vw;
-    @include padding;
+    @include padding(xs);
     background-color: getColor(white-3);
     border: 1px solid getColor(blue-green-line);
-
-    @include media(desktop) {
-      width: 20vw;
-    }
   }
 
   &__front {
@@ -131,10 +125,21 @@
 
     .cards__form-input-container {
       // flex-basis: 100%;
-      @include margin(md, lr);
+      @include margin(md);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      &--front {
+        flex-grow: 2;
+      }
 
       &--back {
         flex-grow: 2;
+      }
+
+      &--reverse {
+        flex-direction: row;
       }
     }
   }

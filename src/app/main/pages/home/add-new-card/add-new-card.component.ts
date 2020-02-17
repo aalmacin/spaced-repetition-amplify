@@ -62,7 +62,7 @@ export class AddNewCardComponent {
     return this.fb.group({
       front: ['', Validators.required],
       back: ['', Validators.required],
-      reverseCard: ['checked']
+      reverseCard: [true]
     });
   }
 
