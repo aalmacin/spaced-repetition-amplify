@@ -96,5 +96,8 @@
       }
     }
   },
-  "defaultProject": "spaced-repetition-amplify"
+  "defaultProject": "spaced-repetition-amplify",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

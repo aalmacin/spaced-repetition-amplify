@@ -1,19 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { AuthService } from '@spaced-repetition/amplify/auth.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectUser, selectSignUpErrors } from '@spaced-repetition/reducers';
+import { SignUp } from '@spaced-repetition/user.actions';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent {
-  public loading = false;
+export class SignUpComponent implements OnInit, OnDestroy {
   public errors: string[] = [];
+  subscriptions = new Subscription();
 
   @Input()
   private navigateTo: string[] = ['/auth', 'confirm'];
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   public register(e: MouseEvent, email: string, password: string, confirmPassword: string) {
     e.preventDefault();
@@ -21,13 +24,26 @@ export class SignUpComponent {
       this.errors = ['Password did not match with confirmation'];
       return;
     }
-    this.loading = true;
-    this.authService.register({ email, password }).subscribe((res: any) => {
-      if (res.error) {
-        this.errors = [res.error];
-      } else {
-        this.router.navigate(this.navigateTo);
-      }
-    });
+    this.store.dispatch(new SignUp({ email, password }));
+  }
+
+  ngOnInit() {
+    this.subscriptions
+      .add(
+        this.store.pipe(select(selectUser)).subscribe(user => {
+          if (!!user) {
+            this.router.navigate(this.navigateTo);
+          }
+        })
+      )
+      .add(
+        this.store.pipe(select(selectSignUpErrors)).subscribe(errors => {
+          this.errors = errors;
+        })
+      );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

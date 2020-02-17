@@ -1,9 +1,125 @@
-<div class="study-page">
-  <div class="study-page-content">
-    <app-loading *ngIf="loading; else study"></app-loading>
+<div class="card-num" *ngIf="currentCard && cards.length > 0 && !(last && currentCard.status.saved)">
+  <h3 class="card-num__heading">Cards</h3>
+  <div class="card-num__text">Card #{{ currentCardIndex + 1 }} of {{ cards.length }}</div>
+</div>
+<div
+  *ngIf="currentCard && cards.length > 0 && !(last && currentCard.status.saved)"
+  #cardResultInfo
+  (blur)="clearCardResult()"
+  class="card-result-info"
+>
+  {{ resultCard && resultCard.front }}
+</div>
+
+<div
+  #cardResults
+  *ngIf="currentCard && cards.length > 0 && !(last && currentCard.status.saved)"
+  class="card-results"
+  (mouseleave)="clearCardResult()"
+>
+  <div
+    (mouseover)="showInfo($event, i)"
+    class="card-results__result card-results__result--{{ i }}"
+    *ngFor="let card of cards; let i = index"
+    [ngClass]="'card-results__result--' + (currentCardIndex === i ? 'current' : card.result)"
+    (click)="clickResult(i)"
+  >
+    <span class="card-results__result__number">
+      {{ i + 1 }}
+    </span>
   </div>
 </div>
 
-<ng-template #study>
-  <app-flash-card [cards]="cards" [scheduledStudy]="scheduledStudy"></app-flash-card>
-</ng-template>
+<div class="errors">
+  <al-alert [messages]="errors" type="error"></al-alert>
+</div>
+
+<div class="flash-card" *ngIf="currentCard && !currentCard.status.saved">
+  <div
+    class="flash-card__face flash-card__face--front {{
+      currentCard.status.showBack || (currentCard.status.showBack && !currentCard.status.saved) ? 'hide' : 'show'
+    }}"
+  >
+    <h3 class="flash-card__face--front-topic">{{ currentCard.topicName }}</h3>
+    <p class="flash-card__face__question flash-card__face__question--front">{{ currentCard.front }}</p>
+    <div class="flash-card__face__button-container">
+      <button class="flash-card__face__button" alBtn="secondary" size="large" (click)="showAnswer()">
+        Show Answer
+      </button>
+    </div>
+  </div>
+  <div
+    class="flash-card__face flash-card__face--back {{
+      currentCard.status.showBack || (currentCard.status.showBack && !currentCard.status.saved) ? 'show' : 'hide'
+    }}"
+  >
+    <h3 class="flash-card__face--front-topic {{ currentCard.status.saved && 'hide-back' }}">
+      {{ currentCard.topicName }}
+    </h3>
+    <p class="flash-card__face__question {{ currentCard.status.saved && 'hide-back' }}">
+      {{ currentCard.front }}
+    </p>
+    <div class="flash-card__face__answer {{ currentCard.status.saved && 'hide-back' }}">
+      <h3>Answer:</h3>
+      <pre class="flash-card__face__answer__text">{{ currentCard.back }}</pre>
+    </div>
+    <div class="flash-card__face__result-container {{ currentCard.status.saved && 'hide-back' }}">
+      <p class="flash-card__face__result--question">How difficult was it?</p>
+      <button
+        class="flash-card__face__result flash-card__face__result--hard"
+        alBtn="alert"
+        size="large"
+        (click)="harderCard()"
+      >
+        Hard
+      </button>
+      <button
+        class="flash-card__face__result flash-card__face__result--easy"
+        alBtn="tertiary"
+        size="large"
+        (click)="easierCard()"
+      >
+        Easy
+      </button>
+    </div>
+    <div class="next-study-if-easy" *ngIf="scheduledStudy">
+      Next study if Easy:
+      <span class="next-study-if-easy__date">
+        {{ currentCard.potentialNextStudy }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="last && hardCardsCount > 0 && currentCard && currentCard.status.saved" class="finished-studying">
+  <p class="finished-studying__finished">
+    You finished studying all the cards.
+  </p>
+  <p class="finished-studying__info">
+    You currently have <span class="finished-studying__info__bold">{{ hardCardsCount }}</span> left to study.
+  </p>
+  <p class="finished-studying__instruction">
+    Click the button below to continue.
+  </p>
+  <button alBtn="secondary" size="large" (click)="startHardCards()">
+    Practice Hard Cards?
+  </button>
+</div>
+
+<div
+  class="saved-block"
+  *ngIf="(!currentCard || (currentCard && currentCard.status.saved)) && hardCardsCount === 0 && last"
+>
+  <div>
+    <div class="no-cards__icon">
+      <i class="fas fa-couch"></i>
+    </div>
+    <p class="no-cards__message">
+      You're all up to date.<br />No cards to study at the moment. <br />Come back again tomorrow.
+    </p>
+  </div>
+
+  <div class="to-dashboard">
+    <a alLink [underline]="true" href="/app/home">Go back Home</a>
+  </div>
+</div>

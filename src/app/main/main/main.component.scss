@@ -1,5 +1,22 @@
 @import 'framework.scss';
 
+.main-loading {
+  background: getColor(white-2);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 200;
+
+  .loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+  }
+}
+
 .main {
   min-height: 90vh;
 }
@@ -12,11 +29,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.1rem solid getColor(blue-green-line);
+  border-bottom: 1px solid getColor(blue-green-line);
 
   &__header {
     display: inline-block;
-    flex-grow: 4;
+    @include padding(md, r);
+    border-right: 1px solid getColor(blue-green-line);
     @include font-size(md);
   }
 
@@ -24,15 +42,28 @@
     display: none;
 
     @include media(tablet) {
-      display: inline-block;
+      display: flex;
+      flex-grow: 3;
+      align-items: stretch;
+      justify-content: center;
     }
 
-    @include margin(lg, l);
+    .nav__pages-side {
+      @include media(tablet) {
+        display: inline-block;
+      }
 
-    .nav__page {
-      display: inline-block;
+      @include margin(lg, l);
 
-      @include margin(md, r);
+      &--left {
+        flex-grow: 2;
+      }
+
+      .nav__page {
+        display: inline-block;
+
+        @include margin(md, r);
+      }
     }
   }
 
@@ -60,6 +91,8 @@
 }
 
 .mobile-nav {
+  display: flex;
+
   @include media(tablet) {
     display: none;
   }
@@ -107,5 +140,10 @@
         }
       }
     }
+  }
+
+  &__email {
+    display: inline-block;
+    font-size: 1.4rem;
   }
 }

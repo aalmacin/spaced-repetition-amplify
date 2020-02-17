@@ -1,38 +1,65 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap, filter, catchError } from 'rxjs/operators';
-import { Observable, defer, of } from 'rxjs';
-import { AuthService } from './auth.service';
-import { Topic } from '@spaced-repetition/types/topic';
-import { APIService } from '@spaced-repetition/API.service';
-import { ApiError } from '@spaced-repetition/types/api-error';
+import { switchMap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
+import { CustomApiRdsService } from './custom-api-rds.service';
+import { Card } from '@spaced-repetition/types/card';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopicService {
-  public constructor(private apiService: APIService, private userService: AuthService) {}
+  public constructor(private customApiRdsService: CustomApiRdsService) {}
 
-  public getTopics(): Observable<Topic[]> {
-    return this.userService.getCurrentUser().pipe(
-      switchMap(user => this.apiService.ListTopics({ user: { eq: user.email } }, 99999)),
-      filter((res: any) => res && res.items),
-      map((res: any) =>
-        res.items.map(item => ({
-          id: item.id,
-          name: item.name
-        }))
+  getCardsForTopic(id: string, isReadyStudyOnly: boolean = null, limit = 10, page = 1): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.getCardsByTopicId(id, isReadyStudyOnly, limit, page).pipe(
+      switchMap(res => of({ success: true, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while getting cards for topic.', type: ApiErrorType.GenericAPIException }
+        })
       )
     );
   }
 
-  public addTopic(name: string): Observable<Topic[] | ApiError> {
+  getTopics() {
+    return this.customApiRdsService.getTopics();
+  }
+
+  filterCards(filter: string) {
+    return this.customApiRdsService.filterTopicWithCards(filter);
+  }
+
+  public addTopic(): Observable<ApiStatus<boolean>> {
+    return this.customApiRdsService.newTopic('Untitled').pipe(
+      switchMap(res => of({ success: res, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while adding topic.', type: ApiErrorType.GenericAPIException }
+        })
+      )
+    );
+  }
+
+  public updateTopic(id: string, name: string): Observable<ApiStatus<boolean>> {
     if (!name) {
-      return of({ error: 'Name cannot be empty' });
+      return of({ success: false, error: { message: 'Name cannot be empty', type: ApiErrorType.GenericAPIException } });
     }
-    return this.userService.getCurrentUser().pipe(
-      switchMap(user => this.apiService.CreateTopic({ user: user.email, name })),
-      switchMap(() => this.getTopics()),
-      catchError(() => of({ error: 'An error occured while adding topic.' }))
+
+    if (!id) {
+      return of({ success: false, error: { message: 'Id cannot be empty', type: ApiErrorType.GenericAPIException } });
+    }
+
+    return this.customApiRdsService.editTopic(id, name).pipe(
+      switchMap(topic => of({ success: true, data: topic })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while updating topic.', type: ApiErrorType.GenericAPIException }
+        })
+      )
     );
   }
 }

@@ -1,12 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Card } from '@spaced-repetition/types/card';
-import { Subscription, combineLatest, BehaviorSubject } from 'rxjs';
-import { CardService } from '@spaced-repetition/amplify/card.service';
-import { Validators, FormBuilder } from '@angular/forms';
-import { TopicService } from '@spaced-repetition/amplify/topic.service';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { Topic } from '@spaced-repetition/types/topic';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, first } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { selectTopics, AppState } from '@spaced-repetition/reducers';
+import { LoadCardsForTopic } from '@spaced-repetition/topic.actions';
 
 @Component({
   selector: 'app-card-manager',
@@ -14,155 +12,47 @@ import { map, switchMap, first } from 'rxjs/operators';
   styleUrls: ['./card-manager.component.scss']
 })
 export class CardManagerComponent implements OnInit, OnDestroy {
-  cards: Card[] = [];
   filteredCards: BehaviorSubject<Card[]> = new BehaviorSubject([]);
   subscriptions: Subscription = new Subscription();
-  loading = true;
 
   isReadyStudyOnly = false;
 
-  public addCardForm = this.fb.group({
-    front: ['', Validators.required],
-    back: ['', Validators.required],
-    topicId: ['', Validators.required],
-    withReverse: [false]
-  });
   errors: string[] = [];
   messages: string[] = [];
   topics: Topic[] = [];
   searchTerm = '';
-  topicId;
 
-  constructor(
-    private cardService: CardService,
-    private topicService: TopicService,
-    private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
-  ) {
-    const cards$ = this.activatedRoute.queryParams.pipe(
-      map(q => q.topicId),
-      switchMap(topicId => {
-        if (topicId) {
-          this.addCardForm.get('topicId').setValue(topicId);
-          this.topicId = topicId;
-          return this.cardService.getCardsByTopicId(topicId);
-        } else {
-          return this.cardService.getAllCards();
-        }
-      })
-    );
-    const topics$ = this.topicService.getTopics();
+  @Input()
+  totalCardCount = 0;
 
-    this.subscriptions.add(
-      combineLatest(topics$, cards$).subscribe(([topics, cards]) => {
-        this.topics = topics;
-        this.setCards(cards);
-        this.loading = false;
-      })
-    );
-  }
+  @Input()
+  topicId = '';
 
-  ngOnInit(): void {}
+  @Input()
+  cards: Card[] = [];
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-  }
+  limit = 10;
 
-  public addNewCard() {
-    // if (this.addCardForm.status === 'VALID') {
-    //   this.loading = true;
-    //   this.subscriptions.add(
-    //     this.cardService.addNewCard(this.addCardForm.value, this.addCardForm.value.topicId).subscribe((result: any) => {
-    //       this.loading = false;
-    //       this.addCardForm.get('front').setValue('');
-    //       this.addCardForm.get('back').setValue('');
-    //       if (result.error) {
-    //         this.errors = [result.error];
-    //       } else {
-    //         this.messages = ['Successfully added card'];
-    //         this.setCards(result);
-    //       }
-    //     })
-    //   );
-    // } else {
-    //   this.errors = ['Something went wrong while adding a new card.'];
-    // }
-    console.log(this.addCardForm.value);
-  }
+  page = 1;
 
-  public deleteCard(event: MouseEvent, cardId: string) {
-    event.preventDefault();
-    if (confirm(`Are you sure you want to delete?`)) {
-      this.loading = true;
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit(): void {
+    if (this.topicId) {
       this.subscriptions.add(
-        this.cardService.deleteCard(cardId, this.topicId).subscribe((result: any) => {
-          this.loading = false;
-          if (result.error) {
-            this.errors = [result.error];
-          } else {
-            this.messages = ['Successfully deleted card'];
-            this.setCards(result);
-          }
+        this.store.pipe(select(selectTopics)).subscribe(topics => {
+          this.topics = topics;
         })
       );
     }
   }
 
-  public setCards(cards: Card[]) {
-    this.cards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
-    this.filteredCards.next(this.cards);
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
-  public changeSearchTerm(searchTerm: string) {
-    this.searchTerm = searchTerm;
-    this.filter();
-  }
-
-  public changeIsReadyStudy() {
-    this.isReadyStudyOnly = !this.isReadyStudyOnly;
-    this.filter();
-  }
-
-  public updateCard(id: string, topicId: string, front: string, back: string) {
-    this.loading = true;
-    this.subscriptions.add(
-      this.cardService.updateCard({ id, topicId, front, back }, this.topicId).subscribe((res: any) => {
-        this.loading = false;
-        if (res.error) {
-          this.errors = [res.error];
-        } else {
-          this.setCards(res);
-        }
-      })
-    );
-  }
-
-  private filter() {
-    if (!!this.topicId) {
-      this.cardService
-        .getAllCards()
-        .pipe(first())
-        .subscribe(cards => {
-          this.allFilter(cards);
-        });
-    } else {
-      this.allFilter(this.cards);
-    }
-  }
-
-  private allFilter(cards: Card[]) {
-    let filteredCards = cards.sort((a, b) => b.lastStudy - a.lastStudy);
-    if (this.isReadyStudyOnly) {
-      filteredCards = filteredCards.filter(card => card.isReadyToStudy);
-    }
-
-    if (this.searchTerm) {
-      filteredCards = filteredCards.filter(
-        card =>
-          card.front.toLowerCase().search(this.searchTerm.toLowerCase()) >= 0 ||
-          card.back.toLowerCase().search(this.searchTerm.toLowerCase()) >= 0
-      );
-    }
-    this.filteredCards.next(filteredCards);
+  pageChanged(n: number) {
+    this.page = n;
+    this.store.dispatch(new LoadCardsForTopic({ topicId: this.topicId, limit: this.limit, page: this.page }));
   }
 }

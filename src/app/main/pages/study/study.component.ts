@@ -1,12 +1,19 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { CardService } from '@spaced-repetition/amplify/card.service';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Card } from 'src/app/types/card';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { shuffle } from 'lodash';
 import { getNextStudyDate, makeBoxEasier } from '@spaced-repetition/main/shared/study.func';
 import { getCurrentTimestamp, getDateFromTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
+import { Store, select } from '@ngrx/store';
+import { AppState, selectReadyToStudyCards, selectStudyCards } from '@spaced-repetition/reducers';
+import { ActivatedRoute } from '@angular/router';
+import {
+  LoadStudyCardsForTopic,
+  LoadStudyCards,
+  UpdateCardToEasy,
+  UpdateCardToHard
+} from '@spaced-repetition/card.actions';
+import { map, switchMap } from 'rxjs/operators';
 
 export enum CardResult {
   EASY = 'easy',
@@ -14,7 +21,13 @@ export enum CardResult {
   PENDING = 'pending'
 }
 
+type CardStatus = {
+  showBack: boolean;
+  saved: boolean;
+};
+
 export interface CardVM extends Card {
+  status: CardStatus;
   result: CardResult;
   potentialNextStudy: string;
 }
@@ -24,36 +37,207 @@ export interface CardVM extends Card {
   templateUrl: './study.component.html',
   styleUrls: ['./study.component.scss']
 })
-export class StudyComponent implements OnDestroy {
-  loading = true;
-  cards: CardVM[] = [];
+export class StudyComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
-  scheduledStudy = false;
+  scheduledStudy = true;
+  errors: string[] = [];
 
-  constructor(private cardService: CardService, private activatedRoute: ActivatedRoute) {
-    this.subscriptions.add(
-      this.activatedRoute.queryParams
-        .pipe(
-          map(q => q.topicId),
-          tap(topicId => {
-            this.scheduledStudy = !!!topicId;
-          }),
-          switchMap(topicId =>
-            topicId ? this.cardService.getCardsByTopicId(topicId) : this.cardService.getAllStudyCards()
-          )
-        )
-        .subscribe(cards => {
-          this.loading = false;
-          this.cards = shuffle(cards).map(card => ({
-            ...card,
-            result: CardResult.PENDING,
-            potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
-          }));
+  @ViewChild('cardResults')
+  cardResults: ElementRef;
+
+  beforeUpdates: CardVM[] = [];
+  resultCard: CardVM;
+
+  @ViewChild('cardResultInfo')
+  cardResultInfo: ElementRef;
+
+  currentIndex$ = new BehaviorSubject<number>(0);
+  currentCard$ = new BehaviorSubject<CardVM>(null);
+
+  currentCardIndex = 0;
+  currentCard: CardVM = null;
+
+  topicId$ = new BehaviorSubject<string>(null);
+  topicId: string = null;
+
+  cards$ = new BehaviorSubject<CardVM[]>([]);
+  cards: CardVM[] = [];
+
+  hardCardsCount$ = new BehaviorSubject(0);
+  hardCardsCount = 0;
+
+  last = false;
+
+  cardResWidths = [];
+
+  constructor(private store: Store<AppState>, private router: ActivatedRoute, private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.subscriptions
+      .add(
+        this.router.queryParams.subscribe(params => {
+          if (params.topicId) {
+            this.scheduledStudy = false;
+          }
+          this.topicId$.next(params.topicId || null);
         })
-    );
+      )
+      .add(
+        this.topicId$.asObservable().subscribe(topicId => {
+          this.topicId = topicId;
+          this.store.dispatch(this.topicId ? new LoadStudyCardsForTopic(this.topicId) : new LoadStudyCards());
+        })
+      )
+      .add(
+        this.topicId$
+          .asObservable()
+          .pipe(
+            map(topicId => (topicId ? selectStudyCards : selectReadyToStudyCards)),
+            switchMap(selector => this.store.pipe(select(selector)))
+          )
+          .subscribe(cards => {
+            this.cards$.next(this.transformCardToVM(shuffle(cards)));
+            this.currentIndex$.next(0);
+          })
+      )
+      .add(
+        this.cards$.asObservable().subscribe(cards => {
+          this.cards = cards;
+
+          this.hardCardsCount$.next(cards.filter(card => card.result === CardResult.HARD).length);
+        })
+      )
+      .add(
+        this.currentIndex$.asObservable().subscribe(currentIndex => {
+          this.currentCardIndex = currentIndex;
+          this.currentCard$.next(this.cards[currentIndex]);
+          if (this.currentCardIndex === this.cards.length) {
+            this.last = true;
+          }
+        })
+      )
+      .add(
+        this.currentCard$.asObservable().subscribe(currentCard => {
+          this.currentCard = currentCard;
+
+          const updatedCards = [...this.cards];
+          updatedCards[this.currentCardIndex] = { ...currentCard };
+          this.cards$.next(updatedCards);
+        })
+      )
+      .add(
+        this.hardCardsCount$.asObservable().subscribe(hardCardsCount => {
+          this.hardCardsCount = hardCardsCount;
+        })
+      );
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  public showAnswer() {
+    this.currentCard$.next({ ...this.currentCard, status: { ...this.currentCard.status, showBack: true } });
+  }
+
+  public easierCard() {
+    if (this.scheduledStudy && this.currentCard.result !== CardResult.EASY) {
+      this.store.dispatch(new UpdateCardToEasy(this.currentCard));
+    }
+
+    const updatedCard = {
+      ...this.currentCard,
+      status: { ...this.currentCard.status, saved: true },
+      result: CardResult.EASY
+    };
+    this.currentCard$.next(updatedCard);
+
+    this.save();
+  }
+
+  public harderCard() {
+    this.store.dispatch(new UpdateCardToHard(this.currentCard));
+
+    const updatedCard = {
+      ...this.currentCard,
+      status: { ...this.currentCard.status, saved: true },
+      result: CardResult.HARD
+    };
+    this.currentCard$.next(updatedCard);
+
+    this.save();
+  }
+
+  save() {
+    if (this.cards.length) {
+      const currResult = this.cardResults.nativeElement.querySelector(
+        `.card-results__result--${this.currentCardIndex}`
+      );
+
+      if (this.currentCardIndex === this.cardResWidths.length) {
+        this.cardResWidths.push(currResult.clientWidth + 2);
+      }
+
+      const scrollAmt = this.cardResWidths.reduce((a, v) => v + a, 0);
+
+      if (this.currentCardIndex >= 4) {
+        let total = 0;
+        for (let i = this.currentCardIndex; i > this.currentCardIndex - 4; i--) {
+          total += this.cardResWidths[i];
+        }
+        this.cardResults.nativeElement.scrollLeft = scrollAmt - total;
+      }
+    }
+
+    const nextPending = this.cards.findIndex(c => c.result === CardResult.PENDING);
+
+    if (nextPending > -1) {
+      this.currentIndex$.next(nextPending);
+    }
+  }
+
+  public showInfo(e: MouseEvent, i) {
+    this.resultCard = this.cards[i];
+    this.renderer.setStyle(this.cardResultInfo.nativeElement, 'left', `${e.clientX}px`);
+    this.renderer.setStyle(this.cardResultInfo.nativeElement, 'top', `${e.clientY}px`);
+    this.renderer.addClass(this.cardResultInfo.nativeElement, 'show-card-result');
+  }
+
+  public clearCardResult() {
+    this.renderer.removeClass(this.cardResultInfo.nativeElement, 'show-card-result');
+  }
+
+  public startHardCards() {
+    if (!this.scheduledStudy && this.topicId) {
+      this.store.dispatch(new LoadStudyCardsForTopic(this.topicId));
+    } else {
+      this.store.dispatch(new LoadStudyCards());
+    }
+  }
+
+  public clickResult(i) {
+    const card = this.cards[i];
+    if (card.result !== CardResult.PENDING) {
+      this.currentIndex$.next(i);
+      this.currentCard$.next({
+        ...card,
+        status: {
+          showBack: false,
+          saved: false
+        }
+      });
+    }
+  }
+
+  private transformCardToVM(cards): CardVM[] {
+    return cards.map(card => ({
+      ...card,
+      status: {
+        showBack: false,
+        saved: false
+      },
+      result: CardResult.PENDING,
+      potentialNextStudy: getDateFromTimestamp(getNextStudyDate(getCurrentTimestamp(), makeBoxEasier(card.box)))
+    }));
   }
 }

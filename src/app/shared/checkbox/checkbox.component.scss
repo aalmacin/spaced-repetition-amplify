@@ -2,6 +2,7 @@
 
 :host {
   position: relative;
+  @include margin(lg-2, r);
 }
 
 .checkbox-label {

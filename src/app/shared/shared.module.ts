@@ -7,6 +7,9 @@ import { LinkComponent } from './link/link.component';
 import { MainLogoComponent } from './main-logo/main-logo.component';
 import { LoadingComponent } from './loading/loading.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
+import { AccordionComponent } from './accordion/accordion.component';
+import { HeaderComponent } from './accordion/header/header.component';
+import { BodyComponent } from './accordion/body/body.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
     LinkComponent,
     MainLogoComponent,
     LoadingComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    AccordionComponent,
+    HeaderComponent,
+    BodyComponent
   ],
   imports: [CommonModule],
   exports: [
@@ -26,7 +32,10 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
     LinkComponent,
     MainLogoComponent,
     LoadingComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    AccordionComponent,
+    HeaderComponent,
+    BodyComponent
   ]
 })
 export class SharedModule {}

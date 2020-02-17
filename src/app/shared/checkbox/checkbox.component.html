@@ -1,4 +1,4 @@
 <label class="checkbox-label">
-  <input #checkbox type="checkbox" />
+  <input #checkbox [checked]="state" (change)="onChange()" type="checkbox" />
   <span class="checkbox-custom"></span>
 </label>

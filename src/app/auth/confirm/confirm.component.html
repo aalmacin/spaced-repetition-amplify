@@ -6,27 +6,22 @@
       </div>
     </div>
 
-    <p *ngIf="loading" class="loading"><app-loading></app-loading></p>
+    <div class="errors">
+      <al-alert [messages]="success" type="success"></al-alert>
+    </div>
+
     <div class="errors">
       <al-alert [messages]="errors" type="error"></al-alert>
     </div>
 
-    <form (submit)="confirm($event, email.value, code.value)" class="confirm-form">
-      <p class="confirm-form__message">Check the email you registered with to get the confirmation code.</p>
+    <div *ngIf="code && !currentEmail">
+      <label class="confirm-form__label">Enter your email:</label>
+      <br />
+      <input class="confirm-form__input confirm-form__input--email" (input)="updateEmail($event.target.value)" />
 
-      <div>
-        <label class="confirm-form__label">Email:</label>
-        <br />
-        <input class="confirm-form__input confirm-form__input--email" type="text" #email />
-      </div>
-
-      <div>
-        <label class="confirm-form__label">Confirmation Code: </label>
-        <br />
-        <input class="confirm-form__input confirm-form__input--code" type="text" #code />
-      </div>
-
-      <button class="confirm-form__submit" alBtn="primary" size="small">Confirm</button>
-    </form>
+      <a class="confirm-button" href="/auth/confirm?email={{ email }}&code={{ code }}" alBtn="primary">Confirm</a>
+    </div>
+    <p *ngIf="!code">Check the email you registered with to verify your account.</p>
+    <a class="go-back" href="/" alLink [underline]="true">Go back to landing page</a>
   </div>
 </div>

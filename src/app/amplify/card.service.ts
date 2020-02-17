@@ -1,115 +1,97 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, pipe } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { makeBoxEasier } from '../main/shared/study.func';
-import { AuthService } from './auth.service';
-import { getCurrentTimestamp } from '@spaced-repetition/main/shared/timestamp.func';
 import { Card } from '@spaced-repetition/types/card';
-import { switchMap, filter, catchError, map } from 'rxjs/operators';
-import { ApiError } from '@spaced-repetition/types/api-error';
-import { APIService, Box } from '@spaced-repetition/API.service';
-import { CustomApiService } from './custom-api.service';
+import { catchError, map } from 'rxjs/operators';
+import { ApiStatus, ApiErrorType } from '@spaced-repetition/types/api-status';
+import { CustomApiRdsService } from './custom-api-rds.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-  public constructor(
-    private customApiService: CustomApiService,
-    private apiService: APIService,
-    private authService: AuthService
-  ) {}
-  public getAllCards(): Observable<Card[]> {
-    return this.authService.getCurrentUser().pipe(
-      switchMap(user => this.customApiService.getCardsByUser(user)),
-      catchError(() => null),
-      filter((res: any) => !!res)
-    );
-  }
+  public constructor(private customApiRdsService: CustomApiRdsService) {}
 
   public getAllStudyCards(): Observable<Card[]> {
-    return this.getAllCards().pipe(map(cards => cards.filter(card => card.isReadyToStudy)));
+    return this.customApiRdsService.getAllStudyCards();
   }
 
-  public getCardsByTopicId(topicId: any): Observable<Card[]> {
-    return this.authService.getCurrentUser().pipe(
-      switchMap(user => this.customApiService.getCardsByTopicId(user, topicId)),
-      catchError(() => null),
-      filter((res: any) => !!res)
-    );
+  getStudyCardCount() {
+    return this.customApiRdsService.getStudyCardCount();
   }
 
-  public addNewCard({ front, back, topicId }, pageTopicId = null): Observable<Card[] | ApiError> {
-    return this.authService.getCurrentUser().pipe(
-      switchMap(_ =>
-        this.apiService.CreateCard({
-          front,
-          back,
-          box: Box.VERY_HARD,
-          cardTopicId: topicId,
-          lastStudy: getCurrentTimestamp()
+  public getAllStudyCardsByTopicId(topicId: string): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.getCardsByTopicId(topicId).pipe(
+      map(res => ({ success: true, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: {
+            message: 'An error occured while getting all study cards by topic',
+            type: ApiErrorType.GenericAPIException
+          }
         })
-      ),
-      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
-      catchError(() => of({ error: 'An error occured while adding a card.' }))
+      )
     );
   }
 
-  public updateCard(
-    { id, topicId, front, back }: { id: string; topicId: string; front: string; back: string },
-    pageTopicId = null
-  ): Observable<Card[] | ApiError> {
-    return of({ id, front, back }).pipe(
-      switchMap(card =>
-        this.apiService.UpdateCard({
-          ...card,
-          cardTopicId: topicId,
-          box: Box.VERY_HARD,
-          lastStudy: getCurrentTimestamp()
+  public addNewCard({ front, back, topicId }: Partial<Card>): Observable<ApiStatus<boolean>> {
+    return this.customApiRdsService.newCard(topicId, front, back).pipe(
+      map(res => ({ success: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while adding a card.', type: ApiErrorType.GenericAPIException }
         })
-      ),
-      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
-      catchError(() => of({ error: 'An error occured while updating the card.' }))
+      )
     );
   }
 
-  public updateCardToEasy(card: Card) {
-    return of(card).pipe(
-      switchMap(({ id, box }) =>
-        this.apiService.UpdateCard({
-          id,
-          box: makeBoxEasier(box),
-          lastStudy: getCurrentTimestamp()
+  public updateCard({ id, topicId, front, back }: Partial<Card>): Observable<ApiStatus<boolean>> {
+    return this.customApiRdsService.editCard(id, topicId, front, back).pipe(
+      map(res => ({ success: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while updating the card.', type: ApiErrorType.GenericAPIException }
         })
-      ),
-      catchError(() => of({ error: 'Failed to update card.' }))
+      )
     );
   }
 
-  public updateCardToHard(card: Card) {
-    return of(card).pipe(
-      switchMap(({ id }) =>
-        this.apiService.UpdateCard({
-          id,
-          box: Box.VERY_HARD,
-          lastStudy: getCurrentTimestamp()
+  public updateCardToEasy(card: Card): Observable<ApiStatus<Partial<boolean>>> {
+    return this.customApiRdsService.updateCardToEasy(card.id, makeBoxEasier(card.box)).pipe(
+      map(res => ({ success: true, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'Failed to update card to easy.', type: ApiErrorType.GenericAPIException }
         })
-      ),
-      catchError(() => of({ error: 'Failed to update card.' }))
+      )
     );
   }
 
-  public deleteCard(cardId: string, pageTopicId = null): Observable<Card[] | ApiError> {
-    return of(cardId).pipe(
-      switchMap(id => this.deleteCardInAmplify(id)),
-      switchMap(() => (!!!pageTopicId ? this.getAllCards() : this.getCardsByTopicId(pageTopicId))),
-      catchError(() => of({ error: 'An error occured while deleting the card' }))
+  public updateCardToHard(card: Card): Observable<ApiStatus<Partial<boolean>>> {
+    return this.customApiRdsService.updateCardToHard(card.id).pipe(
+      map(res => ({ success: true, data: res })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'Failed to update card to hard.', type: ApiErrorType.GenericAPIException }
+        })
+      )
     );
   }
 
-  private async deleteCardInAmplify(id: string) {
-    const res = await this.apiService.DeleteCard({
-      id
-    });
-    return res;
+  public deleteCard(id: string, topicId: string): Observable<ApiStatus<Card[]>> {
+    return this.customApiRdsService.removeCard(id, topicId).pipe(
+      map(() => ({ success: true })),
+      catchError(() =>
+        of({
+          success: false,
+          error: { message: 'An error occured while deleting the card', type: ApiErrorType.GenericAPIException }
+        })
+      )
+    );
   }
 }

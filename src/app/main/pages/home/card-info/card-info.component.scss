@@ -1,0 +1,51 @@
+@import 'framework.scss';
+
+.card-header {
+  &__section {
+    display: flex;
+
+    .card-header__section-title {
+      font-weight: bold;
+      @include margin(sm, r);
+    }
+  }
+}
+
+.card-info {
+  @include padding(md);
+  display: flex;
+  flex-direction: column;
+
+  &__next-study {
+    @include padding(md, b);
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: stretch;
+  }
+
+  &__action {
+    flex-basis: 100%;
+
+    &--save {
+      @include margin(sm, r);
+    }
+  }
+}
+
+.card-info__label {
+  @include font-size(md);
+  @include margin(md, t);
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  @include font-size(md);
+  border: 1px solid getColor(blue-green-line);
+}
+
+.icon {
+  @include font-size(sm-2);
+}

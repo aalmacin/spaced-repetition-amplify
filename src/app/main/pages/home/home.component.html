@@ -1,70 +1,47 @@
 <div class="home-page">
   <div class="home-page-head">
+    <span class="home-page-head__cards">
+      <a alLink [underline]="true" href="/app/study">Cards to Review: {{ cardsToStudyCount }}</a>
+    </span>
     <span class="home-page-head__email">{{ user && user.email }}</span>
   </div>
   <div class="home-page__content">
-    <div class="home-page-stats">
-      <div class="stats-box stats-box--topics">
-        <span class="stats-box__heading">Topics:</span>
-        <span class="stats-box__number">2</span>
-      </div>
-      <div class="stats-box stats-box--cards">
-        <span class="stats-box__heading">Cards:</span>
-        <span class="stats-box__number">1</span>
-      </div>
-      <div class="stats-box stats-box--needs-review">
-        <span class="stats-box__heading">Needs Review:</span>
-        <span class="stats-box__number">3</span>
-      </div>
-      <div class="stats-box stats-box--next-study">
-        <span class="stats-box__heading">Next Study:</span>
-        <span class="stats-box__number">December 26, 2019</span>
-      </div>
-    </div>
-
     <div class="topics-section">
-      <div class="topics-section-heading">
-        <div class="topics-section-heading__heading">
+      <div class="sidebar">
+        <div class="topics-header">
           <h2>Topics</h2>
-        </div>
-        <div class="create-topic">
-          <button alBtn="secondary">
+          <button alBtn="secondary" class="create-card-button" (click)="toggleAddNewCard()">
             <span class="button-icon">
               <i class="fas fa-plus"></i>
             </span>
-            Add a New Topic
+            Add a new Card
           </button>
-          <!-- <div class="errors">
-            <al-alert [messages]="errors" type="error"></al-alert>
-          </div>
-          <div class="messages">
-            <al-alert [messages]="messages" type="success"></al-alert>
-          </div> -->
-          <div class="add-topic" *ngIf="createTopicToggle">
-            <!-- <form class="add-topic-form" (submit)="createTopic($event, topicName.value)"> -->
-            <form class="add-topic-form">
-              <input type="text" placeholder="Topic Name" class="add-topic-form__name" #topicName />
-              <button alBtn="secondary" size="tiny" class="add-topic-form__button">Create Topic</button>
-            </form>
+          <app-add-new-card *ngIf="addNewCard" (closeModal)="closeAddNewCardModal()"></app-add-new-card>
+        </div>
+        <form class="topics-section__search" (submit)="searchCards(searchInput.value)">
+          <input class="topics-section__search-input" #searchInput />
+          <button alBtn="plain">Search</button>
+        </form>
+        <div class="filter" *ngIf="filter">
+          <button alBtn="alert" (click)="clearFilter()">Filter: {{ filter }} <i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="accordion-container">
+        <div class="accordion">
+          <h2 class="heading-desktop">Topics</h2>
+          <app-topics [topicWithCards]="topicWithCards"></app-topics>
+          <div class="topics-section-heading">
+            <div class="create-topic">
+              <button alBtn="secondary" class="create-topic-button" (click)="addNewTopic()">
+                <span class="button-icon">
+                  <i class="fas fa-plus"></i>
+                </span>
+                Add a New Topic
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <table class="topics-table">
-        <tr>
-          <th>Topic Name</th>
-          <th>Topic Name</th>
-          <th>Topic Name</th>
-          <th>Topic Name</th>
-          <th>Topic Name</th>
-        </tr>
-        <tr>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-        </tr>
-      </table>
     </div>
   </div>
 </div>

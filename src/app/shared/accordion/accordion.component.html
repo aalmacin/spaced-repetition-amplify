@@ -1,0 +1,12 @@
+<div
+  class="accordion-header accordion-header--{{ expanded ? 'expanded' : 'collapsed' }}"
+  (click)="toggleExpandHandler()"
+>
+  <div>
+    <ng-content select="al-accordion-header"></ng-content>
+  </div>
+  <div class="{{ expanded ? 'fas fa-chevron-up' : 'fas fa-chevron-down' }}"></div>
+</div>
+<div class="accordion-body accordion-body--{{ expanded ? 'expanded' : 'collapsed' }}">
+  <ng-content select="al-accordion-body"></ng-content>
+</div>

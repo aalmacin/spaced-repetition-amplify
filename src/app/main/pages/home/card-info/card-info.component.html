@@ -1,0 +1,82 @@
+<al-accordion>
+  <al-accordion-header>
+    <div class="card-header">
+      <div class="card-header__section card-header__section--front" al-ellipsis>
+        <div class="card-header__section-title">Front:</div>
+        <div class="card-header__section-text">{{ card.front }}</div>
+      </div>
+      <div class="card-header__section card-header__section--back" al-ellipsis>
+        <div class="card-header__section-title">Back:</div>
+        <div class="card-header__section-text">{{ card.back }}</div>
+      </div>
+    </div>
+  </al-accordion-header>
+  <al-accordion-body>
+    <div class="errors" *ngIf="errors.length > 0">
+      <al-alert [messages]="errors" type="error"></al-alert>
+    </div>
+    <div class="messages" *ngIf="messages.length > 0">
+      <al-alert [messages]="messages" type="success"></al-alert>
+    </div>
+
+    <div class="card-info">
+      <div class="card-info__front">
+        <label class="card-info__label" for="card-front-{{ card.id }}">Front:</label>
+        <p (click)="setEditFrontMode(true)" *ngIf="!editFrontMode">
+          <span class="icon fas fa-pencil-alt"></span> {{ card.front }}
+        </p>
+        <textarea
+          (change)="updateFront($event)"
+          (blur)="setEditFrontMode(false)"
+          *ngIf="editFrontMode"
+          id="card-front-{{ card.id }}"
+          class="card-info__update-input"
+          >{{ card.front }}</textarea
+        >
+      </div>
+      <div class="card-info__back">
+        <label class="card-info__label" id="card-back-{{ card.id }}">Back:</label>
+        <p (click)="setEditBackMode(true)" *ngIf="!editBackMode">
+          <span class="icon fas fa-pencil-alt"></span> {{ card.back }}
+        </p>
+        <textarea
+          (change)="updateBack($event)"
+          (blur)="setEditBackMode(false)"
+          *ngIf="editBackMode"
+          id="card-back-{{ card.id }}"
+          class="card-info__update-input"
+          >{{ card.back }}</textarea
+        >
+      </div>
+
+      <div class="card-info__topic">
+        <app-topic-select [selectedTopicId]="topicId" (changeTopic)="updateTopic($event)"></app-topic-select>
+      </div>
+
+      <div class="card-info__box">
+        <div class="card-info__label">
+          Box:
+        </div>
+
+        {{ card.box }}
+      </div>
+      <div class="card-info__ready">
+        <div class="card-info__label">
+          Ready to Study:
+        </div>
+        {{ card.isReadyToStudy ? 'yes' : 'no' }}
+      </div>
+      <div class="card-info__next-study">
+        <div class="card-info__label">
+          Next Study:
+        </div>
+        {{ card.nextStudyDate }}
+      </div>
+      <div class="card-info__buttons">
+        <button class="card-info__action" alBtn="alert" size="tiny" (click)="deleteCard($event)">
+          <i class="far fa-trash-alt"></i> Delete
+        </button>
+      </div>
+    </div>
+  </al-accordion-body>
+</al-accordion>

@@ -1,0 +1,25 @@
+@import 'framework.scss';
+
+.heading {
+  @include font-size(lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    @include font-size(sm);
+  }
+}
+
+.edit-form {
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    border: 1px solid getColor(blue-green-line);
+    border-radius: 5px;
+
+    @include padding(sm);
+    @include font-size(lg);
+  }
+}

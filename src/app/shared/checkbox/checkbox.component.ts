@@ -15,9 +15,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class CheckboxComponent implements ControlValueAccessor {
   @ViewChild('checkbox')
-  _elementRef: ElementRef;
+  elementRef: ElementRef;
 
-  _state: boolean;
+  state: boolean;
 
   onChange = (_: any) => {};
   onTouched = () => {};
@@ -25,12 +25,11 @@ export class CheckboxComponent implements ControlValueAccessor {
   constructor() {}
 
   writeValue(value: any): void {
-    this._state = value;
+    this.state = value;
   }
 
   registerOnChange(fn: (_: any) => {}): void {
-    console.log(this._elementRef);
-    this.onChange = () => fn(this._elementRef.nativeElement.value);
+    this.onChange = () => fn(this.elementRef.nativeElement.checked);
   }
 
   registerOnTouched(fn: () => {}): void {
