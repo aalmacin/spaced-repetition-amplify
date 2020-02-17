@@ -52,9 +52,28 @@
     @include margin(md, b);
   }
 
+  &__back-container,
+  &__front-container {
+    height: 10vh;
+    width: 30vw;
+    @include padding;
+    background-color: getColor(white-3);
+    border: 1px solid getColor(blue-green-line);
+
+    @include media(desktop) {
+      width: 20vw;
+    }
+  }
+
   &__front {
     width: 100%;
-    border: 0.1rem solid getColor(gray-light);
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: getColor(white-3);
     @include margin(md, b);
     @include padding(md);
     @include font-size(sm);
@@ -66,7 +85,13 @@
 
   &__back {
     width: 100%;
-    border: 0.1rem solid getColor(gray-light);
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: getColor(white-3);
     @include margin(md, b);
     @include padding(md);
     @include font-size(sm);

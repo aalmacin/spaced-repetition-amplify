@@ -17,26 +17,29 @@
       <div class="cards__form" [formGroupName]="i" *ngFor="let card of cardForms; let i = index">
         <div class="cards__form-input-container">
           <label for="{{ i }}-card-front">Front</label>
-          <input
-            #front
-            class="cards__form-input add-card__front"
-            id="{{ i }}-card-front"
-            formControlName="front"
-            name="front"
-            placeholder="Ex. What is life? (Front/Question)"
-          />
+          <div class="add-card__front-container">
+            <input
+              #front
+              class="cards__form-input add-card__front"
+              id="{{ i }}-card-front"
+              formControlName="front"
+              name="front"
+              placeholder="Ex. What is life? (Front/Question)"
+            />
+          </div>
         </div>
         <div class="cards__form-input-container cards__form-input-container--back">
           <label for="{{ i }}-card-back">Back</label>
-          <textarea
-            #back
-            rows="2"
-            id="{{ i }}-card-back"
-            class="cards__form-input add-card__back"
-            formControlName="back"
-            name="back"
-            placeholder="Ex. 42"
-          ></textarea>
+          <div class="add-card__back-container">
+            <input
+              #back
+              id="{{ i }}-card-back"
+              class="cards__form-input add-card__back"
+              formControlName="back"
+              name="back"
+              placeholder="Ex. 42"
+            />
+          </div>
         </div>
 
         <div class="cards__form-input-container">
