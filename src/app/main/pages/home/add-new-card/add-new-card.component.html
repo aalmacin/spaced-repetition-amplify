@@ -1,18 +1,24 @@
 <div class="add-card">
   <div alBtn="plain" (click)="closeCard()" class="close fas fa-times"></div>
   <h2>Create a new Card(s)</h2>
-  <form class="add-card__form" [formGroup]="mainForm" (submit)="addNewCard()">
-    <div class="errors">
-      <al-alert [messages]="errors" type="error"></al-alert>
-    </div>
-    <div class="messages">
-      <al-alert [messages]="messages" type="success"></al-alert>
-    </div>
-    <div class="errors">
-      <ng-container *ngIf="mainForm.status === 'INVALID' && mainForm.touched">
-        <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
-      </ng-container>
-    </div>
+  <button alBtn="tertiary" (click)="toggleCsvForm()">
+    Click to {{ !addMultipleCardsMode ? ' use CSV form' : ' simple form' }}
+  </button>
+  <div class="errors">
+    <al-alert [messages]="errors" type="error"></al-alert>
+  </div>
+  <div class="messages">
+    <al-alert [messages]="messages" type="success"></al-alert>
+  </div>
+  <div class="errors">
+    <ng-container *ngIf="mainForm.status === 'INVALID' && mainForm.touched">
+      <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
+    </ng-container>
+    <ng-container *ngIf="csvForm.status === 'INVALID' && csvForm.touched">
+      <al-alert [messages]="['CSV Data and topic is required']" type="error"></al-alert>
+    </ng-container>
+  </div>
+  <form class="add-card__form" [formGroup]="mainForm" (submit)="addNewCard()" *ngIf="!addMultipleCardsMode">
     <div formArrayName="cards" class="cards">
       <div class="cards__form" [formGroupName]="i" *ngFor="let card of cardForms; let i = index">
         <div class="cards__form-input-container cards__form-input-container--front">
@@ -65,6 +71,26 @@
     >
       Create Cards
     </button>
+  </form>
+  <form *ngIf="addMultipleCardsMode" class="csv-form" (submit)="saveCsvCards($event)" [formGroup]="csvForm">
+    <div class="csv-form-control">
+      <label class="csv-form-control-label">CSV</label>
+      <textarea
+        formControlName="csvData"
+        class="csv-textarea"
+        placeholder="Sample Front, Sample Back, false"
+      ></textarea>
+      <span class="csv-guide"
+        >Add CSV in this format:
+        <span class="csv-guide__bold">front, back, reverse (optional. default: true)</span></span
+      >
+    </div>
+    <app-topic-select [selectedTopicId]="mainForm.value.topicId" (changeTopic)="changeTopic($event)"></app-topic-select>
+    <div>
+      <button class="csv-form-submit-btn" alBtn="primary" size="fit" type="secondary">
+        Create Cards
+      </button>
+    </div>
   </form>
   <div (click)="closeCard()" alBtn="plain" class="close-modal-button-bottom">
     Close Modal
