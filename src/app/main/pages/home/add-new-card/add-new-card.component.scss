@@ -152,3 +152,35 @@
 .more-cards {
   @include margin(sm, tb);
 }
+
+.csv-form {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+
+  .csv-form-control-label {
+    @include font-weight(bold);
+  }
+
+  .csv-textarea {
+    width: 100%;
+    min-height: 200px;
+    @include padding(md);
+    @include font-size(md);
+  }
+
+  .csv-form-control {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .csv-guide {
+    @include font-size(sm);
+    @include margin(md, tb);
+
+    &__bold {
+      @include font-weight(bold);
+    }
+  }
+}
