@@ -4,7 +4,7 @@
   (expand)="loadTopic(topic.id)"
 >
   <al-accordion-header>
-    {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit topic name)' : '' }} ({{ topic.cardCount }})
+    {{ topic.name }} {{ topic.name === 'Untitled' ? '(Edit deck name)' : '' }} ({{ topic.cardCount }})
   </al-accordion-header>
   <al-accordion-body>
     <app-topic-form [topic]="topic"></app-topic-form>

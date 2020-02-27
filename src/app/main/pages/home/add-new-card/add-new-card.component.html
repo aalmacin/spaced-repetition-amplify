@@ -12,10 +12,10 @@
   </div>
   <div class="errors">
     <ng-container *ngIf="mainForm.status === 'INVALID' && mainForm.touched">
-      <al-alert [messages]="['Front, back, and topic required']" type="error"></al-alert>
+      <al-alert [messages]="['Front, back, and deck required']" type="error"></al-alert>
     </ng-container>
     <ng-container *ngIf="csvForm.status === 'INVALID' && csvForm.touched">
-      <al-alert [messages]="['CSV Data and topic is required']" type="error"></al-alert>
+      <al-alert [messages]="['CSV Data and deck is required']" type="error"></al-alert>
     </ng-container>
   </div>
   <form class="add-card__form" [formGroup]="mainForm" (submit)="addNewCard()" *ngIf="!addMultipleCardsMode">
