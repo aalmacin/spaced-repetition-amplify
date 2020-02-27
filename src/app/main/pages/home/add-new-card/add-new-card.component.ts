@@ -1,10 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppState } from '@spaced-repetition/reducers';
 import { Store } from '@ngrx/store';
 import { AddCard } from '@spaced-repetition/card.actions';
-import { Card } from '@spaced-repetition/types/card';
 
 @Component({
   selector: 'app-add-new-card',

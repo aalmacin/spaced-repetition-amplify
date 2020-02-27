@@ -32,7 +32,7 @@ export class CustomApiRdsService {
   public getAllStudyCards(): Observable<Card[]> {
     return this.store.pipe(
       select(selectUser),
-      switchMap(user => this.allStudyCards(user.email, true, 10, 1))
+      switchMap(user => this.allStudyCards(user.email, true, 1000, 1))
     );
   }
 
