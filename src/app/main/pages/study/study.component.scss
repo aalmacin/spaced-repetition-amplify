@@ -24,6 +24,10 @@
   }
 }
 
+.hard-cards {
+  @include margin(md, b);
+}
+
 .flash-card {
   border-radius: 0.5rem;
   display: inline-block;
